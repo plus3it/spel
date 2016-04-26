@@ -92,7 +92,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "region": "us-east-1",
+            "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos6_hvm` }}",
             "ssh_username": "centos",
             "ssh_port": 122,
@@ -120,7 +120,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "region": "us-east-1",
+            "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos6_pvm` }}",
             "ssh_username": "centos",
             "ssh_port": 122,
@@ -148,7 +148,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "region": "us-east-1",
+            "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
             "ssh_username": "ec2-user",
             "ssh_port": 122,
