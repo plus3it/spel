@@ -171,7 +171,31 @@ The Minimal Linux `packer` template includes the following post-provisioners:
 - `atlas`: The atlas post-provisioners upload the vagrant boxes to [Hashicorp
 Atlas][19].
 
-TODO: Create a versioned vagrant box catalog and push boxes to a self-hosted
+
+## Building for the AWS US GovCloud Region
+
+To build images for the AWS US GovCloud region, `us-gov-west-1`, it is
+necessary to pass several variables that are specific to the region. The AMIs
+below have been tested and/or created in `us-gov-west-1` to work with the
+_spel_ template(s). Also, the builders should be restricted so as _not_ to
+build the Vagrant images.
+
+```
+packer build \
+    -var 'spel_identifier=unique-project-id' \
+    -var 'spel_version=0.0.1' \
+    -var 'aws_region=us-gov-west-1' \
+    -var 'source_ami_centos6_hvm=ami-03bb0462' \
+    -var 'source_ami_centos6_pvm=ami-62b70803' \
+    -var 'source_ami_rhel6_hvm=ami-caee51ab' \
+    -except 'minimal-centos-6.7-virtualbox,minimal-centos-6.7-vmware' \
+    spel/minimal-linux.json
+```
+
+
+## TODO
+
+- [ ] Create a versioned vagrant box catalog and push boxes to a self-hosted
 vagrant "cloud".
 
 
