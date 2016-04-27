@@ -75,8 +75,8 @@ use `.\` preceding the path to the template. E.g.
     ```
 
 3. Begin the build. This requires at least two variables,
-`artifact_identifier` and `artifact_version`. See the section [Packer
-Variables](#minimal-linux-packer-variables) for more details.
+`spel_identifier` and `spel_version`. See the section [Packer Variables]
+(#minimal-linux-packer-variables) for more details.
 
     _NOTE_: This will build images for _all_ the [builders defined in the
     template](#minimal-linux-packer-builders). Use `packer build --help` to
@@ -158,7 +158,7 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-centos-6.7-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.7 PVM AMI |
 | `minimal-rhel-6.7-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.7 HVM AMI   |
 | `minimal-centos-6.7-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.7 OVA |
-| `minimal-centos-6.7-vmware`     | vmware-iso builder that results in a minimal CentOS 6.7 OVA     |
+| `minimal-centos-6.7-vmware`     | vmware-iso builder that results in a minimal CentOS 6.7 OVF     |
 
 
 ### Minimal Linux Packer Post-Provisioners
