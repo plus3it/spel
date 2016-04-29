@@ -76,7 +76,7 @@
             "name": "minimal-centos-6.7-hvm",
             "type": "amazon-ebs",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_description": "This is an LVM-enabled, STIG-partitioned, \"minimal\" CentOS 6.7 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}.",
+            "ami_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.7 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
