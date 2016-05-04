@@ -9,6 +9,7 @@
         "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
+        "spel_deploykey": "",
         "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
         "spel_identifier": "",
         "spel_version": "",
@@ -211,6 +212,7 @@
                 "SPEL_BOOTLABEL=/boot",
                 "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
                 "SPEL_CHROOT=/mnt/ec2-root",
+                "SPEL_DEPLOYKEY={{ user `spel_deploykey` }}",
                 "SPEL_DEVNODE=/dev/xvda",
                 "SPEL_EPELRELEASE={{ user `spel_epelrelease` }}",
                 "SPEL_VGNAME=VolGroup00"

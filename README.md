@@ -123,6 +123,7 @@ defaults):
     "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
+    "spel_deploykey": "",
     "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
     "spel_identifier": "",
     "spel_version": "",
@@ -138,9 +139,10 @@ defaults):
 | `atlas_username`     | Username in Hashicorp Atlas                                 |
 | `spel_identifier`    | Project ID to associate to the resulting images             |
 | `spel_version`       | Version to assign to the resulting image(s)                 |
-| `spel_amigen6source` | URL to the git repository for the `AMIGen6` project         |
-| `spel_amiutilsource` | URL to the git repository for the `Lx-GetAMI-Utils` project |
+| `spel_amigen6source` | URI to the git repository for the `AMIGen6` project         |
+| `spel_amiutilsource` | URI to the git repository for the `Lx-GetAMI-Utils` project |
 | `spel_awsclisource`  | URL to the site hosting the file `awscli-bundle.zip`        |
+| `spel_deploykey`     | Deploy key to use if the git repos are private              |
 | `spel_epelrelease`   | URL to the release RPM for the [EPEL][10] repo              |
 
 All other variables in the `packer` template map directly to variables defined
