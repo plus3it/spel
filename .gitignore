@@ -47,6 +47,7 @@ Temporary Items
 # My local exclusions
 # =========================
 
+*.bundle
 packer_cache
 .vagrant
 .spel/*
