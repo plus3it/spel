@@ -12,6 +12,7 @@ BUILDDEPS="${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
 DEVNODE="${SPEL_DEVNODE:-/dev/xvda}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm}"
+EPELREPO="${SPEL_EPELREPO:-epel}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 ELBUILD="/tmp/el-build"
@@ -142,6 +143,9 @@ bash "${ELBUILD}"/ChrootBuild.sh
 # Epel mirrors are maddening; retry 5 times to work around issues
 echo "Executing AWScliSetup.sh"
 retry 5 bash "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}"
+
+echo "Executing GrowSetup.sh"
+retry 5 bash "${ELBUILD}"/GrowSetup.sh "${EPELREPO}"
 
 echo "Executing ChrootCfg.sh"
 bash "${ELBUILD}"/ChrootCfg.sh

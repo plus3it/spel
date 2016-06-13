@@ -124,6 +124,7 @@ defaults):
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
     "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+    "spel_epelrepo": "repo",
     "spel_identifier": "",
     "spel_version": "",
     "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
@@ -142,6 +143,7 @@ defaults):
 | `spel_amiutilsource` | URL to the git repository for the `Lx-GetAMI-Utils` project |
 | `spel_awsclisource`  | URL to the site hosting the file `awscli-bundle.zip`        |
 | `spel_epelrelease`   | URL to the release RPM for the [EPEL][10] repo              |
+| `spel_epelrepo`      | Name of the epel repo (if different than "epel")            |
 
 All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
