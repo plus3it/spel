@@ -10,6 +10,7 @@
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
         "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+        "spel_epelrepo": "epel",
         "spel_identifier": "",
         "spel_version": "",
         "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
@@ -213,6 +214,7 @@
                 "SPEL_CHROOT=/mnt/ec2-root",
                 "SPEL_DEVNODE=/dev/xvda",
                 "SPEL_EPELRELEASE={{ user `spel_epelrelease` }}",
+                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_VGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
