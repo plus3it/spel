@@ -6,7 +6,6 @@ STIG][0]. The resulting images also use LVM to simplify volume management. The
 images are configured with help from the scripts and packages in the
 [`AMIgen6`][8] and [`Lx-GetAMI-Utils`][9] projects.
 
-
 ## Current Published Images
 
 RPM Manifests for published images are available in the [manifests](manifests)
@@ -14,28 +13,27 @@ directory.
 
 | AMI Name | AMI ID | AWS Region |
 |----------|--------|------------|
-| TODO     |        |            |
+| TODO     | TODO   | TODO       |
 
 | Atlas Name | Version   | Vagrant Provider |
 |------------|-----------|------------------|
-| TODO       |           |                  |
-
+| TODO       | TODO      | TODO             |
 
 ## Prerequisites
 
 [`Packer`][2] by [Hashicorp][1] is used to manage the process of building
 images.
 
-1. [Download][3] and extract `packer` for your platform. Add it to your PATH,
-if you like. On Linux, watch out for other `packer` executables with the same
-name...
+1.  [Download][3] and extract `packer` for your platform. Add it to your PATH,
+    if you like. On Linux, watch out for other `packer` executables with the
+    same name...
 
-2. If building the AMIs for Amazon Web Services, ensure your [AWS credentials
-are configured][4]. You do not really need the `aws` cli utility, but it is a
-convenient way to configure the credential file. You can also export the
-[environment variables][5]. Or, if running `packer` in an EC2 instance, an
-[instance role][6] with the requisite permissions will also work. See the
-[`packer` docs][7] for details on the necessary permissions.
+2.  If building the AMIs for Amazon Web Services, ensure your [AWS credentials
+    are configured][4]. You do not really need the `aws` cli utility, but it is
+    a convenient way to configure the credential file. You can also export the
+    [environment variables][5]. Or, if running `packer` in an EC2 instance, an
+    [instance role][6] with the requisite permissions will also work. See the
+    [`packer` docs][7] for details on the necessary permissions.
 
     _NOTE_: No packer templates in this project will contain variables for AWS
     credentials; this is intentional, to avoid mistakes where credentials get
@@ -43,16 +41,15 @@ convenient way to configure the credential file. You can also export the
     credentials from the credential file or from the environment variables, or
     to retrieve them from the instance role. See the [docs][7].
 
-3. If building VirtualBox image(s), you will need to install [VirtualBox][12]
-and [Vagrant][13].
+3.  If building VirtualBox image(s), you will need to install [VirtualBox][12]
+    and [Vagrant][13].
 
-4. If building VMware image(s), [depending on your platform][14], you will
-need to install either [VMware Fusion][15], [VMware Workstation Pro][16], or
-[VMware Player][17]. For all platforms, you will also need [Vagrant][13].
+4.  If building VMware image(s), [depending on your platform][14], you will
+    need to install either [VMware Fusion][15], [VMware Workstation Pro][16], or
+    [VMware Player][17]. For all platforms, you will also need [Vagrant][13].
 
-5. The template(s) push the Vagrant boxes for the VirtualBox and VMware images
+5.  The template(s) push the Vagrant boxes for the VirtualBox and VMware images
 to [Hashicorp Atlas][19], which requires an [Atlas account][21].
-
 
 ## Usage
 
@@ -62,27 +59,27 @@ for the _relative path_ to the packer template. Most important, for Windows,
 use `.\` preceding the path to the template. E.g.
 `.\spel\minimal-linux.json`.
 
-1. Clone the repository:
+1.  Clone the repository:
 
-    ```
+    ```powershell
     git clone https://github.com/plus3it/spel && cd spel
     ```
 
-2. Validate the template (Optional):
+2.  Validate the template (Optional):
 
-    ```
+    ```powershell
     packer validate spel/minimal-linux.json
     ```
 
-3. Begin the build. This requires at least two variables,
-`spel_identifier` and `spel_version`. See the section [Packer Variables]
-(#minimal-linux-packer-variables) for more details.
+3.  Begin the build. This requires at least two variables,
+    `spel_identifier` and `spel_version`. See the section [Packer Variables](#minimal-linux-packer-variables)
+    for more details.
 
     _NOTE_: This will build images for _all_ the [builders defined in the
     template](#minimal-linux-packer-builders). Use `packer build --help` to
     see how to restrict the build to to a subset of the builders.
 
-    ```
+    ```powershell
     packer build \
         -var 'atlas_username=myatlasuser' \
         -var 'spel_identifier=unique-project-id' \
@@ -95,7 +92,6 @@ use `.\` preceding the path to the template. E.g.
     [19]. This requires passing the variable `atlas_username` and exporting
     the environment variable [`ATLAS_TOKEN`][20].
 
-
 ## Minimal Linux Packer Template
 
 The Minimal Linux template builds STIG-partitioned images with a set of
@@ -104,15 +100,14 @@ the AWS images include a handful of additional packages that are intended to
 increase functionality in EC2 and make the images more comparable with Amazon
 Linux.
 
-- *Template Path*: `spel/minimal-linux.json`
-
+-   _Template Path_: `spel/minimal-linux.json`
 
 ### Minimal Linux Packer Variables
 
 The Minimal Linux `packer` template supports the following user variables (and
 defaults):
 
-```
+```json
 "variables": {
     "ami_force_deregister": "false",
     "ami_groups": "",
@@ -153,7 +148,6 @@ All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
 builder][18] or the [vmware-iso builder][14].
 
-
 ### Minimal Linux Packer Builders
 
 The Minimal Linux `packer` template includes the following builders:
@@ -166,17 +160,15 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-centos-6.8-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.8 OVA |
 | `minimal-centos-6.8-vmware`     | vmware-iso builder that results in a minimal CentOS 6.8 OVF     |
 
-
 ### Minimal Linux Packer Post-Provisioners
 
 The Minimal Linux `packer` template includes the following post-provisioners:
 
-- `vagrant`: The vagrant post-provisioner creates vagrant boxes from on the
+-   `vagrant`: The vagrant post-provisioner creates vagrant boxes from on the
 `virtualbox` and `vmware` images.
 
-- `atlas`: The atlas post-provisioners upload the vagrant boxes to [Hashicorp
+-   `atlas`: The atlas post-provisioners upload the vagrant boxes to [Hashicorp
 Atlas][19].
-
 
 ## Building for the AWS US GovCloud Region
 
@@ -186,7 +178,7 @@ below have been tested and/or created in `us-gov-west-1` to work with the
 _spel_ template(s). Also, the builders should be restricted so as _not_ to
 build the Vagrant images.
 
-```
+```powershell
 packer build \
     -var 'spel_identifier=unique-project-id' \
     -var 'spel_version=0.0.1' \
@@ -198,12 +190,10 @@ packer build \
     spel/minimal-linux.json
 ```
 
-
 ## TODO
 
-- [ ] Create a versioned vagrant box catalog and push boxes to a self-hosted
+-   [ ] Create a versioned vagrant box catalog and push boxes to a self-hosted
 vagrant "cloud".
-
 
 [0]: http://iase.disa.mil/stigs/os/unix-linux/Pages/red-hat.aspx
 [1]: https://www.hashicorp.com/
