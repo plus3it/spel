@@ -122,7 +122,13 @@ chmod +x "${ELBUILD}"/*.sh
 echo "Cloning source of the AMI utils project"
 git clone "${AMIUTILSSOURCE}" "${AMIUTILS}"
 
-for RPM in $(grep -v el7 "${AMIUTILS}"/*.noarch.rpm)
+for RPM in "${AMIUTILS}"/*.el6.noarch.rpm
+do
+    echo "Creating link for ${RPM} in ${ELBUILD}/AWSpkgs/"
+    ln "${RPM}" "${ELBUILD}"/AWSpkgs/
+done
+
+for RPM in "${AMIUTILS}"/aws-cfn-bootstrap-*.noarch.rpm
 do
     echo "Creating link for ${RPM} in ${ELBUILD}/AWSpkgs/"
     ln "${RPM}" "${ELBUILD}"/AWSpkgs/
@@ -138,7 +144,12 @@ echo "Executing MkTabs.sh"
 bash "${ELBUILD}"/MkTabs.sh
 
 echo "Executing ChrootBuild.sh"
-bash "${ELBUILD}"/ChrootBuild.sh
+if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
+then
+    bash "${ELBUILD}"/ChrootBuild.sh -r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}"
+else
+    bash "${ELBUILD}"/ChrootBuild.sh
+fi
 
 # Epel mirrors are maddening; retry 5 times to work around issues
 echo "Executing AWScliSetup.sh"
