@@ -1,0 +1,108 @@
+#cloud-config
+
+##############################################################################
+#
+# Set the default cloud-init user to `spel`
+#
+##############################################################################
+system_info:
+  default_user:
+    name: spel
+    gecos: spel admin account
+    lock_passwd: true
+    sudo: ["ALL=(root) NOPASSWD:ALL"]
+
+##############################################################################
+#
+# Pivot the root partition to a tmpfs mount point so that the root volume can
+# be re-partitioned.
+#
+##############################################################################
+runcmd:
+  - set -x
+  - set -e
+
+  # Prevent selinux from interfering
+  - setenforce 0 || true
+
+  # Stop all services we do not need
+  - telinit 2
+  - |
+    for SERVICE in $(
+        chkconfig --list | \
+        grep 2:on | \
+        awk '{print $1}' | \
+        grep -v \
+            -e cloud-init \
+            -e cloud-config \
+            -e cloud-final \
+            -e sshd \
+            -e network \
+            -e rawdevices
+        )
+    do
+        service $SERVICE stop || true
+    done
+
+  # Unmount as much as possible
+  - umount -a || true
+
+  # Create tmpfs mount
+  - mkdir /tmp/tmproot
+  - mount -t tmpfs none /tmp/tmproot
+
+  # Copy everything to the tmpfs mount
+  - cp -ax / /tmp/tmproot
+  - cp -a /dev /tmp/tmproot
+
+  # Switch / to tmpfs
+  - mkdir /tmp/tmproot/oldroot
+  - mount --make-rprivate /
+  - pivot_root /tmp/tmproot /tmp/tmproot/oldroot
+  - mount none /proc -t proc
+  - mount none /sys -t sysfs
+  - mount none /dev -t devtmpfs
+  - mount none /dev/pts -t devpts
+  - mount none /selinux -t selinuxfs
+
+  # Stop services holding /oldroot
+  #   Note: Do not do this in an interactive shell because you will probably
+  #   kill your session. Instead, just use `fuser -vm /oldroot` to identify
+  #   processes holding /oldroot and kill them by name with `killall <name>`.
+  #   Then restart ssh, reconnect to a new session, and close your old session.
+  #fuser -vm /oldroot || true
+  #fuser -vm /oldroot | grep -E -v "centos|sudo| sh$" || true
+  ####
+  - kill -9 $(fuser -vm /oldroot 2> /fuser.log | sed "s/\b$$\b//") || true
+
+  # Kill and reload init to free /oldroot
+  - killall init && telinit u
+
+  # Unmount everything on /oldroot
+  - |
+    for MOUNT in $(
+        cat /proc/mounts | \
+        cut -d ' ' -f 2 | \
+        grep '/oldroot/' | \
+        sort -ru
+        )
+    do
+        umount $MOUNT || true
+    done
+
+  # /oldroot/dev needs a lazy unmount
+  - umount -l /oldroot/dev || true
+  - umount -l /oldroot/dev || true # Often there are two devtmpfs mounts
+
+  # Attempt final unmount of /oldroot; this will probably fail since the process
+  # running this script is still open. A follow-on script or interactive shell
+  # can check and issue the final umount (works well with packer).
+  - umount /oldroot || true
+
+  # Restart udevd; required to create lvm volumes
+  - /sbin/start_udev
+
+  # Change ssh port. Set packer to connect to port 122; this way packer waits
+  # until this script is complete.
+  - sed -i -e "s/^[#]*Port .*$/Port 122/" /etc/ssh/sshd_config
+  - service sshd restart
