@@ -105,13 +105,13 @@ set -e
 echo "Installing build-host dependencies"
 yum -y install ${BUILDDEPS}
 
-if [[ "${AMIGENSOURCE}" == *":"* ]]
+if [[ "${AMIGENSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIGen source"
     add_known_host "${AMIGENSOURCE}"
 fi
 
-if [[ "${AMIUTILSSOURCE}" == *":"* ]]
+if [[ "${AMIUTILSSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIUtils source"
     add_known_host "${AMIUTILSSOURCE}"
