@@ -127,7 +127,9 @@ defaults):
     "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
     "source_ami_centos6_hvm": "ami-bfb356d2",
     "source_ami_centos6_pvm": "ami-e2120888",
-    "source_ami_rhel6_hvm": "ami-f37b4b99"
+    "source_ami_rhel6_hvm": "ami-f37b4b99",
+    "subnet_id": "",
+    "vpc_id": ""
 }
 ```
 
