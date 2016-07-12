@@ -99,12 +99,12 @@
             ],
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos6_hvm` }}",
-            "ssh_username": "centos",
+            "ssh_username": "spel",
             "ssh_port": 122,
             "ssh_pty": true,
             "ssh_timeout": "15m",
             "subnet_id": "{{ user `subnet_id` }}",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.sh",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
@@ -129,12 +129,12 @@
             ],
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos6_pvm` }}",
-            "ssh_username": "centos",
+            "ssh_username": "spel",
             "ssh_port": 122,
             "ssh_pty": true,
             "ssh_timeout": "15m",
             "subnet_id": "{{ user `subnet_id` }}",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.sh",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
@@ -159,12 +159,12 @@
             ],
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
-            "ssh_username": "ec2-user",
+            "ssh_username": "spel",
             "ssh_port": 122,
             "ssh_pty": true,
             "ssh_timeout": "15m",
             "subnet_id": "{{ user `subnet_id` }}",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.sh",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
         }
     ],
