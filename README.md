@@ -123,6 +123,7 @@ defaults):
     "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
     "spel_epelrepo": "repo",
     "spel_identifier": "",
+    "spel_localscript": "",
     "spel_version": "",
     "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
     "source_ami_centos6_hvm": "ami-bfb356d2",
@@ -145,6 +146,7 @@ defaults):
 | `spel_customreponame` | Name(s) of the custom yum repos (* or comma-separated)      |
 | `spel_epelrelease`    | URL to the release RPM for the [EPEL][10] repo              |
 | `spel_epelrepo`       | Name of the epel repo (if different than "epel")            |
+| `spel_localscript`    | An additional script or command to run in the chroot        |
 
 All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
