@@ -9,7 +9,8 @@ id vagrant 2>/dev/null || \
 
 # Installing vagrant keys
 echo "installing vagrant keys"
-/bin/mkdir -pm 700 /home/vagrant/.ssh
+/bin/mkdir -p /home/vagrant/.ssh
+/bin/chmod 0700 /home/vagrant/.ssh
 /usr/bin/curl -s -S --retry 5 -L -o /home/vagrant/.ssh/authorized_keys https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
 /bin/chown -R vagrant:vagrant /home/vagrant/.ssh
 /bin/chmod 0600 /home/vagrant/.ssh/*
