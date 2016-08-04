@@ -14,6 +14,7 @@
         "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
         "spel_epelrepo": "epel",
         "spel_identifier": "",
+        "spel_localscript": "",
         "spel_version": "",
         "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
         "source_ami_centos6_hvm": "ami-bfb356d2",
@@ -227,6 +228,7 @@
                 "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
                 "SPEL_EPELRELEASE={{ user `spel_epelrelease` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_LOCALSCRIPT={{ user `spel_localscript` }}",
                 "SPEL_VGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",

@@ -15,6 +15,7 @@ CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
 DEVNODE="${SPEL_DEVNODE:-/dev/xvda}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
+LOCALSCRIPT="${SPEL_LOCALSCRIPT}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 ELBUILD="/tmp/el-build"
