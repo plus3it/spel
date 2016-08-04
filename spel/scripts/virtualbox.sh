@@ -10,7 +10,8 @@ echo "installing virtualbox guest addition dependencies"
 VBOX_GUEST_DEPS="kernel-devel kernel-headers gcc perl"
 bash /tmp/retry.sh 5 yum -y install ${VBOX_GUEST_DEPS}
 bash /tmp/retry.sh 5 yum -y install dkms make
-export KERN_DIR=/usr/src/kernels/$(uname -r)
+KERN_DIR=/usr/src/kernels/$(uname -r)
+export KERN_DIR
 
 # Install VirtualBox Guest Additions
 echo "installing virtualbox guest additions"

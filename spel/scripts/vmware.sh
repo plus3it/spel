@@ -12,7 +12,7 @@ echo "installing vmware tools"
 mkdir -p /mnt/vmware
 mount -o loop /home/vagrant/linux.iso /mnt/vmware
 
-cd /tmp
+cd /tmp || exit 1
 tar xzf /mnt/vmware/VMwareTools-*.tar.gz
 
 umount /mnt/vmware

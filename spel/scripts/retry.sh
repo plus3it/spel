@@ -9,7 +9,7 @@ retry()
 {
     local n=0
     local try=$1
-    local cmd="${@: 2}"
+    local cmd="${*: 2}"
     local result=1
     [[ $# -le 1 ]] && {
         echo "Usage $0 <number_of_retry_attempts> <Command>"
@@ -18,7 +18,12 @@ retry()
 
     echo "Will try $try time(s) :: $cmd"
 
-    set +e
+    if [[ "${SHELLOPTS}" == *":errexit:"* ]]
+    then
+        set +e
+        local ERREXIT=1
+    fi
+
     until [[ $n -ge $try ]]
     do
         sleep $n
@@ -29,9 +34,14 @@ retry()
             echo "Attempt $n, command failed :: $cmd"
         }
     done
-    set -e
+
+    if [[ "${ERREXIT}" == "1" ]]
+    then
+        set -e
+    fi
+
     return $result
 }  # ----------  end of function retry  ----------
 
-retry $@
+retry "$@"
 exit $?
