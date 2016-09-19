@@ -13,6 +13,7 @@
         "spel_customreponame": "",
         "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
         "spel_epelrepo": "epel",
+        "spel_extrarpms": "",
         "spel_identifier": "",
         "spel_version": "",
         "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
@@ -162,7 +163,7 @@
             "ssh_username": "spel",
             "ssh_port": 122,
             "ssh_pty": true,
-            "ssh_timeout": "15m",
+            "ssh_timeout": "20m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
@@ -227,6 +228,7 @@
                 "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
                 "SPEL_EPELRELEASE={{ user `spel_epelrelease` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_VGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
