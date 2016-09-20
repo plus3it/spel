@@ -161,7 +161,7 @@ then
 fi
 
 echo "Executing ChrootBuild.sh"
-bash "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO}" "${CLIOPT_EXTRARPMS}"
+bash "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
 
 # Epel mirrors are maddening; retry 5 times to work around issues
 echo "Executing AWScliSetup.sh"
