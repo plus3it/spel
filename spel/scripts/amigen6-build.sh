@@ -15,6 +15,7 @@ CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
 DEVNODE="${SPEL_DEVNODE:-/dev/xvda}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
+EXTRARPMS="${SPEL_EXTRARPMS}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 ELBUILD="/tmp/el-build"
@@ -145,13 +146,22 @@ bash "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}"
 echo "Executing MkTabs.sh"
 bash "${ELBUILD}"/MkTabs.sh
 
-echo "Executing ChrootBuild.sh"
+# Construct the cli option string for extra rpms
+CLIOPT_EXTRARPMS=""
+if [[ -n "${EXTRARPMS}" ]]
+then
+    CLIOPT_EXTRARPMS="-e ${EXTRARPMS}"
+fi
+
+# Construct the cli option string for a custom repo
+CLIOPT_CUSTOMREPO=""
 if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
 then
-    bash "${ELBUILD}"/ChrootBuild.sh -r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}"
-else
-    bash "${ELBUILD}"/ChrootBuild.sh
+    CLIOPT_CUSTOMREPO="-r ${CUSTOMREPORPM} -b ${CUSTOMREPONAME}"
 fi
+
+echo "Executing ChrootBuild.sh"
+bash "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO}" "${CLIOPT_EXTRARPMS}"
 
 # Epel mirrors are maddening; retry 5 times to work around issues
 echo "Executing AWScliSetup.sh"
