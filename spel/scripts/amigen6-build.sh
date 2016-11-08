@@ -131,12 +131,6 @@ do
     ln "${RPM}" "${ELBUILD}"/AWSpkgs/
 done
 
-for RPM in "${AMIUTILS}"/aws-cfn-bootstrap-*.noarch.rpm
-do
-    echo "Creating link for ${RPM} in ${ELBUILD}/AWSpkgs/"
-    ln "${RPM}" "${ELBUILD}"/AWSpkgs/
-done
-
 echo "Executing CarveEBS.sh"
 bash "${ELBUILD}"/CarveEBS.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}"
 
