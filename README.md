@@ -129,6 +129,7 @@ defaults):
     "source_ami_centos6_hvm": "ami-bfb356d2",
     "source_ami_centos6_pvm": "ami-e2120888",
     "source_ami_rhel6_hvm": "ami-f37b4b99",
+    "ssh_private_ip": "false",
     "subnet_id": "",
     "vpc_id": ""
 }
