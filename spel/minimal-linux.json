@@ -1,0 +1,292 @@
+{
+    "variables": {
+        "ami_force_deregister": "false",
+        "ami_groups": "",
+        "ami_regions": "",
+        "ami_users": "",
+        "atlas_username": "",
+        "aws_region": "us-east-1",
+        "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
+        "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
+        "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
+        "spel_customreporpm": "",
+        "spel_customreponame": "",
+        "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+        "spel_epelrepo": "epel",
+        "spel_extrarpms": "",
+        "spel_identifier": "",
+        "spel_version": "",
+        "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
+        "source_ami_centos6_hvm": "ami-bfb356d2",
+        "source_ami_centos6_pvm": "ami-e2120888",
+        "source_ami_rhel6_hvm": "ami-f37b4b99",
+        "subnet_id": "",
+        "ssh_private_ip": "false",
+        "vpc_id": ""
+    },
+    "builders": [
+        {
+            "name": "minimal-centos-6.8-virtualbox",
+            "type": "virtualbox-iso",
+            "boot_command": [
+                "<esc><wait>",
+                "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos6.minimal.cfg VAGRANT",
+                "<enter><wait>"
+            ],
+            "boot_wait": "10s",
+            "disk_size": 20480,
+            "format": "ova",
+            "guest_additions_path": "VBoxGuestAdditions_{{ .Version }}.iso",
+            "guest_os_type": "RedHat_64",
+            "headless": true,
+            "http_directory": "{{ template_dir }}/kickstarts",
+            "iso_checksum": "ec49c297d484b9da0787e5944edc38f7c70f21c0f6a60178d8e9a8926d1949f4",
+            "iso_checksum_type": "sha256",
+            "iso_url": "{{ user `iso_url_centos6` }}",
+            "output_directory": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "ssh_username": "vagrant",
+            "ssh_password": "vagrant",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "10000s",
+            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+            "virtualbox_version_file": ".vbox_version",
+            "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
+        },
+        {
+            "name": "minimal-centos-6.8-vmware",
+            "type": "vmware-iso",
+            "boot_command": [
+                "<esc><wait>",
+                "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos6.minimal.cfg VAGRANT",
+                "<enter><wait>"
+            ],
+            "boot_wait": "10s",
+            "disk_size": 20480,
+            "guest_os_type": "CentOS-64",
+            "headless": true,
+            "http_directory": "{{ template_dir }}/kickstarts",
+            "iso_checksum": "ec49c297d484b9da0787e5944edc38f7c70f21c0f6a60178d8e9a8926d1949f4",
+            "iso_checksum_type": "sha256",
+            "iso_url": "{{ user `iso_url_centos6` }}",
+            "output_directory": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "skip_compaction": true,
+            "ssh_username": "vagrant",
+            "ssh_password": "vagrant",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "10000s",
+            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+            "tools_upload_flavor": "linux",
+            "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "vmdk_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
+        },
+        {
+            "name": "minimal-centos-6.8-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.8 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "t2.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos6_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "15m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-centos-6.8-pvm",
+            "type": "amazon-ebs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.8 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "m3.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda",
+                    "delete_on_termination": true,
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos6_pvm` }}",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "15m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-rhel-6.8-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is an STIG-partitioned, LVM-enabled, \"minimal\" RHEL 6.* AMI, with \"billingProduct\" set for proper billing and licensed access to RedHat yum repos. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "t2.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "20m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "only": [
+                "minimal-centos-6.8-virtualbox",
+                "minimal-centos-6.8-vmware"
+            ],
+            "source": "{{ template_dir }}/scripts/retry.sh",
+            "destination": "/tmp/retry.sh"
+        },
+        {
+            "type": "shell",
+            "only": [
+                "minimal-centos-6.8-virtualbox",
+                "minimal-centos-6.8-vmware"
+            ],
+            "execute_command": "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'",
+            "scripts": [
+                "{{ template_dir }}/scripts/base.sh",
+                "{{ template_dir }}/scripts/virtualbox.sh",
+                "{{ template_dir }}/scripts/vmware.sh",
+                "{{ template_dir }}/scripts/vagrant.sh",
+                "{{ template_dir }}/scripts/dep.sh",
+                "{{ template_dir }}/scripts/cleanup.sh",
+                "{{ template_dir }}/scripts/zerodisk.sh"
+            ]
+        },
+        {
+            "type": "shell",
+            "only": [
+                "minimal-centos-6.8-hvm",
+                "minimal-centos-6.8-pvm",
+                "minimal-rhel-6.8-hvm"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "echo Unmounting /oldroot",
+                "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot"
+            ]
+        },
+        {
+            "type": "shell",
+            "only": [
+                "minimal-centos-6.8-hvm",
+                "minimal-centos-6.8-pvm",
+                "minimal-rhel-6.8-hvm"
+            ],
+            "environment_vars": [
+                "SPEL_AMIGENSOURCE={{ user `spel_amigen6source` }}",
+                "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
+                "SPEL_AWSCLISOURCE={{ user `spel_awsclisource` }}",
+                "SPEL_BOOTLABEL=/boot",
+                "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+                "SPEL_CHROOT=/mnt/ec2-root",
+                "SPEL_DEVNODE=/dev/xvda",
+                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm` }}",
+                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
+                "SPEL_EPELRELEASE={{ user `spel_epelrelease` }}",
+                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
+                "SPEL_VGNAME=VolGroup00"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
+            "scripts": [
+                "{{ template_dir }}/scripts/amigen6-build.sh"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "/tmp/manifest.log",
+            "destination": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.manifest",
+            "direction": "download"
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "artifice",
+                "files": [
+                    ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.manifest"
+                ]
+            }
+        ],
+        {
+            "type": "vagrant",
+            "only": [
+                "minimal-centos-6.8-virtualbox",
+                "minimal-centos-6.8-vmware"
+            ],
+            "compression_level": 9,
+            "keep_input_artifact": false,
+            "output": ".spel/{{ user `spel_identifier` }}-{{ .BuildName }}-{{ user `spel_version` }}.box"
+        },
+        {
+            "type": "atlas",
+            "only": [ "minimal-centos-6.8-virtualbox" ],
+            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.8",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+                "provider": "virtualbox",
+                "version": " {{ user `spel_version` }} ",
+                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.8 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+            }
+        },
+        {
+            "type": "atlas",
+            "only": [ "minimal-centos-6.8-vmware" ],
+            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.8",
+            "artifact_type": "vagrant.box",
+            "metadata": {
+                "provider": "vmware_desktop",
+                "version": "{{ user `spel_version` }}",
+                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.8 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+            }
+        }
+    ]
+}
