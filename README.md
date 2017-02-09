@@ -13,25 +13,25 @@ directory.
 
 | AMI Name                                         | AMI ID       | AWS Region    |
 |--------------------------------------------------|--------------|---------------|
-| spel-minimal-rhel-6.8-hvm-2017.01.1.x86_64-gp2   | ami-70a04966 | us-east-1     |
-| spel-minimal-centos-6.8-pvm-2017.01.1.x86_64-gp2 | ami-feae47e8 | us-east-1     |
-| spel-minimal-centos-6.8-hvm-2017.01.1.x86_64-gp2 | ami-a2a54cb4 | us-east-1     |
-| spel-minimal-rhel-6.8-hvm-2017.01.1.x86_64-gp2   | ami-1b7b5e7e | us-east-2     |
-| spel-minimal-centos-6.8-pvm-2017.01.1.x86_64-gp2 | ami-1b785d7e | us-east-2     |
-| spel-minimal-centos-6.8-hvm-2017.01.1.x86_64-gp2 | ami-187b5e7d | us-east-2     |
-| spel-minimal-rhel-6.8-hvm-2017.01.1.x86_64-gp2   | ami-b0f0a3d0 | us-west-1     |
-| spel-minimal-centos-6.8-pvm-2017.01.1.x86_64-gp2 | ami-aef7a4ce | us-west-1     |
-| spel-minimal-centos-6.8-hvm-2017.01.1.x86_64-gp2 | ami-03f7a463 | us-west-1     |
-| spel-minimal-rhel-6.8-hvm-2017.01.1.x86_64-gp2   | ami-2a8e324a | us-west-2     |
-| spel-minimal-centos-6.8-pvm-2017.01.1.x86_64-gp2 | ami-058c3065 | us-west-2     |
-| spel-minimal-centos-6.8-hvm-2017.01.1.x86_64-gp2 | ami-f88d3198 | us-west-2     |
-| spel-minimal-rhel-6.8-hvm-2017.01.1.x86_64-gp2   | ami-db2a91ba | us-gov-west-1 |
-| spel-minimal-centos-6.8-pvm-2017.01.1.x86_64-gp2 | ami-a12992c0 | us-gov-west-1 |
-| spel-minimal-centos-6.8-hvm-2017.01.1.x86_64-gp2 | ami-062a9167 | us-gov-west-1 |
+| spel-minimal-rhel-6.8-hvm-2017.02.1.x86_64-gp2   | ami-82539294 | us-east-1     |
+| spel-minimal-centos-6.8-pvm-2017.02.1.x86_64-gp2 | ami-ae5091b8 | us-east-1     |
+| spel-minimal-centos-6.8-hvm-2017.02.1.x86_64-gp2 | ami-8d49889b | us-east-1     |
+| spel-minimal-rhel-6.8-hvm-2017.02.1.x86_64-gp2   | ami-891a3fec | us-east-2     |
+| spel-minimal-centos-6.8-pvm-2017.02.1.x86_64-gp2 | ami-eee2c78b | us-east-2     |
+| spel-minimal-centos-6.8-hvm-2017.02.1.x86_64-gp2 | ami-e71b3e82 | us-east-2     |
+| spel-minimal-rhel-6.8-hvm-2017.02.1.x86_64-gp2   | ami-f76d3197 | us-west-1     |
+| spel-minimal-centos-6.8-pvm-2017.02.1.x86_64-gp2 | ami-9b6e32fb | us-west-1     |
+| spel-minimal-centos-6.8-hvm-2017.02.1.x86_64-gp2 | ami-2b74284b | us-west-1     |
+| spel-minimal-rhel-6.8-hvm-2017.02.1.x86_64-gp2   | ami-32008552 | us-west-2     |
+| spel-minimal-centos-6.8-pvm-2017.02.1.x86_64-gp2 | ami-71068311 | us-west-2     |
+| spel-minimal-centos-6.8-hvm-2017.02.1.x86_64-gp2 | ami-d70580b7 | us-west-2     |
+| spel-minimal-rhel-6.8-hvm-2017.02.1.x86_64-gp2   | ami-fc972d9d | us-gov-west-1 |
+| spel-minimal-centos-6.8-pvm-2017.02.1.x86_64-gp2 | ami-5d902a3c | us-gov-west-1 |
+| spel-minimal-centos-6.8-hvm-2017.02.1.x86_64-gp2 | ami-ee8a308f | us-gov-west-1 |
 
 | Atlas Name                      | Version   | Vagrant Provider |
 |---------------------------------|-----------|------------------|
-| plus3it/spel-minimal-centos-6.8 | 2017.01.1 | virtualbox       |
+| plus3it/spel-minimal-centos-6.8 | 2017.02.1 | virtualbox       |
 
 ## Prerequisites
 
