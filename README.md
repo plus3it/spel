@@ -130,19 +130,23 @@ defaults):
     "atlas_username": "",
     "aws_region": "us-east-1",
     "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
+    "spel_amigen7source": "https://github.com/lorengordon/AMIgen7.git",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
     "spel_customreporpm": "",
     "spel_customreponame": "",
-    "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
-    "spel_epelrepo": "repo",
+    "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+    "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
+    "spel_epelrepo": "epel",
     "spel_extrarpms": "",
     "spel_identifier": "",
     "spel_version": "",
     "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
     "source_ami_centos6_hvm": "ami-bfb356d2",
     "source_ami_centos6_pvm": "ami-e2120888",
+    "source_ami_centos7_hvm": "ami-650a1672",
     "source_ami_rhel6_hvm": "ami-f37b4b99",
+    "source_ami_rhel7_hvm": "ami-b63769a1",
     "ssh_private_ip": "false",
     "subnet_id": "",
     "vpc_id": ""
@@ -159,7 +163,8 @@ defaults):
 | `spel_awsclisource`   | URL to the site hosting the file `awscli-bundle.zip`              |
 | `spel_customreporpm`  | URL to a custom release RPM containing base repos                 |
 | `spel_customreponame` | Name(s) of the custom yum repos (* or comma-separated)            |
-| `spel_epelrelease`    | URL to the release RPM for the [EPEL][10] repo                    |
+| `spel_epel6release`    | URL to the release RPM for the [EPEL 6][10] repo                 |
+| `spel_epel6release`    | URL to the release RPM for the [EPEL 7][10] repo                 |
 | `spel_epelrepo`       | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`      | Comma-separated list of extra package/@group names to pass to yum |
 
@@ -176,6 +181,8 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-centos-6.8-hvm`        | amazon-ebs builder that results in a minimal CentOS 6.8 HVM AMI |
 | `minimal-centos-6.8-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.8 PVM AMI |
 | `minimal-rhel-6.8-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.8 HVM AMI   |
+| `minimal-centos-7.3-hvm`        | amazon-ebs builder that results in a minimal CentOS 7.3 HVM AMI |
+| `minimal-rhel-7.3-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.3 HVM AMI   |
 | `minimal-centos-6.8-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.8 OVA |
 | `minimal-centos-6.8-vmware`     | vmware-iso builder that results in a minimal CentOS 6.8 OVF     |
 

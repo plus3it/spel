@@ -7,11 +7,13 @@
         "atlas_username": "",
         "aws_region": "us-east-1",
         "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
+        "spel_amigen7source": "https://github.com/ferricoxide/AMIgen7.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
         "spel_customreporpm": "",
         "spel_customreponame": "",
-        "spel_epelrelease": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+        "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+        "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_epelrepo": "epel",
         "spel_extrarpms": "",
         "spel_identifier": "",
@@ -19,9 +21,11 @@
         "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
         "source_ami_centos6_hvm": "ami-bfb356d2",
         "source_ami_centos6_pvm": "ami-e2120888",
+        "source_ami_centos7_hvm": "ami-650a1672",
         "source_ami_rhel6_hvm": "ami-f37b4b99",
-        "subnet_id": "",
+        "source_ami_rhel7_hvm": "ami-b63769a1",
         "ssh_private_ip": "false",
+        "subnet_id": "",
         "vpc_id": ""
     },
     "builders": [
@@ -145,7 +149,7 @@
             "name": "minimal-rhel-6.8-hvm",
             "type": "amazon-ebs",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_description": "This is an STIG-partitioned, LVM-enabled, \"minimal\" RHEL 6.* AMI, with \"billingProduct\" set for proper billing and licensed access to RedHat yum repos. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
+            "ami_description": "This is an STIG-partitioned, LVM-enabled, \"minimal\" RHEL 6.8 AMI, with \"billingProduct\" set for proper billing and licensed access to RedHat yum repos. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
@@ -170,6 +174,68 @@
             "ssh_timeout": "20m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-centos-7.3-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7.3 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "t2.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "20m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-rhel-7.3-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is an STIG-partitioned, LVM-enabled, \"minimal\" RHEL 7.3 AMI, with \"billingProduct\" set for proper billing and licensed access to RedHat yum repos. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "t2.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "20m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
         }
     ],
@@ -203,9 +269,25 @@
         {
             "type": "shell",
             "only": [
+                "minimal-centos-7.3-hvm",
+                "minimal-rhel-7.3-hvm"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "echo Restarting systemd",
+                "systemctl daemon-reexec",
+                "echo Killing processes locking /oldroot",
+                "fuser -vmk /oldroot"
+            ]
+        },
+        {
+            "type": "shell",
+            "only": [
                 "minimal-centos-6.8-hvm",
                 "minimal-centos-6.8-pvm",
-                "minimal-rhel-6.8-hvm"
+                "minimal-rhel-6.8-hvm",
+                "minimal-centos-7.3-hvm",
+                "minimal-rhel-7.3-hvm"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
@@ -230,7 +312,7 @@
                 "SPEL_DEVNODE=/dev/xvda",
                 "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm` }}",
                 "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
-                "SPEL_EPELRELEASE={{ user `spel_epelrelease` }}",
+                "SPEL_EPELRELEASE={{ user `spel_epel6release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_VGNAME=VolGroup00"
@@ -238,6 +320,31 @@
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "scripts": [
                 "{{ template_dir }}/scripts/amigen6-build.sh"
+            ]
+        },
+        {
+            "type": "shell",
+            "only": [
+                "minimal-centos-7.3-hvm",
+                "minimal-rhel-7.3-hvm"
+            ],
+            "environment_vars": [
+                "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
+                "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
+                "SPEL_AWSCLISOURCE={{ user `spel_awsclisource` }}",
+                "SPEL_BOOTLABEL=/boot",
+                "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+                "SPEL_CHROOT=/mnt/ec2-root",
+                "SPEL_DEVNODE=/dev/xvda",
+                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm` }}",
+                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
+                "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
+                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
+                "SPEL_VGNAME=VolGroup00"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
+            "scripts": [
+                "{{ template_dir }}/scripts/amigen7-build.sh"
             ]
         },
         {
