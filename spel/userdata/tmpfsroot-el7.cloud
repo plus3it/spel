@@ -66,8 +66,8 @@ runcmd:
   # Change ssh port. Set packer to connect to port 122; this way packer waits
   # until this script is complete.
   - sed -i -e "s/^[#]*Port .*$/Port 122/" /etc/ssh/sshd_config
-  - systemctl stop firewalld
-  - systemctl restart sshd.service
+  - test $(systemctl | grep -c firewalld) -eq 0 || systemctl stop firewalld
+  - systemctl restart sshd
 
   # Further stuff to do via packer before `umount /oldroot`
   # Restart systemd
