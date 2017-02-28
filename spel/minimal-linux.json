@@ -228,7 +228,7 @@
                 }
             ],
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
             "ssh_username": "spel",
             "ssh_port": 122,
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
