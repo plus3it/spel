@@ -135,6 +135,7 @@ defaults):
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
     "spel_customreporpm": "",
     "spel_customreponame": "",
+    "spel_desc_url": "https://github.com/plus3it/spel",
     "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_epelrepo": "epel",
@@ -163,8 +164,9 @@ defaults):
 | `spel_awsclisource`   | URL to the site hosting the file `awscli-bundle.zip`              |
 | `spel_customreporpm`  | URL to a custom release RPM containing base repos                 |
 | `spel_customreponame` | Name(s) of the custom yum repos (* or comma-separated)            |
-| `spel_epel6release`    | URL to the release RPM for the [EPEL 6][10] repo                 |
-| `spel_epel6release`    | URL to the release RPM for the [EPEL 7][10] repo                 |
+| `spel_desc_url`       | URL to detailed description of AMI                                |
+| `spel_epel6release`   | URL to the release RPM for the [EPEL 6][10] repo                  |
+| `spel_epel6release`   | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`       | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`      | Comma-separated list of extra package/@group names to pass to yum |
 
