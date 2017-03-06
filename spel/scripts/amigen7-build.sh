@@ -14,6 +14,7 @@ CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
 CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
 DEVNODE="${SPEL_DEVNODE:-/dev/xvda}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
+EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
@@ -160,7 +161,7 @@ bash -x "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
 
 # Epel mirrors are maddening; retry 5 times to work around issues
 echo "Executing AWScliSetup.sh"
-retry 5 bash -x "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}"
+retry 5 bash -x "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
 
 echo "Executing ChrootCfg.sh"
 bash -x "${ELBUILD}"/ChrootCfg.sh

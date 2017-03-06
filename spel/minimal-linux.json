@@ -340,6 +340,7 @@
                 "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm` }}",
                 "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
+                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_VGNAME=VolGroup00"
             ],
