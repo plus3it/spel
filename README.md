@@ -152,11 +152,11 @@ defaults):
     "spel_extrarpms": "",
     "spel_identifier": "",
     "spel_version": "",
-    "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
+    "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
     "source_ami_centos6_hvm": "ami-bfb356d2",
     "source_ami_centos6_pvm": "ami-e2120888",
     "source_ami_centos7_hvm": "ami-650a1672",
-    "source_ami_rhel6_hvm": "ami-f37b4b99",
+    "source_ami_rhel6_hvm": "ami-1b05b10d",
     "source_ami_rhel7_hvm": "ami-b63769a1",
     "ssh_private_ip": "false",
     "subnet_id": "",
@@ -190,13 +190,13 @@ The Minimal Linux `packer` template includes the following builders:
 
 | Builder Name                    | Description                                                     |
 |---------------------------------|-----------------------------------------------------------------|
-| `minimal-centos-6.8-hvm`        | amazon-ebs builder that results in a minimal CentOS 6.8 HVM AMI |
-| `minimal-centos-6.8-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.8 PVM AMI |
-| `minimal-rhel-6.8-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.8 HVM AMI   |
+| `minimal-centos-6.9-hvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 HVM AMI |
+| `minimal-centos-6.9-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 PVM AMI |
+| `minimal-rhel-6.9-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.9 HVM AMI   |
 | `minimal-centos-7.3-hvm`        | amazon-ebs builder that results in a minimal CentOS 7.3 HVM AMI |
 | `minimal-rhel-7.3-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.3 HVM AMI   |
-| `minimal-centos-6.8-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.8 OVA |
-| `minimal-centos-6.8-vmware`     | vmware-iso builder that results in a minimal CentOS 6.8 OVF     |
+| `minimal-centos-6.9-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
+| `minimal-centos-6.9-vmware`     | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -224,7 +224,7 @@ packer build \
     -var 'source_ami_centos6_hvm=ami-03bb0462' \
     -var 'source_ami_centos6_pvm=ami-62b70803' \
     -var 'source_ami_rhel6_hvm=ami-caee51ab' \
-    -except 'minimal-centos-6.8-virtualbox,minimal-centos-6.8-vmware' \
+    -except 'minimal-centos-6.9-virtualbox,minimal-centos-6.9-vmware' \
     spel/minimal-linux.json
 ```
 
