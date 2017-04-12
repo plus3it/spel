@@ -2,7 +2,7 @@
 
 ##############################################################################
 #
-# Set the default cloud-init user to `spel`
+# Set the default cloud-init user to `spel` and update packages
 #
 ##############################################################################
 system_info:
@@ -11,6 +11,8 @@ system_info:
     gecos: spel admin account
     lock_passwd: true
     sudo: ["ALL=(root) NOPASSWD:ALL"]
+
+package_upgrade: true
 
 ##############################################################################
 #
