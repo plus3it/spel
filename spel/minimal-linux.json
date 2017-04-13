@@ -19,11 +19,11 @@
         "spel_extrarpms": "",
         "spel_identifier": "",
         "spel_version": "",
-        "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.8/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
+        "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
         "source_ami_centos6_hvm": "ami-bfb356d2",
         "source_ami_centos6_pvm": "ami-e2120888",
         "source_ami_centos7_hvm": "ami-650a1672",
-        "source_ami_rhel6_hvm": "ami-f37b4b99",
+        "source_ami_rhel6_hvm": "ami-1b05b10d",
         "source_ami_rhel7_hvm": "ami-b63769a1",
         "ssh_private_ip": "false",
         "subnet_id": "",
@@ -31,7 +31,7 @@
     },
     "builders": [
         {
-            "name": "minimal-centos-6.8-virtualbox",
+            "name": "minimal-centos-6.9-virtualbox",
             "type": "virtualbox-iso",
             "boot_command": [
                 "<esc><wait>",
@@ -45,7 +45,7 @@
             "guest_os_type": "RedHat_64",
             "headless": true,
             "http_directory": "{{ template_dir }}/kickstarts",
-            "iso_checksum": "ec49c297d484b9da0787e5944edc38f7c70f21c0f6a60178d8e9a8926d1949f4",
+            "iso_checksum": "422af57b493b8af49d485885a730c5a1d955f803fac85aa51311c393168b9080",
             "iso_checksum_type": "sha256",
             "iso_url": "{{ user `iso_url_centos6` }}",
             "output_directory": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
@@ -58,7 +58,7 @@
             "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
         },
         {
-            "name": "minimal-centos-6.8-vmware",
+            "name": "minimal-centos-6.9-vmware",
             "type": "vmware-iso",
             "boot_command": [
                 "<esc><wait>",
@@ -70,7 +70,7 @@
             "guest_os_type": "CentOS-64",
             "headless": true,
             "http_directory": "{{ template_dir }}/kickstarts",
-            "iso_checksum": "ec49c297d484b9da0787e5944edc38f7c70f21c0f6a60178d8e9a8926d1949f4",
+            "iso_checksum": "422af57b493b8af49d485885a730c5a1d955f803fac85aa51311c393168b9080",
             "iso_checksum_type": "sha256",
             "iso_url": "{{ user `iso_url_centos6` }}",
             "output_directory": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
@@ -85,10 +85,10 @@
             "vmdk_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
         },
         {
-            "name": "minimal-centos-6.8-hvm",
+            "name": "minimal-centos-6.9-hvm",
             "type": "amazon-ebs",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 6.8 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
+            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 6.9 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
@@ -116,10 +116,10 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "name": "minimal-centos-6.8-pvm",
+            "name": "minimal-centos-6.9-pvm",
             "type": "amazon-ebs",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 6.8 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
+            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 6.9 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
@@ -147,10 +147,10 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "name": "minimal-rhel-6.8-hvm",
+            "name": "minimal-rhel-6.9-hvm",
             "type": "amazon-ebs",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" RHEL 6.8 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. See {{ user `spel_desc_url` }} for details.",
+            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" RHEL 6.9 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. See {{ user `spel_desc_url` }} for details.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
@@ -244,8 +244,8 @@
         {
             "type": "file",
             "only": [
-                "minimal-centos-6.8-virtualbox",
-                "minimal-centos-6.8-vmware"
+                "minimal-centos-6.9-virtualbox",
+                "minimal-centos-6.9-vmware"
             ],
             "source": "{{ template_dir }}/scripts/retry.sh",
             "destination": "/tmp/retry.sh"
@@ -253,8 +253,8 @@
         {
             "type": "shell",
             "only": [
-                "minimal-centos-6.8-virtualbox",
-                "minimal-centos-6.8-vmware"
+                "minimal-centos-6.9-virtualbox",
+                "minimal-centos-6.9-vmware"
             ],
             "execute_command": "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'",
             "scripts": [
@@ -284,9 +284,9 @@
         {
             "type": "shell",
             "only": [
-                "minimal-centos-6.8-hvm",
-                "minimal-centos-6.8-pvm",
-                "minimal-rhel-6.8-hvm",
+                "minimal-centos-6.9-hvm",
+                "minimal-centos-6.9-pvm",
+                "minimal-rhel-6.9-hvm",
                 "minimal-centos-7.3-hvm",
                 "minimal-rhel-7.3-hvm"
             ],
@@ -299,9 +299,9 @@
         {
             "type": "shell",
             "only": [
-                "minimal-centos-6.8-hvm",
-                "minimal-centos-6.8-pvm",
-                "minimal-rhel-6.8-hvm"
+                "minimal-centos-6.9-hvm",
+                "minimal-centos-6.9-pvm",
+                "minimal-rhel-6.9-hvm"
             ],
             "environment_vars": [
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen6source` }}",
@@ -368,8 +368,8 @@
         {
             "type": "vagrant",
             "only": [
-                "minimal-centos-6.8-virtualbox",
-                "minimal-centos-6.8-vmware"
+                "minimal-centos-6.9-virtualbox",
+                "minimal-centos-6.9-vmware"
             ],
             "compression_level": 9,
             "keep_input_artifact": false,
@@ -377,24 +377,24 @@
         },
         {
             "type": "atlas",
-            "only": [ "minimal-centos-6.8-virtualbox" ],
-            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.8",
+            "only": [ "minimal-centos-6.9-virtualbox" ],
+            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
                 "version": " {{ user `spel_version` }} ",
-                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.8 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
             }
         },
         {
             "type": "atlas",
-            "only": [ "minimal-centos-6.8-vmware" ],
-            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.8",
+            "only": [ "minimal-centos-6.9-vmware" ],
+            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "vmware_desktop",
                 "version": "{{ user `spel_version` }}",
-                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.8 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
             }
         }
     ]
