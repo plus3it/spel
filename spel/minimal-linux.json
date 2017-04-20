@@ -293,7 +293,9 @@
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
                 "echo Unmounting /oldroot",
-                "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot"
+                "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot",
+                "echo Unmounting /boot",
+                "test $(grep -c /boot /proc/mounts) -eq 0 || umount /boot"
             ]
         },
         {
