@@ -64,12 +64,12 @@ retry()
     return $result
 }  # ----------  end of function retry  ----------
 
-add_known_host()
+disable_strict_host_check()
 {
     # Take a git ssh connection string of the form:
     #    user@host:account/project.git
-    # determine the `host`, use ssh-keyscan to get its ssh key, and
-    # add the key to ~/.ssh/known_hosts
+    # determine the `host`, and add an entry to ~/.ssh/config to disable the
+    # strict host check
 
     local conn=$1
     [[ $# -lt 1 ]] && {
@@ -85,18 +85,11 @@ add_known_host()
         host=$( echo "${host}" | awk -F"@" '{print $2}' )
     fi
 
-    # Get the key
-    local key
-    key=$(ssh-keyscan "${host}")
-
-    # Add the key to known_hosts
-    if [[ -n "${key}" ]]
+    touch ~/.ssh/config
+    if [[ $(grep -q "${host}" ~/.ssh/config)$? -ne 0 ]]
     then
-        touch ~/.ssh/known_hosts
-        if [[ $(grep -q "${key}" ~/.ssh/known_hosts)$? -ne 0 ]]
-        then
-            echo "${key}" >> ~/.ssh/known_hosts
-        fi
+        echo -e "Host $host\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+        chmod 600 ~/.ssh/config
     fi
 }  # ----------  end of function add_ssh_host  ----------
 
@@ -109,13 +102,13 @@ yum -y install ${BUILDDEPS}
 if [[ "${AMIGENSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIGen source"
-    add_known_host "${AMIGENSOURCE}"
+    disable_strict_host_check "${AMIGENSOURCE}"
 fi
 
 if [[ "${AMIUTILSSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIUtils source"
-    add_known_host "${AMIUTILSSOURCE}"
+    disable_strict_host_check "${AMIUTILSSOURCE}"
 fi
 
 echo "Cloning source of the AMIGen project"
