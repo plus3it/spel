@@ -39,8 +39,8 @@ directory.
 | spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-621c9803 | us-gov-west-1 |
 | spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-eb14908a | us-gov-west-1 |
 
-| Atlas Name                       | Version   | Vagrant Provider |
-|----------------------------------|-----------|------------------|
+| Vagrant Cloud Name              | Version   | Vagrant Provider |
+|---------------------------------|-----------|------------------|
 | plus3it/spel-minimal-centos-6.9 | 2017.05.1 | virtualbox       |
 
 ## Prerequisites
@@ -73,7 +73,7 @@ images.
     [VMware Player][17]. For all platforms, you will also need [Vagrant][13].
 
 5.  The template(s) push the Vagrant boxes for the VirtualBox and VMware images
-to [Hashicorp Atlas][19], which requires an [Atlas account][21].
+to [Hashicorp Vagrant Cloud][19], which requires a [Vagrant Cloud account][21].
 
 ## Usage
 
@@ -85,13 +85,13 @@ use `.\` preceding the path to the template. E.g.
 
 1.  Clone the repository:
 
-    ```powershell
+    ```bash
     git clone https://github.com/plus3it/spel && cd spel
     ```
 
 2.  Validate the template (Optional):
 
-    ```powershell
+    ```bash
     packer validate spel/minimal-linux.json
     ```
 
@@ -103,18 +103,19 @@ use `.\` preceding the path to the template. E.g.
     template](#minimal-linux-packer-builders). Use `packer build --help` to
     see how to restrict the build to to a subset of the builders.
 
-    ```powershell
+    ```bash
     packer build \
-        -var 'atlas_username=myatlasuser' \
+        -var 'vagrantcloud_username=myvagrantclouduser' \
         -var 'spel_identifier=unique-project-id' \
         -var 'spel_version=0.0.1' \
         spel/minimal-linux.json
     ```
 
     If building the VirtualBox or VMware images for use with Vagrant, the
-    template is configured to host the resulting images with [Hashicorp Atlas]
-    [19]. This requires passing the variable `atlas_username` and exporting
-    the environment variable [`ATLAS_TOKEN`][20].
+    template is configured to host the resulting images with
+    [Hashicorp Vagrant Cloud][19]. This requires passing the variable
+    `vagrantcloud` and exporting the environment variable
+    [`VAGRANTCLOUD_TOKEN`][20].
 
 ## Minimal Linux Packer Template
 
@@ -137,7 +138,8 @@ defaults):
     "ami_groups": "",
     "ami_regions": "",
     "ami_users": "",
-    "atlas_username": "",
+    "vagrantcloud_username": "",
+    "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
     "aws_region": "us-east-1",
     "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
     "spel_amigen7source": "https://github.com/lorengordon/AMIgen7.git",
@@ -164,21 +166,22 @@ defaults):
 }
 ```
 
-| Variable Name         | Description                                                       |
-|-----------------------|-------------------------------------------------------------------|
-| `atlas_username`      | Username in Hashicorp Atlas                                       |
-| `spel_identifier`     | Project ID to associate to the resulting images                   |
-| `spel_version`        | Version to assign to the resulting image(s)                       |
-| `spel_amigen6source`  | URL to the git repository for the `AMIGen6` project               |
-| `spel_amiutilsource`  | URL to the git repository for the `Lx-GetAMI-Utils` project       |
-| `spel_awsclisource`   | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_customreporpm`  | URL to a custom release RPM containing base repos                 |
-| `spel_customreponame` | Name(s) of the custom yum repos (* or comma-separated)            |
-| `spel_desc_url`       | URL to detailed description of AMI                                |
-| `spel_epel6release`   | URL to the release RPM for the [EPEL 6][10] repo                  |
-| `spel_epel6release`   | URL to the release RPM for the [EPEL 7][10] repo                  |
-| `spel_epelrepo`       | Name of the epel repo (if different than "epel")                  |
-| `spel_extrarpms`      | Comma-separated list of extra package/@group names to pass to yum |
+| Variable Name           | Description                                                       |
+|-------------------------|-------------------------------------------------------------------|
+| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
+| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
+| `spel_identifier`       | Project ID to associate to the resulting images                   |
+| `spel_version`          | Version to assign to the resulting image(s)                       |
+| `spel_amigen6source`    | URL to the git repository for the `AMIGen6` project               |
+| `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
+| `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
+| `spel_customreporpm`    | URL to a custom release RPM containing base repos                 |
+| `spel_customreponame`   | Name(s) of the custom yum repos (* or comma-separated)            |
+| `spel_desc_url`         | URL to detailed description of AMI                                |
+| `spel_epel6release`     | URL to the release RPM for the [EPEL 6][10] repo                  |
+| `spel_epel6release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
+| `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
+| `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
 
 All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
@@ -203,10 +206,10 @@ The Minimal Linux `packer` template includes the following builders:
 The Minimal Linux `packer` template includes the following post-provisioners:
 
 -   `vagrant`: The vagrant post-provisioner creates vagrant boxes from on the
-`virtualbox` and `vmware` images.
+    `virtualbox` and `vmware` images.
 
--   `atlas`: The atlas post-provisioners upload the vagrant boxes to [Hashicorp
-Atlas][19].
+-   `vagrant-cloud`: The vagrant-cloud post-provisioners upload the vagrant
+    boxes to [Hashicorp Vagrant Cloud][19].
 
 ## Building for the AWS US GovCloud Region
 
@@ -216,7 +219,7 @@ below have been tested and/or created in `us-gov-west-1` to work with the
 _spel_ template(s). Also, the builders should be restricted so as _not_ to
 build the Vagrant images.
 
-```powershell
+```bash
 packer build \
     -var 'spel_identifier=unique-project-id' \
     -var 'spel_version=0.0.1' \
@@ -252,6 +255,6 @@ vagrant "cloud".
 [16]: https://www.vmware.com/products/workstation/overview.html
 [17]: https://www.vmware.com/products/player/
 [18]: https://www.packer.io/docs/builders/virtualbox-iso.html
-[19]: https://atlas.hashicorp.com/help
-[20]: https://atlas.hashicorp.com/help/user-accounts/authentication
-[21]: https://atlas.hashicorp.com/account/new
+[19]: https://vagrantcloud.com/help/
+[20]: https://vagrantcloud.com/help/user-accounts/authentication
+[21]: https://vagrantcloud.com/account/new
