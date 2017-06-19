@@ -4,7 +4,8 @@
         "ami_groups": "",
         "ami_regions": "",
         "ami_users": "",
-        "atlas_username": "",
+        "vagrantcloud_username": "",
+        "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
         "aws_region": "us-east-1",
         "spel_desc_url": "https://github.com/plus3it/spel",
         "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
@@ -367,37 +368,33 @@
                 ]
             }
         ],
-        {
-            "type": "vagrant",
-            "only": [
-                "minimal-centos-6.9-virtualbox",
-                "minimal-centos-6.9-vmware"
-            ],
-            "compression_level": 9,
-            "keep_input_artifact": false,
-            "output": ".spel/{{ user `spel_identifier` }}-{{ .BuildName }}-{{ user `spel_version` }}.box"
-        },
-        {
-            "type": "atlas",
-            "only": [ "minimal-centos-6.9-virtualbox" ],
-            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-                "provider": "virtualbox",
+        [
+            {
+                "type": "vagrant",
+                "only": [
+                    "minimal-centos-6.9-virtualbox",
+                    "minimal-centos-6.9-vmware"
+                ],
+                "compression_level": 9,
+                "keep_input_artifact": false,
+                "output": ".spel/{{ user `spel_identifier` }}-{{ .BuildName }}-{{ user `spel_version` }}.box"
+            },
+            {
+                "type": "vagrant-cloud",
+                "only": [ "minimal-centos-6.9-virtualbox" ],
+                "access_token": "{{ user `vagrantcloud_token` }}",
+                "box_tag": "{{ user `vagrantcloud_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
                 "version": " {{ user `spel_version` }} ",
-                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
-            }
-        },
-        {
-            "type": "atlas",
-            "only": [ "minimal-centos-6.9-vmware" ],
-            "artifact": "{{ user `atlas_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
-            "artifact_type": "vagrant.box",
-            "metadata": {
-                "provider": "vmware_desktop",
+                "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+            },
+            {
+                "type": "vagrant-cloud",
+                "only": [ "minimal-centos-6.9-vmware" ],
+                "access_token": "{{ user `vagrantcloud_token` }}",
+                "box_tag": "{{ user `vagrantcloud_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
                 "version": "{{ user `spel_version` }}",
-                "description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+                "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
             }
-        }
+        ]
     ]
 }

@@ -13,35 +13,35 @@ directory.
 
 | AMI Name                                         | AMI ID       | AWS Region    |
 |--------------------------------------------------|--------------|---------------|
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-93eb9f85 | us-east-1     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-4ce1955a | us-east-1     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-62ea9e74 | us-east-1     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-41e19557 | us-east-1     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-49e1955f | us-east-1     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-8afcdbef | us-east-2     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-09fcdb6c | us-east-2     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-11fcdb74 | us-east-2     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-7cfadd19 | us-east-2     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-5bfbdc3e | us-east-2     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-a6fddbc6 | us-west-1     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-adfed8cd | us-west-1     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-73fcda13 | us-west-1     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-c1f1d7a1 | us-west-1     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-b7ffd9d7 | us-west-1     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-bd0366dd | us-west-2     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-1c01647c | us-west-2     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-2d02674d | us-west-2     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-b40065d4 | us-west-2     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-70016410 | us-west-2     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-21139740 | us-gov-west-1 |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-0d13976c | us-gov-west-1 |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-10139771 | us-gov-west-1 |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-621c9803 | us-gov-west-1 |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-eb14908a | us-gov-west-1 |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-ef82ddf9 | us-east-1     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-ea81defc | us-east-1     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-5e919f27 | us-east-1     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-b8adf2ae | us-east-1     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-5f85da49 | us-east-1     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-e8c6e08d | us-east-2     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-04f8de61 | us-east-2     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-c9f8deac | us-east-2     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-70f9df15 | us-east-2     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-06f8de63 | us-east-2     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-1a25077a | us-west-1     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-552a0835 | us-west-1     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-922b09f2 | us-west-1     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-17290b77 | us-west-1     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-ba2b09da | us-west-1     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-18aca261 | us-west-2     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-5e919f27 | us-west-2     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-f9aca280 | us-west-2     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-4daaa434 | us-west-2     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-d6919faf | us-west-2     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-6170f700 | us-gov-west-1 |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-0772f566 | us-gov-west-1 |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-5371f632 | us-gov-west-1 |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-6373f402 | us-gov-west-1 |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-e174f380 | us-gov-west-1 |
 
-| Atlas Name                       | Version   | Vagrant Provider |
-|----------------------------------|-----------|------------------|
-| plus3it/spel-minimal-centos-6.9 | 2017.05.1 | virtualbox       |
+| Vagrant Cloud Name              | Version   | Vagrant Provider |
+|---------------------------------|-----------|------------------|
+| plus3it/spel-minimal-centos-6.9 | 2017.06.1 | virtualbox       |
 
 ## Prerequisites
 
@@ -73,7 +73,7 @@ images.
     [VMware Player][17]. For all platforms, you will also need [Vagrant][13].
 
 5.  The template(s) push the Vagrant boxes for the VirtualBox and VMware images
-to [Hashicorp Atlas][19], which requires an [Atlas account][21].
+to [Hashicorp Vagrant Cloud][19], which requires a [Vagrant Cloud account][21].
 
 ## Usage
 
@@ -85,13 +85,13 @@ use `.\` preceding the path to the template. E.g.
 
 1.  Clone the repository:
 
-    ```powershell
+    ```bash
     git clone https://github.com/plus3it/spel && cd spel
     ```
 
 2.  Validate the template (Optional):
 
-    ```powershell
+    ```bash
     packer validate spel/minimal-linux.json
     ```
 
@@ -103,18 +103,19 @@ use `.\` preceding the path to the template. E.g.
     template](#minimal-linux-packer-builders). Use `packer build --help` to
     see how to restrict the build to to a subset of the builders.
 
-    ```powershell
+    ```bash
     packer build \
-        -var 'atlas_username=myatlasuser' \
+        -var 'vagrantcloud_username=myvagrantclouduser' \
         -var 'spel_identifier=unique-project-id' \
         -var 'spel_version=0.0.1' \
         spel/minimal-linux.json
     ```
 
     If building the VirtualBox or VMware images for use with Vagrant, the
-    template is configured to host the resulting images with [Hashicorp Atlas]
-    [19]. This requires passing the variable `atlas_username` and exporting
-    the environment variable [`ATLAS_TOKEN`][20].
+    template is configured to host the resulting images with
+    [Hashicorp Vagrant Cloud][19]. This requires passing the variable
+    `vagrantcloud` and exporting the environment variable
+    [`VAGRANTCLOUD_TOKEN`][20].
 
 ## Minimal Linux Packer Template
 
@@ -137,7 +138,8 @@ defaults):
     "ami_groups": "",
     "ami_regions": "",
     "ami_users": "",
-    "atlas_username": "",
+    "vagrantcloud_username": "",
+    "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
     "aws_region": "us-east-1",
     "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
     "spel_amigen7source": "https://github.com/lorengordon/AMIgen7.git",
@@ -164,21 +166,22 @@ defaults):
 }
 ```
 
-| Variable Name         | Description                                                       |
-|-----------------------|-------------------------------------------------------------------|
-| `atlas_username`      | Username in Hashicorp Atlas                                       |
-| `spel_identifier`     | Project ID to associate to the resulting images                   |
-| `spel_version`        | Version to assign to the resulting image(s)                       |
-| `spel_amigen6source`  | URL to the git repository for the `AMIGen6` project               |
-| `spel_amiutilsource`  | URL to the git repository for the `Lx-GetAMI-Utils` project       |
-| `spel_awsclisource`   | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_customreporpm`  | URL to a custom release RPM containing base repos                 |
-| `spel_customreponame` | Name(s) of the custom yum repos (* or comma-separated)            |
-| `spel_desc_url`       | URL to detailed description of AMI                                |
-| `spel_epel6release`   | URL to the release RPM for the [EPEL 6][10] repo                  |
-| `spel_epel6release`   | URL to the release RPM for the [EPEL 7][10] repo                  |
-| `spel_epelrepo`       | Name of the epel repo (if different than "epel")                  |
-| `spel_extrarpms`      | Comma-separated list of extra package/@group names to pass to yum |
+| Variable Name           | Description                                                       |
+|-------------------------|-------------------------------------------------------------------|
+| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
+| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
+| `spel_identifier`       | Project ID to associate to the resulting images                   |
+| `spel_version`          | Version to assign to the resulting image(s)                       |
+| `spel_amigen6source`    | URL to the git repository for the `AMIGen6` project               |
+| `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
+| `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
+| `spel_customreporpm`    | URL to a custom release RPM containing base repos                 |
+| `spel_customreponame`   | Name(s) of the custom yum repos (* or comma-separated)            |
+| `spel_desc_url`         | URL to detailed description of AMI                                |
+| `spel_epel6release`     | URL to the release RPM for the [EPEL 6][10] repo                  |
+| `spel_epel6release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
+| `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
+| `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
 
 All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
@@ -203,10 +206,10 @@ The Minimal Linux `packer` template includes the following builders:
 The Minimal Linux `packer` template includes the following post-provisioners:
 
 -   `vagrant`: The vagrant post-provisioner creates vagrant boxes from on the
-`virtualbox` and `vmware` images.
+    `virtualbox` and `vmware` images.
 
--   `atlas`: The atlas post-provisioners upload the vagrant boxes to [Hashicorp
-Atlas][19].
+-   `vagrant-cloud`: The vagrant-cloud post-provisioners upload the vagrant
+    boxes to [Hashicorp Vagrant Cloud][19].
 
 ## Building for the AWS US GovCloud Region
 
@@ -216,7 +219,7 @@ below have been tested and/or created in `us-gov-west-1` to work with the
 _spel_ template(s). Also, the builders should be restricted so as _not_ to
 build the Vagrant images.
 
-```powershell
+```bash
 packer build \
     -var 'spel_identifier=unique-project-id' \
     -var 'spel_version=0.0.1' \
@@ -252,6 +255,6 @@ vagrant "cloud".
 [16]: https://www.vmware.com/products/workstation/overview.html
 [17]: https://www.vmware.com/products/player/
 [18]: https://www.packer.io/docs/builders/virtualbox-iso.html
-[19]: https://atlas.hashicorp.com/help
-[20]: https://atlas.hashicorp.com/help/user-accounts/authentication
-[21]: https://atlas.hashicorp.com/account/new
+[19]: https://vagrantcloud.com/help/
+[20]: https://vagrantcloud.com/help/user-accounts/authentication
+[21]: https://vagrantcloud.com/account/new
