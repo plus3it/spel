@@ -16,12 +16,14 @@ DEVNODE="${SPEL_DEVNODE:-/dev/xvda}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
+FIPSDISABLE="${SPEL_FIPSDISABLE}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 ELBUILD="/tmp/el-build"
 AMIUTILS="/tmp/ami-utils"
 
 export CHROOT
+export FIPSDISABLE
 
 retry()
 {
