@@ -13,35 +13,35 @@ directory.
 
 | AMI Name                                         | AMI ID       | AWS Region    |
 |--------------------------------------------------|--------------|---------------|
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-93eb9f85 | us-east-1     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-4ce1955a | us-east-1     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-62ea9e74 | us-east-1     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-41e19557 | us-east-1     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-49e1955f | us-east-1     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-8afcdbef | us-east-2     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-09fcdb6c | us-east-2     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-11fcdb74 | us-east-2     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-7cfadd19 | us-east-2     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-5bfbdc3e | us-east-2     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-a6fddbc6 | us-west-1     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-adfed8cd | us-west-1     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-73fcda13 | us-west-1     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-c1f1d7a1 | us-west-1     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-b7ffd9d7 | us-west-1     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-bd0366dd | us-west-2     |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-1c01647c | us-west-2     |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-2d02674d | us-west-2     |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-b40065d4 | us-west-2     |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-70016410 | us-west-2     |
-| spel-minimal-rhel-7.3-hvm-2017.05.1.x86_64-gp2   | ami-21139740 | us-gov-west-1 |
-| spel-minimal-rhel-6.9-hvm-2017.05.1.x86_64-gp2   | ami-0d13976c | us-gov-west-1 |
-| spel-minimal-centos-7.3-hvm-2017.05.1.x86_64-gp2 | ami-10139771 | us-gov-west-1 |
-| spel-minimal-centos-6.9-pvm-2017.05.1.x86_64-gp2 | ami-621c9803 | us-gov-west-1 |
-| spel-minimal-centos-6.9-hvm-2017.05.1.x86_64-gp2 | ami-eb14908a | us-gov-west-1 |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-ef82ddf9 | us-east-1     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-ea81defc | us-east-1     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-5e919f27 | us-east-1     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-b8adf2ae | us-east-1     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-5f85da49 | us-east-1     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-e8c6e08d | us-east-2     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-04f8de61 | us-east-2     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-c9f8deac | us-east-2     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-70f9df15 | us-east-2     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-06f8de63 | us-east-2     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-1a25077a | us-west-1     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-552a0835 | us-west-1     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-922b09f2 | us-west-1     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-17290b77 | us-west-1     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-ba2b09da | us-west-1     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-18aca261 | us-west-2     |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-5e919f27 | us-west-2     |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-f9aca280 | us-west-2     |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-4daaa434 | us-west-2     |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-d6919faf | us-west-2     |
+| spel-minimal-rhel-7.3-hvm-2017.06.1.x86_64-gp2   | ami-6170f700 | us-gov-west-1 |
+| spel-minimal-rhel-6.9-hvm-2017.06.1.x86_64-gp2   | ami-0772f566 | us-gov-west-1 |
+| spel-minimal-centos-7.3-hvm-2017.06.1.x86_64-gp2 | ami-5371f632 | us-gov-west-1 |
+| spel-minimal-centos-6.9-pvm-2017.06.1.x86_64-gp2 | ami-6373f402 | us-gov-west-1 |
+| spel-minimal-centos-6.9-hvm-2017.06.1.x86_64-gp2 | ami-e174f380 | us-gov-west-1 |
 
 | Vagrant Cloud Name              | Version   | Vagrant Provider |
 |---------------------------------|-----------|------------------|
-| plus3it/spel-minimal-centos-6.9 | 2017.05.1 | virtualbox       |
+| plus3it/spel-minimal-centos-6.9 | 2017.06.1 | virtualbox       |
 
 ## Prerequisites
 
