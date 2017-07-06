@@ -33,21 +33,21 @@ phases:
     commands:
       - test -z "$SPEL_IDENTIFIER" && (echo "Must set SPEL_IDENTIFIER env!" >&2; exit 1)
       - test -z "$SPEL_VERSION" && (echo "Must set SPEL_VERSION env!" >&2; exit 1)
-      - aws configure set region $AWS_REGION
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
-          aws configure set access_key $(aws ssm get-parameter --name $SPEL_SSM_ACCESS_KEY --with-decryption)
-          aws configure set secret_key $(aws ssm get-parameter --name $SPEL_SSM_SECRET_KEY --with-decryption)
+          aws configure set aws_access_key_id "$(aws ssm get-parameters --name $SPEL_SSM_ACCESS_KEY --with-decryption --query 'Parameters[0].Value' --out text)" --profile $SPEL_IDENTIFIER
+          aws configure set aws_secret_access_key "$(aws ssm get-parameters --name $SPEL_SSM_SECRET_KEY --with-decryption --query 'Parameters[0].Value' --out text)" --profile $SPEL_IDENTIFIER
         fi
       - |
         if [ -n "${SPEL_SSM_SESSION_TOKEN}" ]
         then
-          aws configure set session_token $(aws ssm get-parameter --name $SPEL_SSM_SESSION_TOKEN --with-decryption)
+          aws configure set aws_session_token "$(aws ssm get-parameters --name $SPEL_SSM_SESSION_TOKEN --with-decryption --query 'Parameters[0].Value' --out text)" --profile $SPEL_IDENTIFIER
         fi
+      - aws configure set region $AWS_REGION --profile $SPEL_IDENTIFIER
       - echo "Validating packer template, spel/minimal-linux.json"
       - |
-        ./packer validate \
+        AWS_PROFILE=$SPEL_IDENTIFIER ./packer validate \
           -only "${SPEL_BUILDERS}" \
           -var "ami_groups=${AMI_GROUPS}" \
           -var "ami_regions=${AMI_REGIONS}" \
@@ -80,7 +80,7 @@ phases:
     commands:
       - echo "Building packer template, spel/minimal-linux.json"
       - |
-        ./packer build \
+        AWS_PROFILE=$SPEL_IDENTIFIER ./packer build \
           -only "${SPEL_BUILDERS}" \
           -var "ami_groups=${AMI_GROUPS}" \
           -var "ami_regions=${AMI_REGIONS}" \
