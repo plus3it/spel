@@ -50,7 +50,7 @@
             "iso_checksum": "422af57b493b8af49d485885a730c5a1d955f803fac85aa51311c393168b9080",
             "iso_checksum_type": "sha256",
             "iso_url": "{{ user `iso_url_centos6` }}",
-            "output_directory": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "output_directory": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}",
             "ssh_username": "vagrant",
             "ssh_password": "vagrant",
             "ssh_port": 22,
@@ -75,7 +75,7 @@
             "iso_checksum": "422af57b493b8af49d485885a730c5a1d955f803fac85aa51311c393168b9080",
             "iso_checksum_type": "sha256",
             "iso_url": "{{ user `iso_url_centos6` }}",
-            "output_directory": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "output_directory": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}",
             "skip_compaction": true,
             "ssh_username": "vagrant",
             "ssh_password": "vagrant",
@@ -357,7 +357,7 @@
         {
             "type": "file",
             "source": "/tmp/manifest.log",
-            "destination": ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.manifest",
+            "destination": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest",
             "direction": "download"
         }
     ],
@@ -366,7 +366,7 @@
             {
                 "type": "artifice",
                 "files": [
-                    ".spel/{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.manifest"
+                    ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest"
                 ]
             }
         ],
@@ -379,7 +379,7 @@
                 ],
                 "compression_level": 9,
                 "keep_input_artifact": false,
-                "output": ".spel/{{ user `spel_identifier` }}-{{ .BuildName }}-{{ user `spel_version` }}.box"
+                "output": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ .BuildName }}.box"
             },
             {
                 "type": "vagrant-cloud",
@@ -396,6 +396,12 @@
                 "box_tag": "{{ user `vagrantcloud_username` }}/{{ user `spel_identifier` }}-minimal-centos-6.9",
                 "version": "{{ user `spel_version` }}",
                 "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6.9 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+            }
+        ],
+        [
+            {
+                "type": "manifest",
+                "output": ".spel/{{ user `spel_version` }}/packer-manifest.json"
             }
         ]
     ]
