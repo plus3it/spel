@@ -112,3 +112,8 @@ phases:
   post_build:
     commands:
       - echo "Packer build completed on $(date)"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: '.spel'
