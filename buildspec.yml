@@ -109,6 +109,25 @@ phases:
           -var "subnet_id=${SUBNET_ID}" \
           -var "vpc_id=${VPC_ID}" \
           spel/minimal-linux.json
+      - |
+        for BUILDER in $(echo $SPEL_BUILDERS | sed -e 's/,/ /g')
+        do
+          BUILDER_ENV=$(echo $BUILDER | sed -e 's/\./_/g' -e 's/-/_/g')
+          export $BUILDER_ENV=$(aws ec2 describe-images --filters Name=name,Values="${SPEL_IDENTIFIER}-${BUILDER}-${SPEL_VERSION}.x86_64-gp2" --query 'Images[0].ImageId' --out text --profile $SPEL_IDENTIFIER)
+        done
+      - |
+        AWS_PROFILE=$SPEL_IDENTIFIER ./packer build \
+          -only "${SPEL_BUILDERS}" \
+          -var "aws_region=${AWS_REGION}" \
+          -var "pip_url=${PIP_URL}" \
+          -var "pypi_url=${PYPI_URL}" \
+          -var "spel_identifier=${SPEL_IDENTIFIER}" \
+          -var "spel_version=${SPEL_VERSION}" \
+          -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
+          -var "ssh_private_ip=${SSH_PRIVATE_IP}" \
+          -var "subnet_id=${SUBNET_ID}" \
+          -var "vpc_id=${VPC_ID}" \
+          tests/minimal-linux.json
   post_build:
     commands:
       - echo "Packer build completed on $(date)"

@@ -2,11 +2,12 @@
     "variables": {
         "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",
         "spel_version": "{{ env `SPEL_VERSION` }}",
-        "test_ami_centos6_hvm": "{{ env `TEST_AMI_CENTOS6_HVM` }}",
-        "test_ami_centos6_pvm": "{{ env `TEST_AMI_CENTOS6_PVM` }}",
-        "test_ami_centos7_hvm": "{{ env `TEST_AMI_CENTOS7_HVM` }}",
-        "test_ami_rhel6_hvm": "{{ env `TEST_AMI_RHEL6_HVM` }}",
-        "test_ami_rhel7_hvm": "{{ env `TEST_AMI_RHEL7_HVM` }}",
+        "spel_disablefips": "",
+        "source_ami_centos6_hvm": "{{ env `minimal_centos_6_9_hvm` }}",
+        "source_ami_centos6_pvm": "{{ env `minimal_centos_6_9_pvm` }}",
+        "source_ami_centos7_hvm": "{{ env `minimal_centos_7_3_hvm` }}",
+        "source_ami_rhel6_hvm": "{{ env `minimal_rhel_6_9_hvm` }}",
+        "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_3_hvm` }}",
         "pip_url": "https://bootstrap.pypa.io/get-pip.py",
         "pypi_url": "https://pypi.org/simple",
         "ssh_private_ip": "false",
@@ -33,7 +34,7 @@
                 }
             ],
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `test_ami_centos6_hvm` }}",
+            "source_ami": "{{ user `source_ami_centos6_hvm` }}",
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
@@ -60,7 +61,7 @@
                 }
             ],
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `test_ami_centos6_pvm` }}",
+            "source_ami": "{{ user `source_ami_centos6_pvm` }}",
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
@@ -87,7 +88,7 @@
                 }
             ],
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `test_ami_rhel6_hvm` }}",
+            "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
@@ -114,7 +115,7 @@
                 }
             ],
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `test_ami_centos7_hvm` }}",
+            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
@@ -141,7 +142,7 @@
                 }
             ],
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `test_ami_rhel7_hvm` }}",
+            "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
@@ -198,7 +199,8 @@
         {
             "type": "shell",
             "environment_vars": [
-                "LVM_SUPPRESS_FD_WARNINGS=1"
+                "LVM_SUPPRESS_FD_WARNINGS=1",
+                "SPEL_DISABLEFIPS={{ user `spel_disablefips` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
