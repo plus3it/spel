@@ -204,8 +204,24 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
-                "py.test -v --color=no /tmp/spel"
+                "py.test -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ]
+        },
+        {
+            "type": "file",
+            "source": "/tmp/pytest.log",
+            "destination": ".spel/{{ user `spel_version` }}/validation-{{ user `spel_identifier` }}-{{ build_name }}.log",
+            "direction": "download"
         }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "artifice",
+                "files": [
+                    ".spel/{{ user `spel_version` }}/validation-{{ user `spel_identifier` }}-{{ build_name }}.log"
+                ]
+            }
+        ]
     ]
 }
