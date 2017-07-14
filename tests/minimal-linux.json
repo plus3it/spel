@@ -19,7 +19,7 @@
         {
             "name": "minimal-centos-6.9-hvm",
             "type": "amazon-ebs",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "associate_public_ip_address": true,
             "communicator": "ssh",
@@ -46,7 +46,7 @@
         {
             "name": "minimal-centos-6.9-pvm",
             "type": "amazon-ebs",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "associate_public_ip_address": true,
             "communicator": "ssh",
@@ -73,7 +73,7 @@
         {
             "name": "minimal-rhel-6.9-hvm",
             "type": "amazon-ebs",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "associate_public_ip_address": true,
             "communicator": "ssh",
@@ -100,7 +100,7 @@
         {
             "name": "minimal-centos-7.3-hvm",
             "type": "amazon-ebs",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "associate_public_ip_address": true,
             "communicator": "ssh",
@@ -127,7 +127,7 @@
         {
             "name": "minimal-rhel-7.3-hvm",
             "type": "amazon-ebs",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "associate_public_ip_address": true,
             "communicator": "ssh",
