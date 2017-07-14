@@ -38,7 +38,7 @@
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
-            "ssh_timeout": "15m",
+            "ssh_timeout": "60m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
@@ -65,7 +65,7 @@
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
-            "ssh_timeout": "15m",
+            "ssh_timeout": "60m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
@@ -92,7 +92,7 @@
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
-            "ssh_timeout": "20m",
+            "ssh_timeout": "60m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
@@ -119,7 +119,7 @@
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
-            "ssh_timeout": "20m",
+            "ssh_timeout": "60m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
@@ -146,7 +146,7 @@
             "ssh_username": "spel",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
             "ssh_pty": true,
-            "ssh_timeout": "20m",
+            "ssh_timeout": "60m",
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
