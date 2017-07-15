@@ -204,7 +204,7 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
-                "py.test -v --color=no /tmp/spel | tee /tmp/pytest.log"
+                "py.test -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ]
         },
         {

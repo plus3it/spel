@@ -38,3 +38,7 @@ def pytest_runtest_setup(item):
             if FIPS_MARKERS.intersection(item.keywords):
                 pytest.skip(
                     'test incompatible with fips mode, {0}'.format(FIPS))
+
+
+def pytest_logger_stdoutloggers(item):
+    return ['spel_validation']

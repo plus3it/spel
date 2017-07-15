@@ -1,4 +1,9 @@
+import logging
+
 import pytest
+
+log = logging.getLogger('spel_validation')
+log.setLevel(logging.INFO)
 
 
 @pytest.mark.hvm
@@ -27,6 +32,10 @@ def test_root_volume_is_resized(host):
 ])
 def test_common_aws_pkgs(host, name):
     pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            '%s',
+            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
     assert pkg.is_installed
 
 
@@ -36,6 +45,10 @@ def test_common_aws_pkgs(host, name):
 ])
 def test_el6_aws_pkgs(host, name):
     pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            '%s',
+            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
     assert pkg.is_installed
 
 
@@ -45,16 +58,25 @@ def test_el6_aws_pkgs(host, name):
 ])
 def test_el7_aws_pkgs(host, name):
     pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            '%s',
+            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
     assert pkg.is_installed
 
 
 def test_aws_cli_is_in_path(host):
+    cmd = 'aws --version'
+    aws = host.run(cmd)
+    log.info('\n%s', aws.stderr)
     assert host.exists('aws')
 
 
 def test_repo_access(host):
     cmd = 'yum repolist all 2> /dev/null | sed -n \'/^repo id/,$p\''
     repos = host.run(cmd)
+    log.info('stdout:\n%s', repos.stdout)
+    log.info('stderr:\n%s', repos.stderr)
     assert repos.exit_status == 0
 
 
