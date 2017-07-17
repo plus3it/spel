@@ -164,7 +164,7 @@
                 "sleep 120"
             ],
             "expect_disconnect": true,
-            "start_retry_timeout": "5m"
+            "start_retry_timeout": "15m"
         },
         {
             "type": "shell",
