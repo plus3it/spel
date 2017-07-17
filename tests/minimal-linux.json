@@ -1,0 +1,227 @@
+{
+    "variables": {
+        "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",
+        "spel_version": "{{ env `SPEL_VERSION` }}",
+        "spel_disablefips": "",
+        "source_ami_centos6_hvm": "{{ env `minimal_centos_6_9_hvm` }}",
+        "source_ami_centos6_pvm": "{{ env `minimal_centos_6_9_pvm` }}",
+        "source_ami_centos7_hvm": "{{ env `minimal_centos_7_3_hvm` }}",
+        "source_ami_rhel6_hvm": "{{ env `minimal_rhel_6_9_hvm` }}",
+        "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_3_hvm` }}",
+        "pip_url": "https://bootstrap.pypa.io/get-pip.py",
+        "pypi_url": "https://pypi.org/simple",
+        "ssh_private_ip": "false",
+        "aws_region": "{{ env `AWS_REGION` }}",
+        "subnet_id": "",
+        "vpc_id": ""
+    },
+    "builders": [
+        {
+            "name": "minimal-centos-6.9-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m4.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos6_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-centos-6.9-pvm",
+            "type": "amazon-ebs",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m3.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda",
+                    "delete_on_termination": true,
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos6_pvm` }}",
+            "ssh_username": "spel",
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-rhel-6.9-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m4.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-centos-7.3-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m4.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-rhel-7.3-hvm",
+            "type": "amazon-ebs",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m4.large",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "delete_on_termination": true,
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
+            "ssh_username": "spel",
+            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
+            "vpc_id": "{{ user `vpc_id` }}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "yum -y install parted",
+                "parted -s /dev/xvda rm 2 mkpart primary ext4 500m 100% || true",
+                "partprobe || true",
+                "reboot",
+                "sleep 120"
+            ],
+            "expect_disconnect": true,
+            "start_retry_timeout": "5m"
+        },
+        {
+            "type": "shell",
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "mkdir -p /tmp/spel/tests",
+                "chown -R spel:spel /tmp/spel"
+            ]
+        },
+        {
+            "type": "file",
+            "direction": "upload",
+            "source": "tests/",
+            "destination": "/tmp/spel/tests"
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "PIP_URL={{ user `pip_url` }}",
+                "PYPI_URL={{ user `pypi_url` }}"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "PIP_URL=${PIP_URL:-https://bootstrap.pypa.io/get-pip.py}",
+                "PYPI_URL=${PYPI_URL:-https://pypi.org/simple}",
+                "curl \"$PIP_URL\" | python - --index-url=\"$PYPI_URL\"",
+                "pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
+                "pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
+                "for DEV in $(lsblk -ln | awk '/ part /{ print $1}'); do pvresize /dev/${DEV} || true; done"
+            ]
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "LVM_SUPPRESS_FD_WARNINGS=1",
+                "SPEL_DISABLEFIPS={{ user `spel_disablefips` }}"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "py.test -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "/tmp/pytest.log",
+            "destination": ".spel/{{ user `spel_version` }}/validation-{{ user `spel_identifier` }}-{{ build_name }}.log",
+            "direction": "download"
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "artifice",
+                "files": [
+                    ".spel/{{ user `spel_version` }}/validation-{{ user `spel_identifier` }}-{{ build_name }}.log"
+                ]
+            }
+        ]
+    ]
+}
