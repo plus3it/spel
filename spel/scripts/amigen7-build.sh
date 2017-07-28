@@ -173,8 +173,11 @@ bash -x "${ELBUILD}"/CleanChroot.sh
 echo "Executing PreRelabel.sh"
 bash -x "${ELBUILD}"/PreRelabel.sh
 
+echo "Saving the aws cli version to the manifest"
+(chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
+
 echo "Saving the RPM manifest"
-rpm --root "${CHROOT}" -qa | sort -u > /tmp/manifest.log
+rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.log
 
 echo "Executing Umount.sh"
 bash -x "${ELBUILD}"/Umount.sh
