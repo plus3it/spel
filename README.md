@@ -145,8 +145,10 @@ defaults):
     "spel_amigen7source": "https://github.com/lorengordon/AMIgen7.git",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
-    "spel_customreporpm": "",
-    "spel_customreponame": "",
+    "spel_customreporpm6": "",
+    "spel_customreporpm7": "",
+    "spel_customreponame6": "",
+    "spel_customreponame7": "",
     "spel_disablefips": "",
     "spel_desc_url": "https://github.com/plus3it/spel",
     "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
@@ -174,14 +176,17 @@ defaults):
 | `spel_identifier`       | Project ID to associate to the resulting images                   |
 | `spel_version`          | Version to assign to the resulting image(s)                       |
 | `spel_amigen6source`    | URL to the git repository for the `AMIGen6` project               |
+| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_customreporpm`    | URL to a custom release RPM containing base repos                 |
-| `spel_customreponame`   | Name(s) of the custom yum repos (* or comma-separated)            |
+| `spel_customreporpm6`   | URL to a custom release RPM containing base repos for EL6         |
+| `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
+| `spel_customreponame6`  | Name(s) of the custom yum repos (* or comma-separated) for EL6    |
+| `spel_customreponame7`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
 | `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
 | `spel_desc_url`         | URL to detailed description of AMI                                |
 | `spel_epel6release`     | URL to the release RPM for the [EPEL 6][10] repo                  |
-| `spel_epel6release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
+| `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
 
