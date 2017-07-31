@@ -58,8 +58,10 @@ phases:
           -var "spel_amigen7source=${SPEL_AMIGEN7SOURCE}" \
           -var "spel_amiutilsource=${SPEL_AMIUTILSOURCE}" \
           -var "spel_awsclisource=${SPEL_AWSCLISOURCE}" \
-          -var "spel_customreporpm=${SPEL_CUSTOMREPORPM}" \
-          -var "spel_customreponame=${SPEL_CUSTOMREPONAME}" \
+          -var "spel_customreporpm6=${SPEL_CUSTOMREPORPM6}" \
+          -var "spel_customreporpm7=${SPEL_CUSTOMREPORPM7}" \
+          -var "spel_customreponame6=${SPEL_CUSTOMREPONAME6}" \
+          -var "spel_customreponame7=${SPEL_CUSTOMREPONAME7}" \
           -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
           -var "spel_epel6release=${SPEL_EPEL6RELEASE}" \
           -var "spel_epel7release=${SPEL_EPEL7RELEASE}" \
@@ -91,8 +93,10 @@ phases:
           -var "spel_amigen7source=${SPEL_AMIGEN7SOURCE}" \
           -var "spel_amiutilsource=${SPEL_AMIUTILSOURCE}" \
           -var "spel_awsclisource=${SPEL_AWSCLISOURCE}" \
-          -var "spel_customreporpm=${SPEL_CUSTOMREPORPM}" \
-          -var "spel_customreponame=${SPEL_CUSTOMREPONAME}" \
+          -var "spel_customreporpm6=${SPEL_CUSTOMREPORPM6}" \
+          -var "spel_customreporpm7=${SPEL_CUSTOMREPORPM7}" \
+          -var "spel_customreponame6=${SPEL_CUSTOMREPONAME6}" \
+          -var "spel_customreponame7=${SPEL_CUSTOMREPONAME7}" \
           -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
           -var "spel_epel6release=${SPEL_EPEL6RELEASE}" \
           -var "spel_epel7release=${SPEL_EPEL7RELEASE}" \
