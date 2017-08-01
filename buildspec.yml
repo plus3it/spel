@@ -3,6 +3,7 @@ version: 0.2
 
 env:
   variables:
+    PACKER_ZIP: https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_linux_amd64.zip
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
     SPEL_BUILDERS: minimal-rhel-7.3-hvm,minimal-centos-7.3-hvm,minimal-rhel-6.9-hvm,minimal-centos-6.9-hvm,minimal-centos-6.9-pvm
@@ -28,7 +29,7 @@ phases:
       - apt -y install unzip
       - echo "Installing packer..."
       - echo `pwd`
-      - curl -L https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_linux_amd64.zip -o packer.zip && unzip packer.zip
+      - curl -L "${PACKER_ZIP}" -o packer.zip && unzip packer.zip
   pre_build:
     commands:
       - test -z "$SPEL_IDENTIFIER" && (echo "Must set SPEL_IDENTIFIER env!" >&2; exit 1)
