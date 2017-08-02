@@ -3,8 +3,10 @@ version: 0.2
 
 env:
   variables:
+    PACKER_ZIP: https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_linux_amd64.zip
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
+    SPEL_CI: 'false'
     SPEL_BUILDERS: minimal-rhel-7.3-hvm,minimal-centos-7.3-hvm,minimal-rhel-6.9-hvm,minimal-centos-6.9-hvm,minimal-centos-6.9-pvm
     SPEL_DESC_URL: https://github.com/plus3it/spel
     SPEL_AMIGEN6SOURCE: https://github.com/ferricoxide/AMIgen6.git
@@ -28,9 +30,15 @@ phases:
       - apt -y install unzip
       - echo "Installing packer..."
       - echo `pwd`
-      - curl -L https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_linux_amd64.zip -o packer.zip && unzip packer.zip
+      - curl -L "${PACKER_ZIP}" -o packer.zip && unzip packer.zip
   pre_build:
     commands:
+      - |
+        if [ "${SPEL_CI}" = "true" ]
+        then
+          SPEL_VERSION=$(date +%Y.%m.dev%s)
+          export SPEL_VERSION
+        fi
       - test -z "$SPEL_IDENTIFIER" && (echo "Must set SPEL_IDENTIFIER env!" >&2; exit 1)
       - test -z "$SPEL_VERSION" && (echo "Must set SPEL_VERSION env!" >&2; exit 1)
       - |
@@ -137,11 +145,18 @@ phases:
     commands:
       - echo "Sleeping 180 seconds to ensure the AMI Name is searchable..."; sleep 180
       - |
+      - |
         for BUILDER in $(echo $SPEL_BUILDERS | sed -e 's/,/ /g')
         do
           AMI_NAME="validation-${SPEL_IDENTIFIER}-${BUILDER}-${SPEL_VERSION}.x86_64-gp2"
           AMI_ID=$(export AWS_DEFAULT_REGION=$AWS_REGION; aws ec2 describe-images --filters Name=name,Values="$AMI_NAME" --query 'Images[0].ImageId' --out text --profile $SPEL_IDENTIFIER)
-          AWS_DEFAULT_REGION=$AWS_REGION aws ec2 deregister-image --image-id $AMI_ID --profile $SPEL_IDENTIFIER
+          AWS_DEFAULT_REGION=$AWS_REGION test "$AMI_ID" != "None" && aws ec2 deregister-image --image-id $AMI_ID --profile $SPEL_IDENTIFIER
+          if [ "${SPEL_CI}" = "true" ]
+          then
+            AMI_NAME="${SPEL_IDENTIFIER}-${BUILDER}-${SPEL_VERSION}.x86_64-gp2"
+            AMI_ID=$(export AWS_DEFAULT_REGION=$AWS_REGION; aws ec2 describe-images --filters Name=name,Values="$AMI_NAME" --query 'Images[0].ImageId' --out text --profile $SPEL_IDENTIFIER)
+            AWS_DEFAULT_REGION=$AWS_REGION test "$AMI_ID" != "None" && aws ec2 deregister-image --image-id $AMI_ID --profile $SPEL_IDENTIFIER
+          fi
         done
       - echo "Packer build completed on $(date)"
 
