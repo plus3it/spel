@@ -162,7 +162,7 @@ defaults):
     "source_ami_centos6_pvm": "ami-e2120888",
     "source_ami_centos7_hvm": "ami-650a1672",
     "source_ami_rhel6_hvm": "ami-1b05b10d",
-    "source_ami_rhel7_hvm": "ami-b63769a1",
+    "source_ami_rhel7_hvm": "ami-cdc999b6",
     "ssh_private_ip": "false",
     "subnet_id": "",
     "vpc_id": ""
@@ -204,7 +204,7 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-centos-6.9-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 PVM AMI |
 | `minimal-rhel-6.9-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.9 HVM AMI   |
 | `minimal-centos-7.3-hvm`        | amazon-ebs builder that results in a minimal CentOS 7.3 HVM AMI |
-| `minimal-rhel-7.3-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.3 HVM AMI   |
+| `minimal-rhel-7.4-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
 | `minimal-centos-6.9-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
 | `minimal-centos-6.9-vmware`     | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
 
