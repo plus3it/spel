@@ -1,6 +1,8 @@
++ chroot /mnt/ec2-root /usr/bin/aws --version
+aws-cli/1.11.131 Python/2.7.5 Linux/3.10.0-514.2.2.el7.x86_64 botocore/1.5.94
 acl-2.2.51-12.el7.x86_64
 alsa-lib-1.1.1-1.el7.x86_64
-amazon-ssm-agent-2.0.847.0-1.x86_64
+amazon-ssm-agent-2.0.913.0-1.x86_64
 audit-2.6.5-3.el7_3.1.x86_64
 audit-libs-2.6.5-3.el7_3.1.x86_64
 audit-libs-python-2.6.5-3.el7_3.1.x86_64
@@ -68,7 +70,7 @@ e2fsprogs-libs-1.42.9-9.el7.x86_64
 ebtables-2.0.10-15.el7.x86_64
 elfutils-libelf-0.166-2.el7.x86_64
 elfutils-libs-0.166-2.el7.x86_64
-epel-release-7-9.noarch
+epel-release-7-10.noarch
 ethtool-4.5-3.el7.x86_64
 expat-2.1.0-10.el7_3.x86_64
 file-5.11-33.el7.x86_64
@@ -90,8 +92,8 @@ gettext-0.18.2.1-4.el7.x86_64
 gettext-libs-0.18.2.1-4.el7.x86_64
 giflib-4.1.6-9.el7.x86_64
 glib2-2.46.2-4.el7.x86_64
-glibc-2.17-157.el7_3.4.x86_64
-glibc-common-2.17-157.el7_3.4.x86_64
+glibc-2.17-157.el7_3.5.x86_64
+glibc-common-2.17-157.el7_3.5.x86_64
 glib-networking-2.42.0-1.el7.x86_64
 gmp-6.0.0-12.el7_1.x86_64
 gnupg2-2.0.22-4.el7.x86_64
@@ -123,8 +125,8 @@ iputils-20160308-8.el7.x86_64
 irqbalance-1.0.7-6.el7_3.1.x86_64
 iwl7265-firmware-22.0.7.0-49.el7.noarch
 jansson-2.4-6.el7.x86_64
-java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64
-java-1.8.0-openjdk-headless-1.8.0.131-3.b12.el7_3.x86_64
+java-1.8.0-openjdk-1.8.0.141-1.b16.el7_3.x86_64
+java-1.8.0-openjdk-headless-1.8.0.141-1.b16.el7_3.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
