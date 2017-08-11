@@ -12,8 +12,10 @@
         "spel_amigen7source": "https://github.com/ferricoxide/AMIgen7.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
-        "spel_customreporpm": "",
-        "spel_customreponame": "",
+        "spel_customreporpm6": "",
+        "spel_customreporpm7": "",
+        "spel_customreponame6": "",
+        "spel_customreponame7": "",
         "spel_disablefips": "",
         "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
@@ -26,7 +28,7 @@
         "source_ami_centos6_pvm": "ami-e2120888",
         "source_ami_centos7_hvm": "ami-650a1672",
         "source_ami_rhel6_hvm": "ami-1b05b10d",
-        "source_ami_rhel7_hvm": "ami-b63769a1",
+        "source_ami_rhel7_hvm": "ami-cdc999b6",
         "ssh_private_ip": "false",
         "subnet_id": "",
         "vpc_id": ""
@@ -211,7 +213,7 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "name": "minimal-rhel-7.3-hvm",
+            "name": "minimal-rhel-7.4-hvm",
             "type": "amazon-ebs",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" RHEL 7.3 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. See {{ user `spel_desc_url` }} for details.",
@@ -273,7 +275,7 @@
             "type": "shell",
             "only": [
                 "minimal-centos-7.3-hvm",
-                "minimal-rhel-7.3-hvm"
+                "minimal-rhel-7.4-hvm"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
@@ -290,7 +292,7 @@
                 "minimal-centos-6.9-pvm",
                 "minimal-rhel-6.9-hvm",
                 "minimal-centos-7.3-hvm",
-                "minimal-rhel-7.3-hvm"
+                "minimal-rhel-7.4-hvm"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
@@ -315,8 +317,8 @@
                 "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
                 "SPEL_CHROOT=/mnt/ec2-root",
                 "SPEL_DEVNODE=/dev/xvda",
-                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm` }}",
-                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
+                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm6` }}",
+                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame6` }}",
                 "SPEL_EPELRELEASE={{ user `spel_epel6release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
@@ -331,7 +333,7 @@
             "type": "shell",
             "only": [
                 "minimal-centos-7.3-hvm",
-                "minimal-rhel-7.3-hvm"
+                "minimal-rhel-7.4-hvm"
             ],
             "environment_vars": [
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
@@ -341,8 +343,8 @@
                 "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
                 "SPEL_CHROOT=/mnt/ec2-root",
                 "SPEL_DEVNODE=/dev/xvda",
-                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm` }}",
-                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame` }}",
+                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm7` }}",
+                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame7` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
