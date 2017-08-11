@@ -41,7 +41,7 @@ directory.
 
 | Vagrant Cloud Name              | Version   | Vagrant Provider |
 |---------------------------------|-----------|------------------|
-| plus3it/spel-minimal-centos-6.9 | 2017.07.1 | virtualbox       |
+| plus3it/spel-minimal-centos-6.9 | 2017.08.1 | virtualbox       |
 
 ## Prerequisites
 
