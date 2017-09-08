@@ -39,8 +39,10 @@ phases:
           SPEL_VERSION=$(date +%Y.%m.dev%s)
           export SPEL_VERSION
         fi
-      - test -z "$SPEL_IDENTIFIER" && (echo "Must set SPEL_IDENTIFIER env!" >&2; exit 1)
-      - test -z "$SPEL_VERSION" && (echo "Must set SPEL_VERSION env!" >&2; exit 1)
+      - echo "SPEL_IDENTIFIER=${SPEL_IDENTIFIER}"
+      - echo "SPEL_VERSION=${SPEL_VERSION}"
+      - test -n "$SPEL_IDENTIFIER" || (echo "Must set SPEL_IDENTIFIER env!"; exit 1)
+      - test -n "$SPEL_VERSION" || (echo "Must set SPEL_VERSION env!"; exit 1)
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
