@@ -1,8 +1,8 @@
 + chroot /mnt/ec2-root /usr/bin/aws --version
-aws-cli/1.11.131 Python/2.7.5 Linux/3.10.0-514.2.2.el7.x86_64 botocore/1.5.94
+aws-cli/1.11.149 Python/2.7.5 Linux/3.10.0-514.2.2.el7.x86_64 botocore/1.7.7
 acl-2.2.51-12.el7.x86_64
 alsa-lib-1.1.1-1.el7.x86_64
-amazon-ssm-agent-2.0.913.0-1.x86_64
+amazon-ssm-agent-2.0.952.0-1.x86_64
 audit-2.6.5-3.el7_3.1.x86_64
 audit-libs-2.6.5-3.el7_3.1.x86_64
 audit-libs-python-2.6.5-3.el7_3.1.x86_64
@@ -213,7 +213,6 @@ libXext-1.3.3-3.el7.x86_64
 libXfont-1.5.1-2.el7.x86_64
 libXi-1.7.4-2.el7.x86_64
 libxml2-2.9.1-6.el7_2.3.x86_64
-libxml2-python-2.9.1-6.el7_2.3.x86_64
 libXrender-0.9.8-2.1.el7.x86_64
 libxslt-1.1.28-5.el7.x86_64
 libXtst-1.2.2-2.1.el7.x86_64
@@ -360,7 +359,6 @@ python-IPy-0.75-6.el7.noarch
 python-javapackages-3.4.1-11.el7.noarch
 python-jsonpatch-1.2-3.el7.centos.noarch
 python-jsonpointer-1.9-2.el7.noarch
-python-kitchen-1.1.1-5.el7.noarch
 python-libs-2.7.5-48.el7.x86_64
 python-lockfile-0.9.1-4.el7.centos.noarch
 python-lxml-3.2.1-4.el7.x86_64
@@ -439,5 +437,5 @@ xz-libs-5.2.2-1.el7.x86_64
 yum-3.4.3-150.el7.centos.noarch
 yum-metadata-parser-1.1.4-10.el7.x86_64
 yum-plugin-fastestmirror-1.1.31-40.el7.noarch
-yum-utils-1.1.31-40.el7.noarch
+yum-utils-1.1.31-42.el7.noarch
 zlib-1.2.7-17.el7.x86_64
