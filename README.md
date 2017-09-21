@@ -203,7 +203,7 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-centos-6.9-hvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 HVM AMI |
 | `minimal-centos-6.9-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 PVM AMI |
 | `minimal-rhel-6.9-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.9 HVM AMI   |
-| `minimal-centos-7.3-hvm`        | amazon-ebs builder that results in a minimal CentOS 7.3 HVM AMI |
+| `minimal-centos-7.4-hvm`        | amazon-ebs builder that results in a minimal CentOS 7.4 HVM AMI |
 | `minimal-rhel-7.4-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
 | `minimal-centos-6.9-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
 | `minimal-centos-6.9-vmware`     | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
