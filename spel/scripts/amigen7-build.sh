@@ -169,10 +169,12 @@ echo "Executing GrubSetup.sh"
 if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
 then
     #adding Azure grub defaults per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
-    /usr/bin/sed -i 's|rhgb|rootdelay=300|' "${ELBUILD}"/GrubSetup.sh
-    /usr/bin/sed -i 's|quiet|earlyprintk=ttyS0|' "${ELBUILD}"/GrubSetup.sh
-    /usr/bin/sed -i 's|crashkernel=auto ||' "${ELBUILD}"/GrubSetup.sh
-    /usr/bin/sed -i 's|console=tty0|console=ttyS0|' "${ELBUILD}"/GrubSetup.sh
+    /usr/bin/sed -i \
+        -e 's|rhgb|rootdelay=300|' \
+        -e 's|quiet|earlyprintk=ttyS0|' \
+        -e 's|crashkernel=auto ||' \
+        -e 's|console=tty0|console=ttyS0|' \
+        "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
 bash -x "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
@@ -206,9 +208,7 @@ if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
 then
     echo "Saving the aws cli version to the manifest"
     (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
-fi
-
-if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+elif [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
     (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.log 2>&1

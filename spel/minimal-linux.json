@@ -465,12 +465,11 @@
                 "minimal-centos-7.4-azure-vhd",
                 "minimal-centos-7.4-azure-image"
             ],
-            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'",
             "inline": [
               "chkconfig waagent on",
               "/usr/sbin/waagent -force -deprovision && export HISTSIZE=0 && sync"
             ],
-            "inline_shebang": "/bin/sh -x",
             "skip_clean": true
         }
     ],
