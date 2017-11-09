@@ -31,7 +31,20 @@
         "source_ami_rhel7_hvm": "ami-cdc999b6",
         "ssh_private_ip": "false",
         "subnet_id": "",
-        "vpc_id": ""
+        "vpc_id": "",
+        "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
+        "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+        "azure_dest_resource_group": "",
+        "azure_dest_storage_account": "",
+        "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+        "azure_location": "",
+        "azure_environment": "",
+        "azure_source_vhd_centos7": "",
+        "azure_source_image_resource_group_centos7": "",
+        "azure_source_image_centos7": "",
+        "azure_execute_using_public_ip": "",
+        "azure_virtual_network_name": "",
+        "azure_subnet_name": ""
     },
     "builders": [
         {
@@ -242,6 +255,57 @@
             "subnet_id": "{{ user `subnet_id` }}",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
             "vpc_id": "{{ user `vpc_id` }}"
+        },
+        {
+            "name": "minimal-centos-7.4-azure-vhd",
+            "type": "azure-arm",
+            "client_id": "{{user `azure_client_id`}}",
+            "client_secret": "{{user `azure_client_secret`}}",
+            "resource_group_name": "{{user `azure_dest_resource_group`}}",
+            "storage_account": "{{user `azure_dest_storage_account`}}",
+            "subscription_id": "{{user `azure_subscription_id`}}",
+            "communicator": "ssh",
+            "vm_size": "Standard_DS2_v2",
+            "location": "{{ user `azure_location` }}",
+            "cloud_environment_name": "{{ user `azure_environment` }}",
+            "capture_container_name": "images",
+            "capture_name_prefix": "{{ user `spel_identifier` }}-{{ user `spel_version` }}",
+            "image_url": "{{ user `azure_source_vhd_centos7` }}",
+            "os_disk_size_gb": "20",
+            "os_type": "Linux",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
+            "custom_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
+            "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
+            "virtual_network_name": "{{ user `azure_virtual_network_name` }}"
+        },
+        {
+            "name": "minimal-centos-7.4-azure-image",
+            "type": "azure-arm",
+            "client_id": "{{user `azure_client_id`}}",
+            "client_secret": "{{user `azure_client_secret`}}",
+            "subscription_id": "{{user `azure_subscription_id`}}",
+            "communicator": "ssh",
+            "vm_size": "Standard_DS2_v2",
+            "location": "{{ user `azure_location` }}",
+            "cloud_environment_name": "{{ user `azure_environment` }}",
+            "managed_image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "managed_image_resource_group_name": "{{ user `azure_dest_resource_group` }}",
+            "custom_managed_image_name": "{{ user `azure_source_image_centos7` }}",
+            "custom_managed_image_resource_group_name": "{{ user `azure_source_image_resource_group_centos7` }}",
+            "os_disk_size_gb": "20",
+            "os_type": "Linux",
+            "ssh_username": "spel",
+            "ssh_port": 122,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
+            "custom_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
+            "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
+            "virtual_network_name": "{{ user `azure_virtual_network_name` }}"
         }
     ],
     "provisioners": [
@@ -275,7 +339,9 @@
             "type": "shell",
             "only": [
                 "minimal-centos-7.4-hvm",
-                "minimal-rhel-7.4-hvm"
+                "minimal-rhel-7.4-hvm",
+                "minimal-centos-7.4-azure-vhd",
+                "minimal-centos-7.4-azure-image"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
@@ -292,7 +358,9 @@
                 "minimal-centos-6.9-pvm",
                 "minimal-rhel-6.9-hvm",
                 "minimal-centos-7.4-hvm",
-                "minimal-rhel-7.4-hvm"
+                "minimal-rhel-7.4-hvm",
+                "minimal-centos-7.4-azure-vhd",
+                "minimal-centos-7.4-azure-image"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
@@ -343,6 +411,35 @@
                 "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
                 "SPEL_CHROOT=/mnt/ec2-root",
                 "SPEL_DEVNODE=/dev/xvda",
+                "SPEL_CLOUDPROVIDER=aws",
+                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm7` }}",
+                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame7` }}",
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
+                "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
+                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
+                "SPEL_VGNAME=VolGroup00"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
+            "scripts": [
+                "{{ template_dir }}/scripts/amigen7-build.sh"
+            ]
+        },
+        {
+            "type": "shell",
+            "only": [
+                "minimal-centos-7.4-azure-vhd",
+                "minimal-centos-7.4-azure-image"
+            ],
+            "environment_vars": [
+                "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
+                "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
+                "SPEL_AWSCLISOURCE={{ user `spel_awsclisource` }}",
+                "SPEL_BOOTLABEL=/boot",
+                "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+                "SPEL_CHROOT=/mnt/ec2-root",
+                "SPEL_DEVNODE=/dev/sda",
+                "SPEL_CLOUDPROVIDER=azure",
                 "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm7` }}",
                 "SPEL_CUSTOMREPONAME={{ user `spel_customreponame7` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
@@ -361,6 +458,19 @@
             "source": "/tmp/manifest.log",
             "destination": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest",
             "direction": "download"
+        },
+        {
+            "type": "shell",
+            "only": [
+                "minimal-centos-7.4-azure-vhd",
+                "minimal-centos-7.4-azure-image"
+            ],
+            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'",
+            "inline": [
+              "chkconfig waagent on",
+              "/usr/sbin/waagent -force -deprovision && export HISTSIZE=0 && sync"
+            ],
+            "skip_clean": true
         }
     ],
     "post-processors": [

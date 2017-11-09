@@ -75,6 +75,12 @@ images.
 5.  The template(s) push the Vagrant boxes for the VirtualBox and VMware images
 to [Hashicorp Vagrant Cloud][19], which requires a [Vagrant Cloud account][21].
 
+6.  If building a VHD or Image for Azure, ensure you have [authorized access
+    to ARM][23]. The creation of destination objects and a Service Principal
+    can either be done [manually][24] or via [script][25]. If not building in
+    Public region, use of device login is not possible and a Service Principal
+    is required.
+
 ## Usage
 
 _NOTE_: In all steps below, the examples use syntax that works on Linux. If you
@@ -207,6 +213,8 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-rhel-7.4-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
 | `minimal-centos-6.9-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
 | `minimal-centos-6.9-vmware`     | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
+| `minimal-centos-7.4-azure-vhd`  | azure-arm builder that results in a minimal CentOS 7.4 VHD      |
+| `minimal-centos-7.4-azure-image`| azure-arm builder that results in a minimal CentOS 7.4 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -234,7 +242,73 @@ packer build \
     -var 'source_ami_centos6_hvm=ami-03bb0462' \
     -var 'source_ami_centos6_pvm=ami-62b70803' \
     -var 'source_ami_rhel6_hvm=ami-caee51ab' \
-    -except 'minimal-centos-6.9-virtualbox,minimal-centos-6.9-vmware' \
+    -except 'minimal-centos-6.9-virtualbox,minimal-centos-6.9-vmware,minimal-centos-7.4-azure-vhd,minimal-centos-7.4-azure-image' \
+    spel/minimal-linux.json
+```
+
+## Building for Microsoft Azure
+
+Azure regions may not all support [Azure Managed Disks][26] and in turn
+managed VM images. Packer provides capabilities within the [Azure Resource
+Manager Builder][22] for creating either a VHD or Image.
+
+A source VHD URI or source Image Name and Resource Group is required from
+which to start the SPEL Azure build. Available Azure Marketplace CentOS Images
+do not currently contain or execute cloud-init, so a custom VHD or source
+image of your own, configured with cloud-init, is needed.
+
+The resultant SPEL VHD or Image will be configured to use the Azure Linux
+agent, [WALinuxAgent][27] per recommended [configurations][28]. Currently, the
+use of cloud-init exclusively does not enable execution/installation of [Azure
+VM Extensions][30]. The below variables also disable FIPS mode in the
+resultant SPEL VHD or Image. Currently the Azure Linux agent [does not support
+FIPS mode][29] when utilizing Azure VM Extensions. If no plans exist to
+utilize Azure VM Extensions on VMs provisioned from SPEL VHDs or Images, FIPS
+mode can be enabled, but the `waagent` configuration must also be modified
+accordingly.
+
+The variables referenced in the packer builds below should be modified with
+appropriate parameters for your environment. Any content between and including
+the < and > characters should be replaced.
+
+```bash
+export ARM_SUBSCRIPTION_ID=<xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>
+export ARM_CLIENT_ID=<xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>
+export ARM_CLIENT_SECRET=<YourServicePrincipalSecret>
+```
+Building an Azure VHD  
+When building a SPEL VHD, the source and destination storage account must be
+the same.  
+Resultant VHD naming is limited, the combination of spel_identifier and
+spel_version must be less than 23 characters.  
+```bash
+packer build \
+    -var 'spel_identifier=unique-project-id' \
+    -var 'spel_version=0.0.1' \
+    -var 'spel_disablefips=true' \
+    -var 'spel_extrarpms=WALinuxAgent' \
+    -var 'azure_location=<azure datacenter>' \
+    -var 'azure_environment=<Public or USGovernment>' \
+    -var 'azure_source_vhd_centos7=https://<storageacctname>.blob.core.<corresponding azure env>.net/<container>/<vhdname>.vhd' \
+    -var 'azure_dest_resource_group=<resource group short name>' \
+    -var 'azure_dest_storage_account=<storage account short name>' \
+    -only 'minimal-centos-7.4-azure-vhd' \
+    spel/minimal-linux.json
+```
+
+Building an Azure Image
+```bash
+packer build \
+    -var 'spel_identifier=unique-project-id' \
+    -var 'spel_version=0.0.1' \
+    -var 'spel_disablefips=true' \
+    -var 'spel_extrarpms=WALinuxAgent' \
+    -var 'azure_location=<azure datacenter>' \
+    -var 'azure_environment=<Public or USGovernment>' \
+    -var 'azure_source_image_resource_group_centos7=<resource group short name>' \
+    -var 'azure_source_image_centos7=<image short name>' \
+    -var 'azure_dest_resource_group=<resource group short name>' \
+    -only 'minimal-centos-7.4-azure-image' \
     spel/minimal-linux.json
 ```
 
@@ -265,3 +339,12 @@ vagrant "cloud".
 [19]: https://vagrantcloud.com/help/
 [20]: https://vagrantcloud.com/help/user-accounts/authentication
 [21]: https://vagrantcloud.com/account/new
+[22]: https://www.packer.io/docs/builders/azure.html
+[23]: https://www.packer.io/docs/builders/azure-setup.html
+[24]: https://www.packer.io/docs/builders/azure-setup.html#manual-setup
+[25]: https://www.packer.io/docs/builders/azure-setup.html#guided-setup
+[26]: https://azure.microsoft.com/en-us/services/managed-disks/
+[27]: https://github.com/Azure/WALinuxAgent
+[28]: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
+[29]: https://github.com/Azure/WALinuxAgent/issues/760
+[30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
