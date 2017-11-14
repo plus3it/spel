@@ -4,7 +4,7 @@ STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
 publish Enterprise Linux images that are partitioned according to the [DISA
 STIG][0]. The resulting images also use LVM to simplify volume management. The
 images are configured with help from the scripts and packages in the
-[`AMIgen6`][8] and [`Lx-GetAMI-Utils`][9] projects.
+[`AMIgen6`][8], [`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
 
 ## Current Published Images
 
@@ -13,35 +13,35 @@ directory.
 
 | AMI Name                                         | AMI ID       | AWS Region    |
 |--------------------------------------------------|--------------|---------------|
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-13c90669 | us-east-1     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-e7cd029d | us-east-1     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-ddcb04a7 | us-east-1     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-daca05a0 | us-east-1     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-d5cb04af | us-east-1     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-489fb22d | us-east-2     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-d482afb1 | us-east-2     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-d682afb3 | us-east-2     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-4f9cb12a | us-east-2     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-c69cb1a3 | us-east-2     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-e59ead85 | us-west-1     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-ab9ba8cb | us-west-1     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-6098ab00 | us-west-1     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-6698ab06 | us-west-1     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-c098aba0 | us-west-1     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-ab23e4d3 | us-west-2     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-8d2deaf5 | us-west-2     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-e82ee990 | us-west-2     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-2328ef5b | us-west-2     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-9e2aede6 | us-west-2     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-f8028099 | us-gov-west-1 |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-42068423 | us-gov-west-1 |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-950381f4 | us-gov-west-1 |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-6b07850a | us-gov-west-1 |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-b60280d7 | us-gov-west-1 |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-a1da5ddb | us-east-1     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-c7d95ebd | us-east-1     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-b7da5dcd | us-east-1     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-33d85f49 | us-east-1     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-08e76072 | us-east-1     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-95705ef0 | us-east-2     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-ec715f89 | us-east-2     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-94705ef1 | us-east-2     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-9c715ff9 | us-east-2     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-af4e60ca | us-east-2     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-85251ce5 | us-west-1     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-da2019ba | us-west-1     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-88251ce8 | us-west-1     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-97231af7 | us-west-1     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-de2019be | us-west-1     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-5036e728 | us-west-2     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-2835e450 | us-west-2     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-d232e3aa | us-west-2     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-453bea3d | us-west-2     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-8336e7fb | us-west-2     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-6ba9250a | us-gov-west-1 |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-11a92570 | us-gov-west-1 |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-fbae229a | us-gov-west-1 |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-6da9250c | us-gov-west-1 |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-26a82447 | us-gov-west-1 |
 
 | Vagrant Cloud Name              | Version   | Vagrant Provider |
 |---------------------------------|-----------|------------------|
-| plus3it/spel-minimal-centos-6.9 | 2017.10.1 | virtualbox       |
+| plus3it/spel-minimal-centos-6.9 | 2017.11.1 | virtualbox       |
 
 ## Prerequisites
 
@@ -276,11 +276,11 @@ export ARM_SUBSCRIPTION_ID=<xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>
 export ARM_CLIENT_ID=<xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>
 export ARM_CLIENT_SECRET=<YourServicePrincipalSecret>
 ```
-Building an Azure VHD  
+Building an Azure VHD
 When building a SPEL VHD, the source and destination storage account must be
-the same.  
+the same.
 Resultant VHD naming is limited, the combination of spel_identifier and
-spel_version must be less than 23 characters.  
+spel_version must be less than 23 characters.
 ```bash
 packer build \
     -var 'spel_identifier=unique-project-id' \
@@ -348,3 +348,4 @@ vagrant "cloud".
 [28]: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
 [29]: https://github.com/Azure/WALinuxAgent/issues/760
 [30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
+[31]: https://github.com/ferricoxide/AMIgen7
