@@ -168,8 +168,8 @@ nss-softokn-freebl-3.14.3-23.3.el6_8.x86_64
 nss-sysinit-3.28.4-4.el6_9.x86_64
 nss-tools-3.28.4-4.el6_9.x86_64
 nss-util-3.28.4-1.el6_9.x86_64
-ntp-4.2.6p5-10.el6.centos.2.x86_64
-ntpdate-4.2.6p5-10.el6.centos.2.x86_64
+ntp-4.2.6p5-12.el6.centos.1.x86_64
+ntpdate-4.2.6p5-12.el6.centos.1.x86_64
 openldap-2.4.40-16.el6.x86_64
 openssh-5.3p1-123.el6_9.x86_64
 openssh-clients-5.3p1-123.el6_9.x86_64
@@ -228,7 +228,7 @@ system-config-firewall-base-1.2.27-7.2.el6_6.noarch
 sysvinit-tools-2.87-6.dsf.el6.x86_64
 tar-1.23-15.el6_8.x86_64
 tcp_wrappers-libs-7.6-58.el6.x86_64
-tzdata-2017b-1.el6.noarch
+tzdata-2017c-1.el6.noarch
 udev-147-2.73.el6_8.2.x86_64
 unzip-6.0-5.el6.x86_64
 upstart-0.6.5-16.el6.x86_64
