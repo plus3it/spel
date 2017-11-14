@@ -10,6 +10,7 @@ AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDDEPS="${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
+CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
 CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
 DEVNODE="${SPEL_DEVNODE:-/dev/xvda}"
@@ -154,14 +155,28 @@ fi
 echo "Executing ChrootBuild.sh"
 bash -x "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
 
-# Epel mirrors are maddening; retry 5 times to work around issues
-echo "Executing AWScliSetup.sh"
-retry 5 bash -x "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
+if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
+then
+    # Epel mirrors are maddening; retry 5 times to work around issues
+    echo "Executing AWScliSetup.sh"
+    retry 5 bash -x "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
+fi
 
 echo "Executing ChrootCfg.sh"
 bash -x "${ELBUILD}"/ChrootCfg.sh
 
 echo "Executing GrubSetup.sh"
+if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+then
+    #adding Azure grub defaults per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
+    /usr/bin/sed -i \
+        -e 's|rhgb|rootdelay=300|' \
+        -e 's|quiet|earlyprintk=ttyS0|' \
+        -e 's|crashkernel=auto ||' \
+        -e 's|console=tty0|console=ttyS0|' \
+        "${ELBUILD}"/GrubSetup.sh
+    ##end adding Azure grub defaults
+fi
 bash -x "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
 
 echo "Executing NetSet.sh"
@@ -173,8 +188,31 @@ bash -x "${ELBUILD}"/CleanChroot.sh
 echo "Executing PreRelabel.sh"
 bash -x "${ELBUILD}"/PreRelabel.sh
 
-echo "Saving the aws cli version to the manifest"
-(chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
+if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+then
+    echo "Configuring waagent"
+    #per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
+    chroot "${CHROOT}" /usr/sbin/chkconfig waagent on
+    chroot "${CHROOT}" /usr/bin/sed -i 's|USERCTL="yes"|USERCTL="no"|' /etc/sysconfig/network-scripts/ifcfg-eth0
+    echo 'NM_CONTROLLED="no"' >> "${CHROOT}"/etc/sysconfig/network-scripts/ifcfg-eth0
+    chroot "${CHROOT}" /usr/bin/sed -i 's|DHCP_HOSTNAME=localhost.localdomain||' /etc/sysconfig/network-scripts/ifcfg-eth0
+    ## Not per above ref, added to allow cloud-init or user to manage resource disk to match Azure Marketplace Ubuntu image settings
+    chroot "${CHROOT}" /usr/bin/sed -i 's|ResourceDisk.Format=y|ResourceDisk.Format=n|' /etc/waagent.conf
+    ## End Not per above ref, added to allow cloud-init or user to manage resource disk to match Azure Marketplace Ubuntu image settings
+    chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.Enabled=y|Provisioning.Enabled=n|' /etc/waagent.conf
+    chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.UseCloudInit=n|Provisioning.UseCloudInit=y|' /etc/waagent.conf
+    chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
+fi
+
+if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
+then
+    echo "Saving the aws cli version to the manifest"
+    (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
+elif [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+then
+    echo "Saving the waagent version to the manifest"
+    (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.log 2>&1
+fi
 
 echo "Saving the RPM manifest"
 rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.log

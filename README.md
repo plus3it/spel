@@ -4,7 +4,7 @@ STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
 publish Enterprise Linux images that are partitioned according to the [DISA
 STIG][0]. The resulting images also use LVM to simplify volume management. The
 images are configured with help from the scripts and packages in the
-[`AMIgen6`][8] and [`Lx-GetAMI-Utils`][9] projects.
+[`AMIgen6`][8], [`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
 
 ## Current Published Images
 
@@ -13,35 +13,35 @@ directory.
 
 | AMI Name                                         | AMI ID       | AWS Region    |
 |--------------------------------------------------|--------------|---------------|
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-13c90669 | us-east-1     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-e7cd029d | us-east-1     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-ddcb04a7 | us-east-1     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-daca05a0 | us-east-1     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-d5cb04af | us-east-1     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-489fb22d | us-east-2     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-d482afb1 | us-east-2     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-d682afb3 | us-east-2     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-4f9cb12a | us-east-2     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-c69cb1a3 | us-east-2     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-e59ead85 | us-west-1     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-ab9ba8cb | us-west-1     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-6098ab00 | us-west-1     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-6698ab06 | us-west-1     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-c098aba0 | us-west-1     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-ab23e4d3 | us-west-2     |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-8d2deaf5 | us-west-2     |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-e82ee990 | us-west-2     |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-2328ef5b | us-west-2     |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-9e2aede6 | us-west-2     |
-| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-f8028099 | us-gov-west-1 |
-| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-42068423 | us-gov-west-1 |
-| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-950381f4 | us-gov-west-1 |
-| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-6b07850a | us-gov-west-1 |
-| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-b60280d7 | us-gov-west-1 |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-a1da5ddb | us-east-1     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-c7d95ebd | us-east-1     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-b7da5dcd | us-east-1     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-33d85f49 | us-east-1     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-08e76072 | us-east-1     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-95705ef0 | us-east-2     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-ec715f89 | us-east-2     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-94705ef1 | us-east-2     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-9c715ff9 | us-east-2     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-af4e60ca | us-east-2     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-85251ce5 | us-west-1     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-da2019ba | us-west-1     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-88251ce8 | us-west-1     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-97231af7 | us-west-1     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-de2019be | us-west-1     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-5036e728 | us-west-2     |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-2835e450 | us-west-2     |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-d232e3aa | us-west-2     |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-453bea3d | us-west-2     |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-8336e7fb | us-west-2     |
+| spel-minimal-rhel-7.4-hvm-2017.10.1.x86_64-gp2   | ami-6ba9250a | us-gov-west-1 |
+| spel-minimal-rhel-6.9-hvm-2017.10.1.x86_64-gp2   | ami-11a92570 | us-gov-west-1 |
+| spel-minimal-centos-7.4-hvm-2017.10.1.x86_64-gp2 | ami-fbae229a | us-gov-west-1 |
+| spel-minimal-centos-6.9-pvm-2017.10.1.x86_64-gp2 | ami-6da9250c | us-gov-west-1 |
+| spel-minimal-centos-6.9-hvm-2017.10.1.x86_64-gp2 | ami-26a82447 | us-gov-west-1 |
 
 | Vagrant Cloud Name              | Version   | Vagrant Provider |
 |---------------------------------|-----------|------------------|
-| plus3it/spel-minimal-centos-6.9 | 2017.10.1 | virtualbox       |
+| plus3it/spel-minimal-centos-6.9 | 2017.11.1 | virtualbox       |
 
 ## Prerequisites
 
@@ -74,6 +74,12 @@ images.
 
 5.  The template(s) push the Vagrant boxes for the VirtualBox and VMware images
 to [Hashicorp Vagrant Cloud][19], which requires a [Vagrant Cloud account][21].
+
+6.  If building a VHD or Image for Azure, ensure you have [authorized access
+    to ARM][23]. The creation of destination objects and a Service Principal
+    can either be done [manually][24] or via [script][25]. If not building in
+    Public region, use of device login is not possible and a Service Principal
+    is required.
 
 ## Usage
 
@@ -207,6 +213,8 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-rhel-7.4-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
 | `minimal-centos-6.9-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
 | `minimal-centos-6.9-vmware`     | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
+| `minimal-centos-7.4-azure-vhd`  | azure-arm builder that results in a minimal CentOS 7.4 VHD      |
+| `minimal-centos-7.4-azure-image`| azure-arm builder that results in a minimal CentOS 7.4 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -234,7 +242,73 @@ packer build \
     -var 'source_ami_centos6_hvm=ami-03bb0462' \
     -var 'source_ami_centos6_pvm=ami-62b70803' \
     -var 'source_ami_rhel6_hvm=ami-caee51ab' \
-    -except 'minimal-centos-6.9-virtualbox,minimal-centos-6.9-vmware' \
+    -except 'minimal-centos-6.9-virtualbox,minimal-centos-6.9-vmware,minimal-centos-7.4-azure-vhd,minimal-centos-7.4-azure-image' \
+    spel/minimal-linux.json
+```
+
+## Building for Microsoft Azure
+
+Azure regions may not all support [Azure Managed Disks][26] and in turn
+managed VM images. Packer provides capabilities within the [Azure Resource
+Manager Builder][22] for creating either a VHD or Image.
+
+A source VHD URI or source Image Name and Resource Group is required from
+which to start the SPEL Azure build. Available Azure Marketplace CentOS Images
+do not currently contain or execute cloud-init, so a custom VHD or source
+image of your own, configured with cloud-init, is needed.
+
+The resultant SPEL VHD or Image will be configured to use the Azure Linux
+agent, [WALinuxAgent][27] per recommended [configurations][28]. Currently, the
+use of cloud-init exclusively does not enable execution/installation of [Azure
+VM Extensions][30]. The below variables also disable FIPS mode in the
+resultant SPEL VHD or Image. Currently the Azure Linux agent [does not support
+FIPS mode][29] when utilizing Azure VM Extensions. If no plans exist to
+utilize Azure VM Extensions on VMs provisioned from SPEL VHDs or Images, FIPS
+mode can be enabled, but the `waagent` configuration must also be modified
+accordingly.
+
+The variables referenced in the packer builds below should be modified with
+appropriate parameters for your environment. Any content between and including
+the < and > characters should be replaced.
+
+```bash
+export ARM_SUBSCRIPTION_ID=<xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>
+export ARM_CLIENT_ID=<xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>
+export ARM_CLIENT_SECRET=<YourServicePrincipalSecret>
+```
+Building an Azure VHD
+When building a SPEL VHD, the source and destination storage account must be
+the same.
+Resultant VHD naming is limited, the combination of spel_identifier and
+spel_version must be less than 23 characters.
+```bash
+packer build \
+    -var 'spel_identifier=unique-project-id' \
+    -var 'spel_version=0.0.1' \
+    -var 'spel_disablefips=true' \
+    -var 'spel_extrarpms=WALinuxAgent' \
+    -var 'azure_location=<azure datacenter>' \
+    -var 'azure_environment=<Public or USGovernment>' \
+    -var 'azure_source_vhd_centos7=https://<storageacctname>.blob.core.<corresponding azure env>.net/<container>/<vhdname>.vhd' \
+    -var 'azure_dest_resource_group=<resource group short name>' \
+    -var 'azure_dest_storage_account=<storage account short name>' \
+    -only 'minimal-centos-7.4-azure-vhd' \
+    spel/minimal-linux.json
+```
+
+Building an Azure Image
+```bash
+packer build \
+    -var 'spel_identifier=unique-project-id' \
+    -var 'spel_version=0.0.1' \
+    -var 'spel_disablefips=true' \
+    -var 'spel_extrarpms=WALinuxAgent' \
+    -var 'azure_location=<azure datacenter>' \
+    -var 'azure_environment=<Public or USGovernment>' \
+    -var 'azure_source_image_resource_group_centos7=<resource group short name>' \
+    -var 'azure_source_image_centos7=<image short name>' \
+    -var 'azure_dest_resource_group=<resource group short name>' \
+    -only 'minimal-centos-7.4-azure-image' \
     spel/minimal-linux.json
 ```
 
@@ -265,3 +339,13 @@ vagrant "cloud".
 [19]: https://vagrantcloud.com/help/
 [20]: https://vagrantcloud.com/help/user-accounts/authentication
 [21]: https://vagrantcloud.com/account/new
+[22]: https://www.packer.io/docs/builders/azure.html
+[23]: https://www.packer.io/docs/builders/azure-setup.html
+[24]: https://www.packer.io/docs/builders/azure-setup.html#manual-setup
+[25]: https://www.packer.io/docs/builders/azure-setup.html#guided-setup
+[26]: https://azure.microsoft.com/en-us/services/managed-disks/
+[27]: https://github.com/Azure/WALinuxAgent
+[28]: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
+[29]: https://github.com/Azure/WALinuxAgent/issues/760
+[30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
+[31]: https://github.com/ferricoxide/AMIgen7
