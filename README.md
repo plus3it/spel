@@ -1,15 +1,18 @@
 # spel
 
-STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
-publish Enterprise Linux images that are partitioned according to the [DISA
-STIG][0]. The resulting images also use LVM to simplify volume management. The
-images are configured with help from the scripts and packages in the
-[`AMIgen6`][8], [`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
+STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and publish Enterprise Linux images that are partitioned according to the [DISA STIG][0]. The resulting images also use LVM to simplify volume management. The images are configured with help from the scripts and packages in the [`AMIgen6`][8], [`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
+
+## Why spel
+
+VMs' root filesystems are generally not live-repartitionable once launced from their images. As a result, if a STIG-scan is performed against most of the community-published images for Red Hat and CentOS, those scans will note failures for each of the various "`${DIRECTORY}` is on its own filesystem" tests. The images produced through this project are designed to ensure that these particular scan-failures do not occur. 
+
+Aside from addressing the previously-noted partitioning findings, spel does _not_ apply any STIG-related hardening. The spel-produced images are expected to act as a better starting-point in a larger hardening process.
+
+If your organization does not already have an automated hardening process, please see our tool, [Watchmaker](https://github.com/plus3it/watchmaker.git). This tool is meant to help spel-users (and users of other Enterprise Linux images) by performing launch-time hardening activities.
 
 ## Current Published Images
 
-RPM Manifests for published images are available in the [manifests](manifests)
-directory.
+RPM Manifests for published images are available in the [manifests](manifests) directory.
 
 | AMI Name                                         | AMI ID       | AWS Region    |
 |--------------------------------------------------|--------------|---------------|
