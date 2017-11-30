@@ -40,7 +40,7 @@ Please ensure that the commits bundled in the PR are performed with clear and co
 
 To be written...
 
-    * Anything not otherwise specified - either explicitly as above or implicitly via pre-existing code - pick an element-style and be consistent with it .
+* Anything not otherwise specified - either explicitly as above or implicitly via pre-existing code - pick an element-style and be consistent with it .
 
 
 ## Additonal Notes

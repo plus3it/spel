@@ -10,6 +10,10 @@ Aside from addressing the previously-noted partitioning findings, spel does _not
 
 If your organization does not already have an automated hardening process, please see our tool, [Watchmaker](https://github.com/plus3it/watchmaker.git). This tool is meant to help spel-users (and users of other Enterprise Linux images) by performing launch-time hardening activities.
 
+## We have a FAQ now!
+
+We've added an [FAQ](docs/FAQ.md) to the project. Hopefully, your questions are answered there. If they aren't, please feel free to submit an issue requesting an appropriate FAQ entry.
+
 ## Current Published Images
 
 RPM Manifests for published images are available in the [manifests](manifests) directory.
