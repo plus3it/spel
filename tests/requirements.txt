@@ -1,5 +1,5 @@
 distro==1.1.0
-pytest==3.2.5
+pytest==3.3.1
 pytest-logger==0.3.0
 six==1.11.0
 testinfra==1.10.0
