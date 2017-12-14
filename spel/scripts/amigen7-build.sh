@@ -170,10 +170,10 @@ if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
 then
     #adding Azure grub defaults per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
     /usr/bin/sed -i \
-        -e 's|rhgb|rootdelay=300|' \
-        -e 's|quiet|earlyprintk=ttyS0|' \
-        -e 's|crashkernel=auto ||' \
-        -e 's|console=tty0|console=ttyS0|' \
+        -e 's|crashkernel=auto|rootdelay=300|' \
+        -e 's|vconsole.keymap=us|console=ttyS0|' \
+        -e 's|vconsole.font=latarcyrheb-sun16 console=tty0|earlyprintk=ttyS0|' \
+        -e '\|printf "console=ttyS0,115200n8 "|d' \
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
