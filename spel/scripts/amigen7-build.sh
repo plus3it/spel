@@ -155,7 +155,7 @@ fi
 echo "Executing ChrootBuild.sh"
 bash -x "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
 
-if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
+if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     # Epel mirrors are maddening; retry 5 times to work around issues
     echo "Executing AWScliSetup.sh"
@@ -166,7 +166,7 @@ echo "Executing ChrootCfg.sh"
 bash -x "${ELBUILD}"/ChrootCfg.sh
 
 echo "Executing GrubSetup.sh"
-if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     #adding Azure grub defaults per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
     /usr/bin/sed -i \
@@ -188,7 +188,7 @@ bash -x "${ELBUILD}"/CleanChroot.sh
 echo "Executing PreRelabel.sh"
 bash -x "${ELBUILD}"/PreRelabel.sh
 
-if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Configuring waagent"
     #per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
@@ -204,11 +204,11 @@ then
     chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
 fi
 
-if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
+if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     echo "Saving the aws cli version to the manifest"
     (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
-elif [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+elif [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
     (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.log 2>&1
