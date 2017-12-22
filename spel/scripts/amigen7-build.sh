@@ -23,6 +23,24 @@ VGNAME="${SPEL_VGNAME:-VolGroup00}"
 ELBUILD="/tmp/el-build"
 AMIUTILS="/tmp/ami-utils"
 
+DEFAULTREPOS=(
+    base
+    updates
+    extras
+    epel
+)
+if [[ $(rpm --quiet -q redhat-release-server)$? -eq 0 ]]
+then
+    DEFAULTREPOS=(
+        rhui-REGION-client-config-server-7
+        rhui-REGION-rhel-server-releases
+        rhui-REGION-rhel-server-rh-common
+        rhui-REGION-rhel-server-optional
+        rhui-REGION-rhel-server-extras
+        epel
+    )
+fi
+
 export CHROOT
 export FIPSDISABLE
 
@@ -142,18 +160,23 @@ bash -x "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
 CLIOPT_EXTRARPMS=""
 if [[ -n "${EXTRARPMS}" ]]
 then
-    CLIOPT_EXTRARPMS="-e ${EXTRARPMS}"
+    CLIOPT_EXTRARPMS=(-e "${EXTRARPMS}")
 fi
 
 # Construct the cli option string for a custom repo
 CLIOPT_CUSTOMREPO=""
+if [[ -z "${CUSTOMREPONAME}" ]]
+then
+    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+fi
+
 if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
 then
-    CLIOPT_CUSTOMREPO="-r ${CUSTOMREPORPM} -b ${CUSTOMREPONAME}"
+    CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
 fi
 
 echo "Executing ChrootBuild.sh"
-bash -x "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
+bash -x "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}"
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then

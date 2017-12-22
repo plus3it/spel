@@ -124,3 +124,15 @@ def test_el7_fips_disabled(host):
 def test_el6_xen_root_dev_mapping(host):
     grub = host.file('/boot/grub/grub.conf')
     assert grub.contains('xen_blk')
+
+
+@pytest.mark.parametrize("name", [
+    ("python34")
+])
+def test_python3_installed(host, name):
+    pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            '%s',
+            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
+    assert pkg.is_installed
