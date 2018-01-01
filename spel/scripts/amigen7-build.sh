@@ -5,6 +5,7 @@
 #
 ##############################################################################
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
+AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
@@ -135,7 +136,7 @@ then
 fi
 
 echo "Cloning source of the AMIGen project"
-git clone "${AMIGENSOURCE}" "${ELBUILD}"
+git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
 chmod +x "${ELBUILD}"/*.sh
 
 echo "Cloning source of the AMI utils project"
