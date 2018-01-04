@@ -205,7 +205,7 @@
             "associate_public_ip_address": true,
             "communicator": "ssh",
             "force_deregister": "{{ user `ami_force_deregister` }}",
-            "instance_type": "t2.xlarge",
+            "instance_type": "t2.large",
             "launch_block_device_mappings": [
                 {
                     "device_name": "/dev/sda1",
