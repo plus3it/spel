@@ -39,19 +39,6 @@ def test_common_aws_pkgs(host, name):
     assert pkg.is_installed
 
 
-@pytest.mark.el6
-@pytest.mark.parametrize("name", [
-    ("aws-vpc-nat")
-])
-def test_el6_aws_pkgs(host, name):
-    pkg = host.package(name)
-    if pkg.is_installed:
-        log.info(
-            '%s',
-            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
-    assert pkg.is_installed
-
-
 @pytest.mark.el7
 @pytest.mark.parametrize("name", [
     ("aws-scripts-ses")
