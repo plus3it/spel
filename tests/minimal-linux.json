@@ -155,7 +155,7 @@
     "provisioners": [
         {
             "type": "shell",
-            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
                 "yum -y install parted",
                 "parted -s /dev/xvda rm 2 mkpart primary ext4 500m 100% || true",
@@ -168,7 +168,7 @@
         },
         {
             "type": "shell",
-            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
                 "mkdir -p /tmp/spel/tests",
                 "chown -R spel:spel /tmp/spel"
@@ -186,7 +186,7 @@
                 "PIP_URL={{ user `pip_url` }}",
                 "PYPI_URL={{ user `pypi_url` }}"
             ],
-            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
                 "PIP_URL=${PIP_URL:-https://bootstrap.pypa.io/get-pip.py}",
                 "PYPI_URL=${PYPI_URL:-https://pypi.org/simple}",
@@ -202,7 +202,7 @@
                 "LVM_SUPPRESS_FD_WARNINGS=1",
                 "SPEL_DISABLEFIPS={{ user `spel_disablefips` }}"
             ],
-            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
                 "py.test -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ]
