@@ -10,15 +10,15 @@ echo "installing virtualbox guest addition dependencies"
 VBOX_GUEST_DEPS="kernel-devel kernel-headers gcc perl"
 bash /tmp/retry.sh 5 yum -y install ${VBOX_GUEST_DEPS}
 bash /tmp/retry.sh 5 yum -y install dkms make
-KERN_DIR=/usr/src/kernels/$(uname -r)
+KERN_DIR=/lib/modules/$(uname -r)/build
 export KERN_DIR
 
 # Install VirtualBox Guest Additions
 echo "installing virtualbox guest additions"
 mkdir -p /mnt/virtualbox
 mount -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
-sh /mnt/virtualbox/VBoxLinuxAdditions.run || true
-ln -s /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+sh /mnt/virtualbox/VBoxLinuxAdditions.run || (cat /var/log/vboxadd-setup.log && exit 1)
+ln -sf /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
 umount /mnt/virtualbox
 rm -rf /home/vagrant/VBoxGuest*.iso
 
