@@ -4,7 +4,8 @@
 # task.
 #
 ##############################################################################
-AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/ferricoxide/AMIgen7.git}"
+AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
+AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
@@ -22,6 +23,24 @@ VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 ELBUILD="/tmp/el-build"
 AMIUTILS="/tmp/ami-utils"
+
+DEFAULTREPOS=(
+    base
+    updates
+    extras
+    epel
+)
+if [[ $(rpm --quiet -q redhat-release-server)$? -eq 0 ]]
+then
+    DEFAULTREPOS=(
+        rhui-REGION-client-config-server-7
+        rhui-REGION-rhel-server-releases
+        rhui-REGION-rhel-server-rh-common
+        rhui-REGION-rhel-server-optional
+        rhui-REGION-rhel-server-extras
+        epel
+    )
+fi
 
 export CHROOT
 export FIPSDISABLE
@@ -117,7 +136,7 @@ then
 fi
 
 echo "Cloning source of the AMIGen project"
-git clone "${AMIGENSOURCE}" "${ELBUILD}"
+git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
 chmod +x "${ELBUILD}"/*.sh
 
 echo "Cloning source of the AMI utils project"
@@ -142,20 +161,25 @@ bash -x "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
 CLIOPT_EXTRARPMS=""
 if [[ -n "${EXTRARPMS}" ]]
 then
-    CLIOPT_EXTRARPMS="-e ${EXTRARPMS}"
+    CLIOPT_EXTRARPMS=(-e "${EXTRARPMS}")
 fi
 
 # Construct the cli option string for a custom repo
 CLIOPT_CUSTOMREPO=""
+if [[ -z "${CUSTOMREPONAME}" ]]
+then
+    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+fi
+
 if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
 then
-    CLIOPT_CUSTOMREPO="-r ${CUSTOMREPORPM} -b ${CUSTOMREPONAME}"
+    CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
 fi
 
 echo "Executing ChrootBuild.sh"
-bash -x "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
+bash -x "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}"
 
-if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
+if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     # Epel mirrors are maddening; retry 5 times to work around issues
     echo "Executing AWScliSetup.sh"
@@ -166,14 +190,14 @@ echo "Executing ChrootCfg.sh"
 bash -x "${ELBUILD}"/ChrootCfg.sh
 
 echo "Executing GrubSetup.sh"
-if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     #adding Azure grub defaults per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
     /usr/bin/sed -i \
-        -e 's|rhgb|rootdelay=300|' \
-        -e 's|quiet|earlyprintk=ttyS0|' \
-        -e 's|crashkernel=auto ||' \
-        -e 's|console=tty0|console=ttyS0|' \
+        -e 's|crashkernel=auto|rootdelay=300|' \
+        -e 's|vconsole.keymap=us|console=ttyS0|' \
+        -e 's|vconsole.font=latarcyrheb-sun16 console=tty0|earlyprintk=ttyS0|' \
+        -e '\|printf "console=ttyS0,115200n8 "|d' \
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
@@ -188,7 +212,7 @@ bash -x "${ELBUILD}"/CleanChroot.sh
 echo "Executing PreRelabel.sh"
 bash -x "${ELBUILD}"/PreRelabel.sh
 
-if [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Configuring waagent"
     #per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
@@ -204,11 +228,11 @@ then
     chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
 fi
 
-if [[ "${SPEL_CLOUDPROVIDER}" == "aws" ]]
+if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     echo "Saving the aws cli version to the manifest"
     (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
-elif [[ "${SPEL_CLOUDPROVIDER}" == "azure" ]]
+elif [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
     (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.log 2>&1

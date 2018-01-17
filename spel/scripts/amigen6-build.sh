@@ -4,7 +4,8 @@
 # task.
 #
 ##############################################################################
-AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/ferricoxide/AMIgen6.git}"
+AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen6.git}"
+AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
@@ -20,6 +21,23 @@ VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 ELBUILD="/tmp/el-build"
 AMIUTILS="/tmp/ami-utils"
+
+DEFAULTREPOS=(
+    base
+    updates
+    extras
+    epel
+)
+if [[ $(rpm --quiet -q redhat-release-server)$? -eq 0 ]]
+then
+    DEFAULTREPOS=(
+        rhui-REGION-client-config-server-6
+        rhui-REGION-rhel-server-releases
+        rhui-REGION-rhel-server-rh-common
+        epel
+    )
+fi
+
 
 retry()
 {
@@ -112,7 +130,7 @@ then
 fi
 
 echo "Cloning source of the AMIGen project"
-git clone "${AMIGENSOURCE}" "${ELBUILD}"
+git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
 chmod +x "${ELBUILD}"/*.sh
 
 echo "Cloning source of the AMI utils project"
@@ -137,18 +155,23 @@ bash "${ELBUILD}"/MkTabs.sh
 CLIOPT_EXTRARPMS=""
 if [[ -n "${EXTRARPMS}" ]]
 then
-    CLIOPT_EXTRARPMS="-e ${EXTRARPMS}"
+    CLIOPT_EXTRARPMS=(-e "${EXTRARPMS}")
 fi
 
 # Construct the cli option string for a custom repo
 CLIOPT_CUSTOMREPO=""
+if [[ -z "${CUSTOMREPONAME}" ]]
+then
+    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+fi
+
 if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
 then
-    CLIOPT_CUSTOMREPO="-r ${CUSTOMREPORPM} -b ${CUSTOMREPONAME}"
+    CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
 fi
 
 echo "Executing ChrootBuild.sh"
-bash "${ELBUILD}"/ChrootBuild.sh ${CLIOPT_CUSTOMREPO} ${CLIOPT_EXTRARPMS}
+bash -x "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}"
 
 # Epel mirrors are maddening; retry 5 times to work around issues
 echo "Executing AWScliSetup.sh"

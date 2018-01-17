@@ -203,12 +203,12 @@ defaults):
     "vagrantcloud_username": "",
     "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
     "aws_region": "us-east-1",
-    "spel_amigen6source": "https://github.com/ferricoxide/AMIgen6.git",
-    "spel_amigen7source": "https://github.com/lorengordon/AMIgen7.git",
+    "spel_amigen6source": "https://github.com/plus3it/AMIgen6.git",
+    "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
-    "spel_customreporpm6": "",
-    "spel_customreporpm7": "",
+    "spel_customreporpm6": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+    "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_customreponame6": "",
     "spel_customreponame7": "",
     "spel_disablefips": "",
@@ -216,7 +216,7 @@ defaults):
     "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_epelrepo": "epel",
-    "spel_extrarpms": "",
+    "spel_extrarpms": "python34",
     "spel_identifier": "",
     "spel_version": "",
     "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
@@ -260,17 +260,17 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                    | Description                                                     |
-|---------------------------------|-----------------------------------------------------------------|
-| `minimal-centos-6.9-hvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 HVM AMI |
-| `minimal-centos-6.9-pvm`        | amazon-ebs builder that results in a minimal CentOS 6.9 PVM AMI |
-| `minimal-rhel-6.9-hvm`          | amazon-ebs builder that results in a minimal RHEL 6.9 HVM AMI   |
-| `minimal-centos-7.4-hvm`        | amazon-ebs builder that results in a minimal CentOS 7.4 HVM AMI |
-| `minimal-rhel-7.4-hvm`          | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
-| `minimal-centos-6.9-virtualbox` | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
-| `minimal-centos-6.9-vmware`     | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
-| `minimal-centos-7.4-azure-vhd`  | azure-arm builder that results in a minimal CentOS 7.4 VHD      |
-| `minimal-centos-7.4-azure-image`| azure-arm builder that results in a minimal CentOS 7.4 Image    |
+| Builder Name                     | Description                                                     |
+|----------------------------------|-----------------------------------------------------------------|
+| `minimal-centos-6.9-hvm`         | amazon-ebs builder that results in a minimal CentOS 6.9 HVM AMI |
+| `minimal-centos-6.9-pvm`         | amazon-ebs builder that results in a minimal CentOS 6.9 PVM AMI |
+| `minimal-rhel-6.9-hvm`           | amazon-ebs builder that results in a minimal RHEL 6.9 HVM AMI   |
+| `minimal-centos-7.4-hvm`         | amazon-ebs builder that results in a minimal CentOS 7.4 HVM AMI |
+| `minimal-rhel-7.4-hvm`           | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
+| `minimal-centos-6.9-virtualbox`  | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
+| `minimal-centos-6.9-vmware`      | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
+| `minimal-centos-7.4-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7.4 VHD      |
+| `minimal-centos-7.4-azure-image` | azure-arm builder that results in a minimal CentOS 7.4 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
