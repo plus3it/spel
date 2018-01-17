@@ -1,9 +1,9 @@
 + chroot /mnt/ec2-root /usr/bin/aws --version
-aws-cli/1.14.8 Python/2.6.6 Linux/2.6.32-642.6.2.el6.x86_64 botocore/1.8.12
+aws-cli/1.14.24 Python/2.6.6 Linux/2.6.32-642.6.2.el6.x86_64 botocore/1.8.28
 acl-2.2.49-7.el6_9.1.x86_64
 aic94xx-firmware-30-2.el6.noarch
 alsa-lib-1.1.0-4.el6.x86_64
-amazon-ssm-agent-2.2.103.0-1.x86_64
+amazon-ssm-agent-2.2.136.0-1.x86_64
 atk-1.30.0-1.el6.x86_64
 atmel-firmware-1.3-7.el6.noarch
 attr-2.4.44-7.el6.x86_64
@@ -133,8 +133,8 @@ java_cup-0.10k-5.el6.x86_64
 jpackage-utils-1.7.5-3.16.el6.noarch
 kbd-1.15-11.el6.x86_64
 kbd-misc-1.15-11.el6.noarch
-kernel-2.6.32-696.16.1.el6.x86_64
-kernel-firmware-2.6.32-696.16.1.el6.noarch
+kernel-2.6.32-696.18.7.el6.x86_64
+kernel-firmware-2.6.32-696.18.7.el6.noarch
 kexec-tools-2.0.0-307.el6_9.1.x86_64
 keyutils-libs-1.4-5.el6.x86_64
 kpartx-0.4.9-100.el6_9.1.x86_64
@@ -267,6 +267,8 @@ pth-2.0.7-9.3.el6.x86_64
 pygpgme-0.1-18.20090824bzr68.el6.x86_64
 pystache-0.3.1-1.el6.noarch
 python-2.6.6-66.el6_8.x86_64
+python34-3.4.5-4.el6.x86_64
+python34-libs-3.4.5-4.el6.x86_64
 python-argparse-1.2.1-2.1.el6.noarch
 python-backports-1.0-5.el6.x86_64
 python-backports-ssl_match_hostname-3.4.0.2-5.el6.noarch
