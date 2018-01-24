@@ -455,8 +455,8 @@
         },
         {
             "type": "file",
-            "source": "/tmp/manifest.log",
-            "destination": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest",
+            "source": "/tmp/manifest.txt",
+            "destination": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest.txt",
             "direction": "download"
         },
         {
@@ -478,7 +478,7 @@
             {
                 "type": "artifice",
                 "files": [
-                    ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest"
+                    ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest.txt"
                 ]
             }
         ],
