@@ -5,7 +5,7 @@ REMOVE_DEPS="virt-what"
 yum -y remove --setopt=clean_requirements_on_remove=1 ${REMOVE_DEPS} >/dev/null
 
 # Generate RPM manifest
-rpm -qa | sort -u > /tmp/manifest.log
+rpm -qa | sort -u > /tmp/manifest.txt
 
 # Remove yum artifacts
 yum --enablerepo=* clean all >/dev/null
