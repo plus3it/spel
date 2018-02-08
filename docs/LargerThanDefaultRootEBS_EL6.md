@@ -1,8 +1,8 @@
 # Using Larger-Than-Default-Root EBS
 
-With the release of the June 2016 AMIs, support for launching instances with larger-than-default root EBSes was added. This added the "dracut-modules-growroot":http://dl.fedoraproject.org/pub/epel/6/x86_64/dracut-modules-growroot-0.20-2.el6.noarch.rpm EPEL RPM to the "Thin" AMI and extended the RPM's functionality to include support for "`/`" hosted on LVM2 volumes. The patched functionality is implemented via "GrowSetup.sh":https://raw.githubusercontent.com/ferricoxide/AMIgen6/master/GrowSetup.sh build-script
+With the release of the June 2016 AMIs, support for launching instances with larger-than-default root EBSes was added. This added the [dracut-modules-growroot](http://dl.fedoraproject.org/pub/epel/6/x86_64/dracut-modules-growroot-0.20-2.el6.noarch.rpm) EPEL RPM to the "Thin" AMI and extended the RPM's functionality to include support for "`/`" hosted on LVM2 volumes. The patched functionality is implemented via [GrowSetup.sh](https://raw.githubusercontent.com/plus3it/AMIgen6/master/GrowSetup.sh) build-script
 
-> *Note:* a "BugZilla":https://bugzilla.redhat.com/show_bug.cgi?id=1343571 has been opened with the EPEL RPM's maintainer. The patching effected within the build-script will be deprecated if/when the bug is fixed.
+> *Note:* a [BugZilla](https://bugzilla.redhat.com/show_bug.cgi?id=1343571) has been opened with the EPEL RPM's maintainer. The patching effected within the build-script will be deprecated if/when the bug is fixed.
 
 To make use of this functionality:
 
