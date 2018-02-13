@@ -81,6 +81,17 @@ provisioning framework handle the problem for you.
 A. Yes. See watchmaker's [documentation](https://watchmaker.readthedocs.io/en/stable/faq.html)
 for guidance.
 
+### Q. The root volume-group and its partitions seem too small for my use-case: is there any way I can un-handcuff myself from the current partitioning-scheme?
+
+A. Yes. The methods for doing so are dependent on EL version and deployment-contexts. As of this writing, we have documented how to deploy a VM using a root device that is larger than the templated default:
+
+* [spel for EL6 on AWS](LargerThanDefaultRootEBS_EL6.md)
+* [spel for EL7 on AWS](LargerThanDefaultRootEBS_EL7.md)
+
+Procedures for other deployment-contexts have not been tested. Please feel free to experiment and [contribute](CONTRIBUTING.md)!
+
+It is generally expected that if users need to grow an _existing_ instance's root volume group that they reprovision and follow the above linked-to documents. If reprovisioning is not practical, the next best option is to add a secondary drive to the VM and expand the root volume group onto the secondary drive.
+
 
 ##### Footnotes:
 ------

@@ -231,11 +231,11 @@ fi
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     echo "Saving the aws cli version to the manifest"
-    (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.log 2>&1
+    (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.txt 2>&1
 elif [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
-    (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.log 2>&1
+    (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.txt 2>&1
 fi
 
 echo "Saving the RPM manifest"
