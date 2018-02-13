@@ -102,8 +102,8 @@ iwl6000g2a-firmware-17.168.5.3-1.el6.noarch
 iwl6050-firmware-41.28.5.1-2.el6.noarch
 kbd-1.15-11.el6.x86_64
 kbd-misc-1.15-11.el6.noarch
-kernel-2.6.32-696.18.7.el6.x86_64
-kernel-firmware-2.6.32-696.18.7.el6.noarch
+kernel-2.6.32-696.20.1.el6.x86_64
+kernel-firmware-2.6.32-696.20.1.el6.noarch
 kexec-tools-2.0.0-307.el6_9.1.x86_64
 keyutils-libs-1.4-5.el6.x86_64
 kpartx-0.4.9-100.el6_9.1.x86_64
@@ -112,7 +112,7 @@ less-436-13.el6.x86_64
 libacl-2.2.49-7.el6_9.1.x86_64
 libaio-0.3.107-10.el6.x86_64
 libattr-2.4.44-7.el6.x86_64
-libblkid-2.17.2-12.28.el6_9.1.x86_64
+libblkid-2.17.2-12.28.el6_9.2.x86_64
 libcap-2.16-5.5.el6.x86_64
 libcap-ng-0.6.4-3.el6_0.1.x86_64
 libcom_err-1.41.12-23.el6.x86_64
@@ -139,7 +139,7 @@ libudev-147-2.73.el6_8.2.x86_64
 libusb-0.1.12-23.el6.x86_64
 libuser-0.56.13-8.el6_7.x86_64
 libutempter-1.1.5-4.1.el6.x86_64
-libuuid-2.17.2-12.28.el6_9.1.x86_64
+libuuid-2.17.2-12.28.el6_9.2.x86_64
 libxml2-2.7.6-21.el6_8.1.x86_64
 libxml2-python-2.7.6-21.el6_8.1.x86_64
 logrotate-3.7.8-28.el6.x86_64
@@ -168,8 +168,8 @@ nss-softokn-freebl-3.14.3-23.3.el6_8.x86_64
 nss-sysinit-3.28.4-4.el6_9.x86_64
 nss-tools-3.28.4-4.el6_9.x86_64
 nss-util-3.28.4-1.el6_9.x86_64
-ntp-4.2.6p5-12.el6.centos.1.x86_64
-ntpdate-4.2.6p5-12.el6.centos.1.x86_64
+ntp-4.2.6p5-12.el6.centos.2.x86_64
+ntpdate-4.2.6p5-12.el6.centos.2.x86_64
 openldap-2.4.40-16.el6.x86_64
 openssh-5.3p1-123.el6_9.x86_64
 openssh-clients-5.3p1-123.el6_9.x86_64
@@ -195,6 +195,8 @@ psmisc-22.6-24.el6.x86_64
 pth-2.0.7-9.3.el6.x86_64
 pygpgme-0.1-18.20090824bzr68.el6.x86_64
 python-2.6.6-66.el6_8.x86_64
+python34-3.4.5-4.el6.x86_64
+python34-libs-3.4.5-4.el6.x86_64
 python-iniparse-0.3.1-2.1.el6.noarch
 python-libs-2.6.6-66.el6_8.x86_64
 python-pycurl-7.19.0-9.el6.x86_64
@@ -215,8 +217,8 @@ rsyslog-5.8.10-10.el6_6.x86_64
 rt61pci-firmware-1.2-7.el6.noarch
 rt73usb-firmware-1.8-7.el6.noarch
 sed-4.2.1-10.el6.x86_64
-selinux-policy-3.7.19-307.el6_9.2.noarch
-selinux-policy-targeted-3.7.19-307.el6_9.2.noarch
+selinux-policy-3.7.19-307el6_9.3.noarch
+selinux-policy-targeted-3.7.19-307el6_9.3.noarch
 setup-2.8.14-23.el6.noarch
 shadow-utils-4.1.5.1-5.el6.x86_64
 shared-mime-info-0.70-6.el6.x86_64
@@ -228,12 +230,12 @@ system-config-firewall-base-1.2.27-7.2.el6_6.noarch
 sysvinit-tools-2.87-6.dsf.el6.x86_64
 tar-1.23-15.el6_8.x86_64
 tcp_wrappers-libs-7.6-58.el6.x86_64
-tzdata-2017c-1.el6.noarch
+tzdata-2018c-1.el6.noarch
 udev-147-2.73.el6_8.2.x86_64
 unzip-6.0-5.el6.x86_64
 upstart-0.6.5-16.el6.x86_64
 ustr-1.0.4-9.1.el6.x86_64
-util-linux-ng-2.17.2-12.28.el6_9.1.x86_64
+util-linux-ng-2.17.2-12.28.el6_9.2.x86_64
 vim-minimal-7.4.629-5.el6_8.1.x86_64
 wget-1.12-10.el6.x86_64
 which-2.19-6.el6.x86_64
