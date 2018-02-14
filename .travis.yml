@@ -1,9 +1,45 @@
-language: python
-
-python: "3.6"
+language: bash
 
 sudo: false
 
-install: true
+env:
+  global:
+    - FIND_JSON="find $TRAVIS_BUILD_DIR -name '*.json' -type f -print0"
+    - XARGS="xargs -0 -n1 -I {} -t"
 
-script: true
+before_install:
+  - curl -sO http://stedolan.github.io/jq/download/linux64/jq
+  - chmod +x jq
+  - jq --version
+
+jobs:
+  include:
+    - stage: test
+      env:
+        - JOB="JSON Syntax Verification"
+      script:
+        - echo $JOB
+        - eval "$FIND_JSON" | $XARGS jq --exit-status . {} > /dev/null
+    - stage: test
+      env:
+        - JOB="JSON Lint/Format Verification"
+      script:
+        - echo $JOB
+        - eval "$FIND_JSON" | $XARGS bash -c 'cmp {} <(jq --indent 4 -S . {})'
+    - stage: deploy
+      if: branch = master AND type = push AND repo = plus3it/spel
+      script: skip
+      before_deploy:
+        - |
+          RELEASE_VERSION=$(cat $TRAVIS_BUILD_DIR/.version)
+          RELEASE_BODY = "* [SPEL v$RELEASE_VERSION CHANGELOG](https://github.com/plus3it/spel/blob/$RELEASE_VERSION/CHANGELOG.md)"
+          export RELEASE_VERSION RELEASE_BODY
+          (set -x; git tag -a $RELEASE_VERSION -m $RELEASE_VERSION)
+      deploy:
+        provider: releases
+        api_key:
+          secure: SxBWbiOc8wELixxH+CYzoBHIvqP9Iq85seo4rO3rPfTDld0IWDRSYlLOCXL7fujKAPmNbv1nICX9VPVOyMvjdeUY3RLJ2LIqkEm9fRieuZr8CzbROszmeLHhHl8hD4m8Adkg1QHo+fqNgzvjldPD0YDwbqbFFB5hXzSMu603D6qM/ymyZqCMF/F3DBdYhDN/xu6a32b9vSeochC1YrbucQXXZA8wE/pHmBqHQ0s9gRIkdBP3OgLaWb8wpoNJ8IzTBi7KdAyDs5plqMtjA1n/pUJKZ8WI5S59LMyFDwP2BUwVxQR5LddwGS2UEsFLjmCuB9H9NT7T2nAbbFVrlOmzCgCW6AvMCK3meEwpFsitJv/MYe6XRqkCFrSNPLrdp3Pa4gOX+rQUD7jRwXB4M8Fk12/fJbIdZbjFDsSWN2+zG9MoiNQJPTJs/oyvZsL1Xp/ab1GaggJDiAoVKHPenbDgIKjIYp+uxRPLGGT1/CTzth3D+D6pdgnCaETUFyIZot+OkLzSWj5atyFPQfqnxDiDNmMYKHDjjaYFLHAbLdVjP2RYQHJmdOYXtGrQQ8KEs0IJy2y8LXD+XFOvHwh0zm79+d7G6l18gVymdrYXO09/ctUK/vWPbhYelllurq+kttESMO0srDRe5Kadyh6gdEng1xm2qrX0OAHAl4qVL6tOE4Q=
+        name: $RELEASE_VERSION
+        tag_name: $RELEASE_VERSION
+        body: $RELEASE_BODY
+        draft: true
