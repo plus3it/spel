@@ -2,8 +2,16 @@ language: bash
 
 sudo: false
 
+addons:
+  apt:
+    sources:
+      - debian-sid    # Grab ShellCheck from the Debian repo
+    packages:
+      - shellcheck
+
 env:
   global:
+    - FIND_SH="find $TRAVIS_BUILD_DIR -name '*.sh' -type f -print0"
     - FIND_JSON="find $TRAVIS_BUILD_DIR -name '*.json' -type f -print0"
     - XARGS="xargs -0 -n1 -I {} -t"
 
@@ -11,21 +19,29 @@ before_install:
   - curl -sO http://stedolan.github.io/jq/download/linux64/jq
   - chmod +x jq
   - jq --version
+  - shellcheck --version
+
+before_script:
+  - echo $JOB
+  - echo $TESTCOMMAND
+
+script:
+  - bash -c "$TESTCOMMAND"
 
 jobs:
   include:
     - stage: test
       env:
+        - JOB="Shell Script Syntax Verification"
+        - TESTCOMMAND="$FIND_SH | $XARGS shellcheck {}"
+    - stage: test
+      env:
         - JOB="JSON Syntax Verification"
-      script:
-        - echo $JOB
-        - eval "$FIND_JSON" | $XARGS jq --exit-status . {} > /dev/null
+        - TESTCOMMAND="$FIND_JSON | $XARGS jq --exit-status . {} > /dev/null"
     - stage: test
       env:
         - JOB="JSON Lint/Format Verification"
-      script:
-        - echo $JOB
-        - eval "$FIND_JSON" | $XARGS bash -c 'cmp {} <(jq --indent 4 -S . {})'
+        - TESTCOMMAND="$FIND_JSON | $XARGS bash -c 'cmp {} <(jq --indent 4 -S . {})'"
     - stage: deploy
       if: branch = master AND type = push AND repo = plus3it/spel
       script: skip
