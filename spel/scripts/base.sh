@@ -18,8 +18,9 @@ yum -y install python34
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
 echo "disabling dns resolution in sshd"
-grep -q '^UseDNS' /etc/ssh/sshd_config && \
-    sed -i -e \
-    's/^UseDNS.*/UseDNS no/' \
-    /etc/ssh/sshd_config || \
+if [[ $(grep -q '^UseDNS' /etc/ssh/sshd_config)$? -eq 0 ]]
+then
+    sed -i -e 's/^UseDNS.*/UseDNS no/' /etc/ssh/sshd_config
+else
     sed -i "$ a\UseDNS no" /etc/ssh/sshd_config
+fi

@@ -7,8 +7,8 @@ fi
 
 # Install deps
 echo "installing virtualbox guest addition dependencies"
-VBOX_GUEST_DEPS="kernel-devel kernel-headers gcc perl"
-bash /tmp/retry.sh 5 yum -y install ${VBOX_GUEST_DEPS}
+VBOX_GUEST_DEPS=(kernel-devel kernel-headers gcc perl)
+bash /tmp/retry.sh 5 yum -y install "${VBOX_GUEST_DEPS[@]}"
 bash /tmp/retry.sh 5 yum -y install dkms make
 KERN_DIR=/lib/modules/$(uname -r)/build
 export KERN_DIR
@@ -24,4 +24,4 @@ rm -rf /home/vagrant/VBoxGuest*.iso
 
 # Remove deps
 echo "removing virtualbox guest addition dependencies"
-yum -y remove --setopt=clean_requirements_on_remove=1 ${VBOX_GUEST_DEPS}
+yum -y remove --setopt=clean_requirements_on_remove=1 "${VBOX_GUEST_DEPS[@]}"
