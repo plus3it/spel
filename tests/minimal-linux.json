@@ -193,6 +193,7 @@
             "inline": [
                 "PIP_URL=${PIP_URL:-https://bootstrap.pypa.io/get-pip.py}",
                 "PYPI_URL=${PYPI_URL:-https://pypi.org/simple}",
+                "ls -alR /tmp",
                 "curl \"$PIP_URL\" | python - --index-url=\"$PYPI_URL\" wheel==0.29.0",
                 "pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
                 "pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
