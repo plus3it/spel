@@ -202,7 +202,7 @@ echo "Saving the aws cli version to the manifest"
 (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.txt 2>&1
 
 echo "Saving the RPM manifest"
-rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+(chroot ${CHROOT} bash -c "rpm -qa") | sort -u >> /tmp/manifest.log
 
 echo "Executing UmountChroot.sh"
 bash "${ELBUILD}"/UmountChroot.sh

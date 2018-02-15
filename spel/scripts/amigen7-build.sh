@@ -242,7 +242,7 @@ then
 fi
 
 echo "Saving the RPM manifest"
-rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.log
+(chroot ${CHROOT} bash -c "rpm -qa") | sort -u >> /tmp/manifest.log
 
 echo "Executing Umount.sh"
 bash -x "${ELBUILD}"/Umount.sh
