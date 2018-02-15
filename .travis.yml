@@ -47,7 +47,7 @@ jobs:
       script: skip
       before_deploy:
         - |
-          RELEASE_VERSION=$(cat $TRAVIS_BUILD_DIR/.version)
+          RELEASE_VERSION=$(cat $TRAVIS_BUILD_DIR/.bumpversion.cfg | grep current_version | sed 's/^.*= //' )
           RELEASE_BODY = "* [SPEL v$RELEASE_VERSION CHANGELOG](https://github.com/plus3it/spel/blob/$RELEASE_VERSION/CHANGELOG.md)"
           export RELEASE_VERSION RELEASE_BODY
           (set -x; git tag -a $RELEASE_VERSION -m $RELEASE_VERSION)
