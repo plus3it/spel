@@ -29,10 +29,13 @@ retry()
         sleep $n
         $cmd
         result=$?
-        test $result -eq 0 && break || {
+        if [[ $result -eq 0 ]]
+        then
+            break
+        else
             ((n++))
             echo "Attempt $n, command failed :: $cmd"
-        }
+        fi
     done
 
     if [[ "${ERREXIT}" == "1" ]]

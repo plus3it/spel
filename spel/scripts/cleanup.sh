@@ -40,7 +40,7 @@ do
 done
 
 # Clean out audit logs
-find -L /var/log/audit -type f | xargs shred -uz
+find -L /var/log/audit -type f -print0 | xargs -0 shred -uz
 
 # Clean out root's history buffers and files
 echo "cleaning shell history"

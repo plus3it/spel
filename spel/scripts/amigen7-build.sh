@@ -9,7 +9,7 @@ AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
-BUILDDEPS="${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
+BUILDDEPS=(${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git})
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
@@ -74,10 +74,13 @@ retry()
         sleep $n
         $cmd
         result=$?
-        test $result -eq 0 && break || {
+        if [[ $result -eq 0 ]]
+        then
+            break
+        else
             ((n++))
             echo "Attempt $n, command failed :: $cmd"
-        }
+        fi
     done
 
     if [[ "${ERREXIT}" == "1" ]]
@@ -121,7 +124,7 @@ set -x
 set -e
 
 echo "Installing build-host dependencies"
-yum -y install ${BUILDDEPS}
+yum -y install "${BUILDDEPS[@]}"
 
 if [[ "${AMIGENSOURCE}" == *"@"* ]]
 then
@@ -239,7 +242,7 @@ then
 fi
 
 echo "Saving the RPM manifest"
-rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.log
+rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
 
 echo "Executing Umount.sh"
 bash -x "${ELBUILD}"/Umount.sh
