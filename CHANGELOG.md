@@ -1,5 +1,17 @@
 ## Changelog
 
+### 2018.03.2.dev
+
+**Released**: TBD
+
+**Commit Delta**: [Change from 2018.03.1 release](https://github.com/plus3it/spel/compare/2018.03.1...2018.03.2.dev)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.03.2.dev/manifests>
+
+**Summary**:
+
+*   TBD
+
 ### 2018.03.1
 
 **Released**: 2018.03.15
