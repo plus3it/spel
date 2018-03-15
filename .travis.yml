@@ -58,4 +58,4 @@ jobs:
         name: $RELEASE_VERSION
         tag_name: $RELEASE_VERSION
         body: $RELEASE_BODY
-        draft: true
+        draft: false
