@@ -4,6 +4,7 @@ version: 0.2
 env:
   variables:
     PACKER_ZIP: https://releases.hashicorp.com/packer/1.0.4/packer_1.0.4_linux_amd64.zip
+    PACKER_LOG: '1'
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
     SPEL_CI: 'false'
@@ -46,6 +47,8 @@ phases:
       - echo "SPEL_VERSION=${SPEL_VERSION}"
       - test -n "$SPEL_IDENTIFIER" || (echo "Must set SPEL_IDENTIFIER env!"; exit 1)
       - test -n "$SPEL_VERSION" || (echo "Must set SPEL_VERSION env!"; exit 1)
+      - mkdir -p ".spel/${SPEL_VERSION}/"
+      - export PACKER_LOG_PATH=".spel/${SPEL_VERSION}/packer.log"
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
