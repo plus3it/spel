@@ -1,16 +1,16 @@
 ## Changelog
 
-### x.x.x
+### 2018.03.1
 
-**Released**: PLACEHOLDER
+**Released**: 2018.03.15
 
-**Commit Delta**: [Change from 2018.02.2 release](https://github.com/plus3it/spel/compare/2018.02.2...x.x.x)
+**Commit Delta**: [Change from 2018.02.2 release](https://github.com/plus3it/spel/compare/2018.02.2...2018.03.1)
 
-**Manifests**: <https://github.com/plus3it/spel/blob/x.x.x/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.03.1/manifests>
 
 **Summary**:
 
-*   PLACEHOLDER
+*   Only package updates, see Manifests and the Commit Delta
 
 ### 2018.02.2
 
