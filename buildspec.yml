@@ -4,6 +4,7 @@ version: 0.2
 env:
   variables:
     PACKER_ZIP: https://releases.hashicorp.com/packer/1.0.4/packer_1.0.4_linux_amd64.zip
+    PACKER_LOG: '1'
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
     SPEL_CI: 'false'
@@ -25,6 +26,8 @@ env:
     SOURCE_AMI_RHEL6_HVM: ami-1b05b10d
     SOURCE_AMI_RHEL7_HVM: ami-cdc999b6
     SSH_PRIVATE_IP: 'false'
+    PIP_URL: https://bootstrap.pypa.io/2.6/get-pip.py
+    PYPI_URL: https://pypi.org/simple
 
 phases:
   install:
@@ -46,6 +49,8 @@ phases:
       - echo "SPEL_VERSION=${SPEL_VERSION}"
       - test -n "$SPEL_IDENTIFIER" || (echo "Must set SPEL_IDENTIFIER env!"; exit 1)
       - test -n "$SPEL_VERSION" || (echo "Must set SPEL_VERSION env!"; exit 1)
+      - mkdir -p ".spel/${SPEL_VERSION}/"
+      - export PACKER_LOG_PATH=".spel/${SPEL_VERSION}/packer.log"
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
@@ -100,6 +105,8 @@ phases:
           -var "ami_groups=${AMI_GROUPS}" \
           -var "ami_regions=${AMI_REGIONS}" \
           -var "ami_users=${AMI_USERS}" \
+          -var "pip_url=${PIP_URL}" \
+          -var "pypi_url=${PYPI_URL}" \
           -var "aws_region=${AWS_REGION}" \
           -var "spel_desc_url=${SPEL_DESC_URL}" \
           -var "spel_amigen6source=${SPEL_AMIGEN6SOURCE}" \
