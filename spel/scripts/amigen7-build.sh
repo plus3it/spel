@@ -7,7 +7,7 @@
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
-AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
+AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDDEPS=(${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git})
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"

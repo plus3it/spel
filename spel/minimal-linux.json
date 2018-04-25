@@ -502,7 +502,7 @@
         "spel_amigen6source": "https://github.com/plus3it/AMIgen6.git",
         "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
-        "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
+        "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "spel_customreponame6": "",
         "spel_customreponame7": "",
         "spel_customreporpm6": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",

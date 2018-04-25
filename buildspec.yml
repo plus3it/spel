@@ -13,7 +13,7 @@ env:
     SPEL_AMIGEN6SOURCE: https://github.com/plus3it/AMIgen6.git
     SPEL_AMIGEN7SOURCE: https://github.com/plus3it/AMIgen7.git
     SPEL_AMIUTILSOURCE: https://github.com/ferricoxide/Lx-GetAMI-Utils.git
-    SPEL_AWSCLISOURCE: https://s3.amazonaws.com/aws-cli
+    SPEL_AWSCLISOURCE: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
     SPEL_EPEL6RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
     SPEL_EPEL7RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     SPEL_CUSTOMREPORPM6: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
@@ -39,6 +39,7 @@ phases:
       - curl -L "${PACKER_ZIP}" -o packer.zip && unzip packer.zip
   pre_build:
     commands:
+      - set -o pipefail
       - |
         if [ "${SPEL_CI}" = "true" ]
         then
@@ -51,6 +52,13 @@ phases:
       - test -n "$SPEL_VERSION" || (echo "Must set SPEL_VERSION env!"; exit 1)
       - mkdir -p ".spel/${SPEL_VERSION}/"
       - export PACKER_LOG_PATH=".spel/${SPEL_VERSION}/packer.log"
+      - |
+        if [ -n "$SPEL_PIN_AWSCLI_BUNDLE" ]
+        then
+          AWSCLI_VERSION=$(grep aws-cli requirements/aws-cli.txt | sed 's/^.*==//') || exit $?
+          SPEL_AWSCLISOURCE=$(dirname $SPEL_AWSCLISOURCE)/awscli-bundle-${AWSCLI_VERSION}.zip || exit $?
+          export SPEL_AWSCLISOURCE
+        fi
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
