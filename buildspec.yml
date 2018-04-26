@@ -39,7 +39,6 @@ phases:
       - curl -L "${PACKER_ZIP}" -o packer.zip && unzip packer.zip
   pre_build:
     commands:
-      - set -o pipefail
       - |
         if [ "${SPEL_CI}" = "true" ]
         then
@@ -55,10 +54,12 @@ phases:
       - |
         if [ -n "$SPEL_PIN_AWSCLI_BUNDLE" ]
         then
-          AWSCLI_VERSION=$(grep aws-cli requirements/aws-cli.txt | sed 's/^.*==//') || exit $?
+          AWSCLI_PIN=$(grep aws-cli requirements/aws-cli.txt) || exit $?
+          AWSCLI_VERSION="${AWSCLI_PIN#*==}"
           SPEL_AWSCLISOURCE=$(dirname $SPEL_AWSCLISOURCE)/awscli-bundle-${AWSCLI_VERSION}.zip || exit $?
           export SPEL_AWSCLISOURCE
         fi
+        echo "SPEL_AWSCLISOURCE: $SPEL_AWSCLISOURCE"
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
