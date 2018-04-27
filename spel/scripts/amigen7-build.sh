@@ -231,14 +231,23 @@ then
     chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
 fi
 
+echo "Saving the release info to the manifest"
+cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     echo "Saving the aws cli version to the manifest"
-    (chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.txt 2>&1
+    [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+    set +x
+    (chroot "${CHROOT}" /usr/bin/aws --version) >> /tmp/manifest.txt 2>&1
+    eval "$XTRACE"
 elif [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
-    (chroot "${CHROOT}" /usr/sbin/waagent --version) > /tmp/manifest.txt 2>&1
+    [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+    set +x
+    (chroot "${CHROOT}" /usr/sbin/waagent --version) >> /tmp/manifest.txt 2>&1
+    eval "$XTRACE"
 fi
 
 echo "Saving the RPM manifest"

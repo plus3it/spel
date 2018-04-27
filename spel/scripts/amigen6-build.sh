@@ -198,8 +198,14 @@ bash "${ELBUILD}"/HVMprep.sh "${DEVNODE}"
 echo "Executing PreRelabel.sh"
 bash "${ELBUILD}"/PreRelabel.sh
 
+echo "Saving the release info to the manifest"
+cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+
 echo "Saving the aws cli version to the manifest"
-(chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.txt 2>&1
+[[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+set +x
+(chroot "${CHROOT}" /usr/bin/aws --version) >> /tmp/manifest.txt 2>&1
+eval "$XTRACE"
 
 echo "Saving the RPM manifest"
 rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
