@@ -15,7 +15,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "name": "minimal-centos-6.9-hvm",
+            "name": "minimal-centos-6-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos6_hvm` }}",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
@@ -42,7 +42,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "name": "minimal-centos-6.9-pvm",
+            "name": "minimal-centos-6-pvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos6_pvm` }}",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
@@ -69,7 +69,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "name": "minimal-rhel-6.9-hvm",
+            "name": "minimal-rhel-6-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
@@ -96,7 +96,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "name": "minimal-centos-7.4-hvm",
+            "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos7_hvm` }}",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
@@ -123,7 +123,7 @@
                     "volume_type": "gp2"
                 }
             ],
-            "name": "minimal-rhel-7.4-hvm",
+            "name": "minimal-rhel-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
             "ssh_private_ip": "{{ user `ssh_private_ip` }}",
@@ -217,11 +217,11 @@
         "aws_region": "{{ env `AWS_REGION` }}",
         "pip_url": "https://bootstrap.pypa.io/2.6/get-pip.py",
         "pypi_url": "https://pypi.org/simple",
-        "source_ami_centos6_hvm": "{{ env `minimal_centos_6_9_hvm` }}",
-        "source_ami_centos6_pvm": "{{ env `minimal_centos_6_9_pvm` }}",
-        "source_ami_centos7_hvm": "{{ env `minimal_centos_7_4_hvm` }}",
-        "source_ami_rhel6_hvm": "{{ env `minimal_rhel_6_9_hvm` }}",
-        "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_4_hvm` }}",
+        "source_ami_centos6_hvm": "{{ env `minimal_centos_6_hvm` }}",
+        "source_ami_centos6_pvm": "{{ env `minimal_centos_6_pvm` }}",
+        "source_ami_centos7_hvm": "{{ env `minimal_centos_7_hvm` }}",
+        "source_ami_rhel6_hvm": "{{ env `minimal_rhel_6_hvm` }}",
+        "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_hvm` }}",
         "spel_disablefips": "",
         "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",
         "spel_version": "{{ env `SPEL_VERSION` }}",

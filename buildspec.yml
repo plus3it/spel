@@ -8,7 +8,7 @@ env:
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
     SPEL_CI: 'false'
-    SPEL_BUILDERS: minimal-rhel-7.4-hvm,minimal-centos-7.4-hvm,minimal-rhel-6.9-hvm,minimal-centos-6.9-hvm,minimal-centos-6.9-pvm
+    SPEL_BUILDERS: minimal-rhel-7-hvm,minimal-centos-7-hvm,minimal-rhel-6-hvm,minimal-centos-6-hvm,minimal-centos-6-pvm
     SPEL_DESC_URL: https://github.com/plus3it/spel
     SPEL_AMIGEN6SOURCE: https://github.com/plus3it/AMIgen6.git
     SPEL_AMIGEN7SOURCE: https://github.com/plus3it/AMIgen7.git
@@ -39,7 +39,6 @@ phases:
       - curl -L "${PACKER_ZIP}" -o packer.zip && unzip packer.zip
   pre_build:
     commands:
-      - set -o pipefail
       - |
         if [ "${SPEL_CI}" = "true" ]
         then
@@ -55,10 +54,12 @@ phases:
       - |
         if [ -n "$SPEL_PIN_AWSCLI_BUNDLE" ]
         then
-          AWSCLI_VERSION=$(grep aws-cli requirements/aws-cli.txt | sed 's/^.*==//') || exit $?
+          AWSCLI_PIN=$(grep aws-cli requirements/aws-cli.txt) || exit $?
+          AWSCLI_VERSION="${AWSCLI_PIN#*==}"
           SPEL_AWSCLISOURCE=$(dirname $SPEL_AWSCLISOURCE)/awscli-bundle-${AWSCLI_VERSION}.zip || exit $?
           export SPEL_AWSCLISOURCE
         fi
+        echo "SPEL_AWSCLISOURCE: $SPEL_AWSCLISOURCE"
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then
