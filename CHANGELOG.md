@@ -1,5 +1,31 @@
 ## Changelog
 
+### 2018.05.1
+
+**Released**: 2018.05.16
+
+**Commit Delta**: [Change from 2018.04.1 release](https://github.com/plus3it/spel/compare/2018.04.1...2018.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.05.1/manifests>
+
+**Summary**:
+
+*   Images have been renamed to remove the "minor" version, e.g.
+    `spel-minimal-rhel-7` instead of `spel-minimal-rhel-7.5`; the prior naming
+    scheme would become misleading when new minor versions were released
+    (but the builder name had not yet been updated to reflect the release);
+    this is because spel updates all packages, and a `yum update` will
+    automatically update the minor release; the new image names are:
+    -   spel-minimal-centos-6
+    -   spel-minimal-centos-7
+    -   spel-minimal-rhel-6
+    -   spel-minimal-rhel-7
+*   "Minor" release updates
+    -   CentOS 7 images are now CentOS 7.5
+*   "Extra" package updates
+    -   aws-cli/1.15.20
+    -   amazon-ssm-agent-2.2.546.0-1
+
 ### 2018.04.1
 
 **Released**: 2018.04.17

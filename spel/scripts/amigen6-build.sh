@@ -7,7 +7,7 @@
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen6.git}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
-AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli}"
+AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDDEPS=(${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git})
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
@@ -198,8 +198,14 @@ bash "${ELBUILD}"/HVMprep.sh "${DEVNODE}"
 echo "Executing PreRelabel.sh"
 bash "${ELBUILD}"/PreRelabel.sh
 
+echo "Saving the release info to the manifest"
+cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+
 echo "Saving the aws cli version to the manifest"
-(chroot "${CHROOT}" /usr/bin/aws --version) > /tmp/manifest.txt 2>&1
+[[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+set +x
+(chroot "${CHROOT}" /usr/bin/aws --version) >> /tmp/manifest.txt 2>&1
+eval "$XTRACE"
 
 echo "Saving the RPM manifest"
 rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt

@@ -39,65 +39,65 @@ build will be at the top when viewed in the AWS Console.
 RPM Manifests for published images are available in the [manifests](manifests)
 directory.
 
-| AWS Region    | Builder Name / Link                 |
-|---------------|-------------------------------------|
-| us-east-1     | [spel-minimal-rhel-7.4-hvm][1000]   |
-|               | [spel-minimal-rhel-6.9-hvm][1001]   |
-|               | [spel-minimal-centos-7.4-hvm][1002] |
-|               | [spel-minimal-centos-6.9-pvm][1003] |
-|               | [spel-minimal-centos-6.9-hvm][1004] |
-| us-east-2     | [spel-minimal-rhel-7.4-hvm][1005]   |
-|               | [spel-minimal-rhel-6.9-hvm][1006]   |
-|               | [spel-minimal-centos-7.4-hvm][1007] |
-|               | [spel-minimal-centos-6.9-pvm][1008] |
-|               | [spel-minimal-centos-6.9-hvm][1009] |
-| us-west-1     | [spel-minimal-rhel-7.4-hvm][1010]   |
-|               | [spel-minimal-rhel-6.9-hvm][1011]   |
-|               | [spel-minimal-centos-7.4-hvm][1012] |
-|               | [spel-minimal-centos-6.9-pvm][1013] |
-|               | [spel-minimal-centos-6.9-hvm][1014] |
-| us-west-2     | [spel-minimal-rhel-7.4-hvm][1015]   |
-|               | [spel-minimal-rhel-6.9-hvm][1016]   |
-|               | [spel-minimal-centos-7.4-hvm][1017] |
-|               | [spel-minimal-centos-6.9-pvm][1018] |
-|               | [spel-minimal-centos-6.9-hvm][1019] |
-| us-gov-west-1 | [spel-minimal-rhel-7.4-hvm][1020]   |
-|               | [spel-minimal-rhel-6.9-hvm][1021]   |
-|               | [spel-minimal-centos-7.4-hvm][1022] |
-|               | [spel-minimal-centos-6.9-pvm][1023] |
-|               | [spel-minimal-centos-6.9-hvm][1024] |
+| AWS Region    | Builder Name / Link               |
+|---------------|-----------------------------------|
+| us-east-1     | [spel-minimal-rhel-7-hvm][1000]   |
+|               | [spel-minimal-rhel-6-hvm][1001]   |
+|               | [spel-minimal-centos-7-hvm][1002] |
+|               | [spel-minimal-centos-6-pvm][1003] |
+|               | [spel-minimal-centos-6-hvm][1004] |
+| us-east-2     | [spel-minimal-rhel-7-hvm][1005]   |
+|               | [spel-minimal-rhel-6-hvm][1006]   |
+|               | [spel-minimal-centos-7-hvm][1007] |
+|               | [spel-minimal-centos-6-pvm][1008] |
+|               | [spel-minimal-centos-6-hvm][1009] |
+| us-west-1     | [spel-minimal-rhel-7-hvm][1010]   |
+|               | [spel-minimal-rhel-6-hvm][1011]   |
+|               | [spel-minimal-centos-7-hvm][1012] |
+|               | [spel-minimal-centos-6-pvm][1013] |
+|               | [spel-minimal-centos-6-hvm][1014] |
+| us-west-2     | [spel-minimal-rhel-7-hvm][1015]   |
+|               | [spel-minimal-rhel-6-hvm][1016]   |
+|               | [spel-minimal-centos-7-hvm][1017] |
+|               | [spel-minimal-centos-6-pvm][1018] |
+|               | [spel-minimal-centos-6-hvm][1019] |
+| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]   |
+|               | [spel-minimal-rhel-6-hvm][1021]   |
+|               | [spel-minimal-centos-7-hvm][1022] |
+|               | [spel-minimal-centos-6-pvm][1023] |
+|               | [spel-minimal-centos-6-hvm][1024] |
 
-| Vagrant Cloud Name                      | Vagrant Provider |
-|-----------------------------------------|------------------|
-| [plus3it/spel-minimal-centos-6.9][2000] | virtualbox       |
+| Vagrant Cloud Name                    | Vagrant Provider |
+|---------------------------------------|------------------|
+| [plus3it/spel-minimal-centos-6][2000] | virtualbox       |
 
-[1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1001]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1003]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1004]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1006]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1008]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1009]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1011]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1013]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1014]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1016]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1018]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1019]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7.4-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1021]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-6.9-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7.4-hvm-*x86_64-gp2;sort=desc:creationDate>
-[1023]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6.9-pvm-*x86_64-gp2;sort=desc:creationDate>
-[1024]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6.9-hvm-*x86_64-gp2;sort=desc:creationDate>
+[1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1001]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1003]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
+[1004]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1006]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1008]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
+[1009]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1011]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1013]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
+[1014]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1016]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1018]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
+[1019]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1021]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-*x86_64-gp2;sort=desc:creationDate>
+[1023]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-pvm-*x86_64-gp2;sort=desc:creationDate>
+[1024]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-hvm-*x86_64-gp2;sort=desc:creationDate>
 
-[2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6.9>
+[2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6>
 
 ## Prerequisites
 
@@ -260,17 +260,17 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                     | Description                                                     |
-|----------------------------------|-----------------------------------------------------------------|
-| `minimal-centos-6.9-hvm`         | amazon-ebs builder that results in a minimal CentOS 6.9 HVM AMI |
-| `minimal-centos-6.9-pvm`         | amazon-ebs builder that results in a minimal CentOS 6.9 PVM AMI |
-| `minimal-rhel-6.9-hvm`           | amazon-ebs builder that results in a minimal RHEL 6.9 HVM AMI   |
-| `minimal-centos-7.4-hvm`         | amazon-ebs builder that results in a minimal CentOS 7.4 HVM AMI |
-| `minimal-rhel-7.4-hvm`           | amazon-ebs builder that results in a minimal RHEL 7.4 HVM AMI   |
-| `minimal-centos-6.9-virtualbox`  | virtualbox-iso builder that results in a minimal CentOS 6.9 OVA |
-| `minimal-centos-6.9-vmware`      | vmware-iso builder that results in a minimal CentOS 6.9 OVF     |
-| `minimal-centos-7.4-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7.4 VHD      |
-| `minimal-centos-7.4-azure-image` | azure-arm builder that results in a minimal CentOS 7.4 Image    |
+| Builder Name                     | Description                                                 |
+|----------------------------------|-------------------------------------------------------------|
+| `minimal-centos-6-hvm`         | amazon-ebs builder that results in a minimal CentOS 6 HVM AMI |
+| `minimal-centos-6-pvm`         | amazon-ebs builder that results in a minimal CentOS 6 PVM AMI |
+| `minimal-rhel-6-hvm`           | amazon-ebs builder that results in a minimal RHEL 6 HVM AMI   |
+| `minimal-centos-7-hvm`         | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
+| `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
+| `minimal-centos-6-virtualbox`  | virtualbox-iso builder that results in a minimal CentOS 6 OVA |
+| `minimal-centos-6-vmware`      | vmware-iso builder that results in a minimal CentOS 6 OVF     |
+| `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
+| `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -298,7 +298,7 @@ packer build \
     -var 'source_ami_centos6_hvm=ami-03bb0462' \
     -var 'source_ami_centos6_pvm=ami-62b70803' \
     -var 'source_ami_rhel6_hvm=ami-caee51ab' \
-    -except 'minimal-centos-6.9-virtualbox,minimal-centos-6.9-vmware,minimal-centos-7.4-azure-vhd,minimal-centos-7.4-azure-image' \
+    -except 'minimal-centos-6-virtualbox,minimal-centos-6-vmware,minimal-centos-7-azure-vhd,minimal-centos-7-azure-image' \
     spel/minimal-linux.json
 ```
 
@@ -348,7 +348,7 @@ packer build \
     -var 'azure_source_vhd_centos7=https://<storageacctname>.blob.core.<corresponding azure env>.net/<container>/<vhdname>.vhd' \
     -var 'azure_dest_resource_group=<resource group short name>' \
     -var 'azure_dest_storage_account=<storage account short name>' \
-    -only 'minimal-centos-7.4-azure-vhd' \
+    -only 'minimal-centos-7-azure-vhd' \
     spel/minimal-linux.json
 ```
 
@@ -364,7 +364,7 @@ packer build \
     -var 'azure_source_image_resource_group_centos7=<resource group short name>' \
     -var 'azure_source_image_centos7=<image short name>' \
     -var 'azure_dest_resource_group=<resource group short name>' \
-    -only 'minimal-centos-7.4-azure-image' \
+    -only 'minimal-centos-7-azure-image' \
     spel/minimal-linux.json
 ```
 
