@@ -8,12 +8,12 @@ env:
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
     SPEL_CI: 'false'
-    SPEL_BUILDERS: minimal-rhel-7.4-hvm,minimal-centos-7.4-hvm,minimal-rhel-6.9-hvm,minimal-centos-6.9-hvm,minimal-centos-6.9-pvm
+    SPEL_BUILDERS: minimal-rhel-7-hvm,minimal-centos-7-hvm,minimal-rhel-6-hvm,minimal-centos-6-hvm,minimal-centos-6-pvm
     SPEL_DESC_URL: https://github.com/plus3it/spel
     SPEL_AMIGEN6SOURCE: https://github.com/plus3it/AMIgen6.git
     SPEL_AMIGEN7SOURCE: https://github.com/plus3it/AMIgen7.git
     SPEL_AMIUTILSOURCE: https://github.com/ferricoxide/Lx-GetAMI-Utils.git
-    SPEL_AWSCLISOURCE: https://s3.amazonaws.com/aws-cli
+    SPEL_AWSCLISOURCE: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
     SPEL_EPEL6RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
     SPEL_EPEL7RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     SPEL_CUSTOMREPORPM6: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
@@ -51,6 +51,15 @@ phases:
       - test -n "$SPEL_VERSION" || (echo "Must set SPEL_VERSION env!"; exit 1)
       - mkdir -p ".spel/${SPEL_VERSION}/"
       - export PACKER_LOG_PATH=".spel/${SPEL_VERSION}/packer.log"
+      - |
+        if [ -n "$SPEL_PIN_AWSCLI_BUNDLE" ]
+        then
+          AWSCLI_PIN=$(grep aws-cli requirements/aws-cli.txt) || exit $?
+          AWSCLI_VERSION="${AWSCLI_PIN#*==}"
+          SPEL_AWSCLISOURCE=$(dirname $SPEL_AWSCLISOURCE)/awscli-bundle-${AWSCLI_VERSION}.zip || exit $?
+          export SPEL_AWSCLISOURCE
+        fi
+        echo "SPEL_AWSCLISOURCE: $SPEL_AWSCLISOURCE"
       - |
         if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
         then

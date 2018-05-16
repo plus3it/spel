@@ -123,3 +123,12 @@ def test_python3_installed(host, name):
             '%s',
             {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
     assert pkg.is_installed
+
+
+@pytest.mark.el7
+def test_timedatectl_dbus_status(host):
+    cmd = 'timedatectl'
+    timedatectl = host.run(cmd)
+    log.info('stdout:\n%s', timedatectl.stdout)
+    log.info('stderr:\n%s', timedatectl.stderr)
+    assert timedatectl.exit_status == 0
