@@ -1,8 +1,8 @@
 Red Hat Enterprise Linux Server release 7.5 (Maipo)
-aws-cli/1.15.20 Python/2.7.5 Linux/3.10.0-862.el7.x86_64 botocore/1.10.20
+aws-cli/1.15.40 Python/2.7.5 Linux/3.10.0-862.el7.x86_64 botocore/1.10.40
 acl-2.2.51-14.el7.x86_64
 alsa-lib-1.1.4.1-2.el7.x86_64
-amazon-ssm-agent-2.2.546.0-1.x86_64
+amazon-ssm-agent-2.2.619.0-1.x86_64
 audit-2.8.1-3.el7.x86_64
 audit-libs-2.8.1-3.el7.x86_64
 audit-libs-python-2.8.1-3.el7.x86_64
@@ -54,9 +54,9 @@ device-mapper-event-1.02.146-4.el7.x86_64
 device-mapper-event-libs-1.02.146-4.el7.x86_64
 device-mapper-libs-1.02.146-4.el7.x86_64
 device-mapper-persistent-data-0.7.3-3.el7.x86_64
-dhclient-4.2.5-68.el7.x86_64
-dhcp-common-4.2.5-68.el7.x86_64
-dhcp-libs-4.2.5-68.el7.x86_64
+dhclient-4.2.5-68.el7_5.1.x86_64
+dhcp-common-4.2.5-68.el7_5.1.x86_64
+dhcp-libs-4.2.5-68.el7_5.1.x86_64
 diffutils-3.3-4.el7.x86_64
 dmidecode-3.0-5.el7.x86_64
 dracut-033-535.el7.x86_64
@@ -128,18 +128,18 @@ iptables-services-1.4.21-24.1.el7_5.x86_64
 iptables-utils-1.4.21-24.1.el7_5.x86_64
 iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-11.el7.x86_64
-iwl7265-firmware-22.0.7.0-62.el7.noarch
+iwl7265-firmware-22.0.7.0-62.2.el7_5.noarch
 jansson-2.10-1.el7.x86_64
-java-1.8.0-openjdk-1.8.0.171-7.b10.el7.x86_64
-java-1.8.0-openjdk-headless-1.8.0.171-7.b10.el7.x86_64
+java-1.8.0-openjdk-1.8.0.171-8.b10.el7_5.x86_64
+java-1.8.0-openjdk-headless-1.8.0.171-8.b10.el7_5.x86_64
 javamail-1.4.6-8.el7.noarch
 javapackages-tools-3.4.1-11.el7.noarch
 kbd-1.15.5-13.el7.x86_64
 kbd-legacy-1.15.5-13.el7.noarch
 kbd-misc-1.15.5-13.el7.noarch
-kernel-3.10.0-862.2.3.el7.x86_64
-kernel-tools-3.10.0-862.2.3.el7.x86_64
-kernel-tools-libs-3.10.0-862.2.3.el7.x86_64
+kernel-3.10.0-862.3.3.el7.x86_64
+kernel-tools-3.10.0-862.3.3.el7.x86_64
+kernel-tools-libs-3.10.0-862.3.3.el7.x86_64
 kexec-tools-2.0.15-13.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-21.el7.x86_64
@@ -219,7 +219,7 @@ libXrender-0.9.10-1.el7.x86_64
 libxslt-1.1.28-5.el7.x86_64
 libXtst-1.2.3-1.el7.x86_64
 libyaml-0.1.4-11.el7_0.x86_64
-linux-firmware-20180220-62.git6d51311.el7.noarch
+linux-firmware-20180220-62.2.git6d51311.el7_5.noarch
 lksctp-tools-1.0.17-2.el7.x86_64
 log4j-1.2.17-16.el7_4.noarch
 logrotate-3.8.6-15.el7.x86_64
@@ -234,7 +234,7 @@ mailcap-2.1.41-2.el7.noarch
 make-3.82-23.el7.x86_64
 man-db-2.6.3-9.el7.x86_64
 mariadb-libs-5.5.56-2.el7.x86_64
-microcode_ctl-2.1-29.el7.x86_64
+microcode_ctl-2.1-29.2.el7_5.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -344,7 +344,7 @@ polkit-0.112-14.el7.x86_64
 polkit-pkla-compat-0.1-4.el7.x86_64
 popt-1.13-16.el7.x86_64
 postfix-2.10.1-6.el7.x86_64
-procps-ng-3.3.10-17.el7.x86_64
+procps-ng-3.3.10-17.el7_5.2.x86_64
 pth-2.0.7-23.el7.x86_64
 pygobject2-2.28.6-11.el7.x86_64
 pygpgme-0.3-9.el7.x86_64
@@ -385,7 +385,7 @@ python-lockfile-0.9.1-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-33.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-862.2.3.el7.x86_64
+python-perf-3.10.0-862.3.3.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch

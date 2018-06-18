@@ -1,9 +1,9 @@
 CentOS release 6.9 (Final)
-aws-cli/1.15.20 Python/2.6.6 Linux/2.6.32-642.6.2.el6.x86_64 botocore/1.10.20
+aws-cli/1.15.40 Python/2.6.6 Linux/2.6.32-642.6.2.el6.x86_64 botocore/1.10.40
 acl-2.2.49-7.el6_9.1.x86_64
 aic94xx-firmware-30-2.el6.noarch
 alsa-lib-1.1.0-4.el6.x86_64
-amazon-ssm-agent-2.2.546.0-1.x86_64
+amazon-ssm-agent-2.2.619.0-1.x86_64
 atk-1.30.0-1.el6.x86_64
 atmel-firmware-1.3-7.el6.noarch
 attr-2.4.44-7.el6.x86_64
@@ -62,8 +62,8 @@ device-mapper-event-1.02.117-12.el6_9.1.x86_64
 device-mapper-event-libs-1.02.117-12.el6_9.1.x86_64
 device-mapper-libs-1.02.117-12.el6_9.1.x86_64
 device-mapper-persistent-data-0.6.2-0.1.rc7.el6.x86_64
-dhclient-4.1.1-53.P1.el6.centos.3.x86_64
-dhcp-common-4.1.1-53.P1.el6.centos.3.x86_64
+dhclient-4.1.1-53.P1.el6.centos.4.x86_64
+dhcp-common-4.1.1-53.P1.el6.centos.4.x86_64
 diffutils-2.8.1-28.el6.x86_64
 dmidecode-2.12-7.el6.x86_64
 dracut-004-409.el6_8.2.noarch
@@ -127,14 +127,14 @@ iwl6000g2a-firmware-17.168.5.3-1.el6.noarch
 iwl6050-firmware-41.28.5.1-2.el6.noarch
 jasper-libs-1.900.1-21.el6_9.x86_64
 java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
-java-1.8.0-openjdk-1.8.0.171-3.b10.el6_9.x86_64
-java-1.8.0-openjdk-headless-1.8.0.171-3.b10.el6_9.x86_64
+java-1.8.0-openjdk-1.8.0.171-8.b10.el6_9.x86_64
+java-1.8.0-openjdk-headless-1.8.0.171-8.b10.el6_9.x86_64
 java_cup-0.10k-5.el6.x86_64
 jpackage-utils-1.7.5-3.16.el6.noarch
 kbd-1.15-11.el6.x86_64
 kbd-misc-1.15-11.el6.noarch
-kernel-2.6.32-696.28.1.el6.x86_64
-kernel-firmware-2.6.32-696.28.1.el6.noarch
+kernel-2.6.32-696.30.1.el6.x86_64
+kernel-firmware-2.6.32-696.30.1.el6.noarch
 kexec-tools-2.0.0-307.el6_9.1.x86_64
 keyutils-libs-1.4-5.el6.x86_64
 kpartx-0.4.9-100.el6_9.1.x86_64
@@ -271,14 +271,14 @@ policycoreutils-2.0.83-30.1.el6_8.x86_64
 policycoreutils-python-2.0.83-30.1.el6_8.x86_64
 popt-1.13-7.el6.x86_64
 postfix-2.6.6-8.el6.x86_64
-procps-3.2.8-45.el6_9.1.x86_64
+procps-3.2.8-45.el6_9.3.x86_64
 psmisc-22.6-24.el6.x86_64
 pth-2.0.7-9.3.el6.x86_64
 pygpgme-0.1-18.20090824bzr68.el6.x86_64
 pystache-0.3.1-1.el6.noarch
 python-2.6.6-66.el6_8.x86_64
-python34-3.4.5-4.el6.x86_64
-python34-libs-3.4.5-4.el6.x86_64
+python34-3.4.8-1.el6.x86_64
+python34-libs-3.4.8-1.el6.x86_64
 python-argparse-1.2.1-2.1.el6.noarch
 python-backports-1.0-5.el6.x86_64
 python-backports-ssl_match_hostname-3.4.0.2-5.el6.noarch
