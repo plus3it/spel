@@ -1,5 +1,22 @@
 ## Changelog
 
+### 2018.07.1
+
+**Released**: 2018.07.17
+
+**Commit Delta**: [Change from 2018.06.1 release](https://github.com/plus3it/spel/compare/2018.06.1...2018.07.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.07.1/manifests>
+
+**Summary**:
+
+*   "Minor" release updates
+    -   RedHat 6 images are now RedHat 6.10
+    -   CentOS 6 images are now CentOS 6.10
+*   "Extra" package updates
+    -   aws-cli/1.15.60
+    -   amazon-ssm-agent-2.2.800.0-1
+
 ### 2018.06.1
 
 **Released**: 2018.06.18
