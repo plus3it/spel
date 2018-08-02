@@ -26,7 +26,7 @@ rm -f /lib/udev/rules.d/75-persistent-net-generator.rules
 # Ensure unique SSH hostkeys
 echo "generating new ssh hostkeys"
 shred -uz /etc/ssh/*key*
-/etc/init.d/sshd restart
+service sshd restart
 
 # Clean out miscellaneous log files
 for FILE in boot.log btmp cloud-init.log cloud-init-output.log cron dmesg \
