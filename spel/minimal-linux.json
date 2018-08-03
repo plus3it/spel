@@ -30,6 +30,33 @@
         {
             "boot_command": [
                 "<esc><wait>",
+                "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos7.minimal.cfg VAGRANT",
+                "<enter><wait>"
+            ],
+            "boot_wait": "10s",
+            "disk_size": 20480,
+            "format": "ova",
+            "guest_additions_path": "VBoxGuestAdditions_{{ .Version }}.iso",
+            "guest_os_type": "RedHat_64",
+            "headless": true,
+            "http_directory": "{{ template_dir }}/kickstarts",
+            "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
+            "iso_checksum_type": "sha256",
+            "iso_url": "{{ user `iso_url_centos7` }}",
+            "name": "minimal-centos-7-virtualbox",
+            "output_directory": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}",
+            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+            "ssh_password": "vagrant",
+            "ssh_port": 22,
+            "ssh_username": "vagrant",
+            "ssh_wait_timeout": "10000s",
+            "type": "virtualbox-iso",
+            "virtualbox_version_file": ".vbox_version",
+            "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
+        },
+        {
+            "boot_command": [
+                "<esc><wait>",
                 "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos6.minimal.cfg VAGRANT",
                 "<enter><wait>"
             ],
@@ -276,6 +303,7 @@
                 "keep_input_artifact": false,
                 "only": [
                     "minimal-centos-6-virtualbox",
+                    "minimal-centos-7-virtualbox",
                     "minimal-centos-6-vmware"
                 ],
                 "output": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ .BuildName }}.box",
@@ -290,6 +318,16 @@
                 "type": "vagrant-cloud",
                 "version": " {{ user `spel_version` }} ",
                 "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+            },
+            {
+                "access_token": "{{ user `vagrantcloud_token` }}",
+                "box_tag": "{{ user `vagrantcloud_username` }}/{{ user `spel_identifier` }}-minimal-centos-7",
+                "only": [
+                    "minimal-centos-7-virtualbox"
+                ],
+                "type": "vagrant-cloud",
+                "version": " {{ user `spel_version` }} ",
+                "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
             },
             {
                 "access_token": "{{ user `vagrantcloud_token` }}",
@@ -314,6 +352,7 @@
             "destination": "/tmp/retry.sh",
             "only": [
                 "minimal-centos-6-virtualbox",
+                "minimal-centos-7-virtualbox",
                 "minimal-centos-6-vmware"
             ],
             "source": "{{ template_dir }}/scripts/retry.sh",
@@ -323,6 +362,7 @@
             "execute_command": "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'",
             "only": [
                 "minimal-centos-6-virtualbox",
+                "minimal-centos-7-virtualbox",
                 "minimal-centos-6-vmware"
             ],
             "scripts": [
@@ -494,6 +534,7 @@
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
         "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
+        "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
         "source_ami_centos6_hvm": "ami-bfb356d2",
         "source_ami_centos6_pvm": "ami-e2120888",
         "source_ami_centos7_hvm": "ami-650a1672",
