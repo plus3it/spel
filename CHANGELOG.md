@@ -1,5 +1,21 @@
 ## Changelog
 
+### 2018.08.1
+
+**Released**: 2018.08.16
+
+**Commit Delta**: [Change from 2018.07.1 release](https://github.com/plus3it/spel/compare/2018.07.1...2018.08.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.08.1/manifests>
+
+**Summary**:
+
+*   First publication to VagrantCloud of SPEL Vagrant Box for CentOS7, `plus3it/spel-minimal-centos-7`
+*   "Extra" package updates
+    -   aws-cli/1.15.77
+    -   amazon-ssm-agent-2.2.916.0-1
+    -   (RHEL7) python34-3.4.8-2
+
 ### 2018.07.1
 
 **Released**: 2018.07.17

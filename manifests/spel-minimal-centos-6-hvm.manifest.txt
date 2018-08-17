@@ -1,9 +1,9 @@
 CentOS release 6.10 (Final)
-aws-cli/1.15.60 Python/2.6.6 Linux/2.6.32-642.6.2.el6.x86_64 botocore/1.10.59
+aws-cli/1.15.77 Python/2.6.6 Linux/2.6.32-642.6.2.el6.x86_64 botocore/1.10.76
 acl-2.2.49-7.el6_9.1.x86_64
 aic94xx-firmware-30-2.el6.noarch
 alsa-lib-1.1.0-4.el6.x86_64
-amazon-ssm-agent-2.2.800.0-1.x86_64
+amazon-ssm-agent-2.2.916.0-1.x86_64
 atk-1.30.0-1.el6.x86_64
 atmel-firmware-1.3-7.el6.noarch
 attr-2.4.44-7.el6.x86_64
@@ -127,8 +127,8 @@ iwl6000g2a-firmware-17.168.5.3-1.el6.noarch
 iwl6050-firmware-41.28.5.1-2.el6.noarch
 jasper-libs-1.900.1-22.el6.x86_64
 java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
-java-1.8.0-openjdk-1.8.0.171-8.b10.el6_9.x86_64
-java-1.8.0-openjdk-headless-1.8.0.171-8.b10.el6_9.x86_64
+java-1.8.0-openjdk-1.8.0.181-3.b13.el6_10.x86_64
+java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el6_10.x86_64
 java_cup-0.10k-5.el6.x86_64
 jpackage-utils-1.7.5-3.16.el6.noarch
 kbd-1.15-11.el6.x86_64
@@ -357,8 +357,8 @@ xz-lzma-compat-4.999.9-0.5.beta.20091007git.el6.x86_64
 yum-3.2.29-81.el6.centos.noarch
 yum-cron-3.2.29-81.el6.centos.noarch
 yum-metadata-parser-1.1.2-16.el6.x86_64
-yum-plugin-fastestmirror-1.1.30-41.el6.noarch
-yum-utils-1.1.30-41.el6.noarch
+yum-plugin-fastestmirror-1.1.30-42.el6_10.noarch
+yum-utils-1.1.30-42.el6_10.noarch
 zd1211-firmware-1.4-4.el6.noarch
 zip-3.0-1.el6_7.1.x86_64
 zlib-1.2.3-29.el6.x86_64
