@@ -70,6 +70,7 @@ directory.
 | Vagrant Cloud Name                    | Vagrant Provider |
 |---------------------------------------|------------------|
 | [plus3it/spel-minimal-centos-6][2000] | virtualbox       |
+| [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
 
 [1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1001]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
@@ -98,6 +99,7 @@ directory.
 [1024]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-hvm-*x86_64-gp2;sort=desc:creationDate>
 
 [2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6>
+[2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
 ## Prerequisites
 

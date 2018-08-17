@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Get major version
+EL=$(rpm -qa --queryformat '%{VERSION}\n' '(redhat|sl|slf|centos|oraclelinux)-release(|-server|-workstation|-client|-computenode)')
+
 # Setup repos
 echo "installing the epel repo"
-yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm >/dev/null
+yum -y install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${EL}.noarch.rpm" >/dev/null
 
 # Update the box
 echo "installing updates"
