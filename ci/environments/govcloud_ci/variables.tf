@@ -1,0 +1,13 @@
+variable "commercial_aws_region" {}
+variable "ssm_key_name" {}
+variable "govcloud_region" {}
+variable "govcloud_access_key" {}
+variable "govcloud_secret_key" {}
+variable "spel_identifier" {}
+variable "spel_builders" {}
+variable "spel_extrapms" {}
+variable "spel_ssm_access_key" {}
+variable "spel_ssm_secret_key" {}
+variable "aws_region" {}
+variable "spel_ci" {}
+variable "spel_pin_awscli_bundle" {}

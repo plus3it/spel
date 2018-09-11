@@ -1,0 +1,4 @@
+boto3==1.7.65
+invoke==1.1.0
+python-terraform==0.10.0
+PyYAML==3.13
