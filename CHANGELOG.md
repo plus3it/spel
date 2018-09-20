@@ -13,7 +13,7 @@
 *   "Extra" package updates
     -   aws-cli/1.16.15
     -   amazon-ssm-agent-2.3.68.0-1
-    -   (RHEL7) python34-3.4.9-1
+    -   (EL7) python34-3.4.9-1
 
 ### 2018.08.1
 
