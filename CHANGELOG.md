@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2018.10.1
+
+**Released**: 2018.10.16
+
+**Commit Delta**: [Change from 2018.09.1 release](https://github.com/plus3it/spel/compare/2018.09.1...2018.10.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.10.1/manifests>
+
+**Summary**:
+
+*   "Extra" package updates
+    -   aws-cli/1.16.34
+    -   amazon-ssm-agent-2.3.136.0-1
+    -   aws-cfn-bootstrap-1.4-30
+
 ### 2018.09.1
 
 **Released**: 2018.09.18
