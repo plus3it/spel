@@ -132,3 +132,9 @@ def test_timedatectl_dbus_status(host):
     log.info('stdout:\n%s', timedatectl.stdout)
     log.info('stderr:\n%s', timedatectl.stderr)
     assert timedatectl.exit_status == 0
+
+
+@pytest.mark.el7
+def test_var_run_symlink(host):
+    var_run_symlink = host.file('/var/run').linked_to
+    assert var_run_symlink == '/run'
