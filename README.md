@@ -101,6 +101,24 @@ directory.
 [2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6>
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
+## Default username
+
+The default username for all spel images is `maintuser`.
+
+If you wish to change the default username at launch, you can do so via cloud-init
+with userdata something like the following. Change `<USERNAME>` to your desired
+value.
+
+```yaml
+#cloud-config
+system_info:
+  default_user:
+    name: <USERNAME>
+    gecos: spel default user
+    lock_passwd: true
+    sudo: ["ALL=(root) NOPASSWD:ALL"]
+```
+
 ## Prerequisites
 
 [`Packer`][2] by [Hashicorp][1] is used to manage the process of building

@@ -82,7 +82,7 @@
             "vmdk_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
         },
         {
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 6 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 6 AMI with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_regions": "{{ user `ami_regions` }}",
@@ -113,7 +113,7 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 6 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 6 AMI with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_regions": "{{ user `ami_regions` }}",
@@ -144,7 +144,7 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" RHEL 6 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. See {{ user `spel_desc_url` }} for details.",
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 6 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_regions": "{{ user `ami_regions` }}",
@@ -175,7 +175,7 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" CentOS 7 AMI. This AMI contains updates through {{ isotime \"2006-01-02\" }}. For details, see {{ user `spel_desc_url` }}.",
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_regions": "{{ user `ami_regions` }}",
@@ -206,7 +206,7 @@
             "vpc_id": "{{ user `vpc_id` }}"
         },
         {
-            "ami_description": "This is a STIG-partitioned [**NOT HARDENED**], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. See {{ user `spel_desc_url` }} for details.",
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_regions": "{{ user `ami_regions` }}",
@@ -317,7 +317,7 @@
                 ],
                 "type": "vagrant-cloud",
                 "version": " {{ user `spel_version` }} ",
-                "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+                "version_description": "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 image, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
             },
             {
                 "access_token": "{{ user `vagrantcloud_token` }}",
@@ -327,7 +327,7 @@
                 ],
                 "type": "vagrant-cloud",
                 "version": " {{ user `spel_version` }} ",
-                "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+                "version_description": "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
             },
             {
                 "access_token": "{{ user `vagrantcloud_token` }}",
@@ -337,7 +337,7 @@
                 ],
                 "type": "vagrant-cloud",
                 "version": "{{ user `spel_version` }}",
-                "version_description": "This is a STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 Image. This image contains updates through {{ isotime \"2006-01-02\" }}. For details, see https://github.com/plus3it/spel."
+                "version_description": "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 image, with through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
             }
         ],
         [
