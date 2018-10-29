@@ -8,25 +8,19 @@ env:
     PACKER_NO_COLOR: '1'
     CHECKPOINT_DISABLE: '1'
     SPEL_CI: 'false'
-    SPEL_BUILDERS: minimal-rhel-7-hvm,minimal-centos-7-hvm,minimal-rhel-6-hvm,minimal-centos-6-hvm,minimal-centos-6-pvm
+    SPEL_BUILDERS: minimal-rhel-7-hvm,minimal-centos-7-hvm
     SPEL_DESC_URL: https://github.com/plus3it/spel
-    SPEL_AMIGEN6SOURCE: https://github.com/plus3it/AMIgen6.git
     SPEL_AMIGEN7SOURCE: https://github.com/plus3it/AMIgen7.git
     SPEL_AMIUTILSOURCE: https://github.com/ferricoxide/Lx-GetAMI-Utils.git
     SPEL_AWSCLISOURCE: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
-    SPEL_EPEL6RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
     SPEL_EPEL7RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    SPEL_CUSTOMREPORPM6: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
     SPEL_CUSTOMREPORPM7: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     SPEL_EPELREPO: epel
     SPEL_EXTRARPMS: python34
-    SOURCE_AMI_CENTOS6_HVM: ami-bfb356d2
-    SOURCE_AMI_CENTOS6_PVM: ami-e2120888
-    SOURCE_AMI_CENTOS7_HVM: ami-650a1672
-    SOURCE_AMI_RHEL6_HVM: ami-1b05b10d
-    SOURCE_AMI_RHEL7_HVM: ami-cdc999b6
+    SOURCE_AMI_CENTOS7_HVM: ami-090b9dabe1c9f40b3
+    SOURCE_AMI_RHEL7_HVM: ami-0394fe9914b475c53
     SSH_PRIVATE_IP: 'false'
-    PIP_URL: https://bootstrap.pypa.io/2.6/get-pip.py
+    PIP_URL: https://bootstrap.pypa.io/get-pip.py
     PYPI_URL: https://pypi.org/simple
 
 phases:
@@ -81,25 +75,18 @@ phases:
           -var "ami_users=${AMI_USERS}" \
           -var "aws_region=${AWS_REGION}" \
           -var "spel_desc_url=${SPEL_DESC_URL}" \
-          -var "spel_amigen6source=${SPEL_AMIGEN6SOURCE}" \
           -var "spel_amigen7source=${SPEL_AMIGEN7SOURCE}" \
           -var "spel_amiutilsource=${SPEL_AMIUTILSOURCE}" \
           -var "spel_awsclisource=${SPEL_AWSCLISOURCE}" \
-          -var "spel_customreporpm6=${SPEL_CUSTOMREPORPM6}" \
           -var "spel_customreporpm7=${SPEL_CUSTOMREPORPM7}" \
-          -var "spel_customreponame6=${SPEL_CUSTOMREPONAME6}" \
           -var "spel_customreponame7=${SPEL_CUSTOMREPONAME7}" \
           -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
-          -var "spel_epel6release=${SPEL_EPEL6RELEASE}" \
           -var "spel_epel7release=${SPEL_EPEL7RELEASE}" \
           -var "spel_epelrepo=${SPEL_EPELREPO}" \
           -var "spel_extrarpms=${SPEL_EXTRARPMS}" \
           -var "spel_identifier=${SPEL_IDENTIFIER}" \
           -var "spel_version=${SPEL_VERSION}" \
-          -var "source_ami_centos6_hvm=${SOURCE_AMI_CENTOS6_HVM}" \
-          -var "source_ami_centos6_pvm=${SOURCE_AMI_CENTOS6_PVM}" \
           -var "source_ami_centos7_hvm=${SOURCE_AMI_CENTOS7_HVM}" \
-          -var "source_ami_rhel6_hvm=${SOURCE_AMI_RHEL6_HVM}" \
           -var "source_ami_rhel7_hvm=${SOURCE_AMI_RHEL7_HVM}" \
           -var "ssh_private_ip=${SSH_PRIVATE_IP}" \
           -var "subnet_id=${SUBNET_ID}" \
@@ -118,25 +105,18 @@ phases:
           -var "pypi_url=${PYPI_URL}" \
           -var "aws_region=${AWS_REGION}" \
           -var "spel_desc_url=${SPEL_DESC_URL}" \
-          -var "spel_amigen6source=${SPEL_AMIGEN6SOURCE}" \
           -var "spel_amigen7source=${SPEL_AMIGEN7SOURCE}" \
           -var "spel_amiutilsource=${SPEL_AMIUTILSOURCE}" \
           -var "spel_awsclisource=${SPEL_AWSCLISOURCE}" \
-          -var "spel_customreporpm6=${SPEL_CUSTOMREPORPM6}" \
           -var "spel_customreporpm7=${SPEL_CUSTOMREPORPM7}" \
-          -var "spel_customreponame6=${SPEL_CUSTOMREPONAME6}" \
           -var "spel_customreponame7=${SPEL_CUSTOMREPONAME7}" \
           -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
-          -var "spel_epel6release=${SPEL_EPEL6RELEASE}" \
           -var "spel_epel7release=${SPEL_EPEL7RELEASE}" \
           -var "spel_epelrepo=${SPEL_EPELREPO}" \
           -var "spel_extrarpms=${SPEL_EXTRARPMS}" \
           -var "spel_identifier=${SPEL_IDENTIFIER}" \
           -var "spel_version=${SPEL_VERSION}" \
-          -var "source_ami_centos6_hvm=${SOURCE_AMI_CENTOS6_HVM}" \
-          -var "source_ami_centos6_pvm=${SOURCE_AMI_CENTOS6_PVM}" \
           -var "source_ami_centos7_hvm=${SOURCE_AMI_CENTOS7_HVM}" \
-          -var "source_ami_rhel6_hvm=${SOURCE_AMI_RHEL6_HVM}" \
           -var "source_ami_rhel7_hvm=${SOURCE_AMI_RHEL7_HVM}" \
           -var "ssh_private_ip=${SSH_PRIVATE_IP}" \
           -var "subnet_id=${SUBNET_ID}" \

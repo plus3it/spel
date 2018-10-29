@@ -9,9 +9,9 @@ METADATA_KERNEL = 'http://169.254.169.254/latest/meta-data/kernel-id'
 FIPS_DISABLED = set(['true', 'TRUE', '1', 'on'])
 
 # Markers
-VIRTUALIZATION_MARKERS = set('hvm paravirutal'.split())
-PLAT_MARKERS = set('el6 el7'.split())
-FIPS_MARKERS = set('fips_enabled fips_disabled'.split())
+VIRTUALIZATION_MARKERS = set(['hvm', 'paravirutal'])
+PLAT_MARKERS = set(['el7'])
+FIPS_MARKERS = set(['fips_enabled', 'fips_disabled'])
 
 # Platform-specific globals
 PLAT = 'el' + distro.major_version()

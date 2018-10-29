@@ -79,13 +79,6 @@ def test_tmp_mount_properties(host):
     assert tmp.filesystem == 'tmpfs'
 
 
-@pytest.mark.el6
-def test_el6_selinux_permissive(host):
-    cmd = 'test $(getenforce) = \'Permissive\''
-    selinux_permissive = host.run(cmd)
-    assert selinux_permissive.exit_status == 0
-
-
 @pytest.mark.el7
 def test_el7_selinux_enforcing(host):
     cmd = 'test $(getenforce) = \'Enforcing\''
@@ -105,12 +98,6 @@ def test_el7_fips_enabled(host):
 def test_el7_fips_disabled(host):
     fips = host.file('/proc/sys/crypto/fips_enabled')
     assert not fips.exists or fips.content.strip() == b'0'
-
-
-@pytest.mark.el6
-def test_el6_xen_root_dev_mapping(host):
-    grub = host.file('/boot/grub/grub.conf')
-    assert grub.contains('xen_blk')
 
 
 @pytest.mark.parametrize("name", [

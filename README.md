@@ -4,7 +4,7 @@ STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
 publish Enterprise Linux images that are partitioned according to the
 [DISA STIG][0]. The resulting images also use LVM to simplify volume management.
 The images are configured with help from the scripts and packages in the
-[`AMIgen6`][8], [`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
+[`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
 
 ## Why spel
 
@@ -30,11 +30,11 @@ We've added an [FAQ](docs/FAQ.md) to the project. Hopefully, your questions are
 answered there. If they aren't, please feel free to submit an issue requesting
 an appropriate FAQ entry.
 
-## Current Published Image
+## Current Published Images
 
-The AMI table below contains links to the AWS Console that search for the build
-by AMI Name and sort the result by creation date. The most recent AMI of each
-build will be at the top when viewed in the AWS Console.
+SPEL AMIs are published monthly. The AMI table below contains links to the AWS
+Console that search by AMI Name and sort the result by creation date. The most
+recent AMI of each build will be at the top when viewed in the AWS Console.
 
 RPM Manifests for published images are available in the [manifests](manifests)
 directory.
@@ -42,35 +42,52 @@ directory.
 | AWS Region    | Builder Name / Link               |
 |---------------|-----------------------------------|
 | us-east-1     | [spel-minimal-rhel-7-hvm][1000]   |
-|               | [spel-minimal-rhel-6-hvm][1001]   |
 |               | [spel-minimal-centos-7-hvm][1002] |
+| us-east-2     | [spel-minimal-rhel-7-hvm][1005]   |
+|               | [spel-minimal-centos-7-hvm][1007] |
+| us-west-1     | [spel-minimal-rhel-7-hvm][1010]   |
+|               | [spel-minimal-centos-7-hvm][1012] |
+| us-west-2     | [spel-minimal-rhel-7-hvm][1015]   |
+|               | [spel-minimal-centos-7-hvm][1017] |
+| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]   |
+|               | [spel-minimal-centos-7-hvm][1022] |
+
+| Vagrant Cloud Name                    | Vagrant Provider |
+|---------------------------------------|------------------|
+| [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
+
+## Deprecated EL6 Images
+
+The AMI table below contains links to EL6 images that have been deprecated. These
+images are no longer being generated on a monthly base. The last published AMI
+of each build will be at the top when viewed in the AWS Console.
+
+The last version for these EL6 builds was [2018.10.1][3000]. To build any them,
+or to view the manifests, checkout that version of this project.
+
+These EL6 images were created with the help of the [`AMIgen6`][8] project.
+
+| AWS Region    | Builder Name / Link               |
+|---------------|-----------------------------------|
+| us-east-1     | [spel-minimal-rhel-6-hvm][1001]   |
 |               | [spel-minimal-centos-6-pvm][1003] |
 |               | [spel-minimal-centos-6-hvm][1004] |
-| us-east-2     | [spel-minimal-rhel-7-hvm][1005]   |
-|               | [spel-minimal-rhel-6-hvm][1006]   |
-|               | [spel-minimal-centos-7-hvm][1007] |
+| us-east-2     | [spel-minimal-rhel-6-hvm][1006]   |
 |               | [spel-minimal-centos-6-pvm][1008] |
 |               | [spel-minimal-centos-6-hvm][1009] |
-| us-west-1     | [spel-minimal-rhel-7-hvm][1010]   |
-|               | [spel-minimal-rhel-6-hvm][1011]   |
-|               | [spel-minimal-centos-7-hvm][1012] |
+| us-west-1     | [spel-minimal-rhel-6-hvm][1011]   |
 |               | [spel-minimal-centos-6-pvm][1013] |
 |               | [spel-minimal-centos-6-hvm][1014] |
-| us-west-2     | [spel-minimal-rhel-7-hvm][1015]   |
-|               | [spel-minimal-rhel-6-hvm][1016]   |
-|               | [spel-minimal-centos-7-hvm][1017] |
+| us-west-2     | [spel-minimal-rhel-6-hvm][1016]   |
 |               | [spel-minimal-centos-6-pvm][1018] |
 |               | [spel-minimal-centos-6-hvm][1019] |
-| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]   |
-|               | [spel-minimal-rhel-6-hvm][1021]   |
-|               | [spel-minimal-centos-7-hvm][1022] |
+| us-gov-west-1 | [spel-minimal-rhel-6-hvm][1021]   |
 |               | [spel-minimal-centos-6-pvm][1023] |
 |               | [spel-minimal-centos-6-hvm][1024] |
 
 | Vagrant Cloud Name                    | Vagrant Provider |
 |---------------------------------------|------------------|
 | [plus3it/spel-minimal-centos-6][2000] | virtualbox       |
-| [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
 
 [1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1001]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
@@ -100,6 +117,8 @@ directory.
 
 [2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6>
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
+
+[3000]: <https://github.com/plus3it/spel/tree/2018.10.1>
 
 ## Default username
 
@@ -220,33 +239,39 @@ defaults):
     "ami_groups": "",
     "ami_regions": "",
     "ami_users": "",
-    "vagrantcloud_username": "",
-    "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
     "aws_region": "us-east-1",
-    "spel_amigen6source": "https://github.com/plus3it/AMIgen6.git",
+    "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
+    "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+    "azure_dest_resource_group": "",
+    "azure_dest_storage_account": "",
+    "azure_environment": "",
+    "azure_execute_using_public_ip": "",
+    "azure_location": "",
+    "azure_source_image_centos7": "",
+    "azure_source_image_resource_group_centos7": "",
+    "azure_source_vhd_centos7": "",
+    "azure_subnet_name": "",
+    "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+    "azure_virtual_network_name": "",
+    "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
+    "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
+    "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
     "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
-    "spel_awsclisource": "https://s3.amazonaws.com/aws-cli",
-    "spel_customreporpm6": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
-    "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
-    "spel_customreponame6": "",
+    "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
     "spel_customreponame7": "",
-    "spel_disablefips": "",
+    "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_desc_url": "https://github.com/plus3it/spel",
-    "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
+    "spel_disablefips": "",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_epelrepo": "epel",
     "spel_extrarpms": "python34",
     "spel_identifier": "",
     "spel_version": "",
-    "iso_url_centos6": "http://mirror.yellowfiber.net/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-minimal.iso",
-    "source_ami_centos6_hvm": "ami-bfb356d2",
-    "source_ami_centos6_pvm": "ami-e2120888",
-    "source_ami_centos7_hvm": "ami-650a1672",
-    "source_ami_rhel6_hvm": "ami-1b05b10d",
-    "source_ami_rhel7_hvm": "ami-cdc999b6",
     "ssh_private_ip": "false",
     "subnet_id": "",
+    "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
+    "vagrantcloud_username": "",
     "vpc_id": ""
 }
 ```
@@ -257,17 +282,13 @@ defaults):
 | `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
 | `spel_identifier`       | Project ID to associate to the resulting images                   |
 | `spel_version`          | Version to assign to the resulting image(s)                       |
-| `spel_amigen6source`    | URL to the git repository for the `AMIGen6` project               |
 | `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_customreporpm6`   | URL to a custom release RPM containing base repos for EL6         |
 | `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
-| `spel_customreponame6`  | Name(s) of the custom yum repos (* or comma-separated) for EL6    |
 | `spel_customreponame7`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
 | `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
 | `spel_desc_url`         | URL to detailed description of AMI                                |
-| `spel_epel6release`     | URL to the release RPM for the [EPEL 6][10] repo                  |
 | `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
@@ -282,13 +303,8 @@ The Minimal Linux `packer` template includes the following builders:
 
 | Builder Name                     | Description                                                 |
 |----------------------------------|-------------------------------------------------------------|
-| `minimal-centos-6-hvm`         | amazon-ebs builder that results in a minimal CentOS 6 HVM AMI |
-| `minimal-centos-6-pvm`         | amazon-ebs builder that results in a minimal CentOS 6 PVM AMI |
-| `minimal-rhel-6-hvm`           | amazon-ebs builder that results in a minimal RHEL 6 HVM AMI   |
 | `minimal-centos-7-hvm`         | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
 | `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
-| `minimal-centos-6-virtualbox`  | virtualbox-iso builder that results in a minimal CentOS 6 OVA |
-| `minimal-centos-6-vmware`      | vmware-iso builder that results in a minimal CentOS 6 OVF     |
 | `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
 | `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
 
@@ -315,10 +331,9 @@ packer build \
     -var 'spel_identifier=unique-project-id' \
     -var 'spel_version=0.0.1' \
     -var 'aws_region=us-gov-west-1' \
-    -var 'source_ami_centos6_hvm=ami-03bb0462' \
-    -var 'source_ami_centos6_pvm=ami-62b70803' \
-    -var 'source_ami_rhel6_hvm=ami-caee51ab' \
-    -except 'minimal-centos-6-virtualbox,minimal-centos-6-vmware,minimal-centos-7-azure-vhd,minimal-centos-7-azure-image' \
+    -var 'source_ami_centos7_hvm=ami-faae349b' \
+    -var 'source_ami_rhel7_hvm=ami-91d649f0' \
+    -only 'minimal-centos-7-hvm,minimal-rhel-7-hvm' \
     spel/minimal-linux.json
 ```
 
