@@ -101,7 +101,7 @@ def test_el7_fips_disabled(host):
 
 
 @pytest.mark.parametrize("name", [
-    ("python34")
+    ("python36")
 ])
 def test_python3_installed(host, name):
     pkg = host.package(name)

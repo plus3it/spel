@@ -265,7 +265,7 @@ defaults):
     "spel_disablefips": "",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_epelrepo": "epel",
-    "spel_extrarpms": "python34",
+    "spel_extrarpms": "python36",
     "spel_identifier": "",
     "spel_version": "",
     "ssh_private_ip": "false",

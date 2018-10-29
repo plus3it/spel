@@ -16,7 +16,7 @@ env:
     SPEL_EPEL7RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     SPEL_CUSTOMREPORPM7: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     SPEL_EPELREPO: epel
-    SPEL_EXTRARPMS: python34
+    SPEL_EXTRARPMS: python36
     SOURCE_AMI_CENTOS7_HVM: ami-090b9dabe1c9f40b3
     SOURCE_AMI_RHEL7_HVM: ami-0394fe9914b475c53
     SSH_PRIVATE_IP: 'false'
