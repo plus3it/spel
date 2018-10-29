@@ -3,33 +3,6 @@
         {
             "boot_command": [
                 "<esc><wait>",
-                "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos6.minimal.cfg VAGRANT",
-                "<enter><wait>"
-            ],
-            "boot_wait": "10s",
-            "disk_size": 20480,
-            "format": "ova",
-            "guest_additions_path": "VBoxGuestAdditions_{{ .Version }}.iso",
-            "guest_os_type": "RedHat_64",
-            "headless": true,
-            "http_directory": "{{ template_dir }}/kickstarts",
-            "iso_checksum": "7c0dee2a0494dabd84809b72ddb4b761f9ef92b78a506aef709b531c54d30770",
-            "iso_checksum_type": "sha256",
-            "iso_url": "{{ user `iso_url_centos6` }}",
-            "name": "minimal-centos-6-virtualbox",
-            "output_directory": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}",
-            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
-            "ssh_password": "vagrant",
-            "ssh_port": 22,
-            "ssh_username": "vagrant",
-            "ssh_wait_timeout": "10000s",
-            "type": "virtualbox-iso",
-            "virtualbox_version_file": ".vbox_version",
-            "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
-        },
-        {
-            "boot_command": [
-                "<esc><wait>",
                 "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos7.minimal.cfg VAGRANT",
                 "<enter><wait>"
             ],
@@ -53,126 +26,6 @@
             "type": "virtualbox-iso",
             "virtualbox_version_file": ".vbox_version",
             "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
-        },
-        {
-            "boot_command": [
-                "<esc><wait>",
-                "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.centos6.minimal.cfg VAGRANT",
-                "<enter><wait>"
-            ],
-            "boot_wait": "10s",
-            "disk_size": 20480,
-            "guest_os_type": "CentOS-64",
-            "headless": true,
-            "http_directory": "{{ template_dir }}/kickstarts",
-            "iso_checksum": "7c0dee2a0494dabd84809b72ddb4b761f9ef92b78a506aef709b531c54d30770",
-            "iso_checksum_type": "sha256",
-            "iso_url": "{{ user `iso_url_centos6` }}",
-            "name": "minimal-centos-6-vmware",
-            "output_directory": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}",
-            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
-            "skip_compaction": true,
-            "ssh_password": "vagrant",
-            "ssh_port": 22,
-            "ssh_username": "vagrant",
-            "ssh_wait_timeout": "10000s",
-            "tools_upload_flavor": "linux",
-            "type": "vmware-iso",
-            "vm_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
-            "vmdk_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}"
-        },
-        {
-            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 6 AMI with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
-            "ami_groups": "{{ user `ami_groups` }}",
-            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_regions": "{{ user `ami_regions` }}",
-            "ami_users": "{{ user `ami_users` }}",
-            "associate_public_ip_address": true,
-            "communicator": "ssh",
-            "force_deregister": "{{ user `ami_force_deregister` }}",
-            "instance_type": "t2.large",
-            "launch_block_device_mappings": [
-                {
-                    "delete_on_termination": true,
-                    "device_name": "/dev/sda1",
-                    "volume_size": 20,
-                    "volume_type": "gp2"
-                }
-            ],
-            "name": "minimal-centos-6-hvm",
-            "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_centos6_hvm` }}",
-            "ssh_port": 122,
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
-            "ssh_pty": true,
-            "ssh_timeout": "60m",
-            "ssh_username": "spel",
-            "subnet_id": "{{ user `subnet_id` }}",
-            "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
-        },
-        {
-            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 6 AMI with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
-            "ami_groups": "{{ user `ami_groups` }}",
-            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_regions": "{{ user `ami_regions` }}",
-            "ami_users": "{{ user `ami_users` }}",
-            "associate_public_ip_address": true,
-            "communicator": "ssh",
-            "force_deregister": "{{ user `ami_force_deregister` }}",
-            "instance_type": "m3.large",
-            "launch_block_device_mappings": [
-                {
-                    "delete_on_termination": true,
-                    "device_name": "/dev/sda",
-                    "volume_size": 20,
-                    "volume_type": "gp2"
-                }
-            ],
-            "name": "minimal-centos-6-pvm",
-            "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_centos6_pvm` }}",
-            "ssh_port": 122,
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
-            "ssh_pty": true,
-            "ssh_timeout": "60m",
-            "ssh_username": "spel",
-            "subnet_id": "{{ user `subnet_id` }}",
-            "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
-        },
-        {
-            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 6 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
-            "ami_groups": "{{ user `ami_groups` }}",
-            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_regions": "{{ user `ami_regions` }}",
-            "ami_users": "{{ user `ami_users` }}",
-            "associate_public_ip_address": true,
-            "communicator": "ssh",
-            "force_deregister": "{{ user `ami_force_deregister` }}",
-            "instance_type": "t2.large",
-            "launch_block_device_mappings": [
-                {
-                    "delete_on_termination": true,
-                    "device_name": "/dev/sda1",
-                    "volume_size": 20,
-                    "volume_type": "gp2"
-                }
-            ],
-            "name": "minimal-rhel-6-hvm",
-            "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
-            "ssh_port": 122,
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
-            "ssh_pty": true,
-            "ssh_timeout": "60m",
-            "ssh_username": "spel",
-            "subnet_id": "{{ user `subnet_id` }}",
-            "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el6.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
         },
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
@@ -302,22 +155,10 @@
                 "compression_level": 9,
                 "keep_input_artifact": false,
                 "only": [
-                    "minimal-centos-6-virtualbox",
-                    "minimal-centos-7-virtualbox",
-                    "minimal-centos-6-vmware"
+                    "minimal-centos-7-virtualbox"
                 ],
                 "output": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ .BuildName }}.box",
                 "type": "vagrant"
-            },
-            {
-                "access_token": "{{ user `vagrantcloud_token` }}",
-                "box_tag": "{{ user `vagrantcloud_username` }}/{{ user `spel_identifier` }}-minimal-centos-6",
-                "only": [
-                    "minimal-centos-6-virtualbox"
-                ],
-                "type": "vagrant-cloud",
-                "version": " {{ user `spel_version` }} ",
-                "version_description": "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 image, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
             },
             {
                 "access_token": "{{ user `vagrantcloud_token` }}",
@@ -328,16 +169,6 @@
                 "type": "vagrant-cloud",
                 "version": " {{ user `spel_version` }} ",
                 "version_description": "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
-            },
-            {
-                "access_token": "{{ user `vagrantcloud_token` }}",
-                "box_tag": "{{ user `vagrantcloud_username` }}/{{ user `spel_identifier` }}-minimal-centos-6",
-                "only": [
-                    "minimal-centos-6-vmware"
-                ],
-                "type": "vagrant-cloud",
-                "version": "{{ user `spel_version` }}",
-                "version_description": "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 6 image, with through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
             }
         ],
         [
@@ -351,9 +182,7 @@
         {
             "destination": "/tmp/retry.sh",
             "only": [
-                "minimal-centos-6-virtualbox",
-                "minimal-centos-7-virtualbox",
-                "minimal-centos-6-vmware"
+                "minimal-centos-7-virtualbox"
             ],
             "source": "{{ template_dir }}/scripts/retry.sh",
             "type": "file"
@@ -361,9 +190,7 @@
         {
             "execute_command": "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'",
             "only": [
-                "minimal-centos-6-virtualbox",
-                "minimal-centos-7-virtualbox",
-                "minimal-centos-6-vmware"
+                "minimal-centos-7-virtualbox"
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/base.sh",
@@ -401,40 +228,10 @@
                 "test $(grep -c /boot /proc/mounts) -eq 0 || umount /boot"
             ],
             "only": [
-                "minimal-centos-6-hvm",
-                "minimal-centos-6-pvm",
-                "minimal-rhel-6-hvm",
                 "minimal-centos-7-hvm",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image"
-            ],
-            "type": "shell"
-        },
-        {
-            "environment_vars": [
-                "SPEL_AMIGENSOURCE={{ user `spel_amigen6source` }}",
-                "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
-                "SPEL_AWSCLISOURCE={{ user `spel_awsclisource` }}",
-                "SPEL_BOOTLABEL=/boot",
-                "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-                "SPEL_CHROOT=/mnt/ec2-root",
-                "SPEL_DEVNODE=/dev/xvda",
-                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm6` }}",
-                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame6` }}",
-                "SPEL_EPELRELEASE={{ user `spel_epel6release` }}",
-                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
-                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_VGNAME=VolGroup00"
-            ],
-            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
-            "only": [
-                "minimal-centos-6-hvm",
-                "minimal-centos-6-pvm",
-                "minimal-rhel-6-hvm"
-            ],
-            "scripts": [
-                "{{ template_dir }}/scripts/amigen6-build.sh"
             ],
             "type": "shell"
         },
@@ -533,27 +330,19 @@
         "azure_subnet_name": "",
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
-        "iso_url_centos6": "http://mirror.cs.vt.edu/pub/CentOS/6.10/isos/x86_64/CentOS-6.10-x86_64-minimal.iso",
         "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
-        "source_ami_centos6_hvm": "ami-bfb356d2",
-        "source_ami_centos6_pvm": "ami-e2120888",
-        "source_ami_centos7_hvm": "ami-650a1672",
-        "source_ami_rhel6_hvm": "ami-1b05b10d",
-        "source_ami_rhel7_hvm": "ami-cdc999b6",
-        "spel_amigen6source": "https://github.com/plus3it/AMIgen6.git",
+        "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
+        "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
         "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
-        "spel_customreponame6": "",
         "spel_customreponame7": "",
-        "spel_customreporpm6": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
         "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_desc_url": "https://github.com/plus3it/spel",
         "spel_disablefips": "",
-        "spel_epel6release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm",
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_epelrepo": "epel",
-        "spel_extrarpms": "python34",
+        "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36",
         "spel_identifier": "",
         "spel_version": "",
         "ssh_private_ip": "false",
