@@ -26,7 +26,7 @@ except urllib.error.URLError:
 
 
 def pytest_runtest_setup(item):
-    if isinstance(item, item.Function):
+    if isinstance(item, pytest.Function):
         if not item.get_marker(PLAT):
             if PLAT_MARKERS.intersection(item.keywords):
                 pytest.skip('does not run on platform {0}'.format(PLAT))
