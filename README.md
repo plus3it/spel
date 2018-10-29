@@ -265,7 +265,7 @@ defaults):
     "spel_disablefips": "",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_epelrepo": "epel",
-    "spel_extrarpms": "python36",
+    "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36",
     "spel_identifier": "",
     "spel_version": "",
     "ssh_private_ip": "false",
