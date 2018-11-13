@@ -15,87 +15,6 @@
                     "volume_type": "gp2"
                 }
             ],
-            "name": "minimal-centos-6-hvm",
-            "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_centos6_hvm` }}",
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
-            "ssh_pty": true,
-            "ssh_timeout": "60m",
-            "ssh_username": "spel",
-            "subnet_id": "{{ user `subnet_id` }}",
-            "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
-        },
-        {
-            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "associate_public_ip_address": true,
-            "communicator": "ssh",
-            "force_deregister": "true",
-            "instance_type": "m3.large",
-            "launch_block_device_mappings": [
-                {
-                    "delete_on_termination": true,
-                    "device_name": "/dev/sda",
-                    "volume_size": 21,
-                    "volume_type": "gp2"
-                }
-            ],
-            "name": "minimal-centos-6-pvm",
-            "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_centos6_pvm` }}",
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
-            "ssh_pty": true,
-            "ssh_timeout": "60m",
-            "ssh_username": "spel",
-            "subnet_id": "{{ user `subnet_id` }}",
-            "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
-        },
-        {
-            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "associate_public_ip_address": true,
-            "communicator": "ssh",
-            "force_deregister": "true",
-            "instance_type": "m4.large",
-            "launch_block_device_mappings": [
-                {
-                    "delete_on_termination": true,
-                    "device_name": "/dev/sda1",
-                    "volume_size": 21,
-                    "volume_type": "gp2"
-                }
-            ],
-            "name": "minimal-rhel-6-hvm",
-            "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_rhel6_hvm` }}",
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
-            "ssh_pty": true,
-            "ssh_timeout": "60m",
-            "ssh_username": "spel",
-            "subnet_id": "{{ user `subnet_id` }}",
-            "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/validation.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
-        },
-        {
-            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
-            "associate_public_ip_address": true,
-            "communicator": "ssh",
-            "force_deregister": "true",
-            "instance_type": "m4.large",
-            "launch_block_device_mappings": [
-                {
-                    "delete_on_termination": true,
-                    "device_name": "/dev/sda1",
-                    "volume_size": 21,
-                    "volume_type": "gp2"
-                }
-            ],
             "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos7_hvm` }}",
@@ -215,12 +134,9 @@
     ],
     "variables": {
         "aws_region": "{{ env `AWS_REGION` }}",
-        "pip_url": "https://bootstrap.pypa.io/2.6/get-pip.py",
+        "pip_url": "https://bootstrap.pypa.io/get-pip.py",
         "pypi_url": "https://pypi.org/simple",
-        "source_ami_centos6_hvm": "{{ env `minimal_centos_6_hvm` }}",
-        "source_ami_centos6_pvm": "{{ env `minimal_centos_6_pvm` }}",
         "source_ami_centos7_hvm": "{{ env `minimal_centos_7_hvm` }}",
-        "source_ami_rhel6_hvm": "{{ env `minimal_rhel_6_hvm` }}",
         "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_hvm` }}",
         "spel_disablefips": "",
         "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",

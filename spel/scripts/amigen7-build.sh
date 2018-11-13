@@ -42,6 +42,11 @@ then
     )
 fi
 
+if [[ -z "${CUSTOMREPONAME}" ]]
+then
+    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+fi
+
 export CHROOT
 export FIPSDISABLE
 
@@ -125,6 +130,25 @@ set -e
 
 echo "Installing build-host dependencies"
 yum -y install "${BUILDDEPS[@]}"
+rpm -q "${BUILDDEPS[@]}"
+
+echo "Installing custom repo packages in the builder box"
+BUILDER_CUSTOMREPORPM=(${CUSTOMREPORPM/,/ })
+for RPM in "${BUILDER_CUSTOMREPORPM[@]}"
+do
+      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+done
+
+echo "Enabling repos in the builder box"
+yum-config-manager --disable "*" > /dev/null
+yum-config-manager --enable "$CUSTOMREPONAME" > /dev/null
+
+echo "Installing specified extra packages in the builder box"
+BUILDER_EXTRARPMS=(${EXTRARPMS/,/ })
+for RPM in "${BUILDER_EXTRARPMS[@]}"
+do
+      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+done
 
 if [[ "${AMIGENSOURCE}" == *"@"* ]]
 then
@@ -152,13 +176,13 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -x "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}"
 
 echo "Executing MkChrootTree.sh"
-bash -x "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}"
 
 echo "Executing MkTabs.sh"
-bash -x "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
 
 # Construct the cli option string for extra rpms
 CLIOPT_EXTRARPMS=""
@@ -169,28 +193,23 @@ fi
 
 # Construct the cli option string for a custom repo
 CLIOPT_CUSTOMREPO=""
-if [[ -z "${CUSTOMREPONAME}" ]]
-then
-    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
-fi
-
 if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
 then
     CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
 fi
 
 echo "Executing ChrootBuild.sh"
-bash -x "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}"
+bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}"
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     # Epel mirrors are maddening; retry 5 times to work around issues
     echo "Executing AWScliSetup.sh"
-    retry 5 bash -x "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
+    retry 5 bash -eux -o pipefail "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
 fi
 
 echo "Executing ChrootCfg.sh"
-bash -x "${ELBUILD}"/ChrootCfg.sh
+bash -eux -o pipefail "${ELBUILD}"/ChrootCfg.sh
 
 echo "Executing GrubSetup.sh"
 if [[ "${CLOUDPROVIDER}" == "azure" ]]
@@ -204,16 +223,16 @@ then
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
-bash -x "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
 
 echo "Executing NetSet.sh"
-bash -x "${ELBUILD}"/NetSet.sh
+bash -eux -o pipefail "${ELBUILD}"/NetSet.sh
 
 echo "Executing CleanChroot.sh"
-bash -x "${ELBUILD}"/CleanChroot.sh
+bash -eux -o pipefail "${ELBUILD}"/CleanChroot.sh
 
 echo "Executing PreRelabel.sh"
-bash -x "${ELBUILD}"/PreRelabel.sh
+bash -eux -o pipefail "${ELBUILD}"/PreRelabel.sh
 
 if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
@@ -254,6 +273,6 @@ echo "Saving the RPM manifest"
 rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
 
 echo "Executing Umount.sh"
-bash -x "${ELBUILD}"/Umount.sh
+bash -eux -o pipefail "${ELBUILD}"/Umount.sh
 
 echo "amigen7-build.sh complete"'!'

@@ -17,7 +17,7 @@ echo "installing common dependencies"
 bash /tmp/retry.sh 5 yum -y install virt-what unzip >/dev/null
 
 # Install python3 (from epel)
-yum -y install python34
+yum -y install python36
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
 echo "disabling dns resolution in sshd"
