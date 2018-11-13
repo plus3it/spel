@@ -1,8 +1,8 @@
 CentOS Linux release 7.5.1804 (Core) 
-aws-cli/1.16.34 Python/2.7.5 Linux/3.10.0-693.2.2.el7.x86_64 botocore/1.12.24
+aws-cli/1.16.53 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.43
 acl-2.2.51-14.el7.x86_64
 alsa-lib-1.1.4.1-2.el7.x86_64
-amazon-ssm-agent-2.3.136.0-1.x86_64
+amazon-ssm-agent-2.3.235.0-1.x86_64
 audit-2.8.1-3.el7_5.1.x86_64
 audit-libs-2.8.1-3.el7_5.1.x86_64
 audit-libs-python-2.8.1-3.el7_5.1.x86_64
@@ -126,8 +126,8 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-11.el7.x86_64
 iwl7265-firmware-22.0.7.0-62.2.el7_5.noarch
 jansson-2.10-1.el7.x86_64
-java-1.8.0-openjdk-1.8.0.181-3.b13.el7_5.x86_64
-java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64
+java-1.8.0-openjdk-1.8.0.191.b12-0.el7_5.x86_64
+java-1.8.0-openjdk-headless-1.8.0.191.b12-0.el7_5.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 kbd-1.15.5-13.el7.x86_64
 kbd-legacy-1.15.5-13.el7.noarch
@@ -343,8 +343,8 @@ pyserial-2.6-6.el7.noarch
 pystache-0.5.3-2.el7.noarch
 python-2.7.5-69.el7_5.x86_64
 python2-simplejson-3.10.0-1.el7.x86_64
-python34-3.4.9-1.el7.x86_64
-python34-libs-3.4.9-1.el7.x86_64
+python36-3.6.6-1.el7.x86_64
+python36-libs-3.6.6-1.el7.x86_64
 python-babel-0.9.6-8.el7.noarch
 python-backports-1.0-8.el7.x86_64
 python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch
@@ -421,8 +421,8 @@ tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.27-4.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
 tuned-2.9.0-1.el7_5.2.noarch
-tzdata-2018e-3.el7.noarch
-tzdata-java-2018e-3.el7.noarch
+tzdata-2018f-2.el7.noarch
+tzdata-java-2018f-2.el7.noarch
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-52.el7_5.1.x86_64
 vim-common-7.4.160-4.el7.x86_64
