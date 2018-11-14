@@ -21,6 +21,8 @@ EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
+PYTHON3_BIN="/usr/bin/python3.6"
+PYTHON3_LINK="/usr/bin/python3"
 ELBUILD="/tmp/el-build"
 AMIUTILS="/tmp/ami-utils"
 
@@ -233,6 +235,12 @@ bash -eux -o pipefail "${ELBUILD}"/CleanChroot.sh
 
 echo "Executing PreRelabel.sh"
 bash -eux -o pipefail "${ELBUILD}"/PreRelabel.sh
+
+if [[ -x "${CHROOT}${PYTHON3_BIN}" && ! -s "${CHROOT}${PYTHON3_LINK}" ]]
+then
+    echo "Ensuring python3 symlink exists"
+    chroot "$CHROOT" ln -sf "$PYTHON3_BIN" "$PYTHON3_LINK"
+fi
 
 if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
