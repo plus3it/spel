@@ -268,7 +268,7 @@ defaults):
     "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36",
     "spel_identifier": "",
     "spel_version": "",
-    "ssh_private_ip": "false",
+    "ssh_interface": "public_dns",
     "subnet_id": "",
     "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
     "vagrantcloud_username": "",

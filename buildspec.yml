@@ -19,7 +19,7 @@ env:
     SPEL_EXTRARPMS: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36
     SOURCE_AMI_CENTOS7_HVM: ami-090b9dabe1c9f40b3
     SOURCE_AMI_RHEL7_HVM: ami-0394fe9914b475c53
-    SSH_PRIVATE_IP: 'false'
+    SSH_INTERFACE: 'public_dns'
     PIP_URL: https://bootstrap.pypa.io/get-pip.py
     PYPI_URL: https://pypi.org/simple
 
@@ -88,7 +88,7 @@ phases:
           -var "spel_version=${SPEL_VERSION}" \
           -var "source_ami_centos7_hvm=${SOURCE_AMI_CENTOS7_HVM}" \
           -var "source_ami_rhel7_hvm=${SOURCE_AMI_RHEL7_HVM}" \
-          -var "ssh_private_ip=${SSH_PRIVATE_IP}" \
+          -var "ssh_interface=${SSH_INTERFACE}" \
           -var "subnet_id=${SUBNET_ID}" \
           -var "vpc_id=${VPC_ID}" \
           spel/minimal-linux.json
@@ -118,7 +118,7 @@ phases:
           -var "spel_version=${SPEL_VERSION}" \
           -var "source_ami_centos7_hvm=${SOURCE_AMI_CENTOS7_HVM}" \
           -var "source_ami_rhel7_hvm=${SOURCE_AMI_RHEL7_HVM}" \
-          -var "ssh_private_ip=${SSH_PRIVATE_IP}" \
+          -var "ssh_interface=${SSH_INTERFACE}" \
           -var "subnet_id=${SUBNET_ID}" \
           -var "vpc_id=${VPC_ID}" \
           spel/minimal-linux.json
@@ -138,7 +138,7 @@ phases:
           -var "spel_identifier=${SPEL_IDENTIFIER}" \
           -var "spel_version=${SPEL_VERSION}" \
           -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
-          -var "ssh_private_ip=${SSH_PRIVATE_IP}" \
+          -var "ssh_interface=${SSH_INTERFACE}" \
           -var "subnet_id=${SUBNET_ID}" \
           -var "vpc_id=${VPC_ID}" \
           tests/minimal-linux.json
