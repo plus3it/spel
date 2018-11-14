@@ -1,5 +1,5 @@
 CentOS Linux release 7.5.1804 (Core) 
-aws-cli/1.16.53 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.43
+aws-cli/1.16.54 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.44
 acl-2.2.51-14.el7.x86_64
 alsa-lib-1.1.4.1-2.el7.x86_64
 amazon-ssm-agent-2.3.235.0-1.x86_64

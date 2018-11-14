@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2018.11.2
+
+**Released**: 2018.11.14
+
+**Commit Delta**: [Change from 2018.11.1 release](https://github.com/plus3it/spel/compare/2018.11.1...2018.11.2)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.11.2/manifests>
+
+**Summary**:
+
+*   Ensures that the symlink `/usr/bin/python3` exists
+
+*   "Extra" package updates
+    -   aws-cli/1.16.54
+
 ### 2018.11.1
 
 **Released**: 2018.11.13
