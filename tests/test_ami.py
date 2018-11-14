@@ -113,6 +113,12 @@ def test_python3_installed(host, name):
 
 
 @pytest.mark.el7
+def test_python3_symlink(host):
+    python3_symlink = host.file('/usr/bin/python3').linked_to
+    assert python3_symlink == '/usr/bin/python3.6'
+
+
+@pytest.mark.el7
 def test_timedatectl_dbus_status(host):
     cmd = 'timedatectl'
     timedatectl = host.run(cmd)
@@ -125,3 +131,4 @@ def test_timedatectl_dbus_status(host):
 def test_var_run_symlink(host):
     var_run_symlink = host.file('/var/run').linked_to
     assert var_run_symlink == '/run'
+
