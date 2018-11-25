@@ -5,4 +5,4 @@ pytest==4.0.1;python_version>="2.7"
 pytest-logger==0.4.0
 six==1.11.0
 testinfra==1.16.0;python_version<="2.6"  # pyup: ==1.15.0
-testinfra==1.17.0;python_version>="2.7"
+testinfra==1.18.0;python_version>="2.7"
