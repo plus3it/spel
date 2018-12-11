@@ -18,7 +18,7 @@
             "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos7_hvm` }}",
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_interface": "{{ user `ssh_interface` }}",
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
@@ -45,7 +45,7 @@
             "name": "minimal-rhel-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
-            "ssh_private_ip": "{{ user `ssh_private_ip` }}",
+            "ssh_interface": "{{ user `ssh_interface` }}",
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
@@ -141,7 +141,7 @@
         "spel_disablefips": "",
         "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",
         "spel_version": "{{ env `SPEL_VERSION` }}",
-        "ssh_private_ip": "false",
+        "ssh_interface": "public_dns",
         "subnet_id": "",
         "vpc_id": ""
     }

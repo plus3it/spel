@@ -1,5 +1,22 @@
 ## Changelog
 
+### 2018.12.1
+
+**Released**: 2018.12.11
+
+**Commit Delta**: [Change from 2018.11.2 release](https://github.com/plus3it/spel/compare/2018.11.2...2018.12.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2018.12.1/manifests>
+
+**Summary**:
+
+*   Minor Release
+    -   CentOS Linux Release 7.6
+
+*   "Extra" package updates
+    -   aws-cli/1.16.72
+    -   amazon-ssm-agent-2.3.274
+
 ### 2018.11.2
 
 **Released**: 2018.11.14
