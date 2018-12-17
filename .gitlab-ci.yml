@@ -1,0 +1,16 @@
+before_script:
+  - touch .variables
+  - apt-get update
+  - apt-get -y install python-pip python-dev build-essential
+  - pip install awscli --upgrade
+  - test $SPEL_CI == "true" && echo "export SPEL_VERSION=$(date +%Y.%m.dev%s)" >> .variables || true
+
+build_job:
+  script:
+      - source .variables
+      - make
+
+after_script:
+  - source .variables
+  - echo "Sleeping 180 seconds to ensure the AMI Name is searchable..."; sleep 180
+  - make post_build
