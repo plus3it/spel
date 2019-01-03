@@ -2,7 +2,7 @@
 echo "==========STARTING BUILD=========="
 echo "Building packer template, spel/minimal-linux.json"
 
-AWS_PROFILE=$SPEL_IDENTIFIER ./packer build \
+AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -only "$SPEL_BUILDERS" \
   -var "ami_groups=$AMI_GROUPS" \
   -var "ami_regions=$AMI_REGIONS" \
@@ -37,7 +37,7 @@ for BUILDER in ${SPEL_BUILDERS//,/ }; do
   export "$BUILDER_ENV"="$TEMP_BUILDER_ENV"
 done
 
-AWS_PROFILE=$SPEL_IDENTIFIER ./packer build \
+AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -only "$SPEL_BUILDERS" \
   -var "aws_region=$AWS_REGION" \
   -var "pip_url=$PIP_URL" \

@@ -1,7 +1,8 @@
 #!/bin/bash
 echo "==========STARTING PRE_BUILD=========="
 echo "Validating packer template, spel/minimal-linux.json"
-AWS_PROFILE=$SPEL_IDENTIFIER ./packer validate \
+
+AWS_PROFILE="$SPEL_IDENTIFIER" ./packer validate \
   -only "$SPEL_BUILDERS" \
   -var "ami_groups=$AMI_GROUPS" \
   -var "ami_regions=$AMI_REGIONS" \
