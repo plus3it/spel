@@ -52,33 +52,6 @@ endif
 endif
 $(info SPEL_AWSCLISOURCE=${SPEL_AWSCLISOURCE})
 
-# Check if $SPEL_SSM_ACCESS_KEY is not null
-ifdef SPEL_SSM_ACCESS_KEY
-SSM_ACCESS_KEY = $(shell aws ssm get-parameters --name ${SPEL_SSM_ACCESS_KEY} --with-decryption --query 'Parameters[0].Value' --out text)
-ifeq ("${SSM_ACCESS_KEY}", "None")
-$(error SSM_ACCESS_KEY is undefined: ${SHELLSTATUS})
-endif
-$(shell aws configure set aws_access_key_id ${SSM_ACCESS_KEY} --profile ${SPEL_IDENTIFIER})
-
-SSM_SECRET_KEY = $(shell aws ssm get-parameters --name ${SPEL_SSM_SECRET_KEY} --with-decryption --query 'Parameters[0].Value' --out text)
-ifeq ("${SSM_SECRET_KEY}", "None")
-$(error SSM_SECRET_KEY is undefined: ${SHELLSTATUS})
-endif
-$(shell aws configure set aws_secret_access_key ${SSM_SECRET_KEY} --profile ${SPEL_IDENTIFIER})
-# Setup the profile credentials
-else ifdef AWS_ACCESS_KEY_ID
-$(shell aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${SPEL_IDENTIFIER})
-$(shell aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${SPEL_IDENTIFIER})
-endif 
-
-# Check if $SPEL_SSM_SESSION_TOKEN is not null
-ifdef SPEL_SSM_SESSION_TOKEN
-SSM_SESSION_TOKEN_PARAMS = $(shell aws ssm get-parameters --name $SPEL_SSM_SESSION_TOKEN --with-decryption --query 'Parameters[0].Value' --out text)
-$(shell aws configure set aws_session_token ${SSM_SESSION_TOKEN_PARAMS} --profile ${SPEL_IDENTIFIER})
-endif
-
-$(shell aws configure set region ${AWS_REGION} --profile ${SPEL_IDENTIFIER})
-
 all: build
 
 install:

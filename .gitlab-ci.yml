@@ -5,10 +5,25 @@ before_script:
   - pip install awscli --upgrade
   - test $SPEL_CI == "true" && echo "export SPEL_VERSION=$(date +%Y.%m.dev%s)" >> .variables || true
 
-build_job:
+commercial_build_job:
+  variables:
+    AWS_REGION: "us-east-1"
+    SOURCE_AMI_CENTOS7_HVM: "ami-090b9dabe1c9f40b3"
+    SOURCE_AMI_RHEL7_HVM: "ami-0394fe9914b475c53"
   script:
-      - source .variables
-      - make
+    - source .variables
+    - make
+
+govcloud_build_job:
+  variables:
+    AWS_REGION: "us-gov-west-1"
+    SOURCE_AMI_CENTOS7_HVM: "ami-faae349b"
+    SOURCE_AMI_RHEL7_HVM: "ami-91d649f0"
+    SPEL_SSM_ACCESS_KEY: "/spel/govcloud/access-key"
+    SPEL_SSM_SECRET_KEY: "/spel/govcloud/secret-key"
+  script:
+    - source .variables
+    - make
 
 after_script:
   - source .variables
