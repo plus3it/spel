@@ -19,6 +19,7 @@ SOURCE_AMI_RHEL7_HVM ?= ami-0394fe9914b475c53
 SSH_INTERFACE ?= public_dns
 PIP_URL ?= https://bootstrap.pypa.io/get-pip.py
 PYPI_URL ?= https://pypi.org/simple
+SECURITY_GROUP_CIDR := $(shell curl 'https://api.ipify.org')/32
 
 .PHONY: all install pre_build build post_build
 .EXPORT_ALL_VARIABLES:
