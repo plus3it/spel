@@ -1,8 +1,8 @@
 Red Hat Enterprise Linux Server release 7.6 (Maipo)
-aws-cli/1.16.72 Python/2.7.5 Linux/3.10.0-862.11.6.el7.x86_64 botocore/1.12.62
+aws-cli/1.16.89 Python/2.7.5 Linux/3.10.0-862.11.6.el7.x86_64 botocore/1.12.79
 acl-2.2.51-14.el7.x86_64
 alsa-lib-1.1.6-2.el7.x86_64
-amazon-ssm-agent-2.3.274.0-1.x86_64
+amazon-ssm-agent-2.3.372.0-1.x86_64
 audit-2.8.4-4.el7.x86_64
 audit-libs-2.8.4-4.el7.x86_64
 audit-libs-python-2.8.4-4.el7.x86_64
@@ -170,7 +170,7 @@ libgcc-4.8.5-36.el7.x86_64
 libgcrypt-1.5.3-14.el7.x86_64
 libgomp-4.8.5-36.el7.x86_64
 libgpg-error-1.12-3.el7.x86_64
-libgudev1-219-62.el7.x86_64
+libgudev1-219-62.el7_6.2.x86_64
 libICE-1.0.9-9.el7.x86_64
 libidn-1.28-4.el7.x86_64
 libjpeg-turbo-1.2.90-6.el7.x86_64
@@ -267,6 +267,7 @@ p11-kit-trust-0.23.5-3.el7.x86_64
 pam-1.1.8-22.el7.x86_64
 parted-3.1-29.el7.x86_64
 passwd-0.79-4.el7.x86_64
+pciutils-3.5.1-3.el7.x86_64
 pciutils-libs-3.5.1-3.el7.x86_64
 pcre-8.32-17.el7.x86_64
 perl-5.16.3-293.el7.x86_64
@@ -397,6 +398,7 @@ python-urllib3-1.10.2-5.el7.noarch
 pyxattr-0.5.1-5.el7.x86_64
 PyYAML-3.10-11.el7.x86_64
 qrencode-libs-3.4.1-3.el7.x86_64
+rdma-core-17.2-3.el7.x86_64
 readline-6.2-10.el7.x86_64
 Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.6-4.el7.x86_64
@@ -440,17 +442,17 @@ subscription-manager-1.21.10-3.el7_6.x86_64
 subscription-manager-rhsm-1.21.10-3.el7_6.x86_64
 subscription-manager-rhsm-certificates-1.21.10-3.el7_6.x86_64
 sudo-1.8.23-3.el7.x86_64
-systemd-219-62.el7.x86_64
-systemd-libs-219-62.el7.x86_64
-systemd-sysv-219-62.el7.x86_64
+systemd-219-62.el7_6.2.x86_64
+systemd-libs-219-62.el7_6.2.x86_64
+systemd-sysv-219-62.el7_6.2.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.27-5.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
 tuned-2.10.0-6.el7.noarch
-tzdata-2018g-1.el7.noarch
-tzdata-java-2018g-1.el7.noarch
+tzdata-2018i-1.el7.noarch
+tzdata-java-2018i-1.el7.noarch
 usermode-1.111-5.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-59.el7.x86_64

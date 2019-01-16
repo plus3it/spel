@@ -1,165 +1,22 @@
 ---
 version: 0.2
 
-env:
-  variables:
-    PACKER_ZIP: https://releases.hashicorp.com/packer/1.3.2/packer_1.3.2_linux_amd64.zip
-    PACKER_LOG: '1'
-    PACKER_NO_COLOR: '1'
-    CHECKPOINT_DISABLE: '1'
-    SPEL_CI: 'false'
-    SPEL_BUILDERS: minimal-rhel-7-hvm,minimal-centos-7-hvm
-    SPEL_DESC_URL: https://github.com/plus3it/spel
-    SPEL_AMIGEN7SOURCE: https://github.com/plus3it/AMIgen7.git
-    SPEL_AMIUTILSOURCE: https://github.com/ferricoxide/Lx-GetAMI-Utils.git
-    SPEL_AWSCLISOURCE: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
-    SPEL_EPEL7RELEASE: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    SPEL_CUSTOMREPORPM7: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    SPEL_EPELREPO: epel
-    SPEL_EXTRARPMS: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36
-    SOURCE_AMI_CENTOS7_HVM: ami-090b9dabe1c9f40b3
-    SOURCE_AMI_RHEL7_HVM: ami-0394fe9914b475c53
-    SSH_INTERFACE: 'public_dns'
-    PIP_URL: https://bootstrap.pypa.io/get-pip.py
-    PYPI_URL: https://pypi.org/simple
-
 phases:
   install:
-    commands:
-      - echo "Installing unzip............"
-      - apt -y install unzip
-      - echo "Installing packer..."
-      - echo `pwd`
-      - curl -L "${PACKER_ZIP}" -o packer.zip && unzip packer.zip
-  pre_build:
     commands:
       - |
         if [ "${SPEL_CI}" = "true" ]
         then
           SPEL_VERSION=$(date +%Y.%m.dev%s)
           export SPEL_VERSION
-        fi
-      - echo "SPEL_IDENTIFIER=${SPEL_IDENTIFIER}"
-      - echo "SPEL_VERSION=${SPEL_VERSION}"
-      - test -n "$SPEL_IDENTIFIER" || (echo "Must set SPEL_IDENTIFIER env!"; exit 1)
-      - test -n "$SPEL_VERSION" || (echo "Must set SPEL_VERSION env!"; exit 1)
-      - mkdir -p ".spel/${SPEL_VERSION}/"
-      - export PACKER_LOG_PATH=".spel/${SPEL_VERSION}/packer.log"
-      - |
-        if [ -n "$SPEL_PIN_AWSCLI_BUNDLE" ]
-        then
-          AWSCLI_PIN=$(grep aws-cli requirements/aws-cli.txt) || exit $?
-          AWSCLI_VERSION="${AWSCLI_PIN#*==}"
-          SPEL_AWSCLISOURCE=$(dirname $SPEL_AWSCLISOURCE)/awscli-bundle-${AWSCLI_VERSION}.zip || exit $?
-          export SPEL_AWSCLISOURCE
-        fi
-        echo "SPEL_AWSCLISOURCE: $SPEL_AWSCLISOURCE"
-      - |
-        if [ -n "${SPEL_SSM_ACCESS_KEY}" ]
-        then
-          aws configure set aws_access_key_id "$(aws ssm get-parameters --name $SPEL_SSM_ACCESS_KEY --with-decryption --query 'Parameters[0].Value' --out text)" --profile $SPEL_IDENTIFIER
-          aws configure set aws_secret_access_key "$(aws ssm get-parameters --name $SPEL_SSM_SECRET_KEY --with-decryption --query 'Parameters[0].Value' --out text)" --profile $SPEL_IDENTIFIER
-        fi
-      - |
-        if [ -n "${SPEL_SSM_SESSION_TOKEN}" ]
-        then
-          aws configure set aws_session_token "$(aws ssm get-parameters --name $SPEL_SSM_SESSION_TOKEN --with-decryption --query 'Parameters[0].Value' --out text)" --profile $SPEL_IDENTIFIER
-        fi
-      - aws configure set region $AWS_REGION --profile $SPEL_IDENTIFIER
-      - echo "Validating packer template, spel/minimal-linux.json"
-      - |
-        AWS_PROFILE=$SPEL_IDENTIFIER ./packer validate \
-          -only "${SPEL_BUILDERS}" \
-          -var "ami_groups=${AMI_GROUPS}" \
-          -var "ami_regions=${AMI_REGIONS}" \
-          -var "ami_users=${AMI_USERS}" \
-          -var "aws_region=${AWS_REGION}" \
-          -var "spel_desc_url=${SPEL_DESC_URL}" \
-          -var "spel_amigen7source=${SPEL_AMIGEN7SOURCE}" \
-          -var "spel_amiutilsource=${SPEL_AMIUTILSOURCE}" \
-          -var "spel_awsclisource=${SPEL_AWSCLISOURCE}" \
-          -var "spel_customreporpm7=${SPEL_CUSTOMREPORPM7}" \
-          -var "spel_customreponame7=${SPEL_CUSTOMREPONAME7}" \
-          -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
-          -var "spel_epel7release=${SPEL_EPEL7RELEASE}" \
-          -var "spel_epelrepo=${SPEL_EPELREPO}" \
-          -var "spel_extrarpms=${SPEL_EXTRARPMS}" \
-          -var "spel_identifier=${SPEL_IDENTIFIER}" \
-          -var "spel_version=${SPEL_VERSION}" \
-          -var "source_ami_centos7_hvm=${SOURCE_AMI_CENTOS7_HVM}" \
-          -var "source_ami_rhel7_hvm=${SOURCE_AMI_RHEL7_HVM}" \
-          -var "ssh_interface=${SSH_INTERFACE}" \
-          -var "subnet_id=${SUBNET_ID}" \
-          -var "vpc_id=${VPC_ID}" \
-          spel/minimal-linux.json
+        fi        
   build:
     commands:
-      - echo "Building packer template, spel/minimal-linux.json"
-      - |
-        AWS_PROFILE=$SPEL_IDENTIFIER ./packer build \
-          -only "${SPEL_BUILDERS}" \
-          -var "ami_groups=${AMI_GROUPS}" \
-          -var "ami_regions=${AMI_REGIONS}" \
-          -var "ami_users=${AMI_USERS}" \
-          -var "pip_url=${PIP_URL}" \
-          -var "pypi_url=${PYPI_URL}" \
-          -var "aws_region=${AWS_REGION}" \
-          -var "spel_desc_url=${SPEL_DESC_URL}" \
-          -var "spel_amigen7source=${SPEL_AMIGEN7SOURCE}" \
-          -var "spel_amiutilsource=${SPEL_AMIUTILSOURCE}" \
-          -var "spel_awsclisource=${SPEL_AWSCLISOURCE}" \
-          -var "spel_customreporpm7=${SPEL_CUSTOMREPORPM7}" \
-          -var "spel_customreponame7=${SPEL_CUSTOMREPONAME7}" \
-          -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
-          -var "spel_epel7release=${SPEL_EPEL7RELEASE}" \
-          -var "spel_epelrepo=${SPEL_EPELREPO}" \
-          -var "spel_extrarpms=${SPEL_EXTRARPMS}" \
-          -var "spel_identifier=${SPEL_IDENTIFIER}" \
-          -var "spel_version=${SPEL_VERSION}" \
-          -var "source_ami_centos7_hvm=${SOURCE_AMI_CENTOS7_HVM}" \
-          -var "source_ami_rhel7_hvm=${SOURCE_AMI_RHEL7_HVM}" \
-          -var "ssh_interface=${SSH_INTERFACE}" \
-          -var "subnet_id=${SUBNET_ID}" \
-          -var "vpc_id=${VPC_ID}" \
-          spel/minimal-linux.json
-      - |
-        for BUILDER in $(echo $SPEL_BUILDERS | sed -e 's/,/ /g')
-        do
-          AMI_NAME="${SPEL_IDENTIFIER}-${BUILDER}-${SPEL_VERSION}.x86_64-gp2"
-          BUILDER_ENV=$(echo $BUILDER | sed -e 's/\./_/g' -e 's/-/_/g')
-          export $BUILDER_ENV=$(export AWS_DEFAULT_REGION=$AWS_REGION; aws ec2 describe-images --filters Name=name,Values="$AMI_NAME" --query 'Images[0].ImageId' --out text --profile $SPEL_IDENTIFIER)
-        done
-      - |
-        AWS_PROFILE=$SPEL_IDENTIFIER ./packer build \
-          -only "${SPEL_BUILDERS}" \
-          -var "aws_region=${AWS_REGION}" \
-          -var "pip_url=${PIP_URL}" \
-          -var "pypi_url=${PYPI_URL}" \
-          -var "spel_identifier=${SPEL_IDENTIFIER}" \
-          -var "spel_version=${SPEL_VERSION}" \
-          -var "spel_disablefips=${SPEL_DISABLEFIPS}" \
-          -var "ssh_interface=${SSH_INTERFACE}" \
-          -var "subnet_id=${SUBNET_ID}" \
-          -var "vpc_id=${VPC_ID}" \
-          tests/minimal-linux.json
+      - make
   post_build:
     commands:
-      - echo "Sleeping 180 seconds to ensure the AMI Name is searchable..."; sleep 180
-      - |
-      - |
-        for BUILDER in $(echo $SPEL_BUILDERS | sed -e 's/,/ /g')
-        do
-          AMI_NAME="validation-${SPEL_IDENTIFIER}-${BUILDER}-${SPEL_VERSION}.x86_64-gp2"
-          AMI_ID=$(export AWS_DEFAULT_REGION=$AWS_REGION; aws ec2 describe-images --filters Name=name,Values="$AMI_NAME" --query 'Images[0].ImageId' --out text --profile $SPEL_IDENTIFIER)
-          (export AWS_DEFAULT_REGION=$AWS_REGION; test "$AMI_ID" != "None" && aws ec2 deregister-image --image-id $AMI_ID --profile $SPEL_IDENTIFIER)
-          if [ "${SPEL_CI}" = "true" ]
-          then
-            AMI_NAME="${SPEL_IDENTIFIER}-${BUILDER}-${SPEL_VERSION}.x86_64-gp2"
-            AMI_ID=$(export AWS_DEFAULT_REGION=$AWS_REGION; aws ec2 describe-images --filters Name=name,Values="$AMI_NAME" --query 'Images[0].ImageId' --out text --profile $SPEL_IDENTIFIER)
-            (export AWS_DEFAULT_REGION=$AWS_REGION; test "$AMI_ID" != "None" && aws ec2 deregister-image --image-id $AMI_ID --profile $SPEL_IDENTIFIER)
-          fi
-        done
-      - echo "Packer build completed on $(date)"
+      -  echo "Sleeping 180 seconds to ensure the AMI Name is searchable..."; sleep 180 
+      - make post_build
 
 artifacts:
   files:

@@ -27,14 +27,14 @@ except urllib.error.URLError:
 
 def pytest_runtest_setup(item):
     if isinstance(item, pytest.Function):
-        if not item.get_marker(PLAT):
+        if not item.get_closest_marker(PLAT):
             if PLAT_MARKERS.intersection(item.keywords):
                 pytest.skip('does not run on platform {0}'.format(PLAT))
-        if not item.get_marker(VIRT):
+        if not item.get_closest_marker(VIRT):
             if VIRTUALIZATION_MARKERS.intersection(item.keywords):
                 pytest.skip(
                     'does not run on virtualization type {0}'.format(VIRT))
-        if not item.get_marker(FIPS):
+        if not item.get_closest_marker(FIPS):
             if FIPS_MARKERS.intersection(item.keywords):
                 pytest.skip(
                     'test incompatible with fips mode, {0}'.format(FIPS))
