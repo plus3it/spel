@@ -56,8 +56,7 @@
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
@@ -88,8 +87,7 @@
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
         {
             "capture_container_name": "images",
@@ -351,7 +349,6 @@
         "ssh_interface": "public_dns",
         "subnet_id": "",
         "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
-        "vagrantcloud_username": "",
-        "vpc_id": ""
+        "vagrantcloud_username": ""
     }
 }

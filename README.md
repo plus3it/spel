@@ -272,8 +272,7 @@ defaults):
     "ssh_interface": "public_dns",
     "subnet_id": "",
     "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
-    "vagrantcloud_username": "",
-    "vpc_id": ""
+    "vagrantcloud_username": ""
 }
 ```
 
