@@ -1,7 +1,7 @@
 distro==1.0.4;python_version<="2.6"  # pyup: ==1.0.4
 distro==1.4.0;python_version>="2.7"
 pytest==3.2.5;python_version<="2.6"  # pyup: ==3.2.5
-pytest==4.2.1;python_version>="2.7"
+pytest==4.3.0;python_version>="2.7"
 pytest-logger==0.4.0
 six==1.12.0
 testinfra==1.16.0;python_version<="2.6"  # pyup: ==1.15.0
