@@ -1,5 +1,21 @@
 ## Changelog
 
+### 2019.02.1
+
+**Released**: 2019.02.19
+
+**Commit Delta**: [Change from 2019.01.1 release](https://github.com/plus3it/spel/compare/2019.01.1...2019.02.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.02.1/manifests>
+
+**Summary**:
+
+*   "Extra" package updates
+    -   aws-cli/1.16.107
+    -   amazon-ssm-agent-2.3.444.0-1
+    -   python36-libs-3.6.6-2.el7.x86_64
+    -   python36-3.6.6-2.el7.x86_64
+
 ### 2019.01.1
 
 **Released**: 2019.01.16

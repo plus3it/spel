@@ -25,5 +25,4 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer validate \
   -var "source_ami_rhel7_hvm=$SOURCE_AMI_RHEL7_HVM" \
   -var "ssh_interface=$SSH_INTERFACE" \
   -var "subnet_id=$SUBNET_ID" \
-  -var "vpc_id=$VPC_ID" \
   spel/minimal-linux.json
