@@ -13,7 +13,7 @@
             "guest_os_type": "RedHat_64",
             "headless": true,
             "http_directory": "{{ template_dir }}/kickstarts",
-            "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
+            "iso_checksum": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
             "iso_checksum_type": "sha256",
             "iso_url": "{{ user `iso_url_centos7` }}",
             "name": "minimal-centos-7-virtualbox",
@@ -56,8 +56,7 @@
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
@@ -88,8 +87,7 @@
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
-            "vpc_id": "{{ user `vpc_id` }}"
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
         {
             "capture_container_name": "images",
@@ -332,7 +330,7 @@
         "azure_subnet_name": "",
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
-        "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
+        "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso",
         "security_group_cidr": "0.0.0.0/0",
         "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
         "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
@@ -351,7 +349,6 @@
         "ssh_interface": "public_dns",
         "subnet_id": "",
         "vagrantcloud_token": "{{env `VAGRANTCLOUD_TOKEN`}}",
-        "vagrantcloud_username": "",
-        "vpc_id": ""
+        "vagrantcloud_username": ""
     }
 }
