@@ -1,0 +1,16 @@
+---
+version: 0.2
+
+phases:
+  install:
+    commands:
+  build:
+    commands:
+      - make -C build/vagrant
+  post_build:
+    commands:
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 

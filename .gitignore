@@ -56,3 +56,5 @@ packer_cache
 *.exe
 /packer
 __pycache__
+*vendor/
+*.terraform/

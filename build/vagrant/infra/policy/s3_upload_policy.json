@@ -1,0 +1,29 @@
+{
+    "Statement": [
+        {
+            "Action": [
+                "s3:putObject"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::${artifact_location}/*",
+            "Sid": "AllowS3Upload"
+        },
+        {
+            "Action": [
+                "ssm:GetParameter"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:ssm:${region}:${account}:parameter${ssm_vagrantcloud_token}",
+            "Sid": "AllowSsmRetrieve"
+        },
+        {
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:kms:*:*:key/${kms_key}",
+            "Sid": "AllowKmsDecrypt"
+        }
+    ],
+    "Version": "2012-10-17"
+}
