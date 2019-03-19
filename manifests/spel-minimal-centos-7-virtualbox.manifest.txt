@@ -106,9 +106,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-957.5.1.el7.x86_64
-kernel-tools-3.10.0-957.5.1.el7.x86_64
-kernel-tools-libs-3.10.0-957.5.1.el7.x86_64
+kernel-3.10.0-957.10.1.el7.x86_64
+kernel-tools-3.10.0-957.10.1.el7.x86_64
+kernel-tools-libs-3.10.0-957.10.1.el7.x86_64
 kexec-tools-2.0.15-21.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-23.el7.x86_64
@@ -206,8 +206,8 @@ openldap-2.4.44-21.el7_6.x86_64
 openssh-7.4p1-16.el7.x86_64
 openssh-clients-7.4p1-16.el7.x86_64
 openssh-server-7.4p1-16.el7.x86_64
-openssl-1.0.2k-16.el7.x86_64
-openssl-libs-1.0.2k-16.el7.x86_64
+openssl-1.0.2k-16.el7_6.1.x86_64
+openssl-libs-1.0.2k-16.el7_6.1.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -219,7 +219,7 @@ pcre-8.32-17.el7.x86_64
 pinentry-0.8.1-17.el7.x86_64
 pkgconfig-0.27.1-4.el7.x86_64
 policycoreutils-2.5-29.el7_6.1.x86_64
-polkit-0.112-18.el7.x86_64
+polkit-0.112-18.el7_6.1.x86_64
 polkit-pkla-compat-0.1-4.el7.x86_64
 popt-1.13-16.el7.x86_64
 postfix-2.10.1-7.el7.x86_64
@@ -264,9 +264,9 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7.x86_64
 sudo-1.8.23-3.el7.x86_64
-systemd-219-62.el7_6.3.x86_64
-systemd-libs-219-62.el7_6.3.x86_64
-systemd-sysv-219-62.el7_6.3.x86_64
+systemd-219-62.el7_6.5.x86_64
+systemd-libs-219-62.el7_6.5.x86_64
+systemd-sysv-219-62.el7_6.5.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
