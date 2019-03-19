@@ -21,13 +21,15 @@ jobs:
       script: eval $FIND_JSON | $XARGS bash -c 'cmp {} <(jq --indent 4 -S . {})'
     - stage: deploy
       if: branch = master AND type = push AND repo = plus3it/spel
-      script: skip
-      before_deploy:
+      before_script:
         - |
           PRIOR_VERSION=$(git describe --abbrev=0 --tags)
           RELEASE_VERSION=$(grep current_version $TRAVIS_BUILD_DIR/.bumpversion.cfg | sed 's/^.*= //' )
           RELEASE_BODY="* [SPEL v$RELEASE_VERSION CHANGELOG](https://github.com/plus3it/spel/blob/$RELEASE_VERSION/CHANGELOG.md)"
           export PRIOR_VERSION RELEASE_VERSION RELEASE_BODY
+      script: skip
+      before_deploy:
+        - |
           (set -x; git tag -a $RELEASE_VERSION -m $RELEASE_VERSION)
       deploy:
         provider: releases
