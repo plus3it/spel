@@ -1,8 +1,8 @@
 CentOS Linux release 7.6.1810 (Core) 
-aws-cli/1.16.126 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.116
+aws-cli/1.16.140 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.130
 acl-2.2.51-14.el7.x86_64
 alsa-lib-1.1.6-2.el7.x86_64
-amazon-ssm-agent-2.3.479.0-1.x86_64
+amazon-ssm-agent-2.3.539.0-1.x86_64
 atk-2.28.1-1.el7.x86_64
 audit-2.8.4-4.el7.x86_64
 audit-libs-2.8.4-4.el7.x86_64
@@ -34,7 +34,7 @@ centos-release-7-6.1810.2.el7.centos.x86_64
 checkpolicy-2.5-8.el7.x86_64
 chkconfig-1.7.4-1.el7.x86_64
 chrony-3.2-2.el7.x86_64
-cloud-init-18.2-1.el7.centos.1.x86_64
+cloud-init-18.2-1.el7.centos.2.x86_64
 cloud-utils-growpart-0.29-2.el7.noarch
 copy-jdk-configs-3.3-10.el7_5.noarch
 coreutils-8.22-23.el7.x86_64
@@ -48,9 +48,9 @@ cryptsetup-libs-2.0.3-3.el7.x86_64
 cups-libs-1.6.3-35.el7.x86_64
 curl-7.29.0-51.el7.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
-dbus-1.10.24-12.el7.x86_64
+dbus-1.10.24-13.el7_6.x86_64
 dbus-glib-0.100-7.el7.x86_64
-dbus-libs-1.10.24-12.el7.x86_64
+dbus-libs-1.10.24-13.el7_6.x86_64
 dbus-python-1.1.1-9.el7.x86_64
 dejavu-fonts-common-2.33-6.el7.noarch
 dejavu-sans-fonts-2.33-6.el7.noarch
@@ -100,8 +100,8 @@ gettext-0.19.8.1-2.el7.x86_64
 gettext-libs-0.19.8.1-2.el7.x86_64
 giflib-4.1.6-9.el7.x86_64
 glib2-2.56.1-2.el7.x86_64
-glibc-2.17-260.el7_6.3.x86_64
-glibc-common-2.17-260.el7_6.3.x86_64
+glibc-2.17-260.el7_6.4.x86_64
+glibc-common-2.17-260.el7_6.4.x86_64
 gmp-6.0.0-15.el7.x86_64
 gnupg2-2.0.22-5.el7_5.x86_64
 gobject-introspection-1.56.1-1.el7.x86_64
@@ -163,7 +163,7 @@ libacl-2.2.51-14.el7.x86_64
 libaio-0.3.109-13.el7.x86_64
 libassuan-2.1.0-3.el7.x86_64
 libattr-2.4.46-13.el7.x86_64
-libblkid-2.23.2-59.el7.x86_64
+libblkid-2.23.2-59.el7_6.1.x86_64
 libcap-2.22-9.el7.x86_64
 libcap-ng-0.7.5-4.el7.x86_64
 libcgroup-0.41-20.el7.x86_64
@@ -179,18 +179,18 @@ libestr-0.1.9-2.el7.x86_64
 libfastjson-0.99.4-3.el7.x86_64
 libffi-3.0.13-18.el7.x86_64
 libfontenc-1.1.3-3.el7.x86_64
-libgcc-4.8.5-36.el7.x86_64
+libgcc-4.8.5-36.el7_6.1.x86_64
 libgcrypt-1.5.3-14.el7.x86_64
 libglvnd-1.0.1-0.8.git5baa1e5.el7.x86_64
 libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
 libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64
-libgomp-4.8.5-36.el7.x86_64
+libgomp-4.8.5-36.el7_6.1.x86_64
 libgpg-error-1.12-3.el7.x86_64
 libICE-1.0.9-9.el7.x86_64
 libidn-1.28-4.el7.x86_64
 libjpeg-turbo-1.2.90-6.el7.x86_64
 libmnl-1.0.3-7.el7.x86_64
-libmount-2.23.2-59.el7.x86_64
+libmount-2.23.2-59.el7_6.1.x86_64
 libndp-1.2-7.el7.x86_64
 libnetfilter_conntrack-1.0.6-1.el7_3.x86_64
 libnfnetlink-1.0.1-4.el7.x86_64
@@ -208,10 +208,10 @@ libsemanage-2.5-14.el7.x86_64
 libsemanage-python-2.5-14.el7.x86_64
 libsepol-2.5-10.el7.x86_64
 libSM-1.2.2-2.el7.x86_64
-libsmartcols-2.23.2-59.el7.x86_64
+libsmartcols-2.23.2-59.el7_6.1.x86_64
 libss-1.42.9-13.el7.x86_64
-libssh2-1.4.3-12.el7.x86_64
-libstdc++-4.8.5-36.el7.x86_64
+libssh2-1.4.3-12.el7_6.2.x86_64
+libstdc++-4.8.5-36.el7_6.1.x86_64
 libsysfs-2.1.0-16.el7.x86_64
 libtasn1-4.10-1.el7.x86_64
 libteam-1.27-5.el7.x86_64
@@ -220,7 +220,7 @@ libtiff-4.0.3-27.el7_3.x86_64
 libunistring-0.9.3-9.el7.x86_64
 libuser-0.60-9.el7.x86_64
 libutempter-1.1.6-4.el7.x86_64
-libuuid-2.23.2-59.el7.x86_64
+libuuid-2.23.2-59.el7_6.1.x86_64
 libverto-0.2.5-4.el7.x86_64
 libwayland-client-1.15.0-1.el7.x86_64
 libwayland-server-1.15.0-1.el7.x86_64
@@ -268,15 +268,15 @@ ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
 ncurses-libs-5.9-14.20130511.el7_4.x86_64
 net-tools-2.0-0.24.20131004git.el7.x86_64
-NetworkManager-1.12.0-8.el7_6.x86_64
-NetworkManager-libnm-1.12.0-8.el7_6.x86_64
-NetworkManager-team-1.12.0-8.el7_6.x86_64
-NetworkManager-tui-1.12.0-8.el7_6.x86_64
+NetworkManager-1.12.0-10.el7_6.x86_64
+NetworkManager-libnm-1.12.0-10.el7_6.x86_64
+NetworkManager-team-1.12.0-10.el7_6.x86_64
+NetworkManager-tui-1.12.0-10.el7_6.x86_64
 newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
 nspr-4.19.0-1.el7_5.x86_64
 nss-3.36.0-7.1.el7_6.x86_64
-nss-pem-1.0.3-5.el7.x86_64
+nss-pem-1.0.3-5.el7_6.1.x86_64
 nss-softokn-3.36.0-5.el7_5.x86_64
 nss-softokn-freebl-3.36.0-5.el7_5.x86_64
 nss-sysinit-3.36.0-7.1.el7_6.x86_64
@@ -381,10 +381,10 @@ pygpgme-0.3-9.el7.x86_64
 pyliblzma-0.5.3-11.el7.x86_64
 pyserial-2.6-6.el7.noarch
 pystache-0.5.3-2.el7.noarch
-python-2.7.5-76.el7.x86_64
-python2-simplejson-3.10.0-1.el7.x86_64
-python36-3.6.6-2.el7.x86_64
-python36-libs-3.6.6-2.el7.x86_64
+python-2.7.5-77.el7_6.x86_64
+python2-simplejson-3.10.0-2.el7.x86_64
+python36-3.6.6-5.el7.x86_64
+python36-libs-3.6.6-5.el7.x86_64
 python-babel-0.9.6-8.el7.noarch
 python-backports-1.0-8.el7.x86_64
 python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch
@@ -402,7 +402,7 @@ python-jinja2-2.7.2-2.el7.noarch
 python-jsonpatch-1.2-4.el7.noarch
 python-jsonpointer-1.9-2.el7.noarch
 python-kitchen-1.1.1-5.el7.noarch
-python-libs-2.7.5-76.el7.x86_64
+python-libs-2.7.5-77.el7_6.x86_64
 python-linux-procfs-0.4.9-4.el7.noarch
 python-lockfile-0.9.1-4.el7.centos.noarch
 python-lxml-3.2.1-4.el7.x86_64
@@ -447,7 +447,7 @@ setools-libs-3.3.8-4.el7.x86_64
 setup-2.8.71-10.el7.noarch
 sg3_utils-1.37-17.el7.x86_64
 sg3_utils-libs-1.37-17.el7.x86_64
-shadow-utils-4.1.5.1-25.el7.x86_64
+shadow-utils-4.1.5.1-25.el7_6.1.x86_64
 shared-mime-info-1.8-4.el7.x86_64
 slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
@@ -461,11 +461,11 @@ tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.27-5.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
-tuned-2.10.0-6.el7.noarch
-tzdata-2018i-1.el7.noarch
-tzdata-java-2018i-1.el7.noarch
+tuned-2.10.0-6.el7_6.3.noarch
+tzdata-2019a-1.el7.noarch
+tzdata-java-2019a-1.el7.noarch
 ustr-1.0.4-16.el7.x86_64
-util-linux-2.23.2-59.el7.x86_64
+util-linux-2.23.2-59.el7_6.1.x86_64
 vim-common-7.4.160-5.el7.x86_64
 vim-filesystem-7.4.160-5.el7.x86_64
 vim-minimal-7.4.160-5.el7.x86_64
@@ -473,7 +473,7 @@ virt-what-1.18-4.el7.x86_64
 wget-1.14-18.el7.x86_64
 which-2.20-7.el7.x86_64
 wpa_supplicant-2.6-12.el7.x86_64
-xfsprogs-4.5.0-18.el7.x86_64
+xfsprogs-4.5.0-19.el7_6.x86_64
 xorg-x11-fonts-Type1-7.5-9.el7.noarch
 xorg-x11-font-utils-7.5-21.el7.x86_64
 xz-5.2.2-1.el7.x86_64
