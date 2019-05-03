@@ -35,6 +35,7 @@
             "ami_users": "{{ user `ami_users` }}",
             "associate_public_ip_address": true,
             "communicator": "ssh",
+            "ena_support": true,
             "force_deregister": "{{ user `ami_force_deregister` }}",
             "instance_type": "m4.xlarge",
             "launch_block_device_mappings": [
@@ -48,6 +49,7 @@
             "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
             "ssh_port": 122,
             "ssh_pty": true,
@@ -66,6 +68,7 @@
             "ami_users": "{{ user `ami_users` }}",
             "associate_public_ip_address": true,
             "communicator": "ssh",
+            "ena_support": true,
             "force_deregister": "{{ user `ami_force_deregister` }}",
             "instance_type": "t2.large",
             "launch_block_device_mappings": [
@@ -79,6 +82,7 @@
             "name": "minimal-rhel-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
+            "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
             "ssh_port": 122,
             "ssh_pty": true,
