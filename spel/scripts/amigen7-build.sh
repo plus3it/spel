@@ -19,6 +19,7 @@ EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-rele
 EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
+FSTYPE="${SPEL_FSTYPE:-ext4}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 PYTHON3_BIN="/usr/bin/python3.6"
@@ -178,10 +179,10 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -f "${FSTYPE}"
 
 echo "Executing MkChrootTree.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "${FSTYPE}"
 
 echo "Executing MkTabs.sh"
 bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
