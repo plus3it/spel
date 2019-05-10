@@ -61,6 +61,39 @@
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
         {
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, XFS-formatted, \"minimal\" CentOS 7 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2-xfs",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "ena_support": true,
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "m4.xlarge",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": true,
+                    "device_name": "/dev/sda1",
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "name": "minimal-centos-7-hvm-xfs",
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "sriov_support": true,
+            "ssh_interface": "{{ user `ssh_interface` }}",
+            "ssh_port": 122,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
+            "type": "amazon-ebs",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+        },
+        {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
@@ -80,6 +113,39 @@
                 }
             ],
             "name": "minimal-rhel-7-hvm",
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
+            "sriov_support": true,
+            "ssh_interface": "{{ user `ssh_interface` }}",
+            "ssh_port": 122,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
+            "type": "amazon-ebs",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+        },
+        {
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, XFS-formatted, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2-xfs",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "ena_support": true,
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "t2.large",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": true,
+                    "device_name": "/dev/sda1",
+                    "volume_size": 20,
+                    "volume_type": "gp2"
+                }
+            ],
+            "name": "minimal-rhel-7-hvm-xfs",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
             "sriov_support": true,
@@ -255,6 +321,7 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
+                "SPEL_FSTYPE={{ user `spel_fstype` }}",
                 "SPEL_VGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
@@ -283,6 +350,7 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
+                "SPEL_FSTYPE={{ user `spel_fstype` }}",
                 "SPEL_VGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
@@ -348,6 +416,7 @@
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_epelrepo": "epel",
         "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36",
+        "spel_fstype": "ext4",
         "spel_identifier": "",
         "spel_version": "",
         "ssh_interface": "public_dns",
