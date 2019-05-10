@@ -267,6 +267,7 @@ defaults):
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_epelrepo": "epel",
     "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36",
+    "spel_fstype": "ext4",
     "spel_identifier": "",
     "spel_version": "",
     "ssh_interface": "public_dns",
@@ -293,6 +294,7 @@ defaults):
 | `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
+| `spel_fstype`           | Filesystem-type to use for root filesystems. Default is `ext4`. Other supported options are `ext3` and `xfs` |
 
 All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
@@ -306,6 +308,8 @@ The Minimal Linux `packer` template includes the following builders:
 |----------------------------------|-------------------------------------------------------------|
 | `minimal-centos-7-hvm`         | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
 | `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
+| `minimal-centos-7-hvm-xfs`     | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI with XFS filesystems |
+| `minimal-rhel-7-hvm-xfs`       | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI with XFS filesystems |
 | `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
 | `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
 
