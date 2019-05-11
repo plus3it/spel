@@ -63,7 +63,7 @@
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, XFS-formatted, \"minimal\" CentOS 7 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
-            "ami_name": "{{ user `spel_identifier` }}-minimal-centos-7-hvm-{{ user `spel_version` }}.x86_64-gp2-xfs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ sed \"s/-xfs//\" build_name }}-{{ user `spel_version` }}.x86_64-gp2-xfs",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
             "associate_public_ip_address": true,
@@ -129,7 +129,7 @@
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, XFS-formatted, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
-            "ami_name": "{{ user `spel_identifier` }}-minimal-rhel-7-hvm-{{ user `spel_version` }}.x86_64-gp2-xfs",
+            "ami_name": "{{ user `spel_identifier` }}-{{ sed \"s/-xfs//\" build_name }}-{{ user `spel_version` }}.x86_64-gp2-xfs",
             "ami_regions": "{{ user `ami_regions` }}",
             "ami_users": "{{ user `ami_users` }}",
             "associate_public_ip_address": true,
