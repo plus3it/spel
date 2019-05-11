@@ -277,23 +277,23 @@ defaults):
 }
 ```
 
-| Variable Name           | Description                                                       |
-|-------------------------|-------------------------------------------------------------------|
-| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
-| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
-| `security_group_cidr`   | CIDR to restrict security group created by Packer                 |
-| `spel_identifier`       | Project ID to associate to the resulting images                   |
-| `spel_version`          | Version to assign to the resulting image(s)                       |
-| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
-| `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
-| `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
-| `spel_customreponame7`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
-| `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
-| `spel_desc_url`         | URL to detailed description of AMI                                |
-| `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
-| `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
-| `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
+| Variable Name           | Description                                                                                                  |
+|-------------------------|--------------------------------------------------------------------------------------------------------------|
+| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                                                                          |
+| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)                                             |
+| `security_group_cidr`   | CIDR to restrict security group created by Packer                                                            |
+| `spel_identifier`       | Project ID to associate to the resulting images                                                              |
+| `spel_version`          | Version to assign to the resulting image(s)                                                                  |
+| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project                                                          |
+| `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project                                                  |
+| `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`                                                         |
+| `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7                                                    |
+| `spel_customreponame7`  | Name(s) of the custom yum repos (* or comma-separated) for EL7                                               |
+| `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                                                                          |
+| `spel_desc_url`         | URL to detailed description of AMI                                                                           |
+| `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                                                             |
+| `spel_epelrepo`         | Name of the epel repo (if different than "epel")                                                             |
+| `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum                                            |
 | `spel_fstype`           | Filesystem-type to use for root filesystems. Default is `ext4`. Other supported options are `ext3` and `xfs` |
 
 All other variables in the `packer` template map directly to variables defined
@@ -304,14 +304,14 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                     | Description                                                 |
-|----------------------------------|-------------------------------------------------------------|
-| `minimal-centos-7-hvm`         | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
-| `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
-| `minimal-centos-7-hvm-xfs`     | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI with XFS filesystems |
-| `minimal-rhel-7-hvm-xfs`       | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI with XFS filesystems |
-| `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
-| `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
+| Builder Name                     | Description                                                                        |
+|----------------------------------|------------------------------------------------------------------------------------|
+| `minimal-centos-7-hvm`           | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI                      |
+| `minimal-rhel-7-hvm`             | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI                        |
+| `minimal-centos-7-hvm-xfs`       | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI with XFS filesystems |
+| `minimal-rhel-7-hvm-xfs`         | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI with XFS filesystems   |
+| `minimal-centos-7-azure-vhd`     | azure-arm builder that results in a minimal CentOS 7 VHD                           |
+| `minimal-centos-7-azure-image`   | azure-arm builder that results in a minimal CentOS 7 Image                         |
 
 ### Minimal Linux Packer Post-Provisioners
 
