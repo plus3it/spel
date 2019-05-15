@@ -1,3 +1,5 @@
+[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
+
 # spel
 
 STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
