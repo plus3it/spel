@@ -1,5 +1,22 @@
 ## Changelog
 
+### 2019.05.1
+
+**Released**: 2019.05.21
+
+**Commit Delta**: [Change from 2019.04.1 release](https://github.com/plus3it/spel/compare/2019.04.1...2019.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.05.1/manifests>
+
+**Summary**:
+*   "Extra" package updates
+    -   aws-cli/1.16.162
+    -   amazon-ssm-agent-2.3.612.0-1.x86_64
+    -   python36-3.6.8-1.el7.x86_64
+    -   aws-cfn-bootstrap-1.4-31.el7.noarch
+    -   python36-libs-3.6.8-1.el7.x86_64
+    -   aws-amitools-ec2-1.5.13-0.el7.noarch
+
 ### 2019.04.1
 
 **Released**: 2019.04.16
