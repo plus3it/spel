@@ -1,4 +1,19 @@
 ## Changelog
+### 2019.05.1
+
+**Released**: 2019.05.21
+
+**Commit Delta**: [Change from 2019.04.1 release](https://github.com/plus3it/spel/compare/2019.04.1...2019.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.05.1/manifests>
+
+**Summary**:
+
+*   "Extra" package updates
+    - aws-cli/1.16.162 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.152
+    - amazon-ssm-agent-2.3.612.0-1.x86_64
+    - python36-3.6.8-1.el7.x86_64
+    - python36-libs-3.6.8-1.el7.x86_64
 
 ### 2019.04.1
 
