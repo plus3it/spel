@@ -10,10 +10,10 @@
 **Summary**:
 
 *   "Extra" package updates
-    - aws-cli/1.16.162 Python/2.7.5 Linux/3.10.0-862.14.4.el7.x86_64 botocore/1.12.152
-    - amazon-ssm-agent-2.3.612.0-1.x86_64
-    - python36-3.6.8-1.el7.x86_64
-    - python36-libs-3.6.8-1.el7.x86_64
+    - aws-cli/1.16.162
+    - amazon-ssm-agent-2.3.612
+    - python36-3.6.8-1
+    - python36-libs-3.6.8-1
 
 ### 2019.04.1
 
@@ -27,9 +27,9 @@
 
 *   "Extra" package updates
     -   aws-cli/1.16.140
-    -   amazon-ssm-agent-2.3.539.0-1.x86_64
-    -   python36-3.6.6-5.el7.x86_64
-    -   python36-libs-3.6.6-5.el7.x86_64
+    -   amazon-ssm-agent-2.3.539.0-1
+    -   python36-3.6.6-5
+    -   python36-libs-3.6.6-5
 
 ### 2019.03.1
 
@@ -42,7 +42,7 @@
 **Summary**:
 
 *   "Extra" package updates
-    -   aws-cli/1.16.126 
+    -   aws-cli/1.16.126
     -   amazon-ssm-agent-2.3.479.0-1
     -   aws-cfn-bootstrap-1.4-31
     -   aws-cli/1.16.126
@@ -62,8 +62,8 @@
 *   "Extra" package updates
     -   aws-cli/1.16.107
     -   amazon-ssm-agent-2.3.444.0-1
-    -   python36-libs-3.6.6-2.el7.x86_64
-    -   python36-3.6.6-2.el7.x86_64
+    -   python36-libs-3.6.6-2
+    -   python36-3.6.6-2
 
 ### 2019.01.1
 
@@ -130,7 +130,7 @@
 *   "Extra" package updates
     -   aws-cli/1.16.53
     -   amazon-ssm-agent-2.3.235.0-1
-    -   python36-3.6.6-1.el7.x86_64
+    -   python36-3.6.6-1
 
 ### 2018.10.1
 
@@ -208,8 +208,8 @@
 *   "Extra" package updates
     -   aws-cli/1.15.40
     -   amazon-ssm-agent-2.2.619.0-1
-    -   python34-3.4.8-1.el6
-    -   python34-libs-3.4.8-1.el6
+    -   (EL6) python34-3.4.8-1
+    -   (EL6) python34-libs-3.4.8-1
 
 ### 2018.05.1
 
@@ -250,7 +250,7 @@
 *   "Extra" package updates
     -   aws-cli/1.15.4
     -   amazon-ssm-agent-2.2.392.0-1
-    -   python34-3.4.8-1.el7
+    -   (EL7) python34-3.4.8-1
 *   spel-minimal-rhel-7.4-hvm
     -   Despite the name, this is a RHEL 7.5 AMI
 
