@@ -10,6 +10,7 @@ AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDDEPS=(${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git})
+BUILDNAME="${SPEL_BUILDNAME}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
@@ -49,8 +50,13 @@ then
     CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
 fi
 
-export CHROOT
-export FIPSDISABLE
+MKFSFORCEOPT="-F"
+if [[ "$BUILDNAME" =~ "xfs" ]]
+then
+    MKFSFORCEOPT="-f"
+fi
+
+export CHROOT FIPSDISABLE MKFSFORCEOPT
 
 retry()
 {
