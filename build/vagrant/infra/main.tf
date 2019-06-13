@@ -96,6 +96,7 @@ resource "aws_instance" "metal_instance" {
       "export VAGRANTCLOUD_USER=${var.vagrantcloud_user}", 
       "export SPEL_IDENTIFIER=${var.spel_identifier}", 
       "export SPEL_VERSION=${var.spel_version}", 
+      "export SPEL_CI=${var.spel_ci}",
       "export PACKER_VERSION=${var.packer_version}", 
       "export ARTIFACT_LOCATION=${var.artifact_location}", 
       "export CODE_REPO=${var.code_repo}", 

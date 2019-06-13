@@ -21,6 +21,6 @@ install:
 pre_build: install
 
 build: pre_build
-	go test -timeout 120m
+	go test -timeout 30m
 
 post_build:

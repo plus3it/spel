@@ -2,11 +2,15 @@
 set -eo
 
 # update machine
-sudo apt-get update
+sleep 120
 
-# install needed tools
-sudo apt-get install awscli vagrant python3-pip -y
-sudo apt-get install virtualbox virtualbox-guest-additions-iso -y
+sudo apt-get update && sudo apt-get install -y \
+awscli \
+vagrant \
+python3-pip \
+virtualbox \
+virtualbox-guest-additions-iso
+
 pip3 install awscli --upgrade --user
 
 #install packer
@@ -32,7 +36,20 @@ mkdir -p "/tmp/spel/.spel/$SPEL_VERSION/"
 export PACKER_LOG=1
 export PACKER_LOG_PATH="/tmp/spel/.spel/$SPEL_VERSION/packer.log"
 
-packer build -var "vagrantcloud_username=$VAGRANTCLOUD_USER" -var "spel_identifier=$SPEL_IDENTIFIER" -var "spel_version=$SPEL_VERSION" -only "minimal-centos-7-virtualbox" spel/minimal-linux.json
+# setup s3 bucket to store artifacts
+# artifacts for CI build will be stored in /ci
+S3_BUCKET="s3://$ARTIFACT_LOCATION"
+
+if [ "${SPEL_CI}" = "true" ]
+then
+    EXCEPT_STEP="vagrant-cloud"
+    S3_BUCKET="$S3_BUCKET/ci"
+    
+    export EXCEPT_STEP
+    export S3_BUCKET
+fi  
+
+packer build -var "vagrantcloud_username=$VAGRANTCLOUD_USER" -var "spel_identifier=$SPEL_IDENTIFIER" -var "spel_version=$SPEL_VERSION" -only "minimal-centos-7-virtualbox" -except "$EXCEPT_STEP" spel/minimal-linux.json
 
 # upload artifacts to S3
-aws s3 cp --recursive /tmp/spel/.spel/ "s3://$ARTIFACT_LOCATION/"
+aws s3 cp --recursive /tmp/spel/.spel/ "$S3_BUCKET/"
