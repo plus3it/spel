@@ -1,4 +1,20 @@
 ## Changelog
+
+### 2019.06.1
+
+**Released**: 2019.06.19
+
+**Commit Delta**: [Change from 2019.05.1 release](https://github.com/plus3it/spel/compare/2019.05.1...2019.06.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.06.1/manifests>
+
+**Summary**:
+
+*   Sets `/boot` partition to 512MB for vagrant boxes, see [PR #305](https://github.com/plus3it/spel/pull/305)
+*   "Extra" package updates
+    - aws-cli/1.16.181
+    - amazon-ssm-agent-2.3.662.0-1
+
 ### 2019.05.1
 
 **Released**: 2019.05.21
