@@ -120,7 +120,7 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
-                "py.test -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
+                "py.test --strict -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ],
             "pause_before": "5s",
             "type": "shell"
