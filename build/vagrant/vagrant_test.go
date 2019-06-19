@@ -23,6 +23,7 @@ func TestSpelVagrant(t *testing.T) {
             "vagrantcloud_user": os.Getenv("VAGRANTCLOUD_USER"),
             "spel_identifier": os.Getenv("SPEL_IDENTIFIER"),
             "spel_version": os.Getenv("SPEL_VERSION"),
+            "spel_ci": os.Getenv("SPEL_CI"),
             "packer_version": os.Getenv("PACKER_VERSION"),
             "artifact_location": os.Getenv("ARTIFACT_LOCATION"),
             "kms_key": os.Getenv("KMS_KEY"),

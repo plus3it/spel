@@ -24,6 +24,10 @@ variable "spel_version" {
   type  = "string"
 }
 
+variable "spel_ci" {
+  type  = "string"
+}
+
 variable "resource_name" {
   type    = "string"
   default = "spel-vagrant"
