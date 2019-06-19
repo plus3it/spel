@@ -5,8 +5,8 @@ authconfig-6.2.8-30.el7.x86_64
 autogen-libopts-5.18-5.el7.x86_64
 basesystem-10.0-7.el7.centos.noarch
 bash-4.2.46-31.el7.x86_64
-bind-libs-lite-9.9.4-73.el7_6.x86_64
-bind-license-9.9.4-73.el7_6.noarch
+bind-libs-lite-9.9.4-74.el7_6.1.x86_64
+bind-license-9.9.4-74.el7_6.1.noarch
 binutils-2.27-34.base.el7.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -66,7 +66,7 @@ gdisk-0.8.10-2.el7.x86_64
 GeoIP-1.5.0-13.el7.x86_64
 gettext-0.19.8.1-2.el7.x86_64
 gettext-libs-0.19.8.1-2.el7.x86_64
-glib2-2.56.1-2.el7.x86_64
+glib2-2.56.1-4.el7_6.x86_64
 glibc-2.17-260.el7_6.5.x86_64
 glibc-common-2.17-260.el7_6.5.x86_64
 gmp-6.0.0-15.el7.x86_64
@@ -106,9 +106,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-957.12.2.el7.x86_64
-kernel-tools-3.10.0-957.12.2.el7.x86_64
-kernel-tools-libs-3.10.0-957.12.2.el7.x86_64
+kernel-3.10.0-957.21.3.el7.x86_64
+kernel-tools-3.10.0-957.21.3.el7.x86_64
+kernel-tools-libs-3.10.0-957.21.3.el7.x86_64
 kexec-tools-2.0.15-21.el7_6.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-23.el7.x86_64
@@ -179,7 +179,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-23.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.60-1.el7_5.x86_64
-microcode_ctl-2.1-47.2.el7_6.x86_64
+microcode_ctl-2.1-47.4.el7_6.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
