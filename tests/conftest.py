@@ -9,7 +9,7 @@ METADATA_KERNEL = 'http://169.254.169.254/latest/meta-data/kernel-id'
 FIPS_DISABLED = set(['true', 'TRUE', '1', 'on'])
 
 # Markers
-VIRTUALIZATION_MARKERS = set(['hvm', 'paravirutal'])
+VIRTUALIZATION_MARKERS = set(['hvm', 'paravirtual'])
 PLAT_MARKERS = set(['el7'])
 FIPS_MARKERS = set(['fips_enabled', 'fips_disabled'])
 
@@ -23,6 +23,24 @@ try:
     VIRT = 'paravirtual'
 except urllib.error.URLError:
     pass
+
+
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers", "el7: mark test to run only on el7 platforms"
+    )
+    config.addinivalue_line(
+        "markers", "hvm: mark test to run only on hvm instances"
+    )
+    config.addinivalue_line(
+        "markers", "paravirtual: mark test to run only on paravirtual instances"
+    )
+    config.addinivalue_line(
+        "markers", "fips_enabled: mark test to run only if fips is enabled"
+    )
+    config.addinivalue_line(
+        "markers", "fips_disabled: mark test to run only if fips is disabled"
+    )
 
 
 def pytest_runtest_setup(item):
