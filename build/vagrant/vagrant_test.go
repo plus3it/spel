@@ -15,6 +15,9 @@ func TestSpelVagrant(t *testing.T) {
 		// The path to where your Terraform code is located
 		TerraformDir: "./infra",
 
+		// Disable color output
+		NoColor: true,
+
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
 			"resource_name":          resourceName,

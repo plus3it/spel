@@ -5,7 +5,7 @@ locals {
     }
 }
 
-### Resources ### 
+### Resources ###
 # Create IAM Role
 resource "aws_iam_role" "ec2_s3_access_role" {
   name               = "${var.resource_name}-upload-role"
@@ -79,7 +79,7 @@ resource "aws_instance" "metal_instance" {
   provisioner "file" {
     source = "./userdata.sh"
     destination = "/tmp/userdata.sh"
-    
+
     connection {
       type        = "ssh"
       user        = "ubuntu"
@@ -91,16 +91,17 @@ resource "aws_instance" "metal_instance" {
 
   provisioner "remote-exec" {
     inline = [
-      "export AWS_REGION=${var.aws_region}", 
-      "export SSM_VAGRANTCLOUD_TOKEN=${var.ssm_vagrantcloud_token}", 
-      "export VAGRANTCLOUD_USER=${var.vagrantcloud_user}", 
-      "export SPEL_IDENTIFIER=${var.spel_identifier}", 
-      "export SPEL_VERSION=${var.spel_version}", 
+      "export AWS_REGION=${var.aws_region}",
+      "export SSM_VAGRANTCLOUD_TOKEN=${var.ssm_vagrantcloud_token}",
+      "export VAGRANTCLOUD_USER=${var.vagrantcloud_user}",
+      "export SPEL_IDENTIFIER=${var.spel_identifier}",
+      "export SPEL_VERSION=${var.spel_version}",
       "export SPEL_CI=${var.spel_ci}",
-      "export PACKER_VERSION=${var.packer_version}", 
-      "export ARTIFACT_LOCATION=${var.artifact_location}", 
-      "export CODE_REPO=${var.code_repo}", 
-      "export SOURCE_COMMIT=${var.source_commit}", 
+      "export PACKER_VERSION=${var.packer_version}",
+      "export ARTIFACT_LOCATION=${var.artifact_location}",
+      "export CODE_REPO=${var.code_repo}",
+      "export SOURCE_COMMIT=${var.source_commit}",
+      "export PACKER_NO_COLOR=true",
       "chmod +x /tmp/userdata.sh",
       "/tmp/userdata.sh ",
     ]
@@ -118,11 +119,11 @@ resource "aws_instance" "metal_instance" {
     local.project_tags,
     map(
       "Name", "${var.resource_name}"
-    )  
+    )
   )}"
 }
 
-### Data Sources ### 
+### Data Sources ###
 data "aws_ami" "ubuntu" {
   most_recent = true
 
