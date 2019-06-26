@@ -24,7 +24,16 @@ packer -v
 cd /tmp
 git clone "$CODE_REPO"
 cd spel
-git checkout "$SOURCE_COMMIT"
+
+if [[ -n "$SOURCE_COMMIT" ]] ; then
+    # decide whether to switch to pull request or a branch
+    echo "SOURCE_COMMIT = ${SOURCE_COMMIT}"
+    if [[ "$SOURCE_COMMIT" =~ ^pr/[0-9]+$ ]]; then
+        git fetch origin "pull/${SOURCE_COMMIT#pr/}/head:${SOURCE_COMMIT}"
+    fi
+    git checkout "$SOURCE_COMMIT"
+fi
+
 pwd
 
 # setup environment
@@ -44,10 +53,10 @@ if [ "${SPEL_CI}" = "true" ]
 then
     EXCEPT_STEP="vagrant-cloud"
     S3_BUCKET="$S3_BUCKET/ci"
-    
+
     export EXCEPT_STEP
     export S3_BUCKET
-fi  
+fi
 
 packer build -var "vagrantcloud_username=$VAGRANTCLOUD_USER" -var "spel_identifier=$SPEL_IDENTIFIER" -var "spel_version=$SPEL_VERSION" -only "minimal-centos-7-virtualbox" -except "$EXCEPT_STEP" spel/minimal-linux.json
 
