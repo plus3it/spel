@@ -1,5 +1,19 @@
 ## Changelog
 
+### 2019.07.1
+
+**Released**: 2019.07.16
+
+**Commit Delta**: [Change from 2019.06.1 release](https://github.com/plus3it/spel/compare/2019.06.1...2019.07.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.07.1/manifests>
+
+**Summary**:
+
+*   "Extra" package updates
+    - amazon-ssm-agent-2.3.672
+    - aws-cli/1.16.198 
+
 ### 2019.06.1
 
 **Released**: 2019.06.19
