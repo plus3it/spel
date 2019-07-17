@@ -10,9 +10,31 @@
 
 **Summary**:
 
-*   "Extra" package updates
-    - amazon-ssm-agent-2.3.672
-    - aws-cli/1.16.198 
+*   "Extra" packages updated in this release:
+    - aws-cli upgraded to version 1.16.198
+    - amazon-ssm-agent RPM upgraded to 2.3.672.0-1
+    - ec2-hibinit-agent RPM upgraded to version 1.0.0-4
+
+*   Vendor-packages introduced in this release:
+    - acpid RPM
+
+*   "Extra" packages introduced in this release:
+    - amazon-ecr-credential-helper (version 0.3.0-1) RPM
+    - amazon-ecr-credential-helper-debuginfo (version 0.3.0-1) RPM
+    - amazon-efs-utils (version 1.7-1) RPM
+    - amazon-linux-extras (version 1.6.8-1) RPM
+    - amazon-linux-extras-yum-plugin (version 1.6.8-1) RPM
+    - amazonlinux-indexhtml (version 1-1) RPM
+    - ec2-instance-connect (version 1.1-9) RPM
+    - ec2-net-utils (version 1.1-1.1) RPM
+    - ec2sys-autotune (version 1.0.5-1) RPM
+    - ec2-utils (version 0.5-1) RPM
+
+*   Newly-activated Services/Agents:
+    - [EC2 autotune service](https://github.com/amazonlinux/autotune#description)
+    - [Amazon SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-ssm-agent.html)
+    - [Amazon Hibernate Agent](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html)
+    - [EC2 Instance Connect service](https://aws.amazon.com/about-aws/whats-new/2019/06/introducing-amazon-ec2-instance-connect/)
 
 ### 2019.06.1
 
