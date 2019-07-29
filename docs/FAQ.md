@@ -92,6 +92,10 @@ Procedures for other deployment-contexts have not been tested. Please feel free 
 
 It is generally expected that if users need to grow an _existing_ instance's root volume group that they reprovision and follow the above linked-to documents. If reprovisioning is not practical, the next best option is to add a secondary drive to the VM and expand the root volume group onto the secondary drive.
 
+### Q. Will you be updating spel for EL8 on AWS soon?
+
+A. No answer yet.
+
 
 ##### Footnotes:
 ------
