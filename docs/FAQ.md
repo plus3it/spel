@@ -1,3 +1,35 @@
+### Q: What OSes are currently supported?
+
+A: The following OSes are supported via spel:
+
+- RHEL 7
+- CentOS 7
+
+Other ELx derivatives may work but have not been specifically tested.
+
+### Q: Is RHEL or CentOS 8 Supported
+
+A: Currently, "no, it is not"
+
+The spel AMIs have a couple of design-dependencies: 
+
+- Our primary development-platform is CentOS, not RHEL. Automation is written for CentOS, first, then ported and verified to work on RHEL. 
+- We try to make the Red Hat and CentOS images we publish as close to identical as their respective package repositories allow them to be. Until we have both the Red Hat _and_ CentOS.Org flavors of a given release available, we don't update or extend our automation
+- Because we try to provide a similar degree of AWS functionality to spel AMIs as is found in Amazon Linux AMIs, the spel AMIs require the ability to port the AWS utilities to RHEL and CentOS. Historically, the ability to so port has been contingent on EPEL-hosted packages.
+
+Resultant of the above, we will not attempt support for EL8 until CentOS.Org has published a "final" AMI and until Fedora has made ("final") EPEL 8 repositories available. As of today's date (2019-07-31) neither of these conditions is met. Status for both projects may be tracked at:
+
+- CentOS 8 [build-status](https://wiki.centos.org/About/Building_8)
+- EPEL 8 [support-status](https://fedoraproject.org/wiki/EPEL#What_packages_and_versions_are_available_in_EPEL.3F)
+
+Note: Initial functionality for any given ELx build orchestrated by spel starts with an AMIgen project. Functionality for EL8 will be trackable within the [AMIgen8 project](/plus3it/AMIgen8).
+
+### Q: What happened to support for EL6?
+
+A: Red Hat Enterprise Linux 6 is in the last stages of the standard support-lifecycle's de-support phase. This support-lifecycle reaches its conclusion on November 30, 2020. Down-stream projects' &mdash; such as CentOS 6 &mdash; will conclude _their_ support-lifecycle in a similar time-frame. Further, our primary customer-base had begun the process of moving their solution-stacks to later ELx releases in October of 2018. Therefore, due to the pending demise of both EL6 and our primary customers' need for updated EL6 AMIs, we chose to cease publishing new EL6 images or testing spel functionality against el6 with the October 16<sup>th</sup>, 2018 AMI.
+
+While it's possible that this automation can continue to be used to create new EL6 AMIs, we will not be continuing to test that functionality or publishing new EL6 AMIs
+
 ### Q: Are the images STIG-hardened?
 
 A: No. The only STIG-related hardening is:
