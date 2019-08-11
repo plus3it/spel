@@ -100,22 +100,47 @@ def test_el7_fips_disabled(host):
     assert not fips.exists or fips.content.strip() == b'0'
 
 
-@pytest.mark.parametrize("name", [
-    ("python36")
+@pytest.mark.parametrize("names", [
+    ([
+        'python3',
+        'python36',
+    ])
 ])
-def test_python3_installed(host, name):
-    pkg = host.package(name)
-    if pkg.is_installed:
-        log.info(
-            '%s',
-            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
+def test_python3_installed(host, names):
+    pkg = type('pkg', (object,), {'is_installed': False})
+    for name in names:
+        pkg = host.package(name)
+        if pkg.is_installed:
+            break
+
     assert pkg.is_installed
+    log.info(
+        '%s',
+        {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
 
 
 @pytest.mark.el7
-def test_python3_symlink(host):
-    python3_symlink = host.file('/usr/bin/python3').linked_to
-    assert python3_symlink == '/usr/bin/python3.6'
+@pytest.mark.parametrize("realpath,link", [
+    ('/usr/bin/python3.6', '/usr/bin/python3')
+])
+def test_python3_symlink(host, realpath, link):
+    python3_symlink = host.file(link).linked_to
+    assert python3_symlink == realpath
+
+
+@pytest.mark.parametrize("version", [
+    (b'3.6')
+])
+def test_python3_version(host, version):
+    cmd = 'python3 --version'
+    python3_version = host.run(cmd)
+    log.info('`%s` stdout: %s', cmd, python3_version.stdout)
+    log.info('`%s` stderr: %s', cmd, python3_version.stderr)
+
+    assert python3_version.exit_status == 0
+
+    # Example stdout content: b'Python 3.6.8'
+    assert python3_version.stdout.strip().split()[1].startswith(version)
 
 
 @pytest.mark.el7
@@ -131,4 +156,3 @@ def test_timedatectl_dbus_status(host):
 def test_var_run_symlink(host):
     var_run_symlink = host.file('/var/run').linked_to
     assert var_run_symlink == '/run'
-
