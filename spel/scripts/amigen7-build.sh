@@ -9,7 +9,6 @@ AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
-BUILDDEPS=(${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git})
 BUILDNAME="${SPEL_BUILDNAME}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
@@ -21,6 +20,8 @@ EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 VGNAME="${SPEL_VGNAME:-VolGroup00}"
+
+read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
 
 PYTHON3_BIN="/usr/bin/python3.6"
 PYTHON3_LINK="/usr/bin/python3"
@@ -141,7 +142,7 @@ yum -y install "${BUILDDEPS[@]}"
 rpm -q "${BUILDDEPS[@]}"
 
 echo "Installing custom repo packages in the builder box"
-BUILDER_CUSTOMREPORPM=(${CUSTOMREPORPM/,/ })
+IFS="," read -r -a BUILDER_CUSTOMREPORPM <<< "$CUSTOMREPORPM"
 for RPM in "${BUILDER_CUSTOMREPORPM[@]}"
 do
       { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
@@ -152,7 +153,7 @@ yum-config-manager --disable "*" > /dev/null
 yum-config-manager --enable "$CUSTOMREPONAME" > /dev/null
 
 echo "Installing specified extra packages in the builder box"
-BUILDER_EXTRARPMS=(${EXTRARPMS/,/ })
+IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
 do
       { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
