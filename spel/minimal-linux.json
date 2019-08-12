@@ -56,7 +56,7 @@
             "ssh_timeout": "60m",
             "ssh_username": "spel",
             "subnet_id": "{{ user `subnet_id` }}",
-            "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
+            "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
@@ -89,7 +89,7 @@
             "ssh_timeout": "60m",
             "ssh_username": "spel",
             "subnet_id": "{{ user `subnet_id` }}",
-            "temporary_security_group_source_cidr": "{{ user `security_group_cidr` }}",
+            "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         },
@@ -337,7 +337,7 @@
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
         "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso",
-        "security_group_cidr": "0.0.0.0/0",
+        "security_group_cidrs": "0.0.0.0/0",
         "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
         "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
         "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
