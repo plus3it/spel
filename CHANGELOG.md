@@ -1,5 +1,24 @@
 ## Changelog
 
+### 2019.08.1
+
+**Released**: 2019.08.13
+
+**Commit Delta**: [Change from 2019.07.1 release](https://github.com/plus3it/spel/compare/2019.07.1...2019.08.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.08.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli upgraded to version 1.16.217
+    - amazon-ssm-agent RPM upgraded to 2.3.687.0-1.x86_64
+
+*   RHEL-Only:
+    - Minor-release update to 7.7 (see [vendor release notes](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7-beta/html/7.7_release_notes/index) for detailing of 7.6 to 7.7 changes)
+    - Python 3.6 package from vendor repository (`python3` RPM) obsoletes package from EPEL (`python36` RPM)
+
+
 ### 2019.07.1
 
 **Released**: 2019.07.16
