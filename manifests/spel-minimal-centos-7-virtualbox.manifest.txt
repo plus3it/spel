@@ -5,8 +5,8 @@ authconfig-6.2.8-30.el7.x86_64
 autogen-libopts-5.18-5.el7.x86_64
 basesystem-10.0-7.el7.centos.noarch
 bash-4.2.46-31.el7.x86_64
-bind-libs-lite-9.9.4-74.el7_6.1.x86_64
-bind-license-9.9.4-74.el7_6.1.noarch
+bind-libs-lite-9.9.4-74.el7_6.2.x86_64
+bind-license-9.9.4-74.el7_6.2.noarch
 binutils-2.27-34.base.el7.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -22,7 +22,7 @@ cronie-1.4.11-20.el7_6.x86_64
 cronie-anacron-1.4.11-20.el7_6.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-3.el7.x86_64
-curl-7.29.0-51.el7.x86_64
+curl-7.29.0-51.el7_6.3.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
 dbus-1.10.24-13.el7_6.x86_64
 dbus-glib-0.100-7.el7.x86_64
@@ -106,10 +106,10 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-957.21.3.el7.x86_64
-kernel-tools-3.10.0-957.21.3.el7.x86_64
-kernel-tools-libs-3.10.0-957.21.3.el7.x86_64
-kexec-tools-2.0.15-21.el7_6.3.x86_64
+kernel-3.10.0-957.27.2.el7.x86_64
+kernel-tools-3.10.0-957.27.2.el7.x86_64
+kernel-tools-libs-3.10.0-957.27.2.el7.x86_64
+kexec-tools-2.0.15-21.el7_6.4.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-23.el7.x86_64
 kmod-libs-20-23.el7.x86_64
@@ -125,7 +125,7 @@ libcap-2.22-9.el7.x86_64
 libcap-ng-0.7.5-4.el7.x86_64
 libcom_err-1.42.9-13.el7.x86_64
 libcroco-0.6.12-4.el7.x86_64
-libcurl-7.29.0-51.el7.x86_64
+libcurl-7.29.0-51.el7_6.3.x86_64
 libdaemon-0.14-7.el7.x86_64
 libdb-5.3.21-24.el7.x86_64
 libdb-utils-5.3.21-24.el7.x86_64
@@ -156,7 +156,7 @@ libsemanage-2.5-14.el7.x86_64
 libsepol-2.5-10.el7.x86_64
 libsmartcols-2.23.2-59.el7_6.1.x86_64
 libss-1.42.9-13.el7.x86_64
-libssh2-1.4.3-12.el7_6.2.x86_64
+libssh2-1.4.3-12.el7_6.3.x86_64
 libstdc++-4.8.5-36.el7_6.2.x86_64
 libsysfs-2.1.0-16.el7.x86_64
 libtasn1-4.10-1.el7.x86_64
@@ -253,8 +253,8 @@ rpm-python-4.11.3-35.el7.x86_64
 rsync-3.1.2-6.el7_6.1.x86_64
 rsyslog-8.24.0-34.el7.x86_64
 sed-4.2.2-5.el7.x86_64
-selinux-policy-3.13.1-229.el7_6.12.noarch
-selinux-policy-targeted-3.13.1-229.el7_6.12.noarch
+selinux-policy-3.13.1-229.el7_6.15.noarch
+selinux-policy-targeted-3.13.1-229.el7_6.15.noarch
 setup-2.8.71-10.el7.noarch
 sg3_utils-1.37-17.el7.x86_64
 sg3_utils-libs-1.37-17.el7.x86_64
@@ -264,9 +264,9 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7.x86_64
 sudo-1.8.23-3.el7.x86_64
-systemd-219-62.el7_6.7.x86_64
-systemd-libs-219-62.el7_6.7.x86_64
-systemd-sysv-219-62.el7_6.7.x86_64
+systemd-219-62.el7_6.9.x86_64
+systemd-libs-219-62.el7_6.9.x86_64
+systemd-sysv-219-62.el7_6.9.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
