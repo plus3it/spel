@@ -255,8 +255,8 @@ defaults):
     "azure_subnet_name": "",
     "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
     "azure_virtual_network_name": "",
-    "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
-    "security_group_cidr": "0.0.0.0/0",
+    "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso",
+    "security_group_cidrs": "0.0.0.0/0",
     "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
     "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
     "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
@@ -282,7 +282,7 @@ defaults):
 |-------------------------|-------------------------------------------------------------------|
 | `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
 | `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
-| `security_group_cidr`   | CIDR to restrict security group created by Packer                 |
+| `security_group_cidrs`  | CIDRs to restrict security group created by Packer                |
 | `spel_identifier`       | Project ID to associate to the resulting images                   |
 | `spel_version`          | Version to assign to the resulting image(s)                       |
 | `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
