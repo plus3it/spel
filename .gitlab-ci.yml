@@ -27,5 +27,4 @@ govcloud_build_job:
 
 after_script:
   - source .variables
-  - echo "Sleeping 180 seconds to ensure the AMI Name is searchable..."; sleep 180
   - make post_build

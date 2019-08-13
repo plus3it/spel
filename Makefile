@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PACKER_ZIP ?= https://releases.hashicorp.com/packer/1.3.2/packer_1.3.2_linux_amd64.zip
+PACKER_ZIP ?= https://releases.hashicorp.com/packer/1.4.2/packer_1.4.2_linux_amd64.zip
 PACKER_LOG ?= '1'
 PACKER_NO_COLOR ?= '1'
 CHECKPOINT_DISABLE ?= '1'
@@ -63,6 +63,6 @@ pre_build: install
 
 build: pre_build
 	bash ./build/build.sh -eo pipefail
-	
+
 post_build:
 	bash ./build/post_build.sh -eo pipefail

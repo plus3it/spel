@@ -9,13 +9,12 @@ phases:
         then
           SPEL_VERSION=$(date +%Y.%m.dev%s)
           export SPEL_VERSION
-        fi        
+        fi
   build:
     commands:
       - make
   post_build:
     commands:
-      -  echo "Sleeping 180 seconds to ensure the AMI Name is searchable..."; sleep 180 
       - make post_build
 
 artifacts:
