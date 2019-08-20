@@ -156,3 +156,15 @@ def test_timedatectl_dbus_status(host):
 def test_var_run_symlink(host):
     var_run_symlink = host.file('/var/run').linked_to
     assert var_run_symlink == '/run'
+
+
+@pytest.mark.parametrize("service", [
+    ("autotune.service"),
+    ("amazon-ssm-agent.service"),
+    ("hibinit-agent.service"),
+    ("ec2-instance-connect.service")
+])
+
+def test_systemd_services(host, service):
+    chk_service = host.service(service)
+    assert chk_service.is_enabled
