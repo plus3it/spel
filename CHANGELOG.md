@@ -1,5 +1,27 @@
 ## Changelog
 
+### 2019.09.1
+
+**Released**: 2019.09.17
+
+**Commit Delta**: [Change from 2019.08.1 release](https://github.com/plus3it/spel/compare/2019.08.1...2019.09.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.09.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.16.239
+    - amazon-efs-utils-1.10-1
+    - amazon-linux-extras-1.6.9-1
+    - amazon-linux-extras-yum-plugin-1.6.9-1
+    - amazon-ssm-agent-2.3.707.0-1
+    - ec2-instance-connect-1.1-10
+
+*   CentOS-Only:
+    - Minor-release update to 7.7 (see [vendor release notes](http://wiki.centos.org/Manuals/ReleaseNotes/CentOS7) for detailing of 7.6 to 7.7 changes)
+    - Python 3.6 package from vendor repository (`python3` RPM) obsoletes package from EPEL (`python36` RPM)
+
 ### 2019.08.1
 
 **Released**: 2019.08.13
