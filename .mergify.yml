@@ -1,0 +1,28 @@
+pull_request_rules:
+  - name: automatic approve dependabot pull requests
+    conditions:
+      - author~=dependabot\[bot\]|dependabot-preview\[bot\]
+      - status-success=continuous-integration/travis-ci/pr
+      - status-success=continuous-integration/travis-ci/push
+    actions:
+      review:
+        type: APPROVE
+
+  - name: write issue comment to start codebuild job
+    conditions:
+      - author~=dependabot\[bot\]|dependabot-preview\[bot\]
+      - "#approved-reviews-by>=1"
+    actions:
+      comment:
+        message: go codebuild go
+
+  - name: automatic merge for dependabot pull requests
+    conditions:
+      - author~=dependabot\[bot\]|dependabot-preview\[bot\]
+      - "#approved-reviews-by>=1"
+      # Must pass codebuild jobs before merge dependabots prs
+      - status-success=codebuild/spel-ci/pr
+      - status-success=codebuild/spel-govcloud-ci/pr
+    actions:
+      merge:
+        method: merge
