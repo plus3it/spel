@@ -37,7 +37,7 @@
             "communicator": "ssh",
             "ena_support": true,
             "force_deregister": "{{ user `ami_force_deregister` }}",
-            "instance_type": "m4.xlarge",
+            "instance_type": "t2.xlarge",
             "launch_block_device_mappings": [
                 {
                     "delete_on_termination": true,
@@ -70,7 +70,7 @@
             "communicator": "ssh",
             "ena_support": true,
             "force_deregister": "{{ user `ami_force_deregister` }}",
-            "instance_type": "t2.large",
+            "instance_type": "t2.xlarge",
             "launch_block_device_mappings": [
                 {
                     "delete_on_termination": true,
