@@ -10,7 +10,7 @@ all: build
 
 install:
 	dep init
-	dep ensure -add github.com/gruntwork-io/terratest/modules/terraform	
+	dep ensure -add github.com/gruntwork-io/terratest/modules/terraform
 	dep ensure -add github.com/gruntwork-io/terratest/modules/random
 	sudo apt-get install wget
 	wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
@@ -21,6 +21,6 @@ install:
 pre_build: install
 
 build: pre_build
-	go test -timeout 30m
+	go test -timeout 60m
 
 post_build:
