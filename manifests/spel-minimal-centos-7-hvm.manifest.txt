@@ -1,5 +1,5 @@
 CentOS Linux release 7.7.1908 (Core)
-aws-cli/1.16.239 Python/2.7.5 Linux/3.10.0-957.5.1.el7.x86_64 botocore/1.12.229
+aws-cli/1.16.263 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.12.253
 acl-2.2.51-14.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -7,7 +7,7 @@ amazon-ecr-credential-helper-0.3.0-1.el7.x86_64
 amazon-efs-utils-1.10-1.el7.noarch
 amazon-linux-extras-1.6.9-1.el7.noarch
 amazon-linux-extras-yum-plugin-1.6.9-1.el7.noarch
-amazon-ssm-agent-2.3.707.0-1.x86_64
+amazon-ssm-agent-2.3.714.0-1.x86_64
 atk-2.28.1-1.el7.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
@@ -84,7 +84,7 @@ ec2-utils-0.5-1.el7.0.1.noarch
 elfutils-default-yama-scope-0.176-2.el7.noarch
 elfutils-libelf-0.176-2.el7.x86_64
 elfutils-libs-0.176-2.el7.x86_64
-epel-release-7-11.noarch
+epel-release-7-12.noarch
 ethtool-4.8-10.el7.x86_64
 expat-2.1.0-10.el7_3.x86_64
 file-5.11-35.el7.x86_64
@@ -157,9 +157,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1062.1.1.el7.x86_64
-kernel-tools-3.10.0-1062.1.1.el7.x86_64
-kernel-tools-libs-3.10.0-1062.1.1.el7.x86_64
+kernel-3.10.0-1062.1.2.el7.x86_64
+kernel-tools-3.10.0-1062.1.2.el7.x86_64
+kernel-tools-libs-3.10.0-1062.1.2.el7.x86_64
 kexec-tools-2.0.15-33.el7.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -428,7 +428,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lockfile-0.9.1-4.el7.centos.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1062.1.1.el7.x86_64
+python-perf-3.10.0-1062.1.2.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -488,8 +488,8 @@ tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.27-9.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
 tuned-2.11.0-5.el7_7.1.noarch
-tzdata-2019b-1.el7.noarch
-tzdata-java-2019b-1.el7.noarch
+tzdata-2019c-1.el7.noarch
+tzdata-java-2019c-1.el7.noarch
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-61.el7.x86_64
 vim-common-7.4.629-6.el7.x86_64
