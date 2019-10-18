@@ -47,7 +47,7 @@ ebtables-2.0.10-16.el7.x86_64
 elfutils-default-yama-scope-0.176-2.el7.noarch
 elfutils-libelf-0.176-2.el7.x86_64
 elfutils-libs-0.176-2.el7.x86_64
-epel-release-7-11.noarch
+epel-release-7-12.noarch
 ethtool-4.8-10.el7.x86_64
 expat-2.1.0-10.el7_3.x86_64
 file-5.11-35.el7.x86_64
@@ -104,9 +104,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1062.1.1.el7.x86_64
-kernel-tools-3.10.0-1062.1.1.el7.x86_64
-kernel-tools-libs-3.10.0-1062.1.1.el7.x86_64
+kernel-3.10.0-1062.1.2.el7.x86_64
+kernel-tools-3.10.0-1062.1.2.el7.x86_64
+kernel-tools-libs-3.10.0-1062.1.2.el7.x86_64
 kexec-tools-2.0.15-33.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-25.el7.x86_64
@@ -272,7 +272,7 @@ sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.27-9.el7.x86_64
-tzdata-2019b-1.el7.noarch
+tzdata-2019c-1.el7.noarch
 unzip-6.0-20.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-61.el7.x86_64
