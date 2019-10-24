@@ -37,11 +37,11 @@ DEFAULTREPOS=(
 if [[ $(rpm --quiet -q redhat-release-server)$? -eq 0 ]]
 then
     DEFAULTREPOS=(
-        rhui-REGION-client-config-server-7
-        rhui-REGION-rhel-server-releases
-        rhui-REGION-rhel-server-rh-common
-        rhui-REGION-rhel-server-optional
-        rhui-REGION-rhel-server-extras
+        rhui-client-config-server-7
+        rhui-rhel-7-server-rhui-rpms
+        rhui-rhel-7-server-rhui-rh-common-rpms
+        rhui-rhel-7-server-rhui-optional-rpms
+        rhui-rhel-7-server-rhui-extras-rpms
         epel
     )
 fi
