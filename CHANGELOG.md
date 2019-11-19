@@ -1,5 +1,23 @@
 ## Changelog
 
+### 2019.11.1
+
+**Released**: 2019.11.19
+
+**Commit Delta**: [Change from 2019.10.1 release](https://github.com/plus3it/spel/compare/2019.10.1...2019.11.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2019.11.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.16.284
+    - amazon-ssm-agent-2.3.760.0-1
+    - amazon-linux-extras-1.6.9-2.el7.noarch
+    - amazon-linux-extras-yum-plugin-1.6.9-2.el7.noarch
+    - ec2-instance-connect-1.1-11.el7.noarch
+    - ec2-utils-1.0-2.el7.noarch
+
 ### 2019.10.1
 
 **Released**: 2019.10.18
