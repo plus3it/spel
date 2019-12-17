@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux Server release 7.7 (Maipo)
-aws-cli/1.16.284 Python/2.7.5 Linux/3.10.0-957.21.3.el7.x86_64 botocore/1.13.20
+aws-cli/1.16.304 Python/2.7.5 Linux/3.10.0-957.21.3.el7.x86_64 botocore/1.13.40
 acl-2.2.51-14.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -32,7 +32,7 @@ bind-export-libs-9.11.4-9.P2.el7.x86_64
 binutils-2.27-41.base.el7_7.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
-ca-certificates-2018.2.22-70.0.el7_5.noarch
+ca-certificates-2019.2.32-76.el7_7.noarch
 cairo-1.15.12-4.el7.x86_64
 checkpolicy-2.5-8.el7.x86_64
 chkconfig-1.7.4-1.el7.x86_64
@@ -49,7 +49,7 @@ cronie-anacron-1.4.11-23.el7.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-5.el7.x86_64
 cups-libs-1.6.3-40.el7.x86_64
-curl-7.29.0-54.el7.x86_64
+curl-7.29.0-54.el7_7.1.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
 dbus-1.10.24-13.el7_6.x86_64
 dbus-glib-0.100-7.el7.x86_64
@@ -140,7 +140,7 @@ hostname-3.13-3.el7_7.1.x86_64
 hwdata-0.252-9.3.el7.x86_64
 info-5.1-5.el7.x86_64
 initscripts-9.49.47-1.el7.x86_64
-iproute-4.11.0-25.el7.x86_64
+iproute-4.11.0-25.el7_7.2.x86_64
 ipset-7.1-1.el7.x86_64
 ipset-libs-7.1-1.el7.x86_64
 iptables-1.4.21-33.el7.x86_64
@@ -159,9 +159,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1062.4.3.el7.x86_64
-kernel-tools-3.10.0-1062.4.3.el7.x86_64
-kernel-tools-libs-3.10.0-1062.4.3.el7.x86_64
+kernel-3.10.0-1062.9.1.el7.x86_64
+kernel-tools-3.10.0-1062.9.1.el7.x86_64
+kernel-tools-libs-3.10.0-1062.9.1.el7.x86_64
 kexec-tools-2.0.15-33.el7.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -175,14 +175,14 @@ libaio-0.3.109-13.el7.x86_64
 libassuan-2.1.0-3.el7.x86_64
 libattr-2.4.46-13.el7.x86_64
 libbasicobjects-0.1.1-32.el7.x86_64
-libblkid-2.23.2-61.el7.x86_64
+libblkid-2.23.2-61.el7_7.1.x86_64
 libcap-2.22-10.el7.x86_64
 libcap-ng-0.7.5-4.el7.x86_64
 libcgroup-0.41-21.el7.x86_64
 libcollection-0.7.0-32.el7.x86_64
 libcom_err-1.42.9-16.el7.x86_64
 libcroco-0.6.12-4.el7.x86_64
-libcurl-7.29.0-54.el7.x86_64
+libcurl-7.29.0-54.el7_7.1.x86_64
 libdaemon-0.14-7.el7.x86_64
 libdb-5.3.21-25.el7.x86_64
 libdb-utils-5.3.21-25.el7.x86_64
@@ -206,7 +206,7 @@ libidn-1.28-4.el7.x86_64
 libini_config-1.3.1-32.el7.x86_64
 libjpeg-turbo-1.2.90-8.el7.x86_64
 libmnl-1.0.3-7.el7.x86_64
-libmount-2.23.2-61.el7.x86_64
+libmount-2.23.2-61.el7_7.1.x86_64
 libndp-1.2-9.el7.x86_64
 libnetfilter_conntrack-1.0.6-1.el7_3.x86_64
 libnfnetlink-1.0.1-4.el7.x86_64
@@ -228,7 +228,7 @@ libsemanage-2.5-14.el7.x86_64
 libsemanage-python-2.5-14.el7.x86_64
 libsepol-2.5-10.el7.x86_64
 libSM-1.2.2-2.el7.x86_64
-libsmartcols-2.23.2-61.el7.x86_64
+libsmartcols-2.23.2-61.el7_7.1.x86_64
 libss-1.42.9-16.el7.x86_64
 libssh2-1.8.0-3.el7.x86_64
 libstdc++-4.8.5-39.el7.x86_64
@@ -241,7 +241,7 @@ libtirpc-0.2.4-0.16.el7.x86_64
 libunistring-0.9.3-9.el7.x86_64
 libuser-0.60-9.el7.x86_64
 libutempter-1.1.6-4.el7.x86_64
-libuuid-2.23.2-61.el7.x86_64
+libuuid-2.23.2-61.el7_7.1.x86_64
 libverto-0.2.5-4.el7.x86_64
 libverto-libevent-0.2.5-4.el7.x86_64
 libwayland-client-1.15.0-1.el7.x86_64
@@ -285,7 +285,7 @@ mesa-libEGL-18.3.4-5.el7.x86_64
 mesa-libgbm-18.3.4-5.el7.x86_64
 mesa-libGL-18.3.4-5.el7.x86_64
 mesa-libglapi-18.3.4-5.el7.x86_64
-microcode_ctl-2.1-53.3.el7_7.x86_64
+microcode_ctl-2.1-53.7.el7_7.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -299,16 +299,16 @@ newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
 nfs-utils-1.3.0-0.65.el7.x86_64
 nspr-4.21.0-1.el7.x86_64
-nss-3.44.0-4.el7.x86_64
+nss-3.44.0-7.el7_7.x86_64
 nss-pem-1.0.3-7.el7.x86_64
-nss-softokn-3.44.0-5.el7.x86_64
-nss-softokn-freebl-3.44.0-5.el7.x86_64
-nss-sysinit-3.44.0-4.el7.x86_64
-nss-tools-3.44.0-4.el7.x86_64
-nss-util-3.44.0-3.el7.x86_64
+nss-softokn-3.44.0-8.el7_7.x86_64
+nss-softokn-freebl-3.44.0-8.el7_7.x86_64
+nss-sysinit-3.44.0-7.el7_7.x86_64
+nss-tools-3.44.0-7.el7_7.x86_64
+nss-util-3.44.0-4.el7_7.x86_64
 ntp-4.2.6p5-29.el7.x86_64
 ntpdate-4.2.6p5-29.el7.x86_64
-numactl-libs-2.0.12-3.el7.x86_64
+numactl-libs-2.0.12-3.el7_7.1.x86_64
 openldap-2.4.44-21.el7_6.x86_64
 openssh-7.4p1-21.el7.x86_64
 openssh-clients-7.4p1-21.el7.x86_64
@@ -443,11 +443,11 @@ python-lockfile-0.9.1-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-35.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1062.4.3.el7.x86_64
+python-perf-3.10.0-1062.9.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
-python-requests-2.6.0-7.el7_7.noarch
+python-requests-2.6.0-8.el7_7.noarch
 python-schedutils-0.4-6.el7.x86_64
 python-setuptools-0.9.8-7.el7.noarch
 python-six-1.9.0-2.el7.noarch
@@ -467,7 +467,7 @@ Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.7-10.el7.x86_64
 redhat-support-lib-python-0.9.7-6.el7.noarch
 redhat-support-tool-0.9.11-1.el7.noarch
-rh-amazon-rhui-client-3.0.22-1.el7.noarch
+rh-amazon-rhui-client-3.0.23-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -491,8 +491,8 @@ rubygems-2.0.14.1-36.el7.noarch
 ruby-irb-2.0.0.648-36.el7.noarch
 ruby-libs-2.0.0.648-36.el7.x86_64
 sed-4.2.2-5.el7.x86_64
-selinux-policy-3.13.1-252.el7.1.noarch
-selinux-policy-targeted-3.13.1-252.el7.1.noarch
+selinux-policy-3.13.1-252.el7_7.6.noarch
+selinux-policy-targeted-3.13.1-252.el7_7.6.noarch
 setools-libs-3.3.8-4.el7.x86_64
 setup-2.8.71-10.el7.noarch
 sg3_utils-1.37-18.el7_7.1.x86_64
@@ -521,7 +521,7 @@ tzdata-2019c-1.el7.noarch
 tzdata-java-2019c-1.el7.noarch
 usermode-1.111-6.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
-util-linux-2.23.2-61.el7.x86_64
+util-linux-2.23.2-61.el7_7.1.x86_64
 vim-common-7.4.629-6.el7.x86_64
 vim-filesystem-7.4.629-6.el7.x86_64
 vim-minimal-7.4.629-6.el7.x86_64
