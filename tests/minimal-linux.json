@@ -99,17 +99,15 @@
         },
         {
             "environment_vars": [
-                "PIP_URL={{ user `pip_url` }}",
                 "PYPI_URL={{ user `pypi_url` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
-                "PIP_URL=${PIP_URL:-https://bootstrap.pypa.io/get-pip.py}",
                 "PYPI_URL=${PYPI_URL:-https://pypi.org/simple}",
                 "ls -alR /tmp",
-                "curl \"$PIP_URL\" | python - --index-url=\"$PYPI_URL\" wheel==0.29.0",
-                "pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
-                "pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
+                "python3 -m ensurepip",
+                "python3 -m pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
+                "python3 -m pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
                 "for DEV in $(lsblk -ln | awk '/ part /{ print $1}'); do pvresize /dev/${DEV} || true; done"
             ],
             "pause_before": "5s",
@@ -122,7 +120,9 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "inline": [
-                "py.test --strict -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
+                "PATH=/usr/local/bin:\"$PATH\"",
+                "export PATH",
+                "pytest --strict -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ],
             "pause_before": "5s",
             "type": "shell"
@@ -136,7 +136,6 @@
     ],
     "variables": {
         "aws_region": "{{ env `AWS_REGION` }}",
-        "pip_url": "https://bootstrap.pypa.io/get-pip.py",
         "pypi_url": "https://pypi.org/simple",
         "security_group_cidrs": "0.0.0.0/0",
         "source_ami_centos7_hvm": "{{ env `minimal_centos_7_hvm` }}",

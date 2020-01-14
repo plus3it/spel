@@ -129,7 +129,7 @@ def test_python3_symlink(host, realpath, link):
 
 
 @pytest.mark.parametrize("version", [
-    (b'3.6')
+    ('3.6')
 ])
 def test_python3_version(host, version):
     cmd = 'python3 --version'
@@ -139,7 +139,7 @@ def test_python3_version(host, version):
 
     assert python3_version.exit_status == 0
 
-    # Example stdout content: b'Python 3.6.8'
+    # Example stdout content: 'Python 3.6.8'
     assert python3_version.stdout.strip().split()[1].startswith(version)
 
 
