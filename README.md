@@ -288,6 +288,7 @@ defaults):
 | `spel_identifier`       | Project ID to associate to the resulting images                   |
 | `spel_version`          | Version to assign to the resulting image(s)                       |
 | `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
+| `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use             |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
 | `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
@@ -407,6 +408,21 @@ packer build \
     -only 'minimal-centos-7-azure-image' \
     spel/minimal-linux.json
 ```
+
+## Testing With AMIgen7
+
+The spel automation leverages the AMIgen7 project as a build-helper for creation of Amazon Machine Images. Due to the closely-coupled nature of the two projects, it's recommended that any changes made to AMIgen7 be tested with spel prior to merging changes to AMIgen7's master branch.
+
+To facilitate this testing, the runtime-variable `spel_amigen7branch` was added to spel.  Using this runtime-variable, in combination with the `spel_amigen7source` runtime-variable, allows one to point spel to a fork/branch of AMIgen7 during a integration-test build. To test, update your `packer` invocation by adding elements like:
+
+~~~
+packer build \
+   -var 'spel_amigen7source=https://github.com/<FORK_USER>/AMIgen7.git' \
+   -var 'spel_amigen7branch=IssueNN' \
+   ...
+   minimal-linux.json
+~~~
+
 
 ## TODO
 

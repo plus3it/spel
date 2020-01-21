@@ -242,6 +242,7 @@
         {
             "environment_vars": [
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
+                "SPEL_AMIGENBRANCH={{ user `spel_amigen7branch` }}",
                 "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
                 "SPEL_AWSCLISOURCE={{ user `spel_awsclisource` }}",
                 "SPEL_BOOTLABEL=/boot",
@@ -271,6 +272,7 @@
         {
             "environment_vars": [
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
+                "SPEL_AMIGENBRANCH={{ user `spel_amigen7branch` }}",
                 "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
                 "SPEL_AWSCLISOURCE={{ user `spel_awsclisource` }}",
                 "SPEL_BOOTLABEL=/boot",
@@ -342,6 +344,7 @@
         "security_group_cidrs": "0.0.0.0/0",
         "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
         "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
+        "spel_amigen7branch": "master",
         "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
