@@ -409,6 +409,21 @@ packer build \
     spel/minimal-linux.json
 ```
 
+## Testing With AMIgen7
+
+The spel automation leverages the AMIgen7 project as a build-helper for creation of Amazon Machine Images. Due to the closely-coupled nature of the two projects, it's recommended that any changes made to AMIgen7 be tested with spel prior to merging changes to AMIgen7's master branch.
+
+To facilitate this testing, the runtime-variable `spel_amigen7branch` was added to spel.  Using this runtime-variable, in combination with the `spel_amigen7source` runtime-variable, allows one to point spel to a fork/branch of AMIgen7 during a integration-test build. To test, update your `packer` invocation by adding elements like:
+
+~~~
+packer build \
+   -var 'spel_amigen7source=https://github.com/<FORK_USER>/AMIgen7.git' \
+   -var 'spel_amigen7branch=IssueNN' \
+   ...
+   minimal-linux.json
+~~~
+
+
 ## TODO
 
 -   [ ] Create a versioned vagrant box catalog and push boxes to a self-hosted
