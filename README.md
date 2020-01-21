@@ -288,6 +288,7 @@ defaults):
 | `spel_identifier`       | Project ID to associate to the resulting images                   |
 | `spel_version`          | Version to assign to the resulting image(s)                       |
 | `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
+| `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use             |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
 | `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
