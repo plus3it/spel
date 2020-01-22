@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2020.01.1
+
+**Released**: 2020.01.21
+
+**Commit Delta**: [Change from 2019.12.1 release](https://github.com/plus3it/spel/compare/2019.12.1...2020.01.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.01.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.17.7
+    - amazon-ssm-agent-2.3.814.0-1.x86_64
+    - botocore/1.14.7
+
 ### 2019.12.1
 
 **Released**: 2019.12.17
