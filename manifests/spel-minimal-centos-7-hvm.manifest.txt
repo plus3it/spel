@@ -1,5 +1,5 @@
 CentOS Linux release 7.7.1908 (Core)
-aws-cli/1.16.304 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.13.40
+aws-cli/1.17.7 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.14.7
 acl-2.2.51-14.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -7,7 +7,7 @@ amazon-ecr-credential-helper-0.3.0-1.el7.x86_64
 amazon-efs-utils-1.10-1.el7.noarch
 amazon-linux-extras-1.6.9-2.el7.noarch
 amazon-linux-extras-yum-plugin-1.6.9-2.el7.noarch
-amazon-ssm-agent-2.3.760.0-1.x86_64
+amazon-ssm-agent-2.3.814.0-1.x86_64
 atk-2.28.1-1.el7.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
@@ -98,7 +98,7 @@ firewalld-filesystem-0.6.3-2.el7_7.2.noarch
 fontconfig-2.13.0-4.3.el7.x86_64
 fontpackages-filesystem-1.44-8.el7.noarch
 freetype-2.8-14.el7.x86_64
-fribidi-1.0.2-1.el7.x86_64
+fribidi-1.0.2-1.el7_7.1.x86_64
 gawk-4.0.2-4.el7_3.1.x86_64
 gdbm-1.10-8.el7.x86_64
 gdisk-0.8.10-3.el7.x86_64
