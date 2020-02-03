@@ -282,6 +282,7 @@ defaults):
 
 | Variable Name           | Description                                                       |
 |-------------------------|-------------------------------------------------------------------|
+| `custom_ebs_size`       | Size (in GiB) of AMI root EBS when creating custom-layout AMIs    |
 | `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
 | `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
 | `security_group_cidrs`  | CIDRs to restrict security group created by Packer                |
@@ -289,6 +290,7 @@ defaults):
 | `spel_version`          | Version to assign to the resulting image(s)                       |
 | `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
 | `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use             |
+| `spel_amigen7storlay`   | A list of MOUNT:VOLNAME:VOLSIZE tuples to customize AMI storage-layout
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
 | `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
