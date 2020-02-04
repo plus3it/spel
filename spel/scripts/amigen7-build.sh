@@ -6,7 +6,7 @@
 ##############################################################################
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
-AMIGENSTORLAY="${SPEL_AMIGENSTORLAY}"
+AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
@@ -196,20 +196,11 @@ do
     ln "${RPM}" "${ELBUILD}"/AWSpkgs/
 done
 
-if [[ -z ${AMIGENSTORLAY} || -z ${AMIGENSTORLAY+x} ]]
-then
-   echo "Executing DiskSetup.sh"
-   bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}"
+echo "Executing DiskSetup.sh"
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}"
 
-   echo "Executing MkChrootTree.sh"
-   bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}"
-else
-   echo "Executing DiskSetup.sh"
-   bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}"
-
-   echo "Executing MkChrootTree.sh"
-   bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}"
-fi
+echo "Executing MkChrootTree.sh"
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}"
 
 echo "Executing MkTabs.sh"
 bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"

@@ -241,8 +241,8 @@ defaults):
     "ami_groups": "",
     "ami_regions": "",
     "ami_users": "",
-    "aws_region": "us-east-1",
     "aws_ec2_instance_type": "t2.xlarge",
+    "aws_region": "us-east-1",
     "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
     "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
     "azure_dest_resource_group": "",
@@ -258,10 +258,13 @@ defaults):
     "azure_virtual_network_name": "",
     "azure_vm_size": "Standard_DS2_v2",
     "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
+    "root_volume_size": "20",
     "security_group_cidrs": "0.0.0.0/0",
     "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
     "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
+    "spel_amigen7branch": "master",
     "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
+    "spel_amigen7storlay": "/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
     "spel_customreponame7": "",
@@ -282,7 +285,7 @@ defaults):
 
 | Variable Name           | Description                                                       |
 |-------------------------|-------------------------------------------------------------------|
-| `custom_ebs_size`       | Size (in GiB) of AMI root EBS when creating custom-layout AMIs    |
+| `root_volume_size`      | Size (in GiB) of image root volume                                |
 | `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
 | `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
 | `security_group_cidrs`  | CIDRs to restrict security group created by Packer                |
@@ -290,7 +293,7 @@ defaults):
 | `spel_version`          | Version to assign to the resulting image(s)                       |
 | `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
 | `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use             |
-| `spel_amigen7storlay`   | A list of MOUNT:VOLNAME:VOLSIZE tuples to customize AMI storage-layout
+| `spel_amigen7storlay`   | List of MOUNT:VOLNAME:VOLSIZE tuples to customize storage-layout  |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
 | `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
@@ -300,6 +303,8 @@ defaults):
 | `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
+
+For more details on the syntax for `spel_amigen7storlay`, refer to the [AMIgen doc on custom partitioning][32].
 
 All other variables in the `packer` template map directly to variables defined
 in the `packer` docs for the [amazon-ebs builder][11] or the [virtualbox-iso
@@ -463,3 +468,4 @@ vagrant "cloud".
 [29]: https://github.com/Azure/WALinuxAgent/issues/760
 [30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
 [31]: https://github.com/ferricoxide/AMIgen7
+[32]: https://github.com/plus3it/AMIgen7/blob/master/Docs/README_CustomPartitioning.md
