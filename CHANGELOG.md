@@ -1,5 +1,19 @@
 ## Changelog
 
+### 2020.02.1
+
+**Released**: 2020.02.18
+
+**Commit Delta**: [Change from 2020.01.1 release](https://github.com/plus3it/spel/compare/2020.01.1...2020.02.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.02.1/manifests>
+
+**Summary**:
+
+*   Ensures the cloud-init default user is marked as `uconfined_u` by SELinux
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.1
+
 ### 2020.01.1
 
 **Released**: 2020.01.21
@@ -13,7 +27,6 @@
 *   "Extra" packages updated in this release:
     - aws-cli/1.17.7
     - amazon-ssm-agent-2.3.814.0-1.x86_64
-    - botocore/1.14.7
 
 ### 2019.12.1
 
@@ -27,7 +40,6 @@
 
 *   "Extra" packages updated in this release:
     - aws-cli/1.16.304
-    - botocore/1.13.40
 
 ### 2019.11.1
 
