@@ -211,9 +211,11 @@ bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
 CLIOPT_ALTMANIFEST=""
 if [[ -n ${AMIGENMANFST} ]]
 then
-   CLIOPT_ALTMANIFEST="( -m "${AMIGENMANFST}" )"
+   CLIOPT_ALTMANIFEST=( -m "${AMIGENMANFST}" )
+   echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
 else
-   CLIOPT_ALTMANIFEST="( -g "${AMIGENPKGGRP}" )"
+   CLIOPT_ALTMANIFEST=( -g "${AMIGENPKGGRP}" )
+   echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
 fi
 
 
