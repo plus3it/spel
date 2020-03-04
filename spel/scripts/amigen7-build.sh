@@ -6,6 +6,8 @@
 ##############################################################################
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
+AMIGENMANFST="${SPEL_AMIGENMANFST}"
+AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
@@ -205,6 +207,16 @@ bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTOR
 echo "Executing MkTabs.sh"
 bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
 
+# Construct the cli option string for alternate-manifest
+CLIOPT_ALTMANIFEST=""
+if [[ -n ${AMIGENMANFST} ]]
+then
+   CLIOPT_ALTMANIFEST="( -m "${AMIGENMANFST}" )"
+else
+   CLIOPT_ALTMANIFEST="( -g "${AMIGENPKGGRP}" )"
+fi
+
+
 # Construct the cli option string for extra rpms
 CLIOPT_EXTRARPMS=""
 if [[ -n "${EXTRARPMS}" ]]
@@ -220,7 +232,7 @@ then
 fi
 
 echo "Executing ChrootBuild.sh"
-bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}"
+bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}" "${CLIOPT_ALTMANIFEST[@]}"
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
