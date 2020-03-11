@@ -1,3 +1,12 @@
+Content-Type: multipart/mixed; boundary="===============3585321300151562773=="
+MIME-Version: 1.0
+
+--===============3585321300151562773==
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud.cfg"
+
 #cloud-config
 
 ##############################################################################
@@ -12,7 +21,18 @@ system_info:
     lock_passwd: true
     sudo: ["ALL=(root) NOPASSWD:ALL"]
 
+bootcmd:
+  - setenforce 0
+
 package_upgrade: true
+
+--===============3585321300151562773==
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="script.sh"
+
+#!/bin/bash -xe
 
 ##############################################################################
 #
@@ -20,65 +40,62 @@ package_upgrade: true
 # be re-partitioned.
 #
 ##############################################################################
-runcmd:
-  - set -x
-  - set -e
 
-  # Prevent selinux from interfering
-  - setenforce 0 || true
+# Get fuser
+yum -y install psmisc
 
-  # Get fuser
-  - yum -y install psmisc
+# Create tmpfs mount
+install -Ddm 000755 /tmp/tmproot
+mount none /tmp/tmproot -t tmpfs
 
-  # Create tmpfs mount
-  - mkdir /tmp/tmproot
-  - mount none /tmp/tmproot -t tmpfs
+# Copy everything to the tmpfs mount
+cp -ax / /tmp/tmproot
+cp -a /dev /tmp/tmproot
 
-  # Copy everything to the tmpfs mount
-  - cp -ax / /tmp/tmproot
-  - cp -a /dev /tmp/tmproot
+# Switch / to tmpfs
+mkdir /tmp/tmproot/oldroot
+mount --make-rprivate /
+pivot_root /tmp/tmproot /tmp/tmproot/oldroot
+mount --move /oldroot/dev /dev
+mount --move /oldroot/proc /proc
+mount --move /oldroot/sys /sys
+mount --move /oldroot/run /run
+mount --move /oldroot/tmp /tmp || true  # not every ami starts with this
 
-  # Switch / to tmpfs
-  - mkdir /tmp/tmproot/oldroot
-  - mount --make-rprivate /
-  - pivot_root /tmp/tmproot /tmp/tmproot/oldroot
-  - mount --move /oldroot/dev /dev
-  - mount --move /oldroot/proc /proc
-  - mount --move /oldroot/sys /sys
-  - mount --move /oldroot/run /run
-  - mount --move /oldroot/tmp /tmp || true  # not every ami starts with this
+# Unmount everything we can on /oldroot
+for MOUNT in $(
+    cat /proc/mounts | \
+    cut -d ' ' -f 2 | \
+    grep '/oldroot/' | \
+    sort -ru
+    )
+do
+    echo "Attempting to dismount ${MOUNT}... "
+    umount $MOUNT || true
+done
 
-  # Unmount everything we can on /oldroot
-  - |
-    for MOUNT in $(
-        cat /proc/mounts | \
-        cut -d ' ' -f 2 | \
-        grep '/oldroot/' | \
-        sort -ru
-        )
-    do
-        umount $MOUNT || true
-    done
+# Attempt final unmount of /oldroot; this will probably fail since the process
+# running this script is still open. A follow-on script or interactive shell
+# can check and issue the final umount (works well with packer).
+echo "Attempting to dismount /oldroot... "
+umount /oldroot || true
 
-  # Attempt final unmount of /oldroot; this will probably fail since the process
-  # running this script is still open. A follow-on script or interactive shell
-  # can check and issue the final umount (works well with packer).
-  - umount /oldroot || true
+# Change ssh port. Set packer to connect to port 122; this way packer waits
+# until this script is complete.
+sed -i -e "s/^[#]*Port .*$/Port 122/" /etc/ssh/sshd_config
+test $(systemctl | grep -c firewalld) -eq 0 || systemctl stop firewalld
+systemctl restart sshd
 
-  # Change ssh port. Set packer to connect to port 122; this way packer waits
-  # until this script is complete.
-  - sed -i -e "s/^[#]*Port .*$/Port 122/" /etc/ssh/sshd_config
-  - test $(systemctl | grep -c firewalld) -eq 0 || systemctl stop firewalld
-  - systemctl restart sshd
+# Further stuff to do via packer before `umount /oldroot`
+# Restart systemd
+#- systemctl daemon-reexec
 
-  # Further stuff to do via packer before `umount /oldroot`
-  # Restart systemd
-  #- systemctl daemon-reexec
+# Stop services holding /oldroot
+#   Note: Do not do this in an interactive shell because you will probably
+#   kill your session. Instead, just use `fuser -vm /oldroot` to identify
+#   processes holding /oldroot and kill them by name with `killall <name>`.
+#   Then restart ssh, reconnect to a new session, and close your old session.
+####
+#- fuser -vmk /oldroot
 
-  # Stop services holding /oldroot
-  #   Note: Do not do this in an interactive shell because you will probably
-  #   kill your session. Instead, just use `fuser -vm /oldroot` to identify
-  #   processes holding /oldroot and kill them by name with `killall <name>`.
-  #   Then restart ssh, reconnect to a new session, and close your old session.
-  ####
-  #- fuser -vmk /oldroot
+--===============3585321300151562773==
