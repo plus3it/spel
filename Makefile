@@ -9,6 +9,7 @@ SPEL_CI ?= false
 SPEL_BUILDERS ?= minimal-rhel-7-hvm,minimal-centos-7-hvm
 SPEL_DESC_URL ?= https://github.com/plus3it/spel
 SPEL_AMIGEN7SOURCE ?= https://github.com/plus3it/AMIgen7.git
+SPEL_AMIGEN7BRANCH ?= master
 SPEL_AMIUTILSOURCE ?= https://github.com/ferricoxide/Lx-GetAMI-Utils.git
 SPEL_AWSCLISOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
 SPEL_EPEL7RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
