@@ -14,6 +14,7 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "security_group_cidrs=$SECURITY_GROUP_CIDR" \
   -var "spel_desc_url=$SPEL_DESC_URL" \
   -var "spel_amigen7source=$SPEL_AMIGEN7SOURCE" \
+  -var "spel_amigen7branch=$SPEL_AMIGEN7BRANCH" \
   -var "spel_amiutilsource=$SPEL_AMIUTILSOURCE" \
   -var "spel_awsclisource=$SPEL_AWSCLISOURCE" \
   -var "spel_customreporpm7=$SPEL_CUSTOMREPORPM7" \
