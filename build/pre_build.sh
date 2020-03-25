@@ -19,6 +19,7 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer validate \
   -var "spel_awsclisource=$SPEL_AWSCLISOURCE" \
   -var "spel_customreporpm7=$SPEL_CUSTOMREPORPM7" \
   -var "spel_customreponame7=$SPEL_CUSTOMREPONAME7" \
+  -var "spel_devnode=$SPEL_DEVNODE" \
   -var "spel_disablefips=$SPEL_DISABLEFIPS" \
   -var "spel_epel7release=$SPEL_EPEL7RELEASE" \
   -var "spel_epelrepo=$SPEL_EPELREPO" \

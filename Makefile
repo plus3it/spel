@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-AWS_EC2_INSTANCE_TYPE ?= t2.xlarge
+AWS_EC2_INSTANCE_TYPE ?= t3.2xlarge
 PACKER_ZIP ?= https://releases.hashicorp.com/packer/1.4.2/packer_1.4.2_linux_amd64.zip
 PACKER_LOG ?= '1'
 PACKER_NO_COLOR ?= '1'
@@ -14,6 +14,7 @@ SPEL_AMIUTILSOURCE ?= https://github.com/ferricoxide/Lx-GetAMI-Utils.git
 SPEL_AWSCLISOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
 SPEL_EPEL7RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 SPEL_CUSTOMREPORPM7 ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+SPEL_DEVNODE ?= /dev/nvme0n1
 SPEL_EPELREPO ?= epel
 SPEL_EXTRARPMS ?= https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36
 SOURCE_AMI_CENTOS7_HVM ?= ami-090b9dabe1c9f40b3
