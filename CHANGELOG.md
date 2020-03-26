@@ -1,5 +1,18 @@
 ## Changelog
 
+### 2020.03.1
+
+**Released**: 2020.03.26
+
+**Commit Delta**: [Change from 2020.02.1 release](https://github.com/plus3it/spel/compare/2020.02.1...2020.03.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.03.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.30
+
 ### 2020.02.1
 
 **Released**: 2020.02.18
