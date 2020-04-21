@@ -285,6 +285,21 @@ then
    DisableStrictHostCheck "${AMIGENSOURCE}"
 fi
 
+# Dismount /oldroot as needed
+if [[ $( mountpoint /oldroot ) =~ "is a mountpoint" ]]
+then
+   err_exit "Dismounting /oldroot..." NONE
+   umount /oldroot || \
+     err_exit "Failed dismounting /oldroot"
+fi
+
+# Null out the build-dev's VTOC
+dd if=/dev/urandom of="${AMIGENBUILDDEV}" bs=1024 count=10240 > /dev/null 2>&1
+if [[ $( lsblk -n "${AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+then
+   err_exit "Failed clearing VTOC from ${AMIGENBUILDDEV}"
+fi
+
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
 then
