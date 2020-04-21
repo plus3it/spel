@@ -62,7 +62,7 @@ function DisableStrictHostCheck {
    if [[ ${1:-} == '' ]]
    then
       err_exit "No connect-string passed to function [${0}]"
-   else 
+   else
       HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
    fi
 
@@ -257,19 +257,19 @@ function BuildChroot {
      err_exit "Failure encountered with DiskSetup.sh"
 
    # Invoke chroot-env disk-mounter
-   bash -x "${PATHY}"/$( ComposeChrootMountString )
+   bash -x "${PATHY}"/$( ComposeChrootMountString ) || \
      err_exit "Failure encountered with MkChrootTree.sh"
 
    # Invoke OS software installer
-   bash -x "${PATHY}"/$( ComposeOSpkgString ) 
+   bash -x "${PATHY}"/$( ComposeOSpkgString ) || \
      err_exit "Failure encountered with OSpackages.sh"
 
    # Invoke AWSutils installer
-   bash -x "${PATHY}"/$( ComposeAWSutilsString )
+   bash -x "${PATHY}"/$( ComposeAWSutilsString ) || \
      err_exit "Failure encountered with AWSutils.sh"
 
    # Invoke unmounter
-   bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}"
+   bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}" || \
      err_exit "Failure encountered with Umount.sh"
 }
 
