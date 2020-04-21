@@ -254,19 +254,24 @@ function BuildChroot {
    PATHY="${ELBUILD}/$( sed -e 's#^.*/##' -e 's/\.git.*$//' <<< "${AMIGENSOURCE}" )"
 
    # Invoke disk-partitioner
-   bash "${PATHY}"/$( ComposeDiskSetupString )
+   bash -x "${PATHY}"/$( ComposeDiskSetupString ) || \
+     err_exit "Failure encountered with DiskSetup.sh"
 
    # Invoke chroot-env disk-mounter
-   bash "${PATHY}"/$( ComposeChrootMountString )
+   bash -x "${PATHY}"/$( ComposeChrootMountString )
+     err_exit "Failure encountered with MkChrootTree.sh"
 
    # Invoke OS software installer
-   bash "${PATHY}"/$( ComposeOSpkgString ) 
+   bash -x "${PATHY}"/$( ComposeOSpkgString ) 
+     err_exit "Failure encountered with OSpackages.sh"
 
    # Invoke AWSutils installer
-   bash "${PATHY}"/$( ComposeAWSutilsString )
+   bash -x "${PATHY}"/$( ComposeAWSutilsString )
+     err_exit "Failure encountered with AWSutils.sh"
 
    # Invoke unmounter
-   bash "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}"
+   bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}"
+     err_exit "Failure encountered with Umount.sh"
 }
 
 
