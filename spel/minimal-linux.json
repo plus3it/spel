@@ -143,6 +143,39 @@
             "virtual_network_name": "{{ user `azure_virtual_network_name` }}",
             "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
             "vm_size": "{{ user `azure_vm_size` }}"
+        },
+        {
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 8 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "ena_support": true,
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "{{ user `aws_ec2_instance_type` }}",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": true,
+                    "device_name": "/dev/sda1",
+                    "volume_size": "{{ user `root_volume_size` }}",
+                    "volume_type": "gp2"
+                }
+            ],
+            "name": "minimal-centos-8-hvm",
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_centos7_hvm` }}",
+            "sriov_support": true,
+            "ssh_interface": "{{ user `ssh_interface` }}",
+            "ssh_port": 122,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
+            "type": "amazon-ebs",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         }
     ],
     "post-processors": [
@@ -219,7 +252,8 @@
                 "minimal-centos-7-hvm",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-centos-8-hvm"
             ],
             "type": "shell"
         },
@@ -235,7 +269,8 @@
                 "minimal-centos-7-hvm",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-centos-8-hvm"
             ],
             "type": "shell"
         },
@@ -269,6 +304,30 @@
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/amigen7-build.sh"
+            ],
+            "type": "shell"
+        },
+        {
+            "environment_vars": [
+                "SPEL_AMIGENBRANCH={{ user `spel_amigen8branch` }}",
+                "SPEL_AMIGENBOOTSIZE=17m",
+                "SPEL_AMIGENBUILDDEV={{ user `spel_devnode` }}",
+                "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+                "SPEL_AMIGENCLIV1SRC={{ user `aws_cliv1_source` }}",
+                "SPEL_AMIGENCLIV2SRC={{ user `aws_cliv2_source` }}",
+                "SPEL_AMIGENFSTYPE={{ user `spel_amigenfstype` }}",
+                "SPEL_AMIGENREPOS={{ user `spel_amigen8reponames` }}",
+                "SPEL_AMIGENREPOSRC={{ user `spel_amigen8reposource` }}",
+                "SPEL_AMIGEN8SOURCE={{ user `` }}",
+                "SPEL_AMIGENSSMAGENT={{ user `aws_ssmagent_source` }}",
+                "SPEL_AMIGENSTORLAY={{ user `spel_amigen8storlay` }}",
+                "SPEL_AMIGENVGNAME=RootVG"
+            ],
+            "only": [
+                "minimal-centos-8-hvm"
+            ],
+            "scripts": [
+                "{{ template_dir }}/scripts/amigen8-build.sh"
             ],
             "type": "shell"
         },
@@ -328,8 +387,11 @@
         "ami_groups": "",
         "ami_regions": "",
         "ami_users": "",
+        "aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
+        "aws_cliv2_source": "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip",
         "aws_ec2_instance_type": "t2.xlarge",
         "aws_region": "us-east-1",
+        "aws_ssmagent_source": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
         "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
         "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
         "azure_dest_resource_group": "",
@@ -354,6 +416,9 @@
         "spel_amigen7pkggrp": "core",
         "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
         "spel_amigen7storlay": "/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE",
+        "spel_amigen8bootsize": "20",
+        "spel_amigen8branch": "master",
+        "spel_amigen8source": "https://github.com/plus3it/AMIgen8.git",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "spel_customreponame7": "",
