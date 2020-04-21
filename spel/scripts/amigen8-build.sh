@@ -95,9 +95,8 @@ function ComposeDiskSetupString {
    if [[ ${AMIGENFSTYPE} == "xfs" ]]
    then
       err_exit "Using default fstype [xfs] for boot filesysems" NONE
-   else
-      DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
    fi
+   DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
 
    # Set requested custom storage layout as necessary
    if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
