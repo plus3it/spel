@@ -106,7 +106,7 @@ systemctl restart sshd
 
 # Further stuff to do via packer before `umount /oldroot`
 # Restart systemd
-systemctl daemon-reexec
+#- systemctl daemon-reexec
 
 # Stop services holding /oldroot
 #   Note: Do not do this in an interactive shell because you will probably
@@ -114,8 +114,6 @@ systemctl daemon-reexec
 #   processes holding /oldroot and kill them by name with `killall <name>`.
 #   Then restart ssh, reconnect to a new session, and close your old session.
 ####
-fuser -vmk /oldroot
-
-umount /oldroot
+#- fuser -vmk /oldroot
 
 --===============3585321300151562773==
