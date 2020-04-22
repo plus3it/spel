@@ -21,6 +21,7 @@ AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
+CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
 ELBUILD="/tmp/el-build"
 
@@ -94,7 +95,7 @@ function BuildChroot {
 function CollectManifest {
 
    echo "Saving the release info to the manifest"
-   cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+   cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
 
    if [[ "${CLOUDPROVIDER}" == "aws" ]]
    then
@@ -102,7 +103,7 @@ function CollectManifest {
       [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
       set +x
       (
-         chroot "${CHROOT}" bash -c "(
+         chroot "${AMIGENCHROOT}" bash -c "(
             [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
             [[ -x /usr/local/bin/aws ]] && /usr/local/bin/aws --version
          )" >> /tmp/manifest.txt 2>&1
@@ -120,12 +121,12 @@ function CollectManifest {
       echo "Saving the waagent version to the manifest"
       [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
       set +x
-      chroot "${CHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
+      chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
       eval "$XTRACE"
    fi
 
    echo "Saving the RPM manifest"
-   rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+   rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
 
 }
 
