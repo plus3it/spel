@@ -1,5 +1,38 @@
 ## Changelog
 
+### 2020.04.1
+
+**Released**: 2020.04.21
+
+**Commit Delta**: [Change from 2020.03.1 release](https://github.com/plus3it/spel/compare/2020.03.1...2020.04.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.04.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.42
+
+*   RHEL-only:
+    - Minor-release update to 7.8 (see [vendor release notes](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.8_release_notes/index) for additional details)
+    - rh-amazon-rhui-client-3.0.26
+
+### 2020.03.1
+
+**Released**: 2020.03.26
+
+**Commit Delta**: [Change from 2020.02.1 release](https://github.com/plus3it/spel/compare/2020.02.1...2020.03.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.03.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.30
+
+*   Vagrant-only:
+    - Manifest file indicates package versions decremented.  Possible build or manifest file upload error. 
+
 ### 2020.02.1
 
 **Released**: 2020.02.18

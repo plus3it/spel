@@ -479,7 +479,7 @@
         "spel_customreponame7": "",
         "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_desc_url": "https://github.com/plus3it/spel",
-        "spel_devnode": "/dev/xvda",
+        "spel_devnode": "/dev/nvme0n1",
         "spel_disablefips": "",
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_epel8release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm",
