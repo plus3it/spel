@@ -380,9 +380,18 @@ then
    dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
 
    echo "Validaing VTOC-state on ${SPEL_AMIGENBUILDDEV}..."
-   if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+   if [[ ${SPEL_AMIGENBUILDDEV} =~ /dev/xvd ]]
    then
-      err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
+      if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+      then
+         err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
+      fi
+   elif [[ ${SPEL_AMIGENBUILDDEV} =~ /dev/nvme ]]
+   then
+      if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ p[0-9] ]]
+      then
+         err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
+      fi
    fi
 fi
 
