@@ -28,6 +28,7 @@ package_upgrade: true
 
 packages:
   - git
+  - unzip
 
 --===============3585321300151562773==
 Content-Type: text/x-shellscript; charset="us-ascii"
