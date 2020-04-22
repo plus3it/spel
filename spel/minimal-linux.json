@@ -277,13 +277,7 @@
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
                 "echo Unmounting /oldroot",
-                "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
-                "echo \"Checking disk [${SPEL_AMIGENBUILDDEV}] VTOC\"",
-                "lsblk ${SPEL_AMIGENBUILDDEV}",
-                "echo \"Wiping disk [${SPEL_AMIGENBUILDDEV}] VTOC\"",
-                "dd if=/dev/urandom of=${SPEL_AMIGENBUILDDEV} bs=1024 count=10240",
-                "echo \"Re-checking disk [${SPEL_AMIGENBUILDDEV}] VTOC\"",
-                "lsblk ${SPEL_AMIGENBUILDDEV}"
+                "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot"
             ],
             "only": [
                 "minimal-centos-8-hvm"
