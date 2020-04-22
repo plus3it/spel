@@ -268,9 +268,51 @@ function BuildChroot {
    bash -x "${PATHY}"/$( ComposeAWSutilsString ) || \
      err_exit "Failure encountered with AWSutils.sh"
 
+   # Collect insallation-manifest
+   CollectManifest
+
    # Invoke unmounter
    bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}" || \
      err_exit "Failure encountered with Umount.sh"
+}
+
+# Create a record of the build
+function CollectManifest {
+
+   echo "Saving the release info to the manifest"
+   cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+
+   if [[ "${CLOUDPROVIDER}" == "aws" ]]
+   then
+      echo "Saving the aws cli version to the manifest"
+      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+      set +x
+      (
+         chroot "${CHROOT}" bash -c "(
+            [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
+            [[ -x /usr/local/bin/aws ]] && /usr/local/bin/aws --version
+         )" >> /tmp/manifest.txt 2>&1
+      )
+      eval "$XTRACE"
+
+      ###
+      # AWS SSM-Agent is insalled via RPM: if the AWS
+      # SSM-Agent is installed, it will show # up in the
+      # `rpm` output (below)
+      ###
+
+   elif [[ "${CLOUDPROVIDER}" == "azure" ]]
+   then
+      echo "Saving the waagent version to the manifest"
+      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+      set +x
+      chroot "${CHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
+      eval "$XTRACE"
+   fi
+
+   echo "Saving the RPM manifest"
+   rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+
 }
 
 
