@@ -19,6 +19,7 @@ AMIGENROOTNM="${SPEL_AMIGEN8_ROOTNM:-UNDEF}"
 AMIGENSOURCE="${SPEL_AMIGEN8SOURCE:-https://github.com/plus3it/AMIgen8.git}"
 AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
+AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
 DEBUG="${DEBUG:-UNDEF}"
 ELBUILD="/tmp/el-build"
@@ -55,25 +56,162 @@ function err_exit {
    fi
 }
 
-# Disable strict hostkey checking
-function DisableStrictHostCheck {
-   local HOSTVAL
+# Run the builder-scripts
+function BuildChroot {
+   local PATHY
 
-   if [[ ${1:-} == '' ]]
+   PATHY="${ELBUILD}/$( sed -e 's#^.*/##' -e 's/\.git.*$//' <<< "${AMIGENSOURCE}" )"
+
+   # Invoke disk-partitioner
+   bash -x "${PATHY}"/$( ComposeDiskSetupString ) || \
+     err_exit "Failure encountered with DiskSetup.sh"
+
+   # Invoke chroot-env disk-mounter
+   bash -x "${PATHY}"/$( ComposeChrootMountString ) || \
+     err_exit "Failure encountered with MkChrootTree.sh"
+
+   # Invoke OS software installer
+   bash -x "${PATHY}"/$( ComposeOSpkgString ) || \
+     err_exit "Failure encountered with OSpackages.sh"
+
+   # Invoke AWSutils installer
+   bash -x "${PATHY}"/$( ComposeAWSutilsString ) || \
+     err_exit "Failure encountered with AWSutils.sh"
+
+   # Post-installation configurator
+   bash -x "${PATHY}"/$( PostBuildString ) || \
+     err_exit "Failure encountered with PostBuild.sh"
+
+   # Collect insallation-manifest
+   CollectManifest
+
+   # Invoke unmounter
+   bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}" || \
+     err_exit "Failure encountered with Umount.sh"
+}
+
+# Create a record of the build
+function CollectManifest {
+
+   echo "Saving the release info to the manifest"
+   cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+
+   if [[ "${CLOUDPROVIDER}" == "aws" ]]
    then
-      err_exit "No connect-string passed to function [${0}]"
-   else
-      HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
+      echo "Saving the aws cli version to the manifest"
+      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+      set +x
+      (
+         chroot "${CHROOT}" bash -c "(
+            [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
+            [[ -x /usr/local/bin/aws ]] && /usr/local/bin/aws --version
+         )" >> /tmp/manifest.txt 2>&1
+      )
+      eval "$XTRACE"
+
+      ###
+      # AWS SSM-Agent is insalled via RPM: if the AWS
+      # SSM-Agent is installed, it will show # up in the
+      # `rpm` output (below)
+      ###
+
+   elif [[ "${CLOUDPROVIDER}" == "azure" ]]
+   then
+      echo "Saving the waagent version to the manifest"
+      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+      set +x
+      chroot "${CHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
+      eval "$XTRACE"
    fi
 
-   # Git host-target parameters
-   err_exit "Disabling SSH's strict hostkey checking for ${HOSTVAL}" NONE
-   (
-      printf "Host %s\n" "${HOSTVAL}"
-      printf "  Hostname %s\n" "${HOSTVAL}"
-      printf "  StrictHostKeyChecking off\n"
-   ) >> "${HOME}/.ssh/config" || \
-   err_exit "Failed disabling SSH's strict hostkey checking"
+   echo "Saving the RPM manifest"
+   rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+
+}
+
+# Pick options for the AWSutils install command
+function ComposeAWSutilsString {
+   local AWSUTILSSTRING
+
+   AWSUTILSSTRING="AWSutils.sh "
+
+   # Set location for chroot-env
+   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
+   then
+      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
+   else
+      AWSUTILSSTRING+="-m ${AMIGENCHROOT} "
+   fi
+
+   # Whether to install AWS CLIv1
+   if [[ ${AMIGENCLIV1SRC} == "UNDEF" ]]
+   then
+      err_exit "Skipping install of AWS CLIv1" NONE
+   else
+      AWSUTILSSTRING+="-C ${AMIGENCLIV1SRC} "
+   fi
+
+   # Whether to install AWS CLIv2
+   if [[ ${AMIGENCLIV2SRC} == "UNDEF" ]]
+   then
+      err_exit "Skipping install of AWS CLIv2" NONE
+   else
+      AWSUTILSSTRING+="-c ${AMIGENCLIV2SRC} "
+   fi
+
+   # Whether to install AWS SSM-agent
+   if [[ ${AMIGENSSMAGENT} == "UNDEF" ]]
+   then
+      err_exit "Skipping install of AWS SSM-agent" NONE
+   else
+      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT}"
+   fi
+
+   # Return command-string for AWSutils-script
+   echo "${AWSUTILSSTRING}"
+
+}
+
+# Pick options for chroot-mount command
+function ComposeChrootMountString {
+   local MOUNTCHROOTCMD
+
+   MOUNTCHROOTCMD="MkChrootTree.sh "
+
+   # Set location for chroot-env
+   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
+   then
+      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
+   else
+      MOUNTCHROOTCMD+="-m ${AMIGENCHROOT} "
+   fi
+
+   # Set the filesystem-type to use for OS filesystems
+   if [[ ${AMIGENFSTYPE} == "xfs" ]]
+   then
+      err_exit "Using default fstype [xfs] for boot filesysems" NONE
+   else
+      MOUNTCHROOTCMD+="-f ${AMIGENFSTYPE} "
+   fi
+
+   # Set requested custom storage layout as necessary
+   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+   then
+      err_exit "Using script-default for boot-volume layout" NONE
+   else
+      MOUNTCHROOTCMD+="-p ${AMIGENSTORLAY} "
+   fi
+
+   # Set device to mount
+   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+   then
+      err_exit "Failed to define device to partition"
+   else
+      MOUNTCHROOTCMD+="-d ${AMIGENBUILDDEV}"
+   fi
+
+   # Return command-string for mount-script
+   echo "${MOUNTCHROOTCMD}"
 }
 
 ## # Pick options for disk-setup command
@@ -127,48 +265,6 @@ function ComposeDiskSetupString {
    echo "${DISKSETUPCMD}"
 }
 
-# Pick options for chroot-mount command
-function ComposeChrootMountString {
-   local MOUNTCHROOTCMD
-
-   MOUNTCHROOTCMD="MkChrootTree.sh "
-
-   # Set location for chroot-env
-   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
-   then
-      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
-   else
-      MOUNTCHROOTCMD+="-m ${AMIGENCHROOT} "
-   fi
-
-   # Set the filesystem-type to use for OS filesystems
-   if [[ ${AMIGENFSTYPE} == "xfs" ]]
-   then
-      err_exit "Using default fstype [xfs] for boot filesysems" NONE
-   else
-      MOUNTCHROOTCMD+="-f ${AMIGENFSTYPE} "
-   fi
-
-   # Set requested custom storage layout as necessary
-   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
-   then
-      err_exit "Using script-default for boot-volume layout" NONE
-   else
-      MOUNTCHROOTCMD+="-p ${AMIGENSTORLAY} "
-   fi
-
-   # Set device to mount
-   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
-   then
-      err_exit "Failed to define device to partition"
-   else
-      MOUNTCHROOTCMD+="-d ${AMIGENBUILDDEV}"
-   fi
-
-   # Return command-string for mount-script
-   echo "${MOUNTCHROOTCMD}"
-}
-
 # Pick options for the OS-install command
 function ComposeOSpkgString {
    local OSPACKAGESTRING
@@ -203,116 +299,57 @@ function ComposeOSpkgString {
    echo "${OSPACKAGESTRING}"
 }
 
-# Pick options for the AWSutils install command
-function ComposeAWSutilsString {
-   local AWSUTILSSTRING
+function PostBuildString {
+   local POSTBUILDCMD
 
-   AWSUTILSSTRING="AWSutils.sh "
+   POSTBUILDCMD="PostBuild.sh "
+
+   # Set the filesystem-type to use for OS filesystems
+   if [[ ${AMIGENFSTYPE} == "xfs" ]]
+   then
+      err_exit "Using default fstype [xfs] for boot filesysems" NONE
+   fi
+   POSTBUILDCMD+="-f ${AMIGENFSTYPE} "
 
    # Set location for chroot-env
    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
    then
       err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
    else
-      AWSUTILSSTRING+="-m ${AMIGENCHROOT} "
+      POSTBUILDCMD+="-m ${AMIGENCHROOT} "
    fi
 
-   # Whether to install AWS CLIv1
-   if [[ ${AMIGENCLIV1SRC} == "UNDEF" ]]
+   # Set AMI starting time-zone
+   if [[ ${AMIGENTIMEZONE} == "UTC" ]]
    then
-      err_exit "Skipping install of AWS CLIv1" NONE
+      err_exit "Using default AMI timezone [${AMIGENCHROOT}]" NONE
    else
-      AWSUTILSSTRING+="-C ${AMIGENCLIV1SRC} "
+      POSTBUILDCMD+="-z ${AMIGENTIMEZONE} "
    fi
 
-   # Whether to install AWS CLIv2
-   if [[ ${AMIGENCLIV2SRC} == "UNDEF" ]]
-   then
-      err_exit "Skipping install of AWS CLIv2" NONE
-   else
-      AWSUTILSSTRING+="-c ${AMIGENCLIV2SRC} "
-   fi
-
-   # Whether to install AWS SSM-agent
-   if [[ ${AMIGENSSMAGENT} == "UNDEF" ]]
-   then
-      err_exit "Skipping install of AWS SSM-agent" NONE
-   else
-      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT}"
-   fi
-
-   # Return command-string for AWSutils-script
-   echo "${AWSUTILSSTRING}"
-
+   # Return command-string for OS-script
+   echo "${POSTBUILDCMD}"
 }
 
-# Run the builder-scripts
-function BuildChroot {
-   local PATHY
+# Disable strict hostkey checking
+function DisableStrictHostCheck {
+   local HOSTVAL
 
-   PATHY="${ELBUILD}/$( sed -e 's#^.*/##' -e 's/\.git.*$//' <<< "${AMIGENSOURCE}" )"
-
-   # Invoke disk-partitioner
-   bash -x "${PATHY}"/$( ComposeDiskSetupString ) || \
-     err_exit "Failure encountered with DiskSetup.sh"
-
-   # Invoke chroot-env disk-mounter
-   bash -x "${PATHY}"/$( ComposeChrootMountString ) || \
-     err_exit "Failure encountered with MkChrootTree.sh"
-
-   # Invoke OS software installer
-   bash -x "${PATHY}"/$( ComposeOSpkgString ) || \
-     err_exit "Failure encountered with OSpackages.sh"
-
-   # Invoke AWSutils installer
-   bash -x "${PATHY}"/$( ComposeAWSutilsString ) || \
-     err_exit "Failure encountered with AWSutils.sh"
-
-   # Collect insallation-manifest
-   CollectManifest
-
-   # Invoke unmounter
-   bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}" || \
-     err_exit "Failure encountered with Umount.sh"
-}
-
-# Create a record of the build
-function CollectManifest {
-
-   echo "Saving the release info to the manifest"
-   cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
-
-   if [[ "${CLOUDPROVIDER}" == "aws" ]]
+   if [[ ${1:-} == '' ]]
    then
-      echo "Saving the aws cli version to the manifest"
-      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-      set +x
-      (
-         chroot "${CHROOT}" bash -c "(
-            [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
-            [[ -x /usr/local/bin/aws ]] && /usr/local/bin/aws --version
-         )" >> /tmp/manifest.txt 2>&1
-      )
-      eval "$XTRACE"
-
-      ###
-      # AWS SSM-Agent is insalled via RPM: if the AWS
-      # SSM-Agent is installed, it will show # up in the
-      # `rpm` output (below)
-      ###
-
-   elif [[ "${CLOUDPROVIDER}" == "azure" ]]
-   then
-      echo "Saving the waagent version to the manifest"
-      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-      set +x
-      chroot "${CHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
-      eval "$XTRACE"
+      err_exit "No connect-string passed to function [${0}]"
+   else
+      HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
    fi
 
-   echo "Saving the RPM manifest"
-   rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
-
+   # Git host-target parameters
+   err_exit "Disabling SSH's strict hostkey checking for ${HOSTVAL}" NONE
+   (
+      printf "Host %s\n" "${HOSTVAL}"
+      printf "  Hostname %s\n" "${HOSTVAL}"
+      printf "  StrictHostKeyChecking off\n"
+   ) >> "${HOME}/.ssh/config" || \
+   err_exit "Failed disabling SSH's strict hostkey checking"
 }
 
 
