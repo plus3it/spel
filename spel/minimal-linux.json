@@ -333,6 +333,7 @@
                 "SPEL_AMIGENSSMAGENT={{ user `aws_ssmagent_source` }}",
                 "SPEL_AMIGENSTORLAY={{ user `spel_amigen8storlay` }}",
                 "SPEL_AMIGENVGNAME=RootVG",
+                "SPEL_CLOUDPROVIDER=aws",
                 "SPEL_EPELRELEASE={{ user `spel_epel8release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}"
             ],
