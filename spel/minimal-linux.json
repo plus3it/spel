@@ -336,6 +336,7 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel8release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}"
             ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
                 "minimal-centos-8-hvm"
             ],

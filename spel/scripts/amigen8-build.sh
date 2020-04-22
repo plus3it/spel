@@ -297,9 +297,7 @@ fi
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
 if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
 then
-   set -x
    dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
-   set +x
 
    echo "Validaing VTOC-state on ${SPEL_AMIGENBUILDDEV}..."
    if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
