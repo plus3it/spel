@@ -269,7 +269,19 @@
                 "minimal-centos-7-hvm",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
-                "minimal-centos-7-azure-image",
+                "minimal-centos-7-azure-image"
+            ],
+            "type": "shell"
+        },
+        {
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "echo Unmounting /oldroot",
+                "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot",
+                "echo \"Checking volume VTOC [${SPEL_DEVNODE}]\"",
+                "lsblk ${SPEL_DEVNODE}"
+            ],
+            "only": [
                 "minimal-centos-8-hvm"
             ],
             "type": "shell"
