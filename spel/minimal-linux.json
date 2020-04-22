@@ -176,6 +176,39 @@
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+        },
+        {
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
+            "ami_groups": "{{ user `ami_groups` }}",
+            "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_regions": "{{ user `ami_regions` }}",
+            "ami_users": "{{ user `ami_users` }}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "ena_support": true,
+            "force_deregister": "{{ user `ami_force_deregister` }}",
+            "instance_type": "{{ user `aws_ec2_instance_type` }}",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": true,
+                    "device_name": "/dev/sda1",
+                    "volume_size": "{{ user `root_volume_size` }}",
+                    "volume_type": "gp2"
+                }
+            ],
+            "name": "minimal-rhel-8-hvm",
+            "region": "{{ user `aws_region` }}",
+            "source_ami": "{{ user `source_ami_rhel8_hvm` }}",
+            "sriov_support": true,
+            "ssh_interface": "{{ user `ssh_interface` }}",
+            "ssh_port": 122,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
+            "type": "amazon-ebs",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         }
     ],
     "post-processors": [
@@ -253,7 +286,8 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-hvm"
+                "minimal-centos-8-hvm",
+                "minimal-rhel-8-hvm"
             ],
             "type": "shell"
         },
@@ -280,7 +314,8 @@
                 "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot"
             ],
             "only": [
-                "minimal-centos-8-hvm"
+                "minimal-centos-8-hvm",
+                "minimal-rhel-8-hvm"
             ],
             "type": "shell"
         },
@@ -339,7 +374,8 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
-                "minimal-centos-8-hvm"
+                "minimal-centos-8-hvm",
+                "minimal-rhel-8-hvm"
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/amigen8-build.sh"
