@@ -28,6 +28,7 @@ package_upgrade: true
 
 packages:
   - git
+  - lvm2
   - unzip
 
 --===============3585321300151562773==
