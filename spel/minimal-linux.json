@@ -440,7 +440,7 @@
         "ami_users": "",
         "aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "aws_cliv2_source": "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip",
-        "aws_ec2_instance_type": "t2.xlarge",
+        "aws_ec2_instance_type": "t3.2xlarge",
         "aws_region": "us-east-1",
         "aws_ssmagent_source": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
         "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
