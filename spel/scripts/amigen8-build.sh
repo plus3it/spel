@@ -294,11 +294,18 @@ then
 fi
 
 # Null out the build-dev's VTOC
-dd if=/dev/urandom of="${AMIGENBUILDDEV}" bs=1024 count=10240 > /dev/null 2>&1
-if [[ $( lsblk -n "${AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
+if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
 then
-   err_exit "Failed clearing VTOC from ${AMIGENBUILDDEV}"
+   dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240 > /dev/null 2>&1
+
+   echo "Validaing VTOC-state on ${SPEL_AMIGENBUILDDEV}..."
+   if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+   then
+      err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
+   fi
 fi
+
 
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
