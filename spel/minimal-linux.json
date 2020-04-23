@@ -208,7 +208,7 @@
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el8.cloud"
         }
     ],
     "post-processors": [
