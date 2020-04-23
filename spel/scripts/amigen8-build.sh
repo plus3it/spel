@@ -64,7 +64,7 @@ function BuildChroot {
    PATHY="${ELBUILD}/$( sed -e 's#^.*/##' -e 's/\.git.*$//' <<< "${AMIGENSOURCE}" )"
 
    # Invoke disk-partitioner
-   bash -x "${PATHY}"/$( ComposeDiskSetupString ) || \
+   bash -eux -o pipefail "${PATHY}"/$( ComposeDiskSetupString ) || \
      err_exit "Failure encountered with DiskSetup.sh"
 
    # Invoke chroot-env disk-mounter
@@ -409,4 +409,3 @@ fi
 
 # Execute build-tools
 BuildChroot
-
