@@ -59,35 +59,32 @@ function err_exit {
 
 # Run the builder-scripts
 function BuildChroot {
-   local PATHY
-
-   PATHY="${ELBUILD}/$( sed -e 's#^.*/##' -e 's/\.git.*$//' <<< "${AMIGENSOURCE}" )"
 
    # Invoke disk-partitioner
-   bash -x "${PATHY}"/$( ComposeDiskSetupString ) || \
+   bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
      err_exit "Failure encountered with DiskSetup.sh"
 
    # Invoke chroot-env disk-mounter
-   bash -x "${PATHY}"/$( ComposeChrootMountString ) || \
+   bash -euxo pipefail "${ELBUILD}"/$( ComposeChrootMountString ) || \
      err_exit "Failure encountered with MkChrootTree.sh"
 
    # Invoke OS software installer
-   bash -x "${PATHY}"/$( ComposeOSpkgString ) || \
+   bash -euxo pipefail "${ELBUILD}"/$( ComposeOSpkgString ) || \
      err_exit "Failure encountered with OSpackages.sh"
 
    # Invoke AWSutils installer
-   bash -x "${PATHY}"/$( ComposeAWSutilsString ) || \
+   bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
      err_exit "Failure encountered with AWSutils.sh"
 
    # Post-installation configurator
-   bash -x "${PATHY}"/$( PostBuildString ) || \
+   bash -euxo pipefail "${ELBUILD}"/$( PostBuildString ) || \
      err_exit "Failure encountered with PostBuild.sh"
 
    # Collect insallation-manifest
    CollectManifest
 
    # Invoke unmounter
-   bash -x "${PATHY}"/Umount.sh -c "${AMIGENCHROOT}" || \
+   bash -euxo pipefail "${ELBUILD}"/Umount.sh -c "${AMIGENCHROOT}" || \
      err_exit "Failure encountered with Umount.sh"
 }
 
@@ -405,7 +402,7 @@ then
 fi
 
 # Pull build-tools from git clone-source
-( cd "${ELBUILD}" && git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" )
+git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
 
 # Execute build-tools
 BuildChroot
