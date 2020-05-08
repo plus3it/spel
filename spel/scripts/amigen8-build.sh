@@ -25,6 +25,9 @@ CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
 ELBUILD="/tmp/el-build"
 
+read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
+
+
 # Make interactive-execution more-verbose unless explicitly told not to
 if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
 then
@@ -355,6 +358,19 @@ function DisableStrictHostCheck {
 ##########################
 ## Main program section ##
 ##########################
+
+
+# Install supplementary tooling
+if [[ ${#BUILDDEPS[@]} -gt 0 ]]
+then
+   err_exit "Installing build-host dependencies" NONE
+   yum -y install "${BUILDDEPS[@]}" || \
+     err_exit "Failed installing build-host dependencies"
+
+   err_exit "Verifying build-host dependencies" NONE
+   rpm -q "${BUILDDEPS[@]}" || \
+     err_exit "Verification failed"
+fi
 
 # Disable strict host-key checking when doing git-over-ssh
 if [[ ${AMIGENSOURCE} =~ "@" ]]
