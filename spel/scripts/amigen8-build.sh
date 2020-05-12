@@ -25,7 +25,7 @@ CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
 ELBUILD="/tmp/el-build"
 
-read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
+read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
 
 
 # Make interactive-execution more-verbose unless explicitly told not to
