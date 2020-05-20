@@ -1,5 +1,21 @@
 ## Changelog
 
+### 2020.05.1
+
+**Released**: 2020.05.20
+
+**Commit Delta**: [Change from 2020.04.1 release](https://github.com/plus3it/spel/compare/2020.04.1...2020.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.05.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.64
+
+*   CentOS-Only:
+    - Minor-release update to 7.8 (see [vendor release notes](http://wiki.centos.org/Manuals/ReleaseNotes/CentOS7) for details of 7.7 to 7.8 changes)
+
 ### 2020.04.1
 
 **Released**: 2020.04.21
