@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux Server release 7.8 (Maipo)
-aws-cli/1.18.42 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.15.42
+aws-cli/1.18.64 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.16.14
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -28,8 +28,8 @@ aws-cfn-bootstrap-1.4-31.el7.noarch
 aws-scripts-ses-2014.05.14-1.2.el7.noarch
 basesystem-10.0-7.el7.noarch
 bash-4.2.46-34.el7.x86_64
-bind-export-libs-9.11.4-16.P2.el7_8.2.x86_64
-binutils-2.27-43.base.el7.x86_64
+bind-export-libs-9.11.4-16.P2.el7_8.3.x86_64
+binutils-2.27-43.base.el7_8.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
 ca-certificates-2019.2.32-76.el7_7.noarch
@@ -58,10 +58,10 @@ dbus-python-1.1.1-9.el7.x86_64
 dejavu-fonts-common-2.33-6.el7.noarch
 dejavu-sans-fonts-2.33-6.el7.noarch
 desktop-file-utils-0.23-2.el7.x86_64
-device-mapper-1.02.164-7.el7_8.1.x86_64
-device-mapper-event-1.02.164-7.el7_8.1.x86_64
-device-mapper-event-libs-1.02.164-7.el7_8.1.x86_64
-device-mapper-libs-1.02.164-7.el7_8.1.x86_64
+device-mapper-1.02.164-7.el7_8.2.x86_64
+device-mapper-event-1.02.164-7.el7_8.2.x86_64
+device-mapper-event-libs-1.02.164-7.el7_8.2.x86_64
+device-mapper-libs-1.02.164-7.el7_8.2.x86_64
 device-mapper-persistent-data-0.8.5-2.el7.x86_64
 dhclient-4.2.5-79.el7.x86_64
 dhcp-common-4.2.5-79.el7.x86_64
@@ -158,9 +158,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1127.el7.x86_64
-kernel-tools-3.10.0-1127.el7.x86_64
-kernel-tools-libs-3.10.0-1127.el7.x86_64
+kernel-3.10.0-1127.8.2.el7.x86_64
+kernel-tools-3.10.0-1127.8.2.el7.x86_64
+kernel-tools-libs-3.10.0-1127.8.2.el7.x86_64
 kexec-tools-2.0.15-43.el7.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -199,7 +199,7 @@ libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
 libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64
 libgomp-4.8.5-39.el7.x86_64
 libgpg-error-1.12-3.el7.x86_64
-libgudev1-219-73.el7_8.5.x86_64
+libgudev1-219-73.el7_8.6.x86_64
 libICE-1.0.9-9.el7.x86_64
 libidn-1.28-4.el7.x86_64
 libini_config-1.3.1-32.el7.x86_64
@@ -271,8 +271,8 @@ lksctp-tools-1.0.17-2.el7.x86_64
 logrotate-3.8.6-19.el7.x86_64
 lshw-B.02.18-14.el7.x86_64
 lua-5.1.4-15.el7.x86_64
-lvm2-2.02.186-7.el7_8.1.x86_64
-lvm2-libs-2.02.186-7.el7_8.1.x86_64
+lvm2-2.02.186-7.el7_8.2.x86_64
+lvm2-libs-2.02.186-7.el7_8.2.x86_64
 lz4-1.7.5-3.el7.x86_64
 lzo-2.06-8.el7.x86_64
 m2crypto-0.21.1-17.el7.x86_64
@@ -280,10 +280,10 @@ mailcap-2.1.41-2.el7.noarch
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.65-1.el7.x86_64
-mesa-libEGL-18.3.4-7.el7.x86_64
-mesa-libgbm-18.3.4-7.el7.x86_64
-mesa-libGL-18.3.4-7.el7.x86_64
-mesa-libglapi-18.3.4-7.el7.x86_64
+mesa-libEGL-18.3.4-7.el7_8.1.x86_64
+mesa-libgbm-18.3.4-7.el7_8.1.x86_64
+mesa-libGL-18.3.4-7.el7_8.1.x86_64
+mesa-libglapi-18.3.4-7.el7_8.1.x86_64
 microcode_ctl-2.1-61.el7.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
@@ -410,7 +410,7 @@ python-2.7.5-88.el7.x86_64
 python2-simplejson-3.10.0-2.el7.x86_64
 python3-3.6.8-13.el7.x86_64
 python3-libs-3.6.8-13.el7.x86_64
-python3-pip-9.0.3-7.el7_7.noarch
+python3-pip-9.0.3-7.el7_8.noarch
 python3-setuptools-39.2.0-10.el7.noarch
 python-babel-0.9.6-8.el7.noarch
 python-backports-1.0-8.el7.x86_64
@@ -442,7 +442,7 @@ python-lockfile-0.9.1-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-36.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1127.el7.x86_64
+python-perf-3.10.0-1127.8.2.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -452,7 +452,7 @@ python-setuptools-0.9.8-7.el7.noarch
 python-six-1.9.0-2.el7.noarch
 python-slip-0.4.0-4.el7.noarch
 python-slip-dbus-0.4.0-4.el7.noarch
-python-syspurpose-1.24.26-1.el7.x86_64
+python-syspurpose-1.24.26-3.el7_8.x86_64
 python-urlgrabber-3.10-10.el7.noarch
 python-urllib3-1.10.2-7.el7.noarch
 pyxattr-0.5.1-5.el7.x86_64
@@ -502,13 +502,13 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 stunnel-4.56-6.el7.x86_64
-subscription-manager-1.24.26-1.el7.x86_64
-subscription-manager-rhsm-1.24.26-1.el7.x86_64
-subscription-manager-rhsm-certificates-1.24.26-1.el7.x86_64
+subscription-manager-1.24.26-3.el7_8.x86_64
+subscription-manager-rhsm-1.24.26-3.el7_8.x86_64
+subscription-manager-rhsm-certificates-1.24.26-3.el7_8.x86_64
 sudo-1.8.23-9.el7.x86_64
-systemd-219-73.el7_8.5.x86_64
-systemd-libs-219-73.el7_8.5.x86_64
-systemd-sysv-219-73.el7_8.5.x86_64
+systemd-219-73.el7_8.6.x86_64
+systemd-libs-219-73.el7_8.6.x86_64
+systemd-sysv-219-73.el7_8.6.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-7.6-77.el7.x86_64
@@ -516,8 +516,8 @@ tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-1.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
 tuned-2.11.0-8.el7.noarch
-tzdata-2019c-1.el7.noarch
-tzdata-java-2019c-1.el7.noarch
+tzdata-2020a-1.el7.noarch
+tzdata-java-2020a-1.el7.noarch
 usermode-1.111-6.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-63.el7.x86_64
@@ -537,5 +537,5 @@ xz-libs-5.2.2-1.el7.x86_64
 yum-3.4.3-167.el7.noarch
 yum-metadata-parser-1.1.4-10.el7.x86_64
 yum-rhn-plugin-2.0.1-10.el7.noarch
-yum-utils-1.1.31-53.el7.noarch
+yum-utils-1.1.31-54.el7_8.noarch
 zlib-1.2.7-18.el7.x86_64

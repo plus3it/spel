@@ -1,5 +1,32 @@
 ## Changelog
 
+### 2020.05.1
+
+**Released**: 2020.05.20
+
+**Commit Delta**: [Change from 2020.04.1 release](https://github.com/plus3it/spel/compare/2020.04.1...2020.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.05.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+	- aws-cli/1.18.64
+	- amazon-ssm-agent-2.3.814.0-1.x86_64
+	- amazon-ecr-credential-helper-0.3.0-1.el7.x86_64
+	- amazon-linux-extras-1.6.9-2.el7.noarch
+	- amazon-linux-extras-yum-plugin-1.6.9-2.el7.noarch
+	- aws-cfn-bootstrap-1.4-31.el7.noarch
+
+*   "Extra" packages introduced in this release:
+	- aws-scripts-ses-2014.05.14-1.2.el7.noarch
+	- aws-amitools-ec2-1.5.13-0.el7.noarch
+	- aws-apitools-as-1.0.61.6-2.el7.noarch
+	- aws-apitools-cfn-1.0.12-2.el7.noarch
+
+* CentOS-Only:
+    - Minor-release update to 7.8 (see [vendor release notes](http://wiki.centos.org/Manuals/ReleaseNotes/CentOS7) for details of 7.7 to 7.8 changes)
+
 ### 2020.04.1
 
 **Released**: 2020.04.21
