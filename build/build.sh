@@ -15,6 +15,8 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "spel_desc_url=$SPEL_DESC_URL" \
   -var "spel_amigen7source=$SPEL_AMIGEN7SOURCE" \
   -var "spel_amigen7branch=$SPEL_AMIGEN7BRANCH" \
+  -var "spel_amigen8source=$SPEL_AMIGEN8SOURCE" \
+  -var "spel_amigen8branch=$SPEL_AMIGEN8BRANCH" \
   -var "spel_amiutilsource=$SPEL_AMIUTILSOURCE" \
   -var "spel_awsclisource=$SPEL_AWSCLISOURCE" \
   -var "spel_customreporpm7=$SPEL_CUSTOMREPORPM7" \
@@ -28,6 +30,8 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "spel_version=$SPEL_VERSION" \
   -var "source_ami_centos7_hvm=$SOURCE_AMI_CENTOS7_HVM" \
   -var "source_ami_rhel7_hvm=$SOURCE_AMI_RHEL7_HVM" \
+  -var "source_ami_centos8_hvm=$SOURCE_AMI_CENTOS8_HVM" \
+  -var "source_ami_rhel8_hvm=$SOURCE_AMI_RHEL8_HVM" \
   -var "ssh_interface=$SSH_INTERFACE" \
   -var "subnet_id=$SUBNET_ID" \
   spel/minimal-linux.json
