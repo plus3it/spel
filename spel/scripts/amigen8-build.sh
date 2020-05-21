@@ -13,6 +13,7 @@ AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENCLIV1SRC="${SPEL_AMIGENCLIV1SRC:-UNDEF}"
 AMIGENCLIV2SRC="${SPEL_AMIGENCLIV2SRC:-UNDEF}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
+AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
 AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
 AMIGENROOTNM="${SPEL_AMIGEN8_ROOTNM:-UNDEF}"
@@ -165,7 +166,15 @@ function ComposeAWSutilsString {
    then
       err_exit "Skipping install of AWS SSM-agent" NONE
    else
-      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT}"
+      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT} "
+   fi
+
+   # Whether to install AWS InstanceConnect
+   if [[ ${AMIGENICNCTURL} == "UNDEF" ]]
+   then
+      err_exit "Skipping install of AWS SSM-agent" NONE
+   else
+      AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
    fi
 
    # Return command-string for AWSutils-script

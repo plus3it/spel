@@ -11,6 +11,7 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "pypi_url=$PYPI_URL" \
   -var "aws_region=$AWS_REGION" \
   -var "aws_ec2_instance_type=$AWS_EC2_INSTANCE_TYPE" \
+  -var "aws_instance_connect=$SPEL_AMIGENICNCTURL" \
   -var "security_group_cidrs=$SECURITY_GROUP_CIDR" \
   -var "spel_desc_url=$SPEL_DESC_URL" \
   -var "spel_amigen7source=$SPEL_AMIGEN7SOURCE" \
