@@ -388,24 +388,24 @@ fi
 
 # Null out the build-dev's VTOC
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
-if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
 then
-   dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
+   echo "%s is a valid block device. Nuking VTOC... " "${SPEL_AMIGENBUILDDEV}" 
 
-   echo "Validaing VTOC-state on ${SPEL_AMIGENBUILDDEV}..."
-   if [[ ${SPEL_AMIGENBUILDDEV} =~ /dev/xvd ]]
-   then
-      if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+   ITER=0
+   while [[ $( sfdisk -d "${SPEL_AMIGENBUILDDEV}" ) != "" ]]
+   do
+      dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 \
+         count=10240 > /dev/null 2>&1
+      sleep 5
+      (( ITER++ ))
+      if [[ ${ITER} -ge 5 ]]
       then
-         err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
+         err_exit "Failed clearing VTOC"
       fi
-   elif [[ ${SPEL_AMIGENBUILDDEV} =~ /dev/nvme ]]
-   then
-      if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ p[0-9] ]]
-      then
-         err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
-      fi
-   fi
+   done
+   echo "Cleared."
+
 fi
 
 
