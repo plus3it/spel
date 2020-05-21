@@ -13,6 +13,7 @@ AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENCLIV1SRC="${SPEL_AMIGENCLIV1SRC:-UNDEF}"
 AMIGENCLIV2SRC="${SPEL_AMIGENCLIV2SRC:-UNDEF}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
+AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
 AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
 AMIGENROOTNM="${SPEL_AMIGEN8_ROOTNM:-UNDEF}"
@@ -165,7 +166,15 @@ function ComposeAWSutilsString {
    then
       err_exit "Skipping install of AWS SSM-agent" NONE
    else
-      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT}"
+      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT} "
+   fi
+
+   # Whether to install AWS InstanceConnect
+   if [[ ${AMIGENICNCTURL} == "UNDEF" ]]
+   then
+      err_exit "Skipping install of AWS SSM-agent" NONE
+   else
+      AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
    fi
 
    # Return command-string for AWSutils-script
@@ -388,24 +397,24 @@ fi
 
 # Null out the build-dev's VTOC
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
-if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
 then
-   dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
+   echo "%s is a valid block device. Nuking VTOC... " "${SPEL_AMIGENBUILDDEV}" 
 
-   echo "Validaing VTOC-state on ${SPEL_AMIGENBUILDDEV}..."
-   if [[ ${SPEL_AMIGENBUILDDEV} =~ /dev/xvd ]]
-   then
-      if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ [0-9] ]]
+   ITER=0
+   while [[ $( sfdisk -d "${SPEL_AMIGENBUILDDEV}" ) != "" ]]
+   do
+      dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 \
+         count=10240 > /dev/null 2>&1
+      sleep 5
+      (( ITER++ ))
+      if [[ ${ITER} -ge 5 ]]
       then
-         err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
+         err_exit "Failed clearing VTOC"
       fi
-   elif [[ ${SPEL_AMIGENBUILDDEV} =~ /dev/nvme ]]
-   then
-      if [[ $( lsblk -n "${SPEL_AMIGENBUILDDEV}" | tail -1 | cut -d " " -f 1 ) =~ p[0-9] ]]
-      then
-         err_exit "Failed clearing VTOC from ${SPEL_AMIGENBUILDDEV}"
-      fi
-   fi
+   done
+   echo "Cleared."
+
 fi
 
 
