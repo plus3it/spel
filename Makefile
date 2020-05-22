@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 AWS_EC2_INSTANCE_TYPE ?= t3.2xlarge
-PACKER_ZIP ?= https://releases.hashicorp.com/packer/1.4.2/packer_1.4.2_linux_amd64.zip
+PACKER_ZIP ?= https://releases.hashicorp.com/packer/1.4.5/packer_1.4.5_linux_amd64.zip
 PACKER_LOG ?= '1'
 PACKER_NO_COLOR ?= '1'
 CHECKPOINT_DISABLE ?= '1'
