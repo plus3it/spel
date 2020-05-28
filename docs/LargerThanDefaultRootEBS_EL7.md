@@ -9,7 +9,7 @@ To create an instance with a root EBS larger than the AMI's default, use the fol
 1. When the AMI completes its launch, login to the new instance
 1. Escalate privileges to root
 1. Issue the command "`/usr/bin/growpart /dev/xvda 2`"
-1. Issue the command "`pvresize /dev/xvda2@`"
+1. Issue the command "`pvresize /dev/xvda2`"
 1. Use the "`lvresize`" command to grow the volume(s)/filesystem(s) that need to be enlarged
 
 Alternately, steps 5+ can be incorporated into the instance's UserData prior to launch. Something similar to the following should work:
