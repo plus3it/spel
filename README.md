@@ -432,11 +432,6 @@ packer build \
 ~~~
 
 
-## TODO
-
--   [ ] Create a versioned vagrant box catalog and push boxes to a self-hosted
-vagrant "cloud".
-
 [0]: http://iase.disa.mil/stigs/os/unix-linux/Pages/red-hat.aspx
 [1]: https://www.hashicorp.com/
 [2]: https://www.packer.io/
