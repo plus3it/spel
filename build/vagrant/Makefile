@@ -9,11 +9,10 @@ TERRAFORM_VERSION ?= 0.11.11
 all: build
 
 install:
-	dep init
-	dep ensure -add github.com/gruntwork-io/terratest/modules/terraform
-	dep ensure -add github.com/gruntwork-io/terratest/modules/random
-	sudo apt-get install wget
-	wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+	go mod init spel-vagrant
+	go build ./...
+	go mod tidy
+	curl -sSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 	unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 	mv terraform /usr/local/bin/
 	terraform -v
