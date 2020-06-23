@@ -1,5 +1,5 @@
 CentOS Linux release 7.8.2003 (Core)
-aws-cli/1.18.64 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.16.14
+aws-cli/1.18.85 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.17.8
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -7,7 +7,7 @@ amazon-ecr-credential-helper-0.3.0-1.el7.x86_64
 amazon-efs-utils-1.10-1.el7.noarch
 amazon-linux-extras-1.6.9-2.el7.noarch
 amazon-linux-extras-yum-plugin-1.6.9-2.el7.noarch
-amazon-ssm-agent-2.3.814.0-1.x86_64
+amazon-ssm-agent-2.3.1319.0-1.x86_64
 atk-2.28.1-2.el7.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
@@ -28,7 +28,7 @@ aws-cfn-bootstrap-1.4-31.el7.noarch
 aws-scripts-ses-2014.05.14-1.2.el7.noarch
 basesystem-10.0-7.el7.centos.noarch
 bash-4.2.46-34.el7.x86_64
-bind-export-libs-9.11.4-16.P2.el7_8.3.x86_64
+bind-export-libs-9.11.4-16.P2.el7_8.6.x86_64
 binutils-2.27-43.base.el7_8.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -156,9 +156,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1127.8.2.el7.x86_64
-kernel-tools-3.10.0-1127.8.2.el7.x86_64
-kernel-tools-libs-3.10.0-1127.8.2.el7.x86_64
+kernel-3.10.0-1127.10.1.el7.x86_64
+kernel-tools-3.10.0-1127.10.1.el7.x86_64
+kernel-tools-libs-3.10.0-1127.10.1.el7.x86_64
 kexec-tools-2.0.15-43.el7.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -279,7 +279,7 @@ mesa-libEGL-18.3.4-7.el7_8.1.x86_64
 mesa-libgbm-18.3.4-7.el7_8.1.x86_64
 mesa-libGL-18.3.4-7.el7_8.1.x86_64
 mesa-libglapi-18.3.4-7.el7_8.1.x86_64
-microcode_ctl-2.1-61.el7.x86_64
+microcode_ctl-2.1-61.6.el7_8.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -400,6 +400,7 @@ pyliblzma-0.5.3-11.el7.x86_64
 pyserial-2.6-6.el7.noarch
 pystache-0.5.3-2.el7.noarch
 python-2.7.5-88.el7.x86_64
+python2-lockfile-0.11.0-17.el7.noarch
 python2-simplejson-3.10.0-2.el7.x86_64
 python3-3.6.8-13.el7.x86_64
 python3-libs-3.6.8-13.el7.x86_64
@@ -424,10 +425,9 @@ python-jsonpointer-1.9-2.el7.noarch
 python-kitchen-1.1.1-5.el7.noarch
 python-libs-2.7.5-88.el7.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
-python-lockfile-0.9.1-4.el7.centos.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1127.8.2.el7.x86_64
+python-perf-3.10.0-1127.10.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch

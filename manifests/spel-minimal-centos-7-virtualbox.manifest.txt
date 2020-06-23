@@ -5,11 +5,11 @@ authconfig-6.2.8-30.el7.x86_64
 autogen-libopts-5.18-5.el7.x86_64
 basesystem-10.0-7.el7.centos.noarch
 bash-4.2.46-34.el7.x86_64
-bind-export-libs-9.11.4-16.P2.el7_8.3.x86_64
+bind-export-libs-9.11.4-16.P2.el7_8.6.x86_64
 binutils-2.27-43.base.el7_8.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
-ca-certificates-2019.2.32-76.el7_7.noarch
+ca-certificates-2020.2.41-70.0.el7_8.noarch
 centos-release-7-8.2003.0.el7.centos.x86_64
 chkconfig-1.7.4-1.el7.x86_64
 chrony-3.4-1.el7.x86_64
@@ -103,9 +103,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1127.8.2.el7.x86_64
-kernel-tools-3.10.0-1127.8.2.el7.x86_64
-kernel-tools-libs-3.10.0-1127.8.2.el7.x86_64
+kernel-3.10.0-1127.13.1.el7.x86_64
+kernel-tools-3.10.0-1127.13.1.el7.x86_64
+kernel-tools-libs-3.10.0-1127.13.1.el7.x86_64
 kexec-tools-2.0.15-43.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -177,7 +177,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.65-1.el7.x86_64
-microcode_ctl-2.1-61.el7.x86_64
+microcode_ctl-2.1-61.6.el7_8.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -197,8 +197,8 @@ nss-softokn-freebl-3.44.0-8.el7_7.x86_64
 nss-sysinit-3.44.0-7.el7_7.x86_64
 nss-tools-3.44.0-7.el7_7.x86_64
 nss-util-3.44.0-4.el7_7.x86_64
-ntp-4.2.6p5-29.el7.centos.x86_64
-ntpdate-4.2.6p5-29.el7.centos.x86_64
+ntp-4.2.6p5-29.el7.centos.2.x86_64
+ntpdate-4.2.6p5-29.el7.centos.2.x86_64
 numactl-libs-2.0.12-5.el7.x86_64
 openldap-2.4.44-21.el7_6.x86_64
 openssh-7.4p1-21.el7.x86_64
@@ -251,7 +251,7 @@ rpm-build-libs-4.11.3-43.el7.x86_64
 rpm-libs-4.11.3-43.el7.x86_64
 rpm-python-4.11.3-43.el7.x86_64
 rsync-3.1.2-10.el7.x86_64
-rsyslog-8.24.0-52.el7.x86_64
+rsyslog-8.24.0-52.el7_8.2.x86_64
 sed-4.2.2-6.el7.x86_64
 selinux-policy-3.13.1-266.el7.noarch
 selinux-policy-targeted-3.13.1-266.el7.noarch
