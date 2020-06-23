@@ -1,5 +1,19 @@
 ## Changelog
 
+### 2020.06.1
+
+**Released**: 2020.06.23
+
+**Commit Delta**: [Change from 2020.05.1 release](https://github.com/plus3it/spel/compare/2020.05.1...2020.06.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.06.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.85
+    - amazon-ssm-agent-2.3.1319
+
 ### 2020.05.1
 
 **Released**: 2020.05.20
