@@ -23,9 +23,9 @@ crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
 curl-7.29.0-57.el7.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
-dbus-1.10.24-13.el7_6.x86_64
+dbus-1.10.24-14.el7_8.x86_64
 dbus-glib-0.100-7.el7.x86_64
-dbus-libs-1.10.24-13.el7_6.x86_64
+dbus-libs-1.10.24-14.el7_8.x86_64
 dbus-python-1.1.1-9.el7.x86_64
 device-mapper-1.02.164-7.el7_8.2.x86_64
 device-mapper-event-1.02.164-7.el7_8.2.x86_64
@@ -177,7 +177,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.65-1.el7.x86_64
-microcode_ctl-2.1-61.6.el7_8.x86_64
+microcode_ctl-2.1-61.10.el7_8.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -253,8 +253,8 @@ rpm-python-4.11.3-43.el7.x86_64
 rsync-3.1.2-10.el7.x86_64
 rsyslog-8.24.0-52.el7_8.2.x86_64
 sed-4.2.2-6.el7.x86_64
-selinux-policy-3.13.1-266.el7.noarch
-selinux-policy-targeted-3.13.1-266.el7.noarch
+selinux-policy-3.13.1-266.el7_8.1.noarch
+selinux-policy-targeted-3.13.1-266.el7_8.1.noarch
 setup-2.8.71-11.el7.noarch
 sg3_utils-1.37-19.el7.x86_64
 sg3_utils-libs-1.37-19.el7.x86_64
@@ -264,9 +264,9 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 sudo-1.8.23-9.el7.x86_64
-systemd-219-73.el7_8.6.x86_64
-systemd-libs-219-73.el7_8.6.x86_64
-systemd-sysv-219-73.el7_8.6.x86_64
+systemd-219-73.el7_8.8.x86_64
+systemd-libs-219-73.el7_8.8.x86_64
+systemd-sysv-219-73.el7_8.8.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64

@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux Server release 7.8 (Maipo)
-aws-cli/1.18.85 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.17.8
+aws-cli/1.18.106 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.17.29
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -51,9 +51,9 @@ cryptsetup-libs-2.0.3-6.el7.x86_64
 cups-libs-1.6.3-43.el7.x86_64
 curl-7.29.0-57.el7.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
-dbus-1.10.24-13.el7_6.x86_64
+dbus-1.10.24-14.el7_8.x86_64
 dbus-glib-0.100-7.el7.x86_64
-dbus-libs-1.10.24-13.el7_6.x86_64
+dbus-libs-1.10.24-14.el7_8.x86_64
 dbus-python-1.1.1-9.el7.x86_64
 dejavu-fonts-common-2.33-6.el7.noarch
 dejavu-sans-fonts-2.33-6.el7.noarch
@@ -150,8 +150,8 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-12.el7.x86_64
 jansson-2.10-1.el7.x86_64
 jasper-libs-1.900.1-33.el7.x86_64
-java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64
-java-1.8.0-openjdk-headless-1.8.0.252.b09-2.el7_8.x86_64
+java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64
+java-1.8.0-openjdk-headless-1.8.0.262.b10-0.el7_8.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
@@ -284,7 +284,7 @@ mesa-libEGL-18.3.4-7.el7_8.1.x86_64
 mesa-libgbm-18.3.4-7.el7_8.1.x86_64
 mesa-libGL-18.3.4-7.el7_8.1.x86_64
 mesa-libglapi-18.3.4-7.el7_8.1.x86_64
-microcode_ctl-2.1-61.6.el7_8.x86_64
+microcode_ctl-2.1-61.10.el7_8.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
