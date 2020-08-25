@@ -1,5 +1,5 @@
 CentOS Linux release 7.8.2003 (Core)
-aws-cli/1.18.106 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.17.29
+aws-cli/1.18.125 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.17.48
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -50,7 +50,7 @@ cronie-anacron-1.4.11-23.el7.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
 cups-libs-1.6.3-43.el7.x86_64
-curl-7.29.0-57.el7.x86_64
+curl-7.29.0-57.el7_8.1.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
 dbus-1.10.24-14.el7_8.x86_64
 dbus-glib-0.100-7.el7.x86_64
@@ -118,13 +118,13 @@ gpg-pubkey-f4a80eb5-53a7ff4b
 graphite2-1.3.10-1.el7_3.x86_64
 grep-2.20-3.el7.x86_64
 groff-base-1.22.2-8.el7.x86_64
-grub2-2.02-0.81.el7.centos.x86_64
-grub2-common-2.02-0.81.el7.centos.noarch
-grub2-pc-2.02-0.81.el7.centos.x86_64
-grub2-pc-modules-2.02-0.81.el7.centos.noarch
-grub2-tools-2.02-0.81.el7.centos.x86_64
-grub2-tools-extra-2.02-0.81.el7.centos.x86_64
-grub2-tools-minimal-2.02-0.81.el7.centos.x86_64
+grub2-2.02-0.86.el7.centos.x86_64
+grub2-common-2.02-0.86.el7.centos.noarch
+grub2-pc-2.02-0.86.el7.centos.x86_64
+grub2-pc-modules-2.02-0.86.el7.centos.noarch
+grub2-tools-2.02-0.86.el7.centos.x86_64
+grub2-tools-extra-2.02-0.86.el7.centos.x86_64
+grub2-tools-minimal-2.02-0.86.el7.centos.x86_64
 grubby-8.28-26.el7.x86_64
 gssproxy-0.7.0-28.el7.x86_64
 gtk2-2.24.31-1.el7.x86_64
@@ -148,17 +148,17 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-12.el7.x86_64
 jansson-2.10-1.el7.x86_64
 jasper-libs-1.900.1-33.el7.x86_64
-java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64
-java-1.8.0-openjdk-headless-1.8.0.252.b09-2.el7_8.x86_64
+java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64
+java-1.8.0-openjdk-headless-1.8.0.262.b10-0.el7_8.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1127.13.1.el7.x86_64
-kernel-tools-3.10.0-1127.13.1.el7.x86_64
-kernel-tools-libs-3.10.0-1127.13.1.el7.x86_64
+kernel-3.10.0-1127.18.2.el7.x86_64
+kernel-tools-3.10.0-1127.18.2.el7.x86_64
+kernel-tools-libs-3.10.0-1127.18.2.el7.x86_64
 kexec-tools-2.0.15-43.el7.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -179,7 +179,7 @@ libcgroup-0.41-21.el7.x86_64
 libcollection-0.7.0-32.el7.x86_64
 libcom_err-1.42.9-17.el7.x86_64
 libcroco-0.6.12-4.el7.x86_64
-libcurl-7.29.0-57.el7.x86_64
+libcurl-7.29.0-57.el7_8.1.x86_64
 libdaemon-0.14-7.el7.x86_64
 libdb-5.3.21-25.el7.x86_64
 libdb-utils-5.3.21-25.el7.x86_64
@@ -291,7 +291,7 @@ NetworkManager-team-1.18.4-3.el7.x86_64
 NetworkManager-tui-1.18.4-3.el7.x86_64
 newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
-nfs-utils-1.3.0-0.66.el7.x86_64
+nfs-utils-1.3.0-0.66.el7_8.x86_64
 nspr-4.21.0-1.el7.x86_64
 nss-3.44.0-7.el7_7.x86_64
 nss-pem-1.0.3-7.el7.x86_64
@@ -427,7 +427,7 @@ python-libs-2.7.5-88.el7.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1127.13.1.el7.x86_64
+python-perf-3.10.0-1127.18.2.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -444,7 +444,7 @@ PyYAML-3.10-11.el7.x86_64
 qrencode-libs-3.4.1-3.el7.x86_64
 quota-4.01-19.el7.x86_64
 quota-nls-4.01-19.el7.noarch
-rdma-core-22.4-2.el7_8.x86_64
+rdma-core-22.4-4.el7_8.x86_64
 readline-6.2-11.el7.x86_64
 rootfiles-8.1-11.el7.noarch
 rpcbind-0.2.0-49.el7.x86_64
@@ -477,9 +477,9 @@ snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 stunnel-4.56-6.el7.x86_64
 sudo-1.8.23-9.el7.x86_64
-systemd-219-73.el7_8.8.x86_64
-systemd-libs-219-73.el7_8.8.x86_64
-systemd-sysv-219-73.el7_8.8.x86_64
+systemd-219-73.el7_8.9.x86_64
+systemd-libs-219-73.el7_8.9.x86_64
+systemd-sysv-219-73.el7_8.9.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-7.6-77.el7.x86_64
