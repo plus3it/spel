@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux Server release 7.8 (Maipo)
-aws-cli/1.18.106 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.17.29
+aws-cli/1.18.125 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.17.48
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -49,7 +49,7 @@ cronie-anacron-1.4.11-23.el7.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
 cups-libs-1.6.3-43.el7.x86_64
-curl-7.29.0-57.el7.x86_64
+curl-7.29.0-57.el7_8.1.x86_64
 cyrus-sasl-lib-2.1.26-23.el7.x86_64
 dbus-1.10.24-14.el7_8.x86_64
 dbus-glib-0.100-7.el7.x86_64
@@ -120,13 +120,13 @@ gpg-pubkey-fd431d51-4ae0493b
 graphite2-1.3.10-1.el7_3.x86_64
 grep-2.20-3.el7.x86_64
 groff-base-1.22.2-8.el7.x86_64
-grub2-2.02-0.81.el7.x86_64
-grub2-common-2.02-0.81.el7.noarch
-grub2-pc-2.02-0.81.el7.x86_64
-grub2-pc-modules-2.02-0.81.el7.noarch
-grub2-tools-2.02-0.81.el7.x86_64
-grub2-tools-extra-2.02-0.81.el7.x86_64
-grub2-tools-minimal-2.02-0.81.el7.x86_64
+grub2-2.02-0.86.el7_8.x86_64
+grub2-common-2.02-0.86.el7_8.noarch
+grub2-pc-2.02-0.86.el7_8.x86_64
+grub2-pc-modules-2.02-0.86.el7_8.noarch
+grub2-tools-2.02-0.86.el7_8.x86_64
+grub2-tools-extra-2.02-0.86.el7_8.x86_64
+grub2-tools-minimal-2.02-0.86.el7_8.x86_64
 grubby-8.28-26.el7.x86_64
 gssproxy-0.7.0-28.el7.x86_64
 gtk2-2.24.31-1.el7.x86_64
@@ -158,9 +158,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1127.13.1.el7.x86_64
-kernel-tools-3.10.0-1127.13.1.el7.x86_64
-kernel-tools-libs-3.10.0-1127.13.1.el7.x86_64
+kernel-3.10.0-1127.19.1.el7.x86_64
+kernel-tools-3.10.0-1127.19.1.el7.x86_64
+kernel-tools-libs-3.10.0-1127.19.1.el7.x86_64
 kexec-tools-2.0.15-43.el7.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -181,7 +181,7 @@ libcgroup-0.41-21.el7.x86_64
 libcollection-0.7.0-32.el7.x86_64
 libcom_err-1.42.9-17.el7.x86_64
 libcroco-0.6.12-4.el7.x86_64
-libcurl-7.29.0-57.el7.x86_64
+libcurl-7.29.0-57.el7_8.1.x86_64
 libdaemon-0.14-7.el7.x86_64
 libdb-5.3.21-25.el7.x86_64
 libdb-utils-5.3.21-25.el7.x86_64
@@ -199,7 +199,7 @@ libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
 libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64
 libgomp-4.8.5-39.el7.x86_64
 libgpg-error-1.12-3.el7.x86_64
-libgudev1-219-73.el7_8.8.x86_64
+libgudev1-219-73.el7_8.9.x86_64
 libICE-1.0.9-9.el7.x86_64
 libidn-1.28-4.el7.x86_64
 libini_config-1.3.1-32.el7.x86_64
@@ -296,7 +296,7 @@ NetworkManager-team-1.18.4-3.el7.x86_64
 NetworkManager-tui-1.18.4-3.el7.x86_64
 newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
-nfs-utils-1.3.0-0.66.el7.x86_64
+nfs-utils-1.3.0-0.66.el7_8.x86_64
 nspr-4.21.0-1.el7.x86_64
 nss-3.44.0-7.el7_7.x86_64
 nss-pem-1.0.3-7.el7.x86_64
@@ -442,7 +442,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-36.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1127.13.1.el7.x86_64
+python-perf-3.10.0-1127.19.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -452,7 +452,7 @@ python-setuptools-0.9.8-7.el7.noarch
 python-six-1.9.0-2.el7.noarch
 python-slip-0.4.0-4.el7.noarch
 python-slip-dbus-0.4.0-4.el7.noarch
-python-syspurpose-1.24.26-3.el7_8.x86_64
+python-syspurpose-1.24.26-4.el7_8.x86_64
 python-urlgrabber-3.10-10.el7.noarch
 python-urllib3-1.10.2-7.el7.noarch
 pyxattr-0.5.1-5.el7.x86_64
@@ -460,13 +460,13 @@ PyYAML-3.10-11.el7.x86_64
 qrencode-libs-3.4.1-3.el7.x86_64
 quota-4.01-19.el7.x86_64
 quota-nls-4.01-19.el7.noarch
-rdma-core-22.4-2.el7_8.x86_64
+rdma-core-22.4-4.el7_8.x86_64
 readline-6.2-11.el7.x86_64
 Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.8-2.el7.x86_64
 redhat-support-lib-python-0.12.1-1.el7.noarch
 redhat-support-tool-0.12.2-1.el7.noarch
-rh-amazon-rhui-client-3.0.31-1.el7.noarch
+rh-amazon-rhui-client-3.0.32-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -502,13 +502,13 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 stunnel-4.56-6.el7.x86_64
-subscription-manager-1.24.26-3.el7_8.x86_64
-subscription-manager-rhsm-1.24.26-3.el7_8.x86_64
-subscription-manager-rhsm-certificates-1.24.26-3.el7_8.x86_64
+subscription-manager-1.24.26-4.el7_8.x86_64
+subscription-manager-rhsm-1.24.26-4.el7_8.x86_64
+subscription-manager-rhsm-certificates-1.24.26-4.el7_8.x86_64
 sudo-1.8.23-9.el7.x86_64
-systemd-219-73.el7_8.8.x86_64
-systemd-libs-219-73.el7_8.8.x86_64
-systemd-sysv-219-73.el7_8.8.x86_64
+systemd-219-73.el7_8.9.x86_64
+systemd-libs-219-73.el7_8.9.x86_64
+systemd-sysv-219-73.el7_8.9.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-7.6-77.el7.x86_64
