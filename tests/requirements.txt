@@ -7,4 +7,4 @@ pytest-logger==0.5.1
 six==1.15.0
 testinfra==1.16.0;python_version<="2.6"
 testinfra==3.3.0;python_version<="2.7"
-testinfra==5.3.0;python_version>="3.4"
+testinfra==5.3.1;python_version>="3.4"
