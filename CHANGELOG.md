@@ -5,12 +5,12 @@
 
 **Commit Delta**: [Change from 2020.07.1 release](http://github.com/plus3it/spel/compare/2020.08.1...2020.09.1)
 
-**Manifests**: <https://github.com/plus3it/spel/blob/2020.09.rc1.1/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.09.1/manifests>
 
 **Summary**:
 
 *   "Extra" packages updated in this release:
-    - aws-cli/1.18.143
+    - aws-cli/1.18.144
 
 ### 2020.08.1
 
