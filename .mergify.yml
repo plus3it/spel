@@ -2,8 +2,8 @@ pull_request_rules:
   - name: automatic approve dependabot pull requests
     conditions:
       - author~=dependabot\[bot\]|dependabot-preview\[bot\]
-      - status-success=continuous-integration/travis-ci/pr
-      - status-success=continuous-integration/travis-ci/push
+      - status-success=Travis CI - Pull Request
+      - status-success=Travis CI - Branch
     actions:
       review:
         type: APPROVE
