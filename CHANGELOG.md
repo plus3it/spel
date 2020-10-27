@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2020.10.1
+
+**Released**: 2020.10.27
+
+**Commit Delta**: [Change from 2020.09.1 release](http://github.com/plus3it/spel/compare/2020.09.1...2020.10.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.10.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.166
+*   RHEL-only:
+    - Minor-release update to 7.9 (see [vendor release notes](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/7.9_release_notes/index) for additional details)
+
 ### 2020.09.1
 
 **Released**: 2020.09.23
