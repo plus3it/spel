@@ -476,7 +476,7 @@
         "spel_amigen8storlay": "",
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
-        "spel_aws_cliv2_source": "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip",
+        "spel_aws_cliv2_source": "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip",
         "spel_aws_ssmagent_source": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
         "spel_customreponame7": "",
         "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
