@@ -240,7 +240,7 @@ bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${C
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     # Construct the cli option string for aws utils
-    CLIOPT_AWSUTILS=("-m ${CHROOT}")
+    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
 
     # Whether to install AWS CLIv1
     if [[ -n "${AWSCLIV1SOURCE}" ]]
