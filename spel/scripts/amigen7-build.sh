@@ -313,11 +313,22 @@ cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
-    echo "Saving the aws cli version to the manifest"
-    [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-    set +x
-    (chroot "${CHROOT}" /usr/bin/aws --version) >> /tmp/manifest.txt 2>&1
-    eval "$XTRACE"
+    if [[ -n "$AWSCLIV1SOURCE" ]]
+    then
+        echo "Saving the aws-cli-v1 version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${CHROOT}" /usr/local/bin/aws1 --version) >> /tmp/manifest.txt 2>&1
+        eval "$XTRACE"
+    fi
+    if [[ -n "$AWSCLIV2SOURCE" ]]
+    then
+        echo "Saving the aws-cli-v2 version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${CHROOT}" /usr/local/bin/aws2 --version) >> /tmp/manifest.txt 2>&1
+        eval "$XTRACE"
+    fi
 elif [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
