@@ -10,7 +10,8 @@ AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
-AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
+AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
+AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
@@ -238,9 +239,24 @@ bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${C
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
+    # Construct the cli option string for aws utils
+    CLIOPT_AWSUTILS=("-m ${CHROOT}")
+
+    # Whether to install AWS CLIv1
+    if [[ -n "${AWSCLIV1SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
+    fi
+
+    # Whether to install AWS CLIv2
+    if [[ -n "${AWSCLIV2SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+    fi
+
     # Epel mirrors are maddening; retry 5 times to work around issues
-    echo "Executing AWScliSetup.sh"
-    retry 5 bash -eux -o pipefail "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
+    echo "Executing AWSutils.sh"
+    retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[@]}"
 fi
 
 echo "Executing ChrootCfg.sh"
