@@ -168,6 +168,16 @@ echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
 yum-config-manager --enable "$CUSTOMREPONAME" > /dev/null
 
+if [[ -n "${EPELRELEASE}" ]]
+then
+    { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+fi
+
+if [[ -n "${EPELREPO}" ]]
+then
+    yum-config-manager --enable "$EPELREPO" > /dev/null
+fi
+
 echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
@@ -257,7 +267,7 @@ then
 
     # Epel mirrors are maddening; retry 5 times to work around issues
     echo "Executing AWSutils.sh"
-    retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[@]}"
+    retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[*]}"
 fi
 
 echo "Executing ChrootCfg.sh"
