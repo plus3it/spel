@@ -151,6 +151,7 @@ disable_strict_host_check()
 
 set -x
 set -e
+set -o pipefail
 
 echo "Installing build-host dependencies"
 yum -y install "${BUILDDEPS[@]}"
@@ -300,9 +301,9 @@ then
     chroot "${CHROOT}" /usr/bin/sed -i 's|USERCTL="yes"|USERCTL="no"|' /etc/sysconfig/network-scripts/ifcfg-eth0
     echo 'NM_CONTROLLED="no"' >> "${CHROOT}"/etc/sysconfig/network-scripts/ifcfg-eth0
     chroot "${CHROOT}" /usr/bin/sed -i 's|DHCP_HOSTNAME=localhost.localdomain||' /etc/sysconfig/network-scripts/ifcfg-eth0
-    ## Not per above ref, added to allow cloud-init or user to manage resource disk to match Azure Marketplace Ubuntu image settings
+    ### Allow cloud-init or user to manage resource disk, matches Azure Marketplace Ubuntu image settings
     chroot "${CHROOT}" /usr/bin/sed -i 's|ResourceDisk.Format=y|ResourceDisk.Format=n|' /etc/waagent.conf
-    ## End Not per above ref, added to allow cloud-init or user to manage resource disk to match Azure Marketplace Ubuntu image settings
+    ###
     chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.Enabled=y|Provisioning.Enabled=n|' /etc/waagent.conf
     chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.UseCloudInit=n|Provisioning.UseCloudInit=y|' /etc/waagent.conf
     chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
@@ -318,7 +319,7 @@ then
         echo "Saving the aws-cli-v1 version to the manifest"
         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
         set +x
-        (chroot "${CHROOT}" /usr/local/bin/aws1 --version) >> /tmp/manifest.txt 2>&1
+        (chroot "${CHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee /tmp/manifest.txt
         eval "$XTRACE"
     fi
     if [[ -n "$AWSCLIV2SOURCE" ]]
@@ -326,7 +327,7 @@ then
         echo "Saving the aws-cli-v2 version to the manifest"
         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
         set +x
-        (chroot "${CHROOT}" /usr/local/bin/aws2 --version) >> /tmp/manifest.txt 2>&1
+        (chroot "${CHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee /tmp/manifest.txt
         eval "$XTRACE"
     fi
 elif [[ "${CLOUDPROVIDER}" == "azure" ]]
@@ -334,7 +335,7 @@ then
     echo "Saving the waagent version to the manifest"
     [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
     set +x
-    (chroot "${CHROOT}" /usr/sbin/waagent --version) >> /tmp/manifest.txt 2>&1
+    (chroot "${CHROOT}" /usr/sbin/waagent --version) 2>&1 | tee /tmp/manifest.txt
     eval "$XTRACE"
 fi
 
