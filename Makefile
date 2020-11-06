@@ -11,13 +11,13 @@ SPEL_DESC_URL ?= https://github.com/plus3it/spel
 SPEL_AMIGEN7SOURCE ?= https://github.com/plus3it/AMIgen7.git
 SPEL_AMIGEN7BRANCH ?= master
 SPEL_AMIUTILSOURCE ?= https://github.com/ferricoxide/Lx-GetAMI-Utils.git
-SPEL_AWSCLISOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+SPEL_AWSCLIV1SOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+SPEL_AWSCLIV2SOURCE ?= https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 SPEL_EPEL7RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 SPEL_CUSTOMREPORPM7 ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 SPEL_DEVNODE ?= /dev/nvme0n1
 SPEL_EPELREPO ?= epel
 SPEL_EXTRARPMS ?= https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36
-SPEL_PIN_AWSCLI_BUNDLE ?= true
 SOURCE_AMI_CENTOS7_HVM ?= ami-090b9dabe1c9f40b3
 SOURCE_AMI_RHEL7_HVM ?= ami-0394fe9914b475c53
 SSH_INTERFACE ?= public_dns
@@ -42,20 +42,8 @@ $(shell mkdir -p ".spel/${SPEL_VERSION}")
 PACKER_LOG_PATH := .spel/${SPEL_VERSION}/packer.log
 endif
 
-# Check if $SPEL_PIN_AWSCLI_BUNDLE is 'true'
-ifeq ($(SPEL_PIN_AWSCLI_BUNDLE),true)
-AWSCLI_PIN=$(shell grep aws-cli requirements/aws-cli.txt)
-ifndef AWSCLI_PIN
-$(error AWSCLI_PIN is not set: ${.SHELLSTATUS})
-endif
-
-AWSCLI_VERSION:=$(subst aws-cli==,,${AWSCLI_PIN})
-SPEL_AWSCLISOURCE := $(shell dirname ${SPEL_AWSCLISOURCE})/awscli-bundle-${AWSCLI_VERSION}.zip
-ifndef SPEL_AWSCLISOURCE
-$(error SPEL_AWSCLISOURCE is not set: ${SHELLSTATUS})
-endif
-endif
-$(info SPEL_AWSCLISOURCE=${SPEL_AWSCLISOURCE})
+$(info SPEL_AWSCLIV1SOURCE=${SPEL_AWSCLIV1SOURCE})
+$(info SPEL_AWSCLIV2SOURCE=${SPEL_AWSCLIV2SOURCE})
 
 all: build
 

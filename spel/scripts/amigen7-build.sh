@@ -10,7 +10,8 @@ AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
-AWSCLISOURCE="${SPEL_AWSCLISOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
+AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
+AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
@@ -150,6 +151,7 @@ disable_strict_host_check()
 
 set -x
 set -e
+set -o pipefail
 
 echo "Installing build-host dependencies"
 yum -y install "${BUILDDEPS[@]}"
@@ -165,6 +167,16 @@ done
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
 yum-config-manager --enable "$CUSTOMREPONAME" > /dev/null
+
+if [[ -n "${EPELRELEASE}" ]]
+then
+    { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+fi
+
+if [[ -n "${EPELREPO}" ]]
+then
+    yum-config-manager --enable "$EPELREPO" > /dev/null
+fi
 
 echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
@@ -238,9 +250,24 @@ bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${C
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
+    # Construct the cli option string for aws utils
+    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
+
+    # Whether to install AWS CLIv1
+    if [[ -n "${AWSCLIV1SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
+    fi
+
+    # Whether to install AWS CLIv2
+    if [[ -n "${AWSCLIV2SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+    fi
+
     # Epel mirrors are maddening; retry 5 times to work around issues
-    echo "Executing AWScliSetup.sh"
-    retry 5 bash -eux -o pipefail "${ELBUILD}"/AWScliSetup.sh "${AWSCLISOURCE}" "${EPELRELEASE}" "${EPELREPO}"
+    echo "Executing AWSutils.sh"
+    retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[*]}"
 fi
 
 echo "Executing ChrootCfg.sh"
@@ -284,9 +311,9 @@ then
     chroot "${CHROOT}" /usr/bin/sed -i 's|USERCTL="yes"|USERCTL="no"|' /etc/sysconfig/network-scripts/ifcfg-eth0
     echo 'NM_CONTROLLED="no"' >> "${CHROOT}"/etc/sysconfig/network-scripts/ifcfg-eth0
     chroot "${CHROOT}" /usr/bin/sed -i 's|DHCP_HOSTNAME=localhost.localdomain||' /etc/sysconfig/network-scripts/ifcfg-eth0
-    ## Not per above ref, added to allow cloud-init or user to manage resource disk to match Azure Marketplace Ubuntu image settings
+    ### Allow cloud-init or user to manage resource disk, matches Azure Marketplace Ubuntu image settings
     chroot "${CHROOT}" /usr/bin/sed -i 's|ResourceDisk.Format=y|ResourceDisk.Format=n|' /etc/waagent.conf
-    ## End Not per above ref, added to allow cloud-init or user to manage resource disk to match Azure Marketplace Ubuntu image settings
+    ###
     chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.Enabled=y|Provisioning.Enabled=n|' /etc/waagent.conf
     chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.UseCloudInit=n|Provisioning.UseCloudInit=y|' /etc/waagent.conf
     chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
@@ -297,17 +324,28 @@ cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
-    echo "Saving the aws cli version to the manifest"
-    [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-    set +x
-    (chroot "${CHROOT}" /usr/bin/aws --version) >> /tmp/manifest.txt 2>&1
-    eval "$XTRACE"
+    if [[ -n "$AWSCLIV1SOURCE" ]]
+    then
+        echo "Saving the aws-cli-v1 version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${CHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
+        eval "$XTRACE"
+    fi
+    if [[ -n "$AWSCLIV2SOURCE" ]]
+    then
+        echo "Saving the aws-cli-v2 version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${CHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
+        eval "$XTRACE"
+    fi
 elif [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Saving the waagent version to the manifest"
     [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
     set +x
-    (chroot "${CHROOT}" /usr/sbin/waagent --version) >> /tmp/manifest.txt 2>&1
+    (chroot "${CHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
     eval "$XTRACE"
 fi
 

@@ -10,8 +10,6 @@ AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE:-UNDEF}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
-AMIGENCLIV1SRC="${SPEL_AMIGENCLIV1SRC:-UNDEF}"
-AMIGENCLIV2SRC="${SPEL_AMIGENCLIV2SRC:-UNDEF}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
 AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
@@ -22,6 +20,8 @@ AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
+AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
+AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
 ELBUILD="/tmp/el-build"
@@ -146,19 +146,15 @@ function ComposeAWSutilsString {
    fi
 
    # Whether to install AWS CLIv1
-   if [[ ${AMIGENCLIV1SRC} == "UNDEF" ]]
+   if [[ -n "${AWSCLIV1SOURCE}" ]]
    then
-      err_exit "Skipping install of AWS CLIv1" NONE
-   else
-      AWSUTILSSTRING+="-C ${AMIGENCLIV1SRC} "
+      AWSUTILSSTRING+="-C ${AWSCLIV1SOURCE} "
    fi
 
    # Whether to install AWS CLIv2
-   if [[ ${AMIGENCLIV2SRC} == "UNDEF" ]]
+   if [[ -n "${AWSCLIV2SOURCE}" ]]
    then
-      err_exit "Skipping install of AWS CLIv2" NONE
-   else
-      AWSUTILSSTRING+="-c ${AMIGENCLIV2SRC} "
+      AWSUTILSSTRING+="-c ${AWSCLIV2SOURCE} "
    fi
 
    # Whether to install AWS SSM-agent
@@ -399,7 +395,7 @@ fi
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
 if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
 then
-   echo "%s is a valid block device. Nuking VTOC... " "${SPEL_AMIGENBUILDDEV}" 
+   echo "%s is a valid block device. Nuking VTOC... " "${SPEL_AMIGENBUILDDEV}"
 
    ITER=0
    while [[ $( sfdisk -d "${SPEL_AMIGENBUILDDEV}" ) != "" ]]
