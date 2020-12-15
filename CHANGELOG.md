@@ -1,5 +1,22 @@
 ## Changelog
 
+### 2020.12.1
+
+**Released**: 2020.12.15
+
+**Commit Delta**: [Change from 2020.10.1 release](https://github.com/plus3it/spel/compare/2020.10.1...2020.12.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2020.12.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.18.196
+    - aws-cli/2.1.10
+
+*   CentOS-Only:
+    - Minor-release update to 7.9 (see [vendor release notes](http://wiki.centos.org/Manuals/ReleaseNotes/CentOS7) for additional details)
+
 ### 2020.10.1
 
 **Released**: 2020.10.27
