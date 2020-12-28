@@ -12,6 +12,7 @@ Since then, the objective has been expanded to include:
 * generation of VirtualBox images
 * generation of VMware templates
 * generation of Azure images
+* generation of OpenStack images
 * publishing of VirtualBox and VMware images to Vagrant Cloud
 
 Where all of the above images are notionally-identical but for their respective deployment contexts. "Notionally-identical" also means that produced Red Hat and CentOS images' RPM-manifests and storage-layouts are the same within a given release-cycle.

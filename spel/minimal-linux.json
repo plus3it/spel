@@ -209,6 +209,26 @@
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
             "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el8.cloud"
+        },
+        {
+            "flavor": "{{ user `openstack_flavor_name` }}",
+            "floating_ip_network": "{{ user `openstack_floating_ip_network_name`}}",
+            "image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "insecure": "{{ user `openstack_allow_insecure_connection` }}",
+            "name": "minimal-centos-7-openstack",
+            "networks": [
+                "{{ user `openstack_network_id` }}"
+            ],
+            "security_groups": [
+                "{{ user `openstack_security_group_name` }}"
+            ],
+            "source_image_name": "{{ user `openstack_source_image_name` }}",
+            "ssh_port": 122,
+            "ssh_timeout": "30m",
+            "ssh_username": "spel",
+            "type": "openstack",
+            "use_blockstorage_volume": "false",
+            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
         }
     ],
     "post-processors": [
@@ -283,6 +303,7 @@
             ],
             "only": [
                 "minimal-centos-7-hvm",
+                "minimal-centos-7-openstack",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
@@ -301,6 +322,7 @@
             ],
             "only": [
                 "minimal-centos-7-hvm",
+                "minimal-centos-7-openstack",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image"
@@ -316,6 +338,17 @@
             "only": [
                 "minimal-centos-8-hvm",
                 "minimal-rhel-8-hvm"
+            ],
+            "type": "shell"
+        },
+        {
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "echo Unmounting /mnt",
+                "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt"
+            ],
+            "only": [
+                "minimal-centos-7-openstack"
             ],
             "type": "shell"
         },
@@ -347,6 +380,39 @@
             "only": [
                 "minimal-centos-7-hvm",
                 "minimal-rhel-7-hvm"
+            ],
+            "scripts": [
+                "{{ template_dir }}/scripts/amigen7-build.sh"
+            ],
+            "type": "shell"
+        },
+        {
+            "environment_vars": [
+                "SPEL_AMIGENBRANCH={{ user `spel_amigen7branch` }}",
+                "SPEL_AMIGENMANFST={{ user `spel_amigen7manfst` }}",
+                "SPEL_AMIGENPKGGRP={{ user `spel_amigen7pkggrp` }}",
+                "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
+                "SPEL_AMIGENSTORLAY={{ user `spel_amigen7storlay` }}",
+                "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
+                "SPEL_AWSCLIV1SOURCE={{ user `spel_aws_cliv1_source` }}",
+                "SPEL_AWSCLIV2SOURCE={{ user `spel_aws_cliv2_source` }}",
+                "SPEL_BOOTLABEL=/boot",
+                "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+                "SPEL_BUILDNAME={{ build_name }}",
+                "SPEL_CHROOT=/mnt/ec2-root",
+                "SPEL_DEVNODE=/dev/vda",
+                "SPEL_CLOUDPROVIDER=openstack",
+                "SPEL_CUSTOMREPORPM={{ user `spel_customreporpm7` }}",
+                "SPEL_CUSTOMREPONAME={{ user `spel_customreponame7` }}",
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
+                "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
+                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
+                "SPEL_VGNAME=VolGroup00"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
+            "only": [
+                "minimal-centos-7-openstack"
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/amigen7-build.sh"
@@ -459,6 +525,12 @@
         "azure_vm_size": "Standard_DS2_v2",
         "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso",
         "iso_url_centos8": "http://mirror.cs.vt.edu/pub/CentOS/8/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
+        "openstack_allow_insecure_connection": "false",
+        "openstack_flavor_name": "packer.spel",
+        "openstack_floating_ip_network_name": "external",
+        "openstack_network_id": "c0b9bad6-b110-450c-a73a-d77240031cfc",
+        "openstack_security_group_name": "packer.spel",
+        "openstack_source_image_name": "CentOS-7-x86_64-GenericCloud",
         "root_volume_size": "20",
         "security_group_cidrs": "0.0.0.0/0",
         "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",

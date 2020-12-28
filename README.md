@@ -321,6 +321,7 @@ The Minimal Linux `packer` template includes the following builders:
 | `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
 | `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
 | `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
+| `minimal-centos-7-openstack`   | openstack builder that results in a minimal CentOS 7 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -417,6 +418,28 @@ packer build \
     spel/minimal-linux.json
 ```
 
+## Building for OpenStack
+
+To build images for an OpenStack environment, it is necessary to pass several
+variables that are specific to the environment. The
+[CentOS 7 Generic Cloud image][33] has been tested to work with the _spel_
+template(s). Also, the builders should be restricted so as _not_ to build the
+Vagrant images.
+
+```bash
+source your_openstack_credentials_file.sh
+packer build \
+    -var 'openstack_allow_insecure_connection=true|false' \
+    -var 'openstack_flavor_name=your_flavor_name_for_temporary_instance' \
+    -var 'openstack_floating_ip_network_name=your_provider_network_name' \
+    -var 'openstack_network_id=your_network_id_for_temporary_instance \
+    -var 'openstack_security_group_name=your_security_group_name_for_temporary_instance' \
+    -var 'openstack_source_image_name=your_source_image_name' \
+    -var 'spel_identifier=spel' \
+    -only 'minimal-centos-7-openstack' \
+    spel/minimal-linux.json
+```
+
 ## Testing With AMIgen7
 
 The spel automation leverages the AMIgen7 project as a build-helper for creation of Amazon Machine Images. Due to the closely-coupled nature of the two projects, it's recommended that any changes made to AMIgen7 be tested with spel prior to merging changes to AMIgen7's master branch.
@@ -465,3 +488,4 @@ packer build \
 [30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
 [31]: https://github.com/ferricoxide/AMIgen7
 [32]: https://github.com/plus3it/AMIgen7/blob/master/Docs/README_CustomPartitioning.md
+[33]: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
