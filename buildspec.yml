@@ -16,6 +16,7 @@ phases:
   post_build:
     commands:
       - make post_build
+      - find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
 
 artifacts:
   files:
