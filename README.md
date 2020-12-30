@@ -440,6 +440,14 @@ packer build \
     spel/minimal-linux.json
 ```
 
+For expected values, see links below:
+* [openstack_allow_insecure][34]
+* [openstack_flavor_name][35]
+* [openstack_floating_ip_network_name][36]
+* [openstack_network_id][37] (Note: only one network ID (string) is parsed here, not a list)
+* [openstack_security_group_name][38] (Note: only one security group name (string) is parsed here, not a list)
+* [openstack_source_image_name][39]
+
 ## Testing With AMIgen7
 
 The spel automation leverages the AMIgen7 project as a build-helper for creation of Amazon Machine Images. Due to the closely-coupled nature of the two projects, it's recommended that any changes made to AMIgen7 be tested with spel prior to merging changes to AMIgen7's master branch.
@@ -489,3 +497,9 @@ packer build \
 [31]: https://github.com/ferricoxide/AMIgen7
 [32]: https://github.com/plus3it/AMIgen7/blob/master/Docs/README_CustomPartitioning.md
 [33]: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+* [openstack_allow_insecure][34]: https://www.packer.io/docs/builders/openstack#insecure
+* [openstack_flavor_name][35]: https://www.packer.io/docs/builders/openstack#flavor
+* [openstack_floating_ip_network_name][36]: https://www.packer.io/docs/builders/openstack#floating_ip_network
+* [openstack_network_id][37]: https://www.packer.io/docs/builders/openstack#networks
+* [openstack_security_group_name][38]: https://www.packer.io/docs/builders/openstack#security_groups
+* [openstack_source_image_name][39]: https://www.packer.io/docs/builders/openstack#source_image_name
