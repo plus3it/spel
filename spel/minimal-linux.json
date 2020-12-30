@@ -216,12 +216,8 @@
             "image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64",
             "insecure": "{{ user `openstack_allow_insecure_connection` }}",
             "name": "minimal-centos-7-openstack-image",
-            "networks": [
-                "{{ user `openstack_network_id` }}"
-            ],
-            "security_groups": [
-                "{{ user `openstack_security_group_name` }}"
-            ],
+            "networks": "{{ user `openstack_network_ids` }}",
+            "security_groups": "{{ user `openstack_security_group_names` }}",
             "source_image_name": "{{ user `openstack_source_image_name` }}",
             "ssh_port": 122,
             "ssh_timeout": "30m",
@@ -519,8 +515,8 @@
         "openstack_allow_insecure_connection": "false",
         "openstack_flavor_name": "",
         "openstack_floating_ip_network_name": "",
-        "openstack_network_id": "",
-        "openstack_security_group_name": "",
+        "openstack_network_ids": "",
+        "openstack_security_group_names": "",
         "openstack_source_image_name": "",
         "root_volume_size": "20",
         "security_group_cidrs": "0.0.0.0/0",

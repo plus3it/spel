@@ -429,11 +429,11 @@ Vagrant images.
 ```bash
 source your_openstack_credentials_file.sh
 packer build \
-    -var 'openstack_allow_insecure_connection=true|false' \
+    -var 'openstack_allow_insecure_connection=false' \
     -var 'openstack_flavor_name=your_flavor_name_for_temporary_instance' \
     -var 'openstack_floating_ip_network_name=your_provider_network_name' \
-    -var 'openstack_network_id=your_network_id_for_temporary_instance \
-    -var 'openstack_security_group_name=your_security_group_name_for_temporary_instance' \
+    -var 'openstack_network_ids=your_network_id_for_temporary_instance,second_network_id,etc.' \
+    -var 'openstack_security_group_names=your_security_group_name_for_temporary_instance,second_sg_name,etc.' \
     -var 'openstack_source_image_name=your_source_image_name' \
     -var 'spel_identifier=spel' \
     -only 'minimal-centos-7-openstack-image' \
@@ -441,12 +441,12 @@ packer build \
 ```
 
 For expected values, see links below:
-* [openstack_allow_insecure][34]
-* [openstack_flavor_name][35]
-* [openstack_floating_ip_network_name][36]
-* [openstack_network_id][37] (Note: only one network ID (string) is parsed here, not a list)
-* [openstack_security_group_name][38] (Note: only one security group name (string) is parsed here, not a list)
-* [openstack_source_image_name][39]
+* [openstack_allow_insecure][34] (true|false)
+* [openstack_flavor_name][35] (string)
+* [openstack_floating_ip_network_name][36] (string)
+* [openstack_network_ids][37] (comma-separated list of strings)
+* [openstack_security_group_names][38] (comma-separated list of strings)
+* [openstack_source_image_name][39] (string)
 
 ## Testing With AMIgen7
 
