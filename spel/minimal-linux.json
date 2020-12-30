@@ -215,7 +215,7 @@
             "floating_ip_network": "{{ user `openstack_floating_ip_network_name`}}",
             "image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64",
             "insecure": "{{ user `openstack_allow_insecure_connection` }}",
-            "name": "minimal-centos-7-openstack",
+            "name": "minimal-centos-7-openstack-image",
             "networks": [
                 "{{ user `openstack_network_id` }}"
             ],
@@ -303,7 +303,7 @@
             ],
             "only": [
                 "minimal-centos-7-hvm",
-                "minimal-centos-7-openstack",
+                "minimal-centos-7-openstack-image",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
@@ -322,7 +322,7 @@
             ],
             "only": [
                 "minimal-centos-7-hvm",
-                "minimal-centos-7-openstack",
+                "minimal-centos-7-openstack-image",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image"
@@ -348,7 +348,7 @@
                 "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt"
             ],
             "only": [
-                "minimal-centos-7-openstack"
+                "minimal-centos-7-openstack-image"
             ],
             "type": "shell"
         },
@@ -412,7 +412,7 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
-                "minimal-centos-7-openstack"
+                "minimal-centos-7-openstack-image"
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/amigen7-build.sh"

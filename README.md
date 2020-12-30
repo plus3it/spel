@@ -315,13 +315,13 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                     | Description                                                 |
-|----------------------------------|-------------------------------------------------------------|
-| `minimal-centos-7-hvm`         | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
-| `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
-| `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
-| `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
-| `minimal-centos-7-openstack`   | openstack builder that results in a minimal CentOS 7 Image    |
+| Builder Name                       | Description                                                   |
+|------------------------------------|---------------------------------------------------------------|
+| `minimal-centos-7-hvm`             | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
+| `minimal-rhel-7-hvm`               | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
+| `minimal-centos-7-azure-vhd`       | azure-arm builder that results in a minimal CentOS 7 VHD      |
+| `minimal-centos-7-azure-image`     | azure-arm builder that results in a minimal CentOS 7 Image    |
+| `minimal-centos-7-openstack-image` | openstack builder that results in a minimal CentOS 7 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -436,7 +436,7 @@ packer build \
     -var 'openstack_security_group_name=your_security_group_name_for_temporary_instance' \
     -var 'openstack_source_image_name=your_source_image_name' \
     -var 'spel_identifier=spel' \
-    -only 'minimal-centos-7-openstack' \
+    -only 'minimal-centos-7-openstack-image' \
     spel/minimal-linux.json
 ```
 
