@@ -213,7 +213,7 @@
         {
             "flavor": "{{ user `openstack_flavor_name` }}",
             "floating_ip_network": "{{ user `openstack_floating_ip_network_name`}}",
-            "image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64",
             "insecure": "{{ user `openstack_allow_insecure_connection` }}",
             "name": "minimal-centos-7-openstack",
             "networks": [
