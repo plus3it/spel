@@ -318,7 +318,9 @@
                 "echo Unmounting /oldroot",
                 "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot",
                 "echo Unmounting /boot",
-                "test $(grep -c /boot /proc/mounts) -eq 0 || umount /boot"
+                "test $(grep -c /boot /proc/mounts) -eq 0 || umount /boot",
+                "echo Unmounting /mnt",
+                "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt"
             ],
             "only": [
                 "minimal-centos-7-hvm",
@@ -338,17 +340,6 @@
             "only": [
                 "minimal-centos-8-hvm",
                 "minimal-rhel-8-hvm"
-            ],
-            "type": "shell"
-        },
-        {
-            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
-            "inline": [
-                "echo Unmounting /mnt",
-                "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt"
-            ],
-            "only": [
-                "minimal-centos-7-openstack-image"
             ],
             "type": "shell"
         },
