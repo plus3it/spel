@@ -315,12 +315,13 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                     | Description                                                 |
-|----------------------------------|-------------------------------------------------------------|
-| `minimal-centos-7-hvm`         | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
-| `minimal-rhel-7-hvm`           | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
-| `minimal-centos-7-azure-vhd`   | azure-arm builder that results in a minimal CentOS 7 VHD      |
-| `minimal-centos-7-azure-image` | azure-arm builder that results in a minimal CentOS 7 Image    |
+| Builder Name                       | Description                                                   |
+|------------------------------------|---------------------------------------------------------------|
+| `minimal-centos-7-hvm`             | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
+| `minimal-rhel-7-hvm`               | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
+| `minimal-centos-7-azure-vhd`       | azure-arm builder that results in a minimal CentOS 7 VHD      |
+| `minimal-centos-7-azure-image`     | azure-arm builder that results in a minimal CentOS 7 Image    |
+| `minimal-centos-7-openstack-image` | openstack builder that results in a minimal CentOS 7 Image    |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -417,6 +418,36 @@ packer build \
     spel/minimal-linux.json
 ```
 
+## Building for OpenStack
+
+To build images for an OpenStack environment, it is necessary to pass several
+variables that are specific to the environment. The
+[CentOS 7 Generic Cloud image][33] has been tested to work with the _spel_
+template(s). Also, the builders should be restricted so as _not_ to build the
+Vagrant images.
+
+```bash
+source your_openstack_credentials_file.sh
+packer build \
+    -var 'openstack_allow_insecure_connection=false' \
+    -var 'openstack_flavor_name=your_flavor_name_for_temporary_instance' \
+    -var 'openstack_floating_ip_network_name=your_provider_network_name' \
+    -var 'openstack_network_ids=your_network_id_for_temporary_instance,second_network_id,etc.' \
+    -var 'openstack_security_group_names=your_security_group_name_for_temporary_instance,second_sg_name,etc.' \
+    -var 'openstack_source_image_name=your_source_image_name' \
+    -var 'spel_identifier=spel' \
+    -only 'minimal-centos-7-openstack-image' \
+    spel/minimal-linux.json
+```
+
+For expected values, see links below:
+* [openstack_allow_insecure][34] (true|false)
+* [openstack_flavor_name][35] (string)
+* [openstack_floating_ip_network_name][36] (string)
+* [openstack_network_ids][37] (comma-separated list of strings)
+* [openstack_security_group_names][38] (comma-separated list of strings)
+* [openstack_source_image_name][39] (string)
+
 ## Testing With AMIgen7
 
 The spel automation leverages the AMIgen7 project as a build-helper for creation of Amazon Machine Images. Due to the closely-coupled nature of the two projects, it's recommended that any changes made to AMIgen7 be tested with spel prior to merging changes to AMIgen7's master branch.
@@ -465,3 +496,10 @@ packer build \
 [30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
 [31]: https://github.com/ferricoxide/AMIgen7
 [32]: https://github.com/plus3it/AMIgen7/blob/master/Docs/README_CustomPartitioning.md
+[33]: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+* [openstack_allow_insecure][34]: https://www.packer.io/docs/builders/openstack#insecure
+* [openstack_flavor_name][35]: https://www.packer.io/docs/builders/openstack#flavor
+* [openstack_floating_ip_network_name][36]: https://www.packer.io/docs/builders/openstack#floating_ip_network
+* [openstack_network_id][37]: https://www.packer.io/docs/builders/openstack#networks
+* [openstack_security_group_name][38]: https://www.packer.io/docs/builders/openstack#security_groups
+* [openstack_source_image_name][39]: https://www.packer.io/docs/builders/openstack#source_image_name
