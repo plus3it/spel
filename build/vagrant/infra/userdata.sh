@@ -60,5 +60,8 @@ fi
 
 packer build -var "vagrantcloud_username=$VAGRANTCLOUD_USER" -var "spel_identifier=$SPEL_IDENTIFIER" -var "spel_version=$SPEL_VERSION" -only "minimal-centos-7-virtualbox" -except "$EXCEPT_STEP" spel/minimal-linux.json
 
+# remove .ova and .box files from artifact location
+find /tmp/spel/ -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
+
 # upload artifacts to S3
 aws s3 cp --recursive /tmp/spel/.spel/ "$S3_BUCKET/"

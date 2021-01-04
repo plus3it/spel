@@ -11,8 +11,9 @@ phases:
       - make -C build/vagrant
   post_build:
     commands:
+      - find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
 
 artifacts:
   files:
     - '**/*'
-  base-directory: 
+  base-directory:
