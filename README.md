@@ -497,9 +497,9 @@ packer build \
 [31]: https://github.com/ferricoxide/AMIgen7
 [32]: https://github.com/plus3it/AMIgen7/blob/master/Docs/README_CustomPartitioning.md
 [33]: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
-* [openstack_allow_insecure][34]: https://www.packer.io/docs/builders/openstack#insecure
-* [openstack_flavor_name][35]: https://www.packer.io/docs/builders/openstack#flavor
-* [openstack_floating_ip_network_name][36]: https://www.packer.io/docs/builders/openstack#floating_ip_network
-* [openstack_network_id][37]: https://www.packer.io/docs/builders/openstack#networks
-* [openstack_security_group_name][38]: https://www.packer.io/docs/builders/openstack#security_groups
-* [openstack_source_image_name][39]: https://www.packer.io/docs/builders/openstack#source_image_name
+[34]: https://www.packer.io/docs/builders/openstack#insecure
+[35]: https://www.packer.io/docs/builders/openstack#flavor
+[36]: https://www.packer.io/docs/builders/openstack#floating_ip_network
+[37]: https://www.packer.io/docs/builders/openstack#networks
+[38]: https://www.packer.io/docs/builders/openstack#security_groups
+[39]: https://www.packer.io/docs/builders/openstack#source_image_name
