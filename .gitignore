@@ -58,3 +58,11 @@ packer_cache
 __pycache__
 *vendor/
 *.terraform/
+.idea
+
+# =========================
+# Local Vagrant build output
+# =========================
+*.box
+spel/output*/*
+spel/output*/*/
