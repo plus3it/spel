@@ -51,14 +51,14 @@
             "source_ami": "{{ user `source_ami_centos7_hvm` }}",
             "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+            "user_data_file": "{{ template_dir }}/userdata/userdata.cloud"
         },
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
@@ -84,14 +84,14 @@
             "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
             "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+            "user_data_file": "{{ template_dir }}/userdata/userdata.cloud"
         },
         {
             "capture_container_name": "images",
@@ -100,7 +100,7 @@
             "client_secret": "{{user `azure_client_secret`}}",
             "cloud_environment_name": "{{ user `azure_environment` }}",
             "communicator": "ssh",
-            "custom_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
+            "custom_data_file": "{{ template_dir }}/userdata/userdata.cloud",
             "image_url": "{{ user `azure_source_vhd_centos7` }}",
             "location": "{{ user `azure_location` }}",
             "name": "minimal-centos-7-azure-vhd",
@@ -108,7 +108,7 @@
             "os_type": "Linux",
             "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
             "resource_group_name": "{{user `azure_dest_resource_group`}}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
@@ -124,7 +124,7 @@
             "client_secret": "{{user `azure_client_secret`}}",
             "cloud_environment_name": "{{ user `azure_environment` }}",
             "communicator": "ssh",
-            "custom_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud",
+            "custom_data_file": "{{ template_dir }}/userdata/userdata.cloud",
             "custom_managed_image_name": "{{ user `azure_source_image_centos7` }}",
             "custom_managed_image_resource_group_name": "{{ user `azure_source_image_resource_group_centos7` }}",
             "location": "{{ user `azure_location` }}",
@@ -134,7 +134,7 @@
             "os_disk_size_gb": "20",
             "os_type": "Linux",
             "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
@@ -168,14 +168,14 @@
             "source_ami": "{{ user `source_ami_centos8_hvm` }}",
             "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el8.cloud"
+            "user_data_file": "{{ template_dir }}/userdata/userdata.cloud"
         },
         {
             "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
@@ -201,14 +201,14 @@
             "source_ami": "{{ user `source_ami_rhel8_hvm` }}",
             "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_pty": true,
             "ssh_timeout": "60m",
             "ssh_username": "spel",
             "subnet_id": "{{ user `subnet_id` }}",
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el8.cloud"
+            "user_data_file": "{{ template_dir }}/userdata/userdata.cloud"
         },
         {
             "flavor": "{{ user `openstack_flavor_name` }}",
@@ -219,12 +219,12 @@
             "networks": "{{ user `openstack_network_ids` }}",
             "security_groups": "{{ user `openstack_security_group_names` }}",
             "source_image_name": "{{ user `openstack_source_image_name` }}",
-            "ssh_port": 122,
+            "ssh_port": 22,
             "ssh_timeout": "30m",
             "ssh_username": "spel",
             "type": "openstack",
             "use_blockstorage_volume": "false",
-            "user_data_file": "{{ template_dir }}/userdata/tmpfsroot-el7.cloud"
+            "user_data_file": "{{ template_dir }}/userdata/userdata.cloud"
         }
     ],
     "post-processors": [
@@ -287,6 +287,40 @@
                 "{{ template_dir }}/scripts/cleanup.sh",
                 "{{ template_dir }}/scripts/zerodisk.sh"
             ],
+            "type": "shell"
+        },
+        {
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "inline": [
+                "/usr/bin/cloud-init status --wait"
+            ],
+            "only": [
+                "minimal-centos-7-hvm",
+                "minimal-centos-7-openstack-image",
+                "minimal-rhel-7-hvm",
+                "minimal-centos-7-azure-vhd",
+                "minimal-centos-7-azure-image",
+                "minimal-centos-8-hvm",
+                "minimal-rhel-8-hvm"
+            ],
+            "type": "shell"
+        },
+        {
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
+            "expect_disconnect": true,
+            "only": [
+                "minimal-centos-7-hvm",
+                "minimal-centos-7-openstack-image",
+                "minimal-rhel-7-hvm",
+                "minimal-centos-7-azure-vhd",
+                "minimal-centos-7-azure-image",
+                "minimal-centos-8-hvm",
+                "minimal-rhel-8-hvm"
+            ],
+            "scripts": [
+                "{{ template_dir }}/scripts/pivot-root.sh"
+            ],
+            "start_retry_timeout": "15m",
             "type": "shell"
         },
         {
