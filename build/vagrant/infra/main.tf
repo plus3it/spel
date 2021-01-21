@@ -8,22 +8,34 @@ locals {
 ### Resources ###
 # Create IAM Role
 resource "aws_iam_role" "ec2_s3_access_role" {
-  name               = "${var.resource_name}-upload-role"
-  assume_role_policy = file("./policy/ec2_s3_access_role.json")
-
+  name = "${var.resource_name}-upload-role"
   tags = local.project_tags
+
+  assume_role_policy = templatefile(
+    "${path.module}/policy/ec2_s3_access_role.json",
+    {}
+  )
 }
 
 # Create IAM Policy
 resource "aws_iam_policy" "s3_upload_policy" {
-  name   = "${var.resource_name}-upload-policy"
-  policy = data.template_file.s3_upload_policy.rendered
+  name = "${var.resource_name}-upload-policy"
+  policy = templatefile(
+    "${path.module}/policy/s3_upload_policy.json",
+    {
+      artifact_location      = var.artifact_location
+      ssm_vagrantcloud_token = var.ssm_vagrantcloud_token
+      kms_key                = var.kms_key
+      region                 = data.aws_region.region.name
+      account                = data.aws_caller_identity.account.account_id
+    }
+  )
 }
 
 # Attach Policy to IAM Role
 resource "aws_iam_policy_attachment" "s3_policy_attachment" {
   name       = "${var.resource_name}-policy-attachment"
-  roles      = ["${aws_iam_role.ec2_s3_access_role.name}"]
+  roles      = [aws_iam_role.ec2_s3_access_role.name]
   policy_arn = aws_iam_policy.s3_upload_policy.arn
 }
 
@@ -53,7 +65,7 @@ resource "aws_security_group" "security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.source_cidr}"]
+    cidr_blocks = [var.source_cidr]
   }
 
   egress {
@@ -74,7 +86,7 @@ resource "aws_instance" "metal_instance" {
   key_name = aws_key_pair.auth.key_name
 
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
-  security_groups      = ["${aws_security_group.security_group.name}"]
+  security_groups      = [aws_security_group.security_group.name]
 
   provisioner "file" {
     destination = "/tmp/spel-vagrant.sh"
@@ -122,9 +134,9 @@ resource "aws_instance" "metal_instance" {
 
   tags = merge(
     local.project_tags,
-    map(
-      "Name", "${var.resource_name}"
-    )
+    {
+      Name = var.resource_name
+    },
   )
 }
 
@@ -149,17 +161,6 @@ data "aws_ami" "ubuntu" {
 
   # Canonical
   owners = ["099720109477"]
-}
-
-data "template_file" "s3_upload_policy" {
-  template = file("./policy/s3_upload_policy.json")
-  vars = {
-    artifact_location      = "${var.artifact_location}"
-    ssm_vagrantcloud_token = "${var.ssm_vagrantcloud_token}"
-    kms_key                = "${var.kms_key}"
-    region                 = "${data.aws_region.region.name}"
-    account                = "${data.aws_caller_identity.account.account_id}"
-  }
 }
 
 data "aws_caller_identity" "account" {}
