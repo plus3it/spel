@@ -8,6 +8,8 @@ env:
     - FIND_JSON="find $TRAVIS_BUILD_DIR -name '*.json' -type f -print0"
     - XARGS="xargs -0 -n1 -I {} -t"
 
+if: branch = master OR type = pull_request
+
 jobs:
   include:
     - stage: test
