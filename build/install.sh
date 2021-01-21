@@ -5,6 +5,7 @@ apt -y install unzip
 echo "Installing packer..."
 echo "$PWD"
 curl -L "$PACKER_ZIP" -o packer.zip && unzip packer.zip
+./packer version
 
 # Check if $SPEL_ACCESS_KEY is not empty
 if [ -n "$SPEL_ACCESS_KEY" ]; then
