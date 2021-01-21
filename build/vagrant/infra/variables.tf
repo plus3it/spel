@@ -37,9 +37,8 @@ variable "source_cidr" {
   type = string
 }
 
-variable "packer_version" {
-  type    = string
-  default = "1.3.3"
+variable "packer_url" {
+  type = string
 }
 
 variable "artifact_location" {

@@ -28,7 +28,7 @@ func TestSpelVagrant(t *testing.T) {
 			"spel_identifier":        os.Getenv("SPEL_IDENTIFIER"),
 			"spel_version":           os.Getenv("SPEL_VERSION"),
 			"spel_ci":                os.Getenv("SPEL_CI"),
-			"packer_version":         os.Getenv("PACKER_VERSION"),
+			"packer_url":             os.Getenv("PACKER_URL"),
 			"artifact_location":      os.Getenv("ARTIFACT_LOCATION"),
 			"kms_key":                os.Getenv("KMS_KEY"),
 			"code_repo":              os.Getenv("CODEBUILD_SOURCE_REPO_URL"),

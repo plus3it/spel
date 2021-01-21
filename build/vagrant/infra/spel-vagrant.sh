@@ -1,10 +1,10 @@
 #!/bin/bash
-set -eo
+set -e
 
 # terraform template vars
 ARTIFACT_LOCATION=${artifact_location}
 CODE_REPO=${code_repo}
-PACKER_VERSION=${packer_version}
+PACKER_URL=${packer_url}
 SOURCE_COMMIT=${source_commit}
 SPEL_CI=${spel_ci}
 SPEL_IDENTIFIER=${spel_identifier}
@@ -25,11 +25,11 @@ virtualbox-guest-additions-iso
 pip3 install awscli --upgrade --user
 
 #install packer
-sudo apt-get install wget -y
-wget "https://releases.hashicorp.com/packer/$${PACKER_VERSION}/packer_$${PACKER_VERSION}_linux_amd64.zip"
-unzip "packer_$${PACKER_VERSION}_linux_amd64.zip"
+curl -sSL "$${PACKER_URL}" -o packer.zip
+unzip "packer.zip"
+chmod +x ./packer
 sudo mv packer /usr/local/bin/
-packer -v
+packer version
 
 # download spel
 cd /tmp

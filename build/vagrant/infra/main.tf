@@ -20,6 +20,7 @@ resource "aws_iam_role" "ec2_s3_access_role" {
 # Create IAM Policy
 resource "aws_iam_policy" "s3_upload_policy" {
   name = "${var.resource_name}-upload-policy"
+
   policy = templatefile(
     "${path.module}/policy/s3_upload_policy.json",
     {
@@ -80,12 +81,10 @@ resource "aws_security_group" "security_group" {
 
 # Create EC2 Instance
 resource "aws_instance" "metal_instance" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
-  key_name = aws_key_pair.auth.key_name
-
+  ami                  = data.aws_ami.ubuntu.id
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
+  instance_type        = var.instance_type
+  key_name             = aws_key_pair.auth.key_name
   security_groups      = [aws_security_group.security_group.name]
 
   provisioner "file" {
@@ -96,7 +95,7 @@ resource "aws_instance" "metal_instance" {
       {
         artifact_location      = var.artifact_location
         code_repo              = var.code_repo
-        packer_version         = var.packer_version
+        packer_url             = var.packer_url
         source_commit          = var.source_commit
         spel_identifier        = var.spel_identifier
         spel_version           = var.spel_version
