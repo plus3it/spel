@@ -1,6 +1,7 @@
 package testing
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -20,7 +21,7 @@ func TestSpelVagrant(t *testing.T) {
 
 		// Variables to pass to our Terraform code using -var options
 		Vars: map[string]interface{}{
-			"resource_name":          resourceName,
+			"resource_name":          fmt.Sprintf("packer-spel-vagrant-%s", resourceName),
 			"source_cidr":            os.Getenv("SOURCE_CIDR"),
 			"aws_region":             os.Getenv("AWS_REGION"),
 			"ssm_vagrantcloud_token": os.Getenv("SSM_VAGRANTCLOUD_TOKEN"),
@@ -28,11 +29,12 @@ func TestSpelVagrant(t *testing.T) {
 			"spel_identifier":        os.Getenv("SPEL_IDENTIFIER"),
 			"spel_version":           os.Getenv("SPEL_VERSION"),
 			"spel_ci":                os.Getenv("SPEL_CI"),
-			"packer_version":         os.Getenv("PACKER_VERSION"),
+			"packer_url":             os.Getenv("PACKER_URL"),
 			"artifact_location":      os.Getenv("ARTIFACT_LOCATION"),
 			"kms_key":                os.Getenv("KMS_KEY"),
 			"code_repo":              os.Getenv("CODEBUILD_SOURCE_REPO_URL"),
 			"source_commit":          os.Getenv("CODEBUILD_SOURCE_VERSION"),
+			"iso_url_centos7":        os.Getenv("ISO_URL_CENTOS7"),
 		},
 	}
 
