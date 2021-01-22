@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "instance_type" {
   type    = string
-  default = "c5n.metal"
+  default = "a1.metal"
 }
 
 variable "ssm_vagrantcloud_token" {
