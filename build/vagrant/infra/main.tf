@@ -2,13 +2,14 @@
 locals {
   project_tags = {
     Project = "spel-vagrant"
+    Name    = var.resource_name
   }
 }
 
 ### Resources ###
 # Create IAM Role
 resource "aws_iam_role" "ec2_s3_access_role" {
-  name = "${var.resource_name}-upload-role"
+  name = var.resource_name
   tags = local.project_tags
 
   assume_role_policy = templatefile(
@@ -19,7 +20,7 @@ resource "aws_iam_role" "ec2_s3_access_role" {
 
 # Create IAM Policy
 resource "aws_iam_policy" "s3_upload_policy" {
-  name = "${var.resource_name}-upload-policy"
+  name = var.resource_name
 
   policy = templatefile(
     "${path.module}/policy/s3_upload_policy.json",
@@ -35,14 +36,14 @@ resource "aws_iam_policy" "s3_upload_policy" {
 
 # Attach Policy to IAM Role
 resource "aws_iam_policy_attachment" "s3_policy_attachment" {
-  name       = "${var.resource_name}-policy-attachment"
+  name       = var.resource_name
   roles      = [aws_iam_role.ec2_s3_access_role.name]
   policy_arn = aws_iam_policy.s3_upload_policy.arn
 }
 
 # Create IAM Instance Profile
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.resource_name}-instance_profile"
+  name = var.resource_name
   role = aws_iam_role.ec2_s3_access_role.name
 }
 
@@ -54,12 +55,12 @@ resource "tls_private_key" "gen_key" {
 
 # Define key pair to be used for EC2 instance
 resource "aws_key_pair" "auth" {
-  key_name   = "${var.resource_name}-ssh_key"
+  key_name   = var.resource_name
   public_key = tls_private_key.gen_key.public_key_openssh
 }
 
 resource "aws_security_group" "security_group" {
-  name        = "${var.resource_name}-security_group"
+  name        = var.resource_name
   description = "Only allow for the build job to access the instance"
 
   ingress {
@@ -86,6 +87,7 @@ resource "aws_instance" "metal_instance" {
   instance_type        = var.instance_type
   key_name             = aws_key_pair.auth.key_name
   security_groups      = [aws_security_group.security_group.name]
+  tags                 = local.project_tags
 
   provisioner "file" {
     destination = "/tmp/spel-vagrant.sh"
@@ -133,13 +135,6 @@ resource "aws_instance" "metal_instance" {
       timeout     = "30m"
     }
   }
-
-  tags = merge(
-    local.project_tags,
-    {
-      Name = var.resource_name
-    },
-  )
 }
 
 ### Data Sources ###
