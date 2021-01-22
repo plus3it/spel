@@ -1,4 +1,7 @@
 #!/bin/bash
+# shellcheck disable=SC2034,SC2154
+#  https://www.shellcheck.net/wiki/SC2034 -- ARTIFACT_LOCATION appears unused....
+#  https://www.shellcheck.net/wiki/SC2154 -- artifact_location is referenced b...
 set -e
 
 # terraform template vars
@@ -17,6 +20,8 @@ VAGRANTCLOUD_USER=${vagrantcloud_user}
 CLONE_DIR=/tmp/spel
 S3_BUCKET="s3://$${ARTIFACT_LOCATION}"
 
+#  https://www.shellcheck.net/wiki/SC2193 -- The arguments to this comparison ...
+# shellcheck disable=SC2193
 if [ "$${SPEL_CI}" = "true" ]
 then
     # artifacts for CI build will be stored in /ci
@@ -52,6 +57,8 @@ packer version
 git clone "$${CODE_REPO}" "$${CLONE_DIR}"
 cd "$${CLONE_DIR}"
 
+#  https://www.shellcheck.net/wiki/SC2157 -- Argument to -n is always true due...
+# shellcheck disable=SC2157
 if [[ -n "$${SOURCE_COMMIT}" ]] ; then
     # decide whether to switch to pull request or a branch
     echo "SOURCE_COMMIT = $${SOURCE_COMMIT}"
