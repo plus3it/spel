@@ -57,3 +57,7 @@ variable "code_repo" {
   type    = string
   default = "https://github.com/plus3it/spel.git"
 }
+
+variable "iso_url_centos7" {
+  type = string
+}

@@ -4,6 +4,7 @@ set -e
 # terraform template vars
 ARTIFACT_LOCATION=${artifact_location}
 CODE_REPO=${code_repo}
+ISO_URL_CENTOS7=${iso_url_centos7}
 PACKER_URL=${packer_url}
 SOURCE_COMMIT=${source_commit}
 SPEL_CI=${spel_ci}
@@ -70,6 +71,7 @@ then
 fi
 
 packer build \
+  -var "iso_url_centos7=$${ISO_URL_CENTOS7}" \
   -var "vagrantcloud_username=$${VAGRANTCLOUD_USER}" \
   -var "spel_identifier=$${SPEL_IDENTIFIER}" \
   -var "spel_version=$${SPEL_VERSION}" \

@@ -33,6 +33,7 @@ func TestSpelVagrant(t *testing.T) {
 			"kms_key":                os.Getenv("KMS_KEY"),
 			"code_repo":              os.Getenv("CODEBUILD_SOURCE_REPO_URL"),
 			"source_commit":          os.Getenv("CODEBUILD_SOURCE_VERSION"),
+			"iso_url_centos7":        os.Getenv("ISO_URL_CENTOS7"),
 		},
 	}
 

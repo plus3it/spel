@@ -95,6 +95,7 @@ resource "aws_instance" "metal_instance" {
       {
         artifact_location      = var.artifact_location
         code_repo              = var.code_repo
+        iso_url_centos7        = var.iso_url_centos7
         packer_url             = var.packer_url
         source_commit          = var.source_commit
         spel_identifier        = var.spel_identifier

@@ -6,6 +6,10 @@ PACKER_URL ?= https://releases.hashicorp.com/packer/$(PACKER_VERSION)/packer_$(P
 TERRAFORM_VERSION ?= $(shell grep 'FROM hashicorp/terraform' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
 
+ISO_URL_CENTOS7_BASE ?= http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64
+ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?=")'
+ISO_URL_CENTOS7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
+
 .PHONY: all install pre_build build post_build
 .EXPORT_ALL_VARIABLES:
 
