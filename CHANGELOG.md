@@ -4,9 +4,9 @@
 
 **Released**: 2020.01.26
 
-**Commit Delta**: [Change from 2020.12.1 release](https://github.com/plus3it/spel/compare/2020.12.1...2021.01.1)
+**Commit Delta**: [Change from 2021.01.1 release](https://github.com/plus3it/spel/compare/2020.12.1...2021.01.1)
 
-**Manifests**: <https://github.com/plus3it/spel/blob/2020.12.1/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.01.1/manifests>
 
 **Summary**:
 
