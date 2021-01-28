@@ -1,6 +1,6 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.18.196 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.19.36
-aws-cli/2.1.10 Python/3.7.3 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.18.219 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.19.59
+aws-cli/2.1.21 Python/3.7.3 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -152,8 +152,8 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-12.el7.x86_64
 jansson-2.10-1.el7.x86_64
 jasper-libs-1.900.1-33.el7.x86_64
-java-1.8.0-openjdk-1.8.0.275.b01-0.el7_9.x86_64
-java-1.8.0-openjdk-headless-1.8.0.275.b01-0.el7_9.x86_64
+java-1.8.0-openjdk-1.8.0.282.b08-1.el7_9.x86_64
+java-1.8.0-openjdk-headless-1.8.0.282.b08-1.el7_9.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
@@ -314,8 +314,8 @@ openldap-2.4.44-22.el7.x86_64
 openssh-7.4p1-21.el7.x86_64
 openssh-clients-7.4p1-21.el7.x86_64
 openssh-server-7.4p1-21.el7.x86_64
-openssl-1.0.2k-19.el7.x86_64
-openssl-libs-1.0.2k-19.el7.x86_64
+openssl-1.0.2k-21.el7_9.x86_64
+openssl-libs-1.0.2k-21.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -468,7 +468,7 @@ Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.9-5.el7_9.x86_64
 redhat-support-lib-python-0.12.1-1.el7.noarch
 redhat-support-tool-0.12.2-1.el7.noarch
-rh-amazon-rhui-client-3.0.32-1.el7.noarch
+rh-amazon-rhui-client-3.0.39-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -518,8 +518,8 @@ tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
 tuned-2.11.0-10.el7.noarch
-tzdata-2020d-2.el7.noarch
-tzdata-java-2020d-2.el7.noarch
+tzdata-2020f-1.el7.noarch
+tzdata-java-2020f-1.el7.noarch
 usermode-1.111-6.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-65.el7.x86_64
