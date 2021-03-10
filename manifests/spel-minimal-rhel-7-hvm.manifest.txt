@@ -1,6 +1,6 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.18.196 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.19.36
-aws-cli/2.1.10 Python/3.7.3 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.19.13 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.20.13
+aws-cli/2.1.28 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -110,8 +110,8 @@ gettext-0.19.8.1-3.el7.x86_64
 gettext-libs-0.19.8.1-3.el7.x86_64
 giflib-4.1.6-9.el7.x86_64
 glib2-2.56.1-8.el7.x86_64
-glibc-2.17-317.el7.x86_64
-glibc-common-2.17-317.el7.x86_64
+glibc-2.17-323.el7_9.x86_64
+glibc-common-2.17-323.el7_9.x86_64
 gmp-6.0.0-15.el7.x86_64
 gnupg2-2.0.22-5.el7_5.x86_64
 gobject-introspection-1.56.1-1.el7.x86_64
@@ -152,17 +152,17 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-12.el7.x86_64
 jansson-2.10-1.el7.x86_64
 jasper-libs-1.900.1-33.el7.x86_64
-java-1.8.0-openjdk-1.8.0.275.b01-0.el7_9.x86_64
-java-1.8.0-openjdk-headless-1.8.0.275.b01-0.el7_9.x86_64
+java-1.8.0-openjdk-1.8.0.282.b08-1.el7_9.x86_64
+java-1.8.0-openjdk-headless-1.8.0.282.b08-1.el7_9.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1160.11.1.el7.x86_64
-kernel-tools-3.10.0-1160.11.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.11.1.el7.x86_64
+kernel-3.10.0-1160.15.2.el7.x86_64
+kernel-tools-3.10.0-1160.15.2.el7.x86_64
+kernel-tools-libs-3.10.0-1160.15.2.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.1.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -176,7 +176,7 @@ libaio-0.3.109-13.el7.x86_64
 libassuan-2.1.0-3.el7.x86_64
 libattr-2.4.46-13.el7.x86_64
 libbasicobjects-0.1.1-32.el7.x86_64
-libblkid-2.23.2-65.el7.x86_64
+libblkid-2.23.2-65.el7_9.1.x86_64
 libcap-2.22-11.el7.x86_64
 libcap-ng-0.7.5-4.el7.x86_64
 libcgroup-0.41-21.el7.x86_64
@@ -201,13 +201,13 @@ libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
 libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64
 libgomp-4.8.5-44.el7.x86_64
 libgpg-error-1.12-3.el7.x86_64
-libgudev1-219-78.el7_9.2.x86_64
+libgudev1-219-78.el7_9.3.x86_64
 libICE-1.0.9-9.el7.x86_64
 libidn-1.28-4.el7.x86_64
 libini_config-1.3.1-32.el7.x86_64
 libjpeg-turbo-1.2.90-8.el7.x86_64
 libmnl-1.0.3-7.el7.x86_64
-libmount-2.23.2-65.el7.x86_64
+libmount-2.23.2-65.el7_9.1.x86_64
 libndp-1.2-9.el7.x86_64
 libnetfilter_conntrack-1.0.6-1.el7_3.x86_64
 libnfnetlink-1.0.1-4.el7.x86_64
@@ -229,7 +229,7 @@ libsemanage-2.5-14.el7.x86_64
 libsemanage-python-2.5-14.el7.x86_64
 libsepol-2.5-10.el7.x86_64
 libSM-1.2.2-2.el7.x86_64
-libsmartcols-2.23.2-65.el7.x86_64
+libsmartcols-2.23.2-65.el7_9.1.x86_64
 libss-1.42.9-19.el7.x86_64
 libssh2-1.8.0-4.el7.x86_64
 libstdc++-4.8.5-44.el7.x86_64
@@ -242,7 +242,7 @@ libtirpc-0.2.4-0.16.el7.x86_64
 libunistring-0.9.3-9.el7.x86_64
 libuser-0.60-9.el7.x86_64
 libutempter-1.1.6-4.el7.x86_64
-libuuid-2.23.2-65.el7.x86_64
+libuuid-2.23.2-65.el7_9.1.x86_64
 libverto-0.2.5-4.el7.x86_64
 libverto-libevent-0.2.5-4.el7.x86_64
 libwayland-client-1.15.0-1.el7.x86_64
@@ -268,7 +268,7 @@ libxslt-1.1.28-6.el7.x86_64
 libXtst-1.2.3-1.el7.x86_64
 libXxf86vm-1.1.4-1.el7.x86_64
 libyaml-0.1.4-11.el7_0.x86_64
-linux-firmware-20200421-79.git78c0348.el7.noarch
+linux-firmware-20200421-80.git78c0348.el7_9.noarch
 lksctp-tools-1.0.17-2.el7.x86_64
 logrotate-3.8.6-19.el7.x86_64
 lshw-B.02.18-17.el7.x86_64
@@ -286,7 +286,7 @@ mesa-libEGL-18.3.4-12.el7_9.x86_64
 mesa-libgbm-18.3.4-12.el7_9.x86_64
 mesa-libGL-18.3.4-12.el7_9.x86_64
 mesa-libglapi-18.3.4-12.el7_9.x86_64
-microcode_ctl-2.1-73.4.el7_9.x86_64
+microcode_ctl-2.1-73.8.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -314,8 +314,8 @@ openldap-2.4.44-22.el7.x86_64
 openssh-7.4p1-21.el7.x86_64
 openssh-clients-7.4p1-21.el7.x86_64
 openssh-server-7.4p1-21.el7.x86_64
-openssl-1.0.2k-19.el7.x86_64
-openssl-libs-1.0.2k-19.el7.x86_64
+openssl-1.0.2k-21.el7_9.x86_64
+openssl-libs-1.0.2k-21.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -327,7 +327,7 @@ pciutils-3.5.1-3.el7.x86_64
 pciutils-libs-3.5.1-3.el7.x86_64
 pcre-8.32-17.el7.x86_64
 pcsc-lite-libs-1.8.8-8.el7.x86_64
-perl-5.16.3-297.el7.x86_64
+perl-5.16.3-299.el7_9.x86_64
 perl-Business-ISBN-2.06-2.el7.noarch
 perl-Business-ISBN-Data-20120719.001-2.el7.noarch
 perl-Carp-1.26-244.el7.noarch
@@ -358,18 +358,18 @@ perl-IO-Compress-2.061-2.el7.noarch
 perl-IO-HTML-1.00-2.el7.noarch
 perl-IO-Socket-IP-0.21-5.el7.noarch
 perl-IO-Socket-SSL-1.94-7.el7.noarch
-perl-libs-5.16.3-297.el7.x86_64
+perl-libs-5.16.3-299.el7_9.x86_64
 perl-libwww-perl-6.05-2.el7.noarch
 perl-LWP-MediaTypes-6.02-2.el7.noarch
 perl-LWP-Protocol-https-6.04-4.el7.noarch
-perl-macros-5.16.3-297.el7.x86_64
+perl-macros-5.16.3-299.el7_9.x86_64
 perl-Mozilla-CA-20130114-5.el7.noarch
 perl-Net-HTTP-6.06-2.el7.noarch
 perl-Net-LibIDN-0.12-15.el7.x86_64
 perl-Net-SSLeay-1.55-6.el7.x86_64
 perl-parent-0.225-244.el7.noarch
 perl-PathTools-3.40-5.el7.x86_64
-perl-Pod-Escapes-1.04-297.el7.noarch
+perl-Pod-Escapes-1.04-299.el7_9.noarch
 perl-podlators-2.5.1-3.el7.noarch
 perl-Pod-Perldoc-3.20-4.el7.noarch
 perl-Pod-Simple-3.28-4.el7.noarch
@@ -444,7 +444,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.11.1.el7.x86_64
+python-perf-3.10.0-1160.15.2.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -468,7 +468,7 @@ Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.9-5.el7_9.x86_64
 redhat-support-lib-python-0.12.1-1.el7.noarch
 redhat-support-tool-0.12.2-1.el7.noarch
-rh-amazon-rhui-client-3.0.32-1.el7.noarch
+rh-amazon-rhui-client-3.0.39-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -507,22 +507,22 @@ stunnel-4.56-6.el7.x86_64
 subscription-manager-1.24.45-1.el7_9.x86_64
 subscription-manager-rhsm-1.24.45-1.el7_9.x86_64
 subscription-manager-rhsm-certificates-1.24.45-1.el7_9.x86_64
-sudo-1.8.23-10.el7.x86_64
-systemd-219-78.el7_9.2.x86_64
-systemd-libs-219-78.el7_9.2.x86_64
-systemd-sysv-219-78.el7_9.2.x86_64
+sudo-1.8.23-10.el7_9.1.x86_64
+systemd-219-78.el7_9.3.x86_64
+systemd-libs-219-78.el7_9.3.x86_64
+systemd-sysv-219-78.el7_9.3.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-7.6-77.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
-tuned-2.11.0-10.el7.noarch
-tzdata-2020d-2.el7.noarch
-tzdata-java-2020d-2.el7.noarch
+tuned-2.11.0-11.el7_9.noarch
+tzdata-2021a-1.el7.noarch
+tzdata-java-2021a-1.el7.noarch
 usermode-1.111-6.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
-util-linux-2.23.2-65.el7.x86_64
+util-linux-2.23.2-65.el7_9.1.x86_64
 vim-common-7.4.629-8.el7_9.x86_64
 vim-filesystem-7.4.629-8.el7_9.x86_64
 vim-minimal-7.4.629-8.el7_9.x86_64
@@ -540,4 +540,4 @@ yum-3.4.3-168.el7.noarch
 yum-metadata-parser-1.1.4-10.el7.x86_64
 yum-rhn-plugin-2.0.1-10.el7.noarch
 yum-utils-1.1.31-54.el7_8.noarch
-zlib-1.2.7-18.el7.x86_64
+zlib-1.2.7-19.el7_9.x86_64
