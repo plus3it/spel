@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2021.03.1
+
+**Released**: 2021.03.23
+
+**Commit Delta**: [Change from 2021.02.1 release](https://github.com/plus3it/spel/compare/2021.02.1...2021.03.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.03.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.19.34
+    - aws-cli/2.1.31
+    - rh-amazon-rhui-client-3.0.40
+
 ### 2021.02.1
 
 **Released**: 2021.02.23
