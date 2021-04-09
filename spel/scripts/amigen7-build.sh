@@ -28,6 +28,10 @@ VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
 
+PYTHON3_BIN="/usr/bin/python3.6"
+PYTHON3_LINK="/usr/bin/python3"
+ELBUILD="/tmp/el-build"
+AMIUTILS="/tmp/ami-utils"
 
 # Make interactive-execution more-verbose unless explicitly told not to
 if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
@@ -61,10 +65,7 @@ function err_exit {
    fi
 }
 
-PYTHON3_BIN="/usr/bin/python3.6"
-PYTHON3_LINK="/usr/bin/python3"
-ELBUILD="/tmp/el-build"
-AMIUTILS="/tmp/ami-utils"
+
 
 DEFAULTREPOS=(
     base
