@@ -4,10 +4,11 @@
 # task.
 #
 ##############################################################################
-AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
+PROGNAME="$(basename "$0")"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
+AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
@@ -16,8 +17,8 @@ BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
 CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
 CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
+CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
 DEVNODE="${SPEL_DEVNODE:-/dev/nvme0n1}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
@@ -27,10 +28,44 @@ VGNAME="${SPEL_VGNAME:-VolGroup00}"
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
 
+AMIUTILS="/tmp/ami-utils"
+ELBUILD="/tmp/el-build"
 PYTHON3_BIN="/usr/bin/python3.6"
 PYTHON3_LINK="/usr/bin/python3"
-ELBUILD="/tmp/el-build"
-AMIUTILS="/tmp/ami-utils"
+
+# Make interactive-execution more-verbose unless explicitly told not to
+if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
+then
+   DEBUG="true"
+fi
+
+
+# Error handler function
+function err_exit {
+   local ERRSTR
+   local ISNUM
+   local SCRIPTEXIT
+
+   ERRSTR="${1}"
+   ISNUM='^[0-9]+$'
+   SCRIPTEXIT="${2:-1}"
+
+   if [[ ${DEBUG} == true ]]
+   then
+      # Our output channels
+      logger -i -t "${PROGNAME}" -p kern.crit -s -- "${ERRSTR}"
+   else
+      logger -i -t "${PROGNAME}" -p kern.crit -- "${ERRSTR}"
+   fi
+
+   # Only exit if requested exit is numerical
+   if [[ ${SCRIPTEXIT} =~ ${ISNUM} ]]
+   then
+      exit "${SCRIPTEXIT}"
+   fi
+}
+
+
 
 DEFAULTREPOS=(
     base
@@ -148,6 +183,43 @@ disable_strict_host_check()
         chmod 600 ~/.ssh/config
     fi
 }  # ----------  end of function add_ssh_host  ----------
+
+# Changing this to a function to better align with amigen8-build
+function CollectManifest {
+    echo "Saving the release info to the manifest"
+    cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+    
+    if [[ "${CLOUDPROVIDER}" == "aws" ]]
+    then
+        if [[ -n "$AWSCLIV1SOURCE" ]]
+        then
+            echo "Saving the aws-cli-v1 version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${CHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
+        if [[ -n "$AWSCLIV2SOURCE" ]]
+        then
+            echo "Saving the aws-cli-v2 version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${CHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
+    elif [[ "${CLOUDPROVIDER}" == "azure" ]]
+    then
+        echo "Saving the waagent version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${CHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
+        eval "$XTRACE"
+    fi
+    
+    echo "Saving the RPM manifest"
+    rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+}
+
 
 set -x
 set -e
@@ -319,38 +391,8 @@ then
     chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
 fi
 
-echo "Saving the release info to the manifest"
-cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
-
-if [[ "${CLOUDPROVIDER}" == "aws" ]]
-then
-    if [[ -n "$AWSCLIV1SOURCE" ]]
-    then
-        echo "Saving the aws-cli-v1 version to the manifest"
-        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-        set +x
-        (chroot "${CHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
-        eval "$XTRACE"
-    fi
-    if [[ -n "$AWSCLIV2SOURCE" ]]
-    then
-        echo "Saving the aws-cli-v2 version to the manifest"
-        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-        set +x
-        (chroot "${CHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
-        eval "$XTRACE"
-    fi
-elif [[ "${CLOUDPROVIDER}" == "azure" ]]
-then
-    echo "Saving the waagent version to the manifest"
-    [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-    set +x
-    (chroot "${CHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
-    eval "$XTRACE"
-fi
-
-echo "Saving the RPM manifest"
-rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+# Calling new CollectManifest function
+CollectManifest
 
 echo "Executing Umount.sh"
 bash -eux -o pipefail "${ELBUILD}"/Umount.sh
