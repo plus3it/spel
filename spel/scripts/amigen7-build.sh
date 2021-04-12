@@ -283,13 +283,16 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}"
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}" || \
+    err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}"
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}" || \
+    err_exit "Failure encountered with MkChrootTree.sh"
 
 echo "Executing MkTabs.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}" || \
+    err_exit "Failure encountered with MkTabs.sh"
 
 # Construct the cli option string for alternate-manifest
 CLIOPT_ALTMANIFEST=""
@@ -343,7 +346,8 @@ then
 fi
 
 echo "Executing ChrootCfg.sh"
-bash -eux -o pipefail "${ELBUILD}"/ChrootCfg.sh
+bash -eux -o pipefail "${ELBUILD}"/ChrootCfg.sh || \
+    err_exit "Failure encountered with ChrootCfg.sh"
 
 
 echo "Executing GrubSetup.sh"
@@ -361,13 +365,16 @@ fi
 bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
 
 echo "Executing NetSet.sh"
-bash -eux -o pipefail "${ELBUILD}"/NetSet.sh
+bash -eux -o pipefail "${ELBUILD}"/NetSet.sh || \
+    err_exit "Failure encountered with NetSet.sh"
 
 echo "Executing CleanChroot.sh"
-bash -eux -o pipefail "${ELBUILD}"/CleanChroot.sh
+bash -eux -o pipefail "${ELBUILD}"/CleanChroot.sh || \
+    err_exit "Failure encountered with CleanChroot.sh"
 
 echo "Executing PreRelabel.sh"
-bash -eux -o pipefail "${ELBUILD}"/PreRelabel.sh
+bash -eux -o pipefail "${ELBUILD}"/PreRelabel.sh || \
+    err_exit "Failure encountered with PreRelabel.sh"
 
 if [[ -x "${CHROOT}${PYTHON3_BIN}" && ! -s "${CHROOT}${PYTHON3_LINK}" ]]
 then
@@ -395,6 +402,7 @@ fi
 CollectManifest
 
 echo "Executing Umount.sh"
-bash -eux -o pipefail "${ELBUILD}"/Umount.sh
+bash -eux -o pipefail "${ELBUILD}"/Umount.sh || \
+    err_exit "Failure encountered with Umount.sh"
 
 echo "amigen7-build.sh complete"'!'
