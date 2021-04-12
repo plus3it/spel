@@ -155,7 +155,7 @@ retry()
     return $result
 }  # ----------  end of function retry  ----------
 
-DisableStrictHostCheck()
+function DisableStrictHostCheck
 {
     # Take a git ssh connection string of the form:
     #    user@host:account/project.git
