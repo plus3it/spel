@@ -155,7 +155,7 @@ retry()
     return $result
 }  # ----------  end of function retry  ----------
 
-disable_strict_host_check()
+DisableStrictHostCheck()
 {
     # Take a git ssh connection string of the form:
     #    user@host:account/project.git
@@ -260,13 +260,13 @@ done
 if [[ "${AMIGENSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIGen source"
-    disable_strict_host_check "${AMIGENSOURCE}"
+    DisableStrictHostCheck "${AMIGENSOURCE}"
 fi
 
 if [[ "${AMIUTILSSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIUtils source"
-    disable_strict_host_check "${AMIUTILSSOURCE}"
+    DisableStrictHostCheck "${AMIUTILSSOURCE}"
 fi
 
 echo "Cloning source of the AMIGen project"
