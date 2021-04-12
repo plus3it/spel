@@ -283,13 +283,16 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}"
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}" || \
+    err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}"
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}" || \
+     err_exit "Failure encountered with MkChrootTree.sh"
 
 echo "Executing MkTabs.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}" || \
+     err_exit "Failure encountered with MkTabs.sh"
 
 # Construct the cli option string for alternate-manifest
 CLIOPT_ALTMANIFEST=""
