@@ -220,6 +220,27 @@ function CollectManifest {
     rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
 }
 
+function ComposeAWSutilsString
+{
+    # Construct the cli option string for aws utils
+    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
+
+    # Whether to install AWS CLIv1
+    if [[ -n "${AWSCLIV1SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
+    fi
+
+    # Whether to install AWS CLIv2
+    if [[ -n "${AWSCLIV2SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+    fi
+
+    # Epel mirrors are maddening; retry 5 times to work around issues
+    echo "Executing AWSutils.sh"
+    retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[*]}"
+}
 
 set -x
 set -e
@@ -321,28 +342,12 @@ then
 fi
 
 echo "Executing ChrootBuild.sh"
-bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}" "${CLIOPT_ALTMANIFEST[@]}"
+bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}" "${CLIOPT_ALTMANIFEST[@]}" || \
+    err_exit "Failure encountered with ChrootBuild.sh"
 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
-    # Construct the cli option string for aws utils
-    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
-
-    # Whether to install AWS CLIv1
-    if [[ -n "${AWSCLIV1SOURCE}" ]]
-    then
-      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
-    fi
-
-    # Whether to install AWS CLIv2
-    if [[ -n "${AWSCLIV2SOURCE}" ]]
-    then
-      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
-    fi
-
-    # Epel mirrors are maddening; retry 5 times to work around issues
-    echo "Executing AWSutils.sh"
-    retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[*]}"
+    ComposeAWSutilsString
 fi
 
 echo "Executing ChrootCfg.sh"
@@ -362,7 +367,8 @@ then
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
-bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}" || \
+    err_exit "Failure encountered with GrubSetup.sh"
 
 echo "Executing NetSet.sh"
 bash -eux -o pipefail "${ELBUILD}"/NetSet.sh || \
