@@ -267,9 +267,6 @@ function ComposeChrootCliString {
 
 }
 
-set -x
-set -e
-set -o pipefail
 
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
@@ -311,12 +308,14 @@ do
       { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
+# Disable strict host-key checking when doing git-over-ssh
 if [[ "${AMIGENSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIGen source"
     DisableStrictHostCheck "${AMIGENSOURCE}"
 fi
 
+# Disable strict host-key checking when doing git-over-ssh
 if [[ "${AMIUTILSSOURCE}" == *"@"* ]]
 then
     echo "Adding known host for AMIUtils source"
