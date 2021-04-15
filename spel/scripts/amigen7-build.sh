@@ -155,7 +155,7 @@ retry()
     return $result
 }  # ----------  end of function retry  ----------
 
-DisableStrictHostCheck()
+function DisableStrictHostCheck
 {
     # Take a git ssh connection string of the form:
     #    user@host:account/project.git
@@ -220,6 +220,52 @@ function CollectManifest {
     rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
 }
 
+function ComposeAWSutilsString {
+    # Construct the cli option string for aws utils
+    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
+
+    # Whether to install AWS CLIv1
+    if [[ -n "${AWSCLIV1SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
+    fi
+
+    # Whether to install AWS CLIv2
+    if [[ -n "${AWSCLIV2SOURCE}" ]]
+    then
+      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+    fi
+}
+
+function ComposeChrootCliString {
+    # Construct the cli option string for alternate-manifest
+
+    CLIOPT_ALTMANIFEST=""
+    if [[ -n ${AMIGENMANFST} ]]
+    then
+       CLIOPT_ALTMANIFEST=( -m "${AMIGENMANFST}" )
+       echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
+    else
+       CLIOPT_ALTMANIFEST=( -g "${AMIGENPKGGRP}" )
+       echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
+    fi
+
+
+    # Construct the cli option string for extra rpms
+    CLIOPT_EXTRARPMS=""
+    if [[ -n "${EXTRARPMS}" ]]
+    then
+        CLIOPT_EXTRARPMS=(-e "${EXTRARPMS}")
+    fi
+
+    # Construct the cli option string for a custom repo
+    CLIOPT_CUSTOMREPO=""
+    if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
+    then
+        CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
+    fi
+
+}
 
 set -x
 set -e
@@ -294,52 +340,14 @@ echo "Executing MkTabs.sh"
 bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}" || \
     err_exit "Failure encountered with MkTabs.sh"
 
-# Construct the cli option string for alternate-manifest
-CLIOPT_ALTMANIFEST=""
-if [[ -n ${AMIGENMANFST} ]]
-then
-   CLIOPT_ALTMANIFEST=( -m "${AMIGENMANFST}" )
-   echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
-else
-   CLIOPT_ALTMANIFEST=( -g "${AMIGENPKGGRP}" )
-   echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
-fi
-
-
-# Construct the cli option string for extra rpms
-CLIOPT_EXTRARPMS=""
-if [[ -n "${EXTRARPMS}" ]]
-then
-    CLIOPT_EXTRARPMS=(-e "${EXTRARPMS}")
-fi
-
-# Construct the cli option string for a custom repo
-CLIOPT_CUSTOMREPO=""
-if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
-then
-    CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
-fi
-
+ComposeChrootCliString
 echo "Executing ChrootBuild.sh"
 bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}" "${CLIOPT_ALTMANIFEST[@]}"
 
+# Run AWSutils.sh 
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
-    # Construct the cli option string for aws utils
-    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
-
-    # Whether to install AWS CLIv1
-    if [[ -n "${AWSCLIV1SOURCE}" ]]
-    then
-      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
-    fi
-
-    # Whether to install AWS CLIv2
-    if [[ -n "${AWSCLIV2SOURCE}" ]]
-    then
-      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
-    fi
-
+    ComposeAWSutilsString
     # Epel mirrors are maddening; retry 5 times to work around issues
     echo "Executing AWSutils.sh"
     retry 5 bash -eux -o pipefail "${ELBUILD}/AWSutils.sh ${CLIOPT_AWSUTILS[*]}"
@@ -362,7 +370,8 @@ then
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
-bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}"
+bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}" || \
+    err_exit "Failure encountered with GrubSetup.sh"
 
 echo "Executing NetSet.sh"
 bash -eux -o pipefail "${ELBUILD}"/NetSet.sh || \
