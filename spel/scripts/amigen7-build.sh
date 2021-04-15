@@ -271,9 +271,17 @@ set -x
 set -e
 set -o pipefail
 
-echo "Installing build-host dependencies"
-yum -y install "${BUILDDEPS[@]}"
-rpm -q "${BUILDDEPS[@]}"
+# Install supplementary tooling
+if [[ ${#BUILDDEPS[@]} -gt 0 ]]
+then
+   err_exit "Installing build-host dependencies" NONE
+   yum -y install "${BUILDDEPS[@]}" || \
+     err_exit "Failed installing build-host dependencies"
+
+   err_exit "Verifying build-host dependencies" NONE
+   rpm -q "${BUILDDEPS[@]}" || \
+     err_exit "Verification failed"
+fi
 
 echo "Installing custom repo packages in the builder box"
 IFS="," read -r -a BUILDER_CUSTOMREPORPM <<< "$CUSTOMREPORPM"
