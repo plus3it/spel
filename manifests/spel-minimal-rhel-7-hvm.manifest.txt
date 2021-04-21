@@ -1,6 +1,6 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.19.34 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.20.34
-aws-cli/2.1.31 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.19.54 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.20.54
+aws-cli/2.1.38 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -160,9 +160,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1160.21.1.el7.x86_64
-kernel-tools-3.10.0-1160.21.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.21.1.el7.x86_64
+kernel-3.10.0-1160.24.1.el7.x86_64
+kernel-tools-3.10.0-1160.24.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.24.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.1.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
@@ -444,7 +444,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.21.1.el7.x86_64
+python-perf-3.10.0-1160.24.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
