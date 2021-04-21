@@ -41,6 +41,7 @@
                 {
                     "delete_on_termination": true,
                     "device_name": "/dev/sda1",
+                    "encrypted": false,
                     "volume_size": "{{ user `root_volume_size` }}",
                     "volume_type": "gp2"
                 }
@@ -74,6 +75,7 @@
                 {
                     "delete_on_termination": true,
                     "device_name": "/dev/sda1",
+                    "encrypted": false,
                     "volume_size": "{{ user `root_volume_size` }}",
                     "volume_type": "gp2"
                 }
@@ -158,6 +160,7 @@
                 {
                     "delete_on_termination": true,
                     "device_name": "/dev/sda1",
+                    "encrypted": false,
                     "volume_size": "{{ user `root_volume_size` }}",
                     "volume_type": "gp2"
                 }
@@ -191,6 +194,7 @@
                 {
                     "delete_on_termination": true,
                     "device_name": "/dev/sda1",
+                    "encrypted": false,
                     "volume_size": "{{ user `root_volume_size` }}",
                     "volume_type": "gp2"
                 }
