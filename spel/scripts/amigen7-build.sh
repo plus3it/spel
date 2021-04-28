@@ -5,6 +5,7 @@
 #
 ##############################################################################
 PROGNAME="$(basename "$0")"
+AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE:-500m}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
@@ -15,7 +16,7 @@ AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-b
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
-CHROOT="${SPEL_CHROOT:-/mnt/ec2-root}"
+AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
 CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
@@ -107,7 +108,7 @@ then
     MKFSFORCEOPT="-f"
 fi
 
-export CHROOT FIPSDISABLE MKFSFORCEOPT
+export AMIGENCHROOT FIPSDISABLE MKFSFORCEOPT
 
 retry()
 {
@@ -187,7 +188,7 @@ function DisableStrictHostCheck
 # Changing this to a function to better align with amigen8-build
 function CollectManifest {
     echo "Saving the release info to the manifest"
-    cat "${CHROOT}/etc/redhat-release" > /tmp/manifest.txt
+    cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
     
     if [[ "${CLOUDPROVIDER}" == "aws" ]]
     then
@@ -196,7 +197,7 @@ function CollectManifest {
             echo "Saving the aws-cli-v1 version to the manifest"
             [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
             set +x
-            (chroot "${CHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
         if [[ -n "$AWSCLIV2SOURCE" ]]
@@ -204,7 +205,7 @@ function CollectManifest {
             echo "Saving the aws-cli-v2 version to the manifest"
             [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
             set +x
-            (chroot "${CHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
     elif [[ "${CLOUDPROVIDER}" == "azure" ]]
@@ -212,17 +213,17 @@ function CollectManifest {
         echo "Saving the waagent version to the manifest"
         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
         set +x
-        (chroot "${CHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
+        (chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
         eval "$XTRACE"
     fi
     
     echo "Saving the RPM manifest"
-    rpm --root "${CHROOT}" -qa | sort -u >> /tmp/manifest.txt
+    rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
 }
 
 function ComposeAWSutilsString {
     # Construct the cli option string for aws utils
-    CLIOPT_AWSUTILS=("-m ${CHROOT}" "-d ${ELBUILD}/AWSpkgs")
+    CLIOPT_AWSUTILS=("-m ${AMIGENCHROOT}" "-d ${ELBUILD}/AWSpkgs")
 
     # Whether to install AWS CLIv1
     if [[ -n "${AWSCLIV1SOURCE}" ]]
@@ -336,7 +337,7 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}" || \
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
@@ -392,26 +393,26 @@ echo "Executing PreRelabel.sh"
 bash -eux -o pipefail "${ELBUILD}"/PreRelabel.sh || \
     err_exit "Failure encountered with PreRelabel.sh"
 
-if [[ -x "${CHROOT}${PYTHON3_BIN}" && ! -s "${CHROOT}${PYTHON3_LINK}" ]]
+if [[ -x "${AMIGENCHROOT}${PYTHON3_BIN}" && ! -s "${AMIGENCHROOT}${PYTHON3_LINK}" ]]
 then
     echo "Ensuring python3 symlink exists"
-    chroot "$CHROOT" ln -sf "$PYTHON3_BIN" "$PYTHON3_LINK"
+    chroot "$AMIGENCHROOT" ln -sf "$PYTHON3_BIN" "$PYTHON3_LINK"
 fi
 
 if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
     echo "Configuring waagent"
     #per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
-    chroot "${CHROOT}" /usr/sbin/chkconfig waagent on
-    chroot "${CHROOT}" /usr/bin/sed -i 's|USERCTL="yes"|USERCTL="no"|' /etc/sysconfig/network-scripts/ifcfg-eth0
-    echo 'NM_CONTROLLED="no"' >> "${CHROOT}"/etc/sysconfig/network-scripts/ifcfg-eth0
-    chroot "${CHROOT}" /usr/bin/sed -i 's|DHCP_HOSTNAME=localhost.localdomain||' /etc/sysconfig/network-scripts/ifcfg-eth0
+    chroot "${AMIGENCHROOT}" /usr/sbin/chkconfig waagent on
+    chroot "${AMIGENCHROOT}" /usr/bin/sed -i 's|USERCTL="yes"|USERCTL="no"|' /etc/sysconfig/network-scripts/ifcfg-eth0
+    echo 'NM_CONTROLLED="no"' >> "${AMIGENCHROOT}"/etc/sysconfig/network-scripts/ifcfg-eth0
+    chroot "${AMIGENCHROOT}" /usr/bin/sed -i 's|DHCP_HOSTNAME=localhost.localdomain||' /etc/sysconfig/network-scripts/ifcfg-eth0
     ### Allow cloud-init or user to manage resource disk, matches Azure Marketplace Ubuntu image settings
-    chroot "${CHROOT}" /usr/bin/sed -i 's|ResourceDisk.Format=y|ResourceDisk.Format=n|' /etc/waagent.conf
+    chroot "${AMIGENCHROOT}" /usr/bin/sed -i 's|ResourceDisk.Format=y|ResourceDisk.Format=n|' /etc/waagent.conf
     ###
-    chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.Enabled=y|Provisioning.Enabled=n|' /etc/waagent.conf
-    chroot "${CHROOT}" /usr/bin/sed -i 's|Provisioning.UseCloudInit=n|Provisioning.UseCloudInit=y|' /etc/waagent.conf
-    chroot "${CHROOT}" /usr/sbin/waagent -force -deprovision
+    chroot "${AMIGENCHROOT}" /usr/bin/sed -i 's|Provisioning.Enabled=y|Provisioning.Enabled=n|' /etc/waagent.conf
+    chroot "${AMIGENCHROOT}" /usr/bin/sed -i 's|Provisioning.UseCloudInit=n|Provisioning.UseCloudInit=y|' /etc/waagent.conf
+    chroot "${AMIGENCHROOT}" /usr/sbin/waagent -force -deprovision
 fi
 
 # Calling new CollectManifest function
