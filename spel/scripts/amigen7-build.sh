@@ -268,6 +268,9 @@ function ComposeChrootCliString {
 
 }
 
+set -x
+set -e
+set -o pipefail
 
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
