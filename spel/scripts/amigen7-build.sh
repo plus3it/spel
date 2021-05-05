@@ -12,15 +12,26 @@ AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
+# AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
+AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
+# AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
+# AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
+# AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
+# AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
+# AMIGENROOTNM="${SPEL_AMIGEN8_ROOTNM:-UNDEF}"
+# AMIGENSOURCE="${SPEL_AMIGEN8SOURCE:-https://github.com/plus3it/AMIgen8.git}"
+# AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
+# AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
+# AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
+# AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
-AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
 CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
-DEVNODE="${SPEL_DEVNODE:-/dev/nvme0n1}"
+AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
@@ -340,15 +351,15 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${AMIGENBUILDDEV}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}" || \
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${AMIGENBUILDDEV}" "" "${AMIGENSTORLAY}" || \
     err_exit "Failure encountered with MkChrootTree.sh"
 
 echo "Executing MkTabs.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}" || \
+bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${AMIGENBUILDDEV}" || \
     err_exit "Failure encountered with MkTabs.sh"
 
 ComposeChrootCliString
@@ -381,7 +392,7 @@ then
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
-bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}" || \
+bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${AMIGENBUILDDEV}" || \
     err_exit "Failure encountered with GrubSetup.sh"
 
 echo "Executing NetSet.sh"
