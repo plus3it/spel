@@ -267,8 +267,8 @@ defaults):
     "spel_amigen7storlay": "/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
-    "spel_customreponame7": "",
-    "spel_customreporpm7": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
+    "spel_amigen7reponames": "",
+    "spel_amigen7reposource": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_desc_url": "https://github.com/plus3it/spel",
     "spel_disablefips": "",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
@@ -296,8 +296,8 @@ defaults):
 | `spel_amigen7storlay`   | List of MOUNT:VOLNAME:VOLSIZE tuples to customize storage-layout  |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_customreporpm7`   | URL to a custom release RPM containing base repos for EL7         |
-| `spel_customreponame7`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
+| `spel_amigen7reposource`   | URL to a custom release RPM containing base repos for EL7         |
+| `spel_amigen7reponames`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
 | `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
 | `spel_desc_url`         | URL to detailed description of AMI                                |
 | `spel_devnode`          | Override device-path for the bootstrap-host's boot disk           |

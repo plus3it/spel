@@ -12,25 +12,14 @@ AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
-# AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
-# AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
-# AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
-# AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
-# AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
-# AMIGENROOTNM="${SPEL_AMIGEN8_ROOTNM:-UNDEF}"
-# AMIGENSOURCE="${SPEL_AMIGEN8SOURCE:-https://github.com/plus3it/AMIgen8.git}"
-# AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
-# AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
-# AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
-# AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
-CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
+AMIGENREPOS="${SPEL_AMIGENREPOS}"
+AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
@@ -108,9 +97,9 @@ then
 fi
 DEFAULTREPOS+=(epel)
 
-if [[ -z "${CUSTOMREPONAME}" ]]
+if [[ -z "${AMIGENREPOS}" ]]
 then
-    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
 fi
 
 MKFSFORCEOPT="-F"
@@ -272,9 +261,9 @@ function ComposeChrootCliString {
 
     # Construct the cli option string for a custom repo
     CLIOPT_CUSTOMREPO=""
-    if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
+    if [[ -n "${AMIGENREPOSRC}" && -n "${AMIGENREPOS}" ]]
     then
-        CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
+        CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${AMIGENREPOS}")
     fi
 
 }
@@ -296,15 +285,15 @@ then
 fi
 
 echo "Installing custom repo packages in the builder box"
-IFS="," read -r -a BUILDER_CUSTOMREPORPM <<< "$CUSTOMREPORPM"
-for RPM in "${BUILDER_CUSTOMREPORPM[@]}"
+IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
+for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
 do
       { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$CUSTOMREPONAME" > /dev/null
+yum-config-manager --enable "$AMIGENREPOS" > /dev/null
 
 if [[ -n "${EPELRELEASE}" ]]
 then
