@@ -300,7 +300,7 @@ defaults):
 | `spel_amigen7reponames`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
 | `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
 | `spel_desc_url`         | URL to detailed description of AMI                                |
-| `spel_devnode`          | Override device-path for the bootstrap-host's boot disk           |
+| `spel_amigenbuilddev`          | Override device-path for the bootstrap-host's boot disk           |
 | `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
