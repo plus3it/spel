@@ -263,12 +263,12 @@ defaults):
     "source_ami_centos7_hvm": "ami-090b9dabe1c9f40b3",
     "source_ami_rhel7_hvm": "ami-0394fe9914b475c53",
     "spel_amigen7branch": "master",
+    "spel_amigen7reponames": "",
+    "spel_amigen7reposource": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
     "spel_amigen7storlay": "/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE",
     "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
-    "spel_amigen7reponames": "",
-    "spel_amigen7reposource": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_desc_url": "https://github.com/plus3it/spel",
     "spel_disablefips": "",
     "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
@@ -286,24 +286,24 @@ defaults):
 | Variable Name           | Description                                                       |
 |-------------------------|-------------------------------------------------------------------|
 | `root_volume_size`      | Size (in GiB) of image root volume                                |
-| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
-| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
 | `security_group_cidrs`  | CIDRs to restrict security group created by Packer                |
-| `spel_identifier`       | Project ID to associate to the resulting images                   |
-| `spel_version`          | Version to assign to the resulting image(s)                       |
-| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
 | `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use             |
+| `spel_amigen7reponames` | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
+| `spel_amigen7reposource`| URL to a custom release RPM containing base repos for EL7         |
+| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
 | `spel_amigen7storlay`   | List of MOUNT:VOLNAME:VOLSIZE tuples to customize storage-layout  |
+| `spel_amigenbuilddev`   | Override device-path for the bootstrap-host's boot disk           |
 | `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
 | `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_amigen7reposource`   | URL to a custom release RPM containing base repos for EL7         |
-| `spel_amigen7reponames`  | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
-| `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
 | `spel_desc_url`         | URL to detailed description of AMI                                |
-| `spel_amigenbuilddev`          | Override device-path for the bootstrap-host's boot disk           |
+| `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
 | `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
 | `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
 | `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
+| `spel_identifier`       | Project ID to associate to the resulting images                   |
+| `spel_version`          | Version to assign to the resulting image(s)                       |
+| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
+| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
 
 For more details on the syntax for `spel_amigen7storlay`, refer to the [AMIgen doc on custom partitioning][32].
 
