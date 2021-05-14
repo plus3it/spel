@@ -542,7 +542,7 @@
         "azure_subnet_name": "",
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
-        "azure_vm_size": "Standard_DS3_v2",
+        "azure_vm_size": "Standard_DS5_v2",
         "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso",
         "iso_url_centos8": "http://mirror.cs.vt.edu/pub/CentOS/8/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
         "openstack_allow_insecure_connection": "false",
