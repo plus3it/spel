@@ -1,5 +1,19 @@
 ## Changelog
 
+### 2021.05.1
+
+**Released**: 2021.05.19
+
+**Commit Delta**: [Change from 2021.04.1 release](https://github.com/plus3it/spel/compare/2021.04.1...2021.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.05.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.19.75
+    - aws-cli/2.2.5
+
 ### 2021.04.1
 
 **Released**: 2021.04.20

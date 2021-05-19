@@ -1,6 +1,6 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.19.54 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.20.54
-aws-cli/2.1.38 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.19.75 Python/2.7.5 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.20.75
+aws-cli/2.2.5 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -30,7 +30,7 @@ aws-scripts-ses-2014.05.14-1.2.el7.noarch
 basesystem-10.0-7.el7.noarch
 bash-4.2.46-34.el7.x86_64
 bc-1.06.95-13.el7.x86_64
-bind-export-libs-9.11.4-26.P2.el7_9.4.x86_64
+bind-export-libs-9.11.4-26.P2.el7_9.5.x86_64
 binutils-2.27-44.base.el7.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -60,10 +60,10 @@ dbus-python-1.1.1-9.el7.x86_64
 dejavu-fonts-common-2.33-6.el7.noarch
 dejavu-sans-fonts-2.33-6.el7.noarch
 desktop-file-utils-0.23-2.el7.x86_64
-device-mapper-1.02.170-6.el7_9.4.x86_64
-device-mapper-event-1.02.170-6.el7_9.4.x86_64
-device-mapper-event-libs-1.02.170-6.el7_9.4.x86_64
-device-mapper-libs-1.02.170-6.el7_9.4.x86_64
+device-mapper-1.02.170-6.el7_9.5.x86_64
+device-mapper-event-1.02.170-6.el7_9.5.x86_64
+device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64
+device-mapper-libs-1.02.170-6.el7_9.5.x86_64
 device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64
 dhclient-4.2.5-82.el7.x86_64
 dhcp-common-4.2.5-82.el7.x86_64
@@ -96,8 +96,8 @@ filesystem-3.2-25.el7.x86_64
 findutils-4.5.11-6.el7.x86_64
 fipscheck-1.4.1-6.el7.x86_64
 fipscheck-lib-1.4.1-6.el7.x86_64
-firewalld-0.6.3-12.el7.noarch
-firewalld-filesystem-0.6.3-12.el7.noarch
+firewalld-0.6.3-13.el7_9.noarch
+firewalld-filesystem-0.6.3-13.el7_9.noarch
 fontconfig-2.13.0-4.3.el7.x86_64
 fontpackages-filesystem-1.44-8.el7.noarch
 freetype-2.8-14.el7_9.1.x86_64
@@ -110,8 +110,8 @@ gettext-0.19.8.1-3.el7.x86_64
 gettext-libs-0.19.8.1-3.el7.x86_64
 giflib-4.1.6-9.el7.x86_64
 glib2-2.56.1-8.el7.x86_64
-glibc-2.17-323.el7_9.x86_64
-glibc-common-2.17-323.el7_9.x86_64
+glibc-2.17-324.el7_9.x86_64
+glibc-common-2.17-324.el7_9.x86_64
 gmp-6.0.0-15.el7.x86_64
 gnupg2-2.0.22-5.el7_5.x86_64
 gobject-introspection-1.56.1-1.el7.x86_64
@@ -152,18 +152,18 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-12.el7.x86_64
 jansson-2.10-1.el7.x86_64
 jasper-libs-1.900.1-33.el7.x86_64
-java-1.8.0-openjdk-1.8.0.282.b08-1.el7_9.x86_64
-java-1.8.0-openjdk-headless-1.8.0.282.b08-1.el7_9.x86_64
+java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64
+java-1.8.0-openjdk-headless-1.8.0.292.b10-1.el7_9.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1160.24.1.el7.x86_64
-kernel-tools-3.10.0-1160.24.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.24.1.el7.x86_64
-kexec-tools-2.0.15-51.el7_9.1.x86_64
+kernel-3.10.0-1160.25.1.el7.x86_64
+kernel-tools-3.10.0-1160.25.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.25.1.el7.x86_64
+kexec-tools-2.0.15-51.el7_9.2.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -273,8 +273,8 @@ lksctp-tools-1.0.17-2.el7.x86_64
 logrotate-3.8.6-19.el7.x86_64
 lshw-B.02.18-17.el7.x86_64
 lua-5.1.4-15.el7.x86_64
-lvm2-2.02.187-6.el7_9.4.x86_64
-lvm2-libs-2.02.187-6.el7_9.4.x86_64
+lvm2-2.02.187-6.el7_9.5.x86_64
+lvm2-libs-2.02.187-6.el7_9.5.x86_64
 lz4-1.8.3-1.el7.x86_64
 lzo-2.06-8.el7.x86_64
 m2crypto-0.21.1-17.el7.x86_64
@@ -300,17 +300,17 @@ newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
 nfs-utils-1.3.0-0.68.el7.x86_64
 nspr-4.25.0-2.el7_9.x86_64
-nss-3.53.1-3.el7_9.x86_64
+nss-3.53.1-7.el7_9.x86_64
 nss-pem-1.0.3-7.el7.x86_64
 nss-softokn-3.53.1-6.el7_9.x86_64
 nss-softokn-freebl-3.53.1-6.el7_9.x86_64
-nss-sysinit-3.53.1-3.el7_9.x86_64
-nss-tools-3.53.1-3.el7_9.x86_64
+nss-sysinit-3.53.1-7.el7_9.x86_64
+nss-tools-3.53.1-7.el7_9.x86_64
 nss-util-3.53.1-1.el7_9.x86_64
 ntp-4.2.6p5-29.el7_8.2.x86_64
 ntpdate-4.2.6p5-29.el7_8.2.x86_64
 numactl-libs-2.0.12-5.el7.x86_64
-openldap-2.4.44-22.el7.x86_64
+openldap-2.4.44-23.el7_9.x86_64
 openssh-7.4p1-21.el7.x86_64
 openssh-clients-7.4p1-21.el7.x86_64
 openssh-server-7.4p1-21.el7.x86_64
@@ -425,7 +425,7 @@ python-dateutil-1.5-7.el7.noarch
 python-decorator-3.4.0-3.el7.noarch
 python-dmidecode-3.12.2-4.el7.x86_64
 python-ethtool-0.8-8.el7.x86_64
-python-firewall-0.6.3-12.el7.noarch
+python-firewall-0.6.3-13.el7_9.noarch
 python-gobject-base-3.22.0-1.el7_4.1.x86_64
 python-gudev-147.2-7.el7.x86_64
 python-hwdata-1.7.3-4.el7.noarch
@@ -444,7 +444,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.24.1.el7.x86_64
+python-perf-3.10.0-1160.25.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -454,7 +454,7 @@ python-setuptools-0.9.8-7.el7.noarch
 python-six-1.9.0-2.el7.noarch
 python-slip-0.4.0-4.el7.noarch
 python-slip-dbus-0.4.0-4.el7.noarch
-python-syspurpose-1.24.45-1.el7_9.x86_64
+python-syspurpose-1.24.48-1.el7_9.x86_64
 python-urlgrabber-3.10-10.el7.noarch
 python-urllib3-1.10.2-7.el7.noarch
 pyxattr-0.5.1-5.el7.x86_64
@@ -462,7 +462,7 @@ PyYAML-3.10-11.el7.x86_64
 qrencode-libs-3.4.1-3.el7.x86_64
 quota-4.01-19.el7.x86_64
 quota-nls-4.01-19.el7.noarch
-rdma-core-22.4-5.el7.x86_64
+rdma-core-22.4-6.el7_9.x86_64
 readline-6.2-11.el7.x86_64
 Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.9-6.el7_9.x86_64
@@ -504,9 +504,9 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 stunnel-4.56-6.el7.x86_64
-subscription-manager-1.24.45-1.el7_9.x86_64
-subscription-manager-rhsm-1.24.45-1.el7_9.x86_64
-subscription-manager-rhsm-certificates-1.24.45-1.el7_9.x86_64
+subscription-manager-1.24.48-1.el7_9.x86_64
+subscription-manager-rhsm-1.24.48-1.el7_9.x86_64
+subscription-manager-rhsm-certificates-1.24.48-1.el7_9.x86_64
 sudo-1.8.23-10.el7_9.1.x86_64
 systemd-219-78.el7_9.3.x86_64
 systemd-libs-219-78.el7_9.3.x86_64
