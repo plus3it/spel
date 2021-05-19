@@ -11,8 +11,3 @@ system_info:
     gecos: spel admin account
     lock_passwd: true
     sudo: ["ALL=(root) NOPASSWD:ALL"]
-
-bootcmd:
-  - setenforce 0
-
-package_upgrade: true
