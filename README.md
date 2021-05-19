@@ -53,6 +53,8 @@ directory.
 |               | [spel-minimal-centos-7-hvm][1017] |
 | us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]   |
 |               | [spel-minimal-centos-7-hvm][1022] |
+| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]   |
+|               | [spel-minimal-centos-7-hvm][1026] |
 
 | Vagrant Cloud Name                    | Vagrant Provider |
 |---------------------------------------|------------------|
@@ -116,6 +118,8 @@ These EL6 images were created with the help of the [`AMIgen6`][8] project.
 [1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1023]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
 [1024]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1025]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1026]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 
 [2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6>
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
