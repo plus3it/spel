@@ -291,7 +291,9 @@
         {
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
             "inline": [
-                "/usr/bin/cloud-init status --wait"
+                "/usr/bin/cloud-init status --wait",
+                "setenforce 0",
+                "yum -y update"
             ],
             "only": [
                 "minimal-centos-7-hvm",
