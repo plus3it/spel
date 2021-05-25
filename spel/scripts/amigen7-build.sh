@@ -7,8 +7,12 @@
 PROGNAME="$(basename "$0")"
 AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE:-500m}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
+AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
+AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
+AMIGENREPOS="${SPEL_AMIGENREPOS}"
+AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
@@ -16,11 +20,7 @@ AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-b
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
-AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-CUSTOMREPONAME="${SPEL_CUSTOMREPONAME}"
-CUSTOMREPORPM="${SPEL_CUSTOMREPORPM}"
-DEVNODE="${SPEL_DEVNODE:-/dev/nvme0n1}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
@@ -97,9 +97,9 @@ then
 fi
 DEFAULTREPOS+=(epel)
 
-if [[ -z "${CUSTOMREPONAME}" ]]
+if [[ -z "${AMIGENREPOS}" ]]
 then
-    CUSTOMREPONAME=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
 fi
 
 MKFSFORCEOPT="-F"
@@ -189,7 +189,7 @@ function DisableStrictHostCheck
 function CollectManifest {
     echo "Saving the release info to the manifest"
     cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
-    
+
     if [[ "${CLOUDPROVIDER}" == "aws" ]]
     then
         if [[ -n "$AWSCLIV1SOURCE" ]]
@@ -216,7 +216,7 @@ function CollectManifest {
         (chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
         eval "$XTRACE"
     fi
-    
+
     echo "Saving the RPM manifest"
     rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
 }
@@ -261,9 +261,9 @@ function ComposeChrootCliString {
 
     # Construct the cli option string for a custom repo
     CLIOPT_CUSTOMREPO=""
-    if [[ -n "${CUSTOMREPORPM}" && -n "${CUSTOMREPONAME}" ]]
+    if [[ -n "${AMIGENREPOSRC}" && -n "${AMIGENREPOS}" ]]
     then
-        CLIOPT_CUSTOMREPO=(-r "${CUSTOMREPORPM}" -b "${CUSTOMREPONAME}")
+        CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${AMIGENREPOS}")
     fi
 
 }
@@ -285,15 +285,15 @@ then
 fi
 
 echo "Installing custom repo packages in the builder box"
-IFS="," read -r -a BUILDER_CUSTOMREPORPM <<< "$CUSTOMREPORPM"
-for RPM in "${BUILDER_CUSTOMREPORPM[@]}"
+IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
+for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
 do
       { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$CUSTOMREPONAME" > /dev/null
+yum-config-manager --enable "$AMIGENREPOS" > /dev/null
 
 if [[ -n "${EPELRELEASE}" ]]
 then
@@ -340,22 +340,22 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${DEVNODE}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${AMIGENBUILDDEV}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${DEVNODE}" "" "${AMIGENSTORLAY}" || \
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${AMIGENBUILDDEV}" "" "${AMIGENSTORLAY}" || \
     err_exit "Failure encountered with MkChrootTree.sh"
 
 echo "Executing MkTabs.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${DEVNODE}" || \
+bash -eux -o pipefail "${ELBUILD}"/MkTabs.sh "${AMIGENBUILDDEV}" || \
     err_exit "Failure encountered with MkTabs.sh"
 
 ComposeChrootCliString
 echo "Executing ChrootBuild.sh"
 bash -eux -o pipefail "${ELBUILD}"/ChrootBuild.sh "${CLIOPT_CUSTOMREPO[@]}" "${CLIOPT_EXTRARPMS[@]}" "${CLIOPT_ALTMANIFEST[@]}"
 
-# Run AWSutils.sh 
+# Run AWSutils.sh
 if [[ "${CLOUDPROVIDER}" == "aws" ]]
 then
     ComposeAWSutilsString
@@ -381,7 +381,7 @@ then
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
-bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${DEVNODE}" || \
+bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${AMIGENBUILDDEV}" || \
     err_exit "Failure encountered with GrubSetup.sh"
 
 echo "Executing NetSet.sh"
