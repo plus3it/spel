@@ -15,6 +15,7 @@ AMIGENREPOS="${SPEL_AMIGENREPOS}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
+AMIGENVGNAME="${SPEL_AMIGENVGNAME:-VolGroup00}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
@@ -25,7 +26,7 @@ EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-rele
 EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
-VGNAME="${SPEL_VGNAME:-VolGroup00}"
+
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
 
@@ -340,7 +341,7 @@ do
 done
 
 echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${VGNAME}" -d "${AMIGENBUILDDEV}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
+bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${AMIGENVGNAME}" -d "${AMIGENBUILDDEV}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"

@@ -396,7 +396,7 @@
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_VGNAME=VolGroup00"
+                "SPEL_AMIGENVGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -430,7 +430,7 @@
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_VGNAME=VolGroup00"
+                "SPEL_AMIGENVGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -491,7 +491,7 @@
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_VGNAME=VolGroup00"
+                "SPEL_AMIGENVGNAME=VolGroup00"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
