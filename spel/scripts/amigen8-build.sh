@@ -12,6 +12,7 @@ AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
+AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
 AMIGENROOTNM="${SPEL_AMIGEN8_ROOTNM:-UNDEF}"
@@ -24,10 +25,11 @@ AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-b
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
-ELBUILD="/tmp/el-build"
+
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
 
+ELBUILD="/tmp/el-build"
 
 # Make interactive-execution more-verbose unless explicitly told not to
 if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
@@ -299,6 +301,14 @@ function ComposeOSpkgString {
       err_exit "Installing no custom repo-config RPMs" NONE
    else
       OSPACKAGESTRING+="-r ${AMIGENREPOSRC}"
+   fi
+
+   # Add custom manifest file
+   if [[ ${AMIGENMANFST} == "UNDEF" ]]
+   then
+      err_exit "Installing no custom mainfest" NONE
+   else
+      OSPACKAGESTRING+="-M ${AMIGENREPOSRC}"
    fi
 
    # Return command-string for OS-script
