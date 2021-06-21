@@ -9,10 +9,12 @@ AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE:-500m}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
+AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-ext4}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENREPOS="${SPEL_AMIGENREPOS}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
+AMIGENROOTNM="${SPEL_AMIGEN8ROOTNM:-UNDEF}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-VolGroup00}"
@@ -266,8 +268,59 @@ function ComposeChrootCliString {
     then
         CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${AMIGENREPOS}")
     fi
-
 }
+
+## # Pick options for disk-setup command
+function ComposeDiskSetupString {
+   local DISKSETUPCMD
+
+   DISKSETUPCMD="DiskSetup.sh "
+
+   # Set the offset for the OS partition
+   if [[ ${AMIGENBOOTSIZE} == "UNDEF" ]]
+   then
+      err_exit "Using minimal offset [17m] for root volumes" NONE
+      DISKSETUPCMD+="-B 17m "
+   else
+      DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
+   fi
+
+   # Set the filesystem-type to use for OS filesystems
+   if [[ ${AMIGENFSTYPE} == "ext4" ]]
+   then
+      err_exit "Using default fstype [ext4] for boot filesysems" NONE
+   fi
+   DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
+
+   # Set requested custom storage layout as necessary
+   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+   then
+      err_exit "Using script-default for boot-volume layout" NONE
+   else
+      DISKSETUPCMD+="-p ${AMIGENSTORLAY} "
+   fi
+
+   # Set LVM2 or bare disk-formatting
+   if [[ ${AMIGENVGNAME} != "UNDEF" ]]
+   then
+      DISKSETUPCMD+="-v ${AMIGENVGNAME} "
+   elif [[ ${AMIGENROOTNM} != "UNDEF" ]]
+   then
+      DISKSETUPCMD+="-r ${AMIGENROOTNM} "
+   fi
+
+   # Set device to carve
+   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+   then
+      err_exit "Failed to define device to partition"
+   else
+      DISKSETUPCMD+="-d ${AMIGENBUILDDEV}"
+   fi
+
+   # Return command-string for disk-setup script
+   echo "${DISKSETUPCMD}"
+}
+
 
 set -x
 set -e
@@ -340,12 +393,12 @@ do
     ln "${RPM}" "${ELBUILD}"/AWSpkgs/
 done
 
-echo "Executing DiskSetup.sh"
-bash -eux -o pipefail "${ELBUILD}"/DiskSetup.sh -b "${BOOTLABEL}" -v "${AMIGENVGNAME}" -d "${AMIGENBUILDDEV}" -p "${AMIGENSTORLAY}" -B "${AMIGENBOOTSIZE}" || \
+# Invoke disk-partitioner
+bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
-bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${AMIGENBUILDDEV}" "" "${AMIGENSTORLAY}" || \
+bash -eux -o pipefail "${ELBUILD}"/MkChrootTree.sh "${AMIGENBUILDDEV}" "" -p "${AMIGENSTORLAY}" || \
     err_exit "Failure encountered with MkChrootTree.sh"
 
 echo "Executing MkTabs.sh"
