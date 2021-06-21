@@ -270,19 +270,19 @@ function ComposeChrootCliString {
     fi
 }
 
+declare -a DISKSETUPCMD
 ## # Pick options for disk-setup command
 function ComposeDiskSetupString {
-   local DISKSETUPCMD
 
-   DISKSETUPCMD="DiskSetup.sh "
+   DISKSETUPCMD=("DiskSetup.sh")
 
    # Set the offset for the OS partition
    if [[ ${AMIGENBOOTSIZE} == "UNDEF" ]]
    then
       err_exit "Using minimal offset [17m] for root volumes" NONE
-      DISKSETUPCMD+="-B 17m "
+      DISKSETUPCMD+=("-B 17m ")
    else
-      DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
+      DISKSETUPCMD+=("-B" "${AMIGENBOOTSIZE}")
    fi
 
    # Set the bootlabel for the OS partition
@@ -290,7 +290,7 @@ function ComposeDiskSetupString {
    then
       err_exit "boot label needs to be defined" NONE
    else
-      DISKSETUPCMD+="-b ${BOOTLABEL} "
+      DISKSETUPCMD+=("-b" "${BOOTLABEL}")
    fi
 
    # Set the filesystem-type to use for OS filesystems
@@ -298,23 +298,23 @@ function ComposeDiskSetupString {
    then
       err_exit "Using default fstype [ext4] for boot filesysems" NONE
    fi
-   DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
+   DISKSETUPCMD+=("-f" "${AMIGENFSTYPE}")
 
    # Set requested custom storage layout as necessary
    if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
    then
       err_exit "Using script-default for boot-volume layout" NONE
    else
-      DISKSETUPCMD+="-p ${AMIGENSTORLAY} "
+      DISKSETUPCMD+=("-p" "${AMIGENSTORLAY}")
    fi
 
    # Set LVM2 or bare disk-formatting
    if [[ ${AMIGENVGNAME} != "UNDEF" ]]
    then
-      DISKSETUPCMD+="-v ${AMIGENVGNAME} "
+      DISKSETUPCMD+=("-v" "${AMIGENVGNAME}")
    elif [[ ${AMIGENROOTNM} != "UNDEF" ]]
    then
-      DISKSETUPCMD+="-r ${AMIGENROOTNM} "
+      DISKSETUPCMD+=("-r" "${AMIGENROOTNM}")
    fi
 
    # Set device to carve
@@ -322,11 +322,8 @@ function ComposeDiskSetupString {
    then
       err_exit "Failed to define device to partition"
    else
-      DISKSETUPCMD+="-d ${AMIGENBUILDDEV}"
+      DISKSETUPCMD+=("-d" "${AMIGENBUILDDEV}")
    fi
-
-   # Return command-string for disk-setup script
-   echo "${DISKSETUPCMD}"
 }
 
 
@@ -402,7 +399,8 @@ do
 done
 
 # Invoke disk-partitioner
-bash -euxo pipefail "${ELBUILD}"/"$( ComposeDiskSetupString )" || \
+ComposeDiskSetupString
+bash -euxo pipefail "${ELBUILD}"/"${DISKSETUPCMD[*]}" || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
