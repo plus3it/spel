@@ -402,7 +402,7 @@ do
 done
 
 # Invoke disk-partitioner
-bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
+bash -euxo pipefail "${ELBUILD}"/"$( ComposeDiskSetupString )" || \
     err_exit "Failure encountered with DiskSetup.sh"
 
 echo "Executing MkChrootTree.sh"
