@@ -285,6 +285,14 @@ function ComposeDiskSetupString {
       DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
    fi
 
+   # Set the bootlabel for the OS partition
+   if [[ ${BOOTLABEL} == "UNDEF" ]]
+   then
+      err_exit "boot label needs to be defined" NONE
+   else
+      DISKSETUPCMD+="-b ${BOOTLABEL} "
+   fi
+
    # Set the filesystem-type to use for OS filesystems
    if [[ ${AMIGENFSTYPE} == "ext4" ]]
    then
