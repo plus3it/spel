@@ -383,8 +383,10 @@
                 "SPEL_AMIGENPKGGRP={{ user `spel_amigen7pkggrp` }}",
                 "SPEL_AMIGENREPOS={{ user `spel_amigen7reponames` }}",
                 "SPEL_AMIGENREPOSRC={{ user `spel_amigen7reposource` }}",
+                "SPEL_AMIGENROOTNM={{ user `spel_amigen7rootnm` }}",
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
                 "SPEL_AMIGENSTORLAY={{ user `spel_amigen7storlay` }}",
+                "SPEL_AMIGENVGNAME=VolGroup00",
                 "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
                 "SPEL_AWSCLIV1SOURCE={{ user `spel_aws_cliv1_source` }}",
                 "SPEL_AWSCLIV2SOURCE={{ user `spel_aws_cliv2_source` }}",
@@ -395,8 +397,7 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_AMIGENVGNAME=VolGroup00"
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -419,6 +420,7 @@
                 "SPEL_AMIGENREPOSRC={{ user `spel_amigen7reposource` }}",
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
                 "SPEL_AMIGENSTORLAY={{ user `spel_amigen7storlay` }}",
+                "SPEL_AMIGENVGNAME=VolGroup00",
                 "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
                 "SPEL_AWSCLIV1SOURCE={{ user `spel_aws_cliv1_source` }}",
                 "SPEL_AWSCLIV2SOURCE={{ user `spel_aws_cliv2_source` }}",
@@ -429,8 +431,7 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_AMIGENVGNAME=VolGroup00"
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -452,7 +453,7 @@
                 "SPEL_AMIGENMANFST={{ user `spel_amigen8manfst` }}",
                 "SPEL_AMIGENREPOS={{ user `spel_amigen8reponames` }}",
                 "SPEL_AMIGENREPOSRC={{ user `spel_amigen8reposource` }}",
-                "SPEL_AMIGEN8ROOTNM={{ user `spel_amigen8rootnm` }}",
+                "SPEL_AMIGENROOTNM={{ user `spel_amigen8rootnm` }}",
                 "SPEL_AMIGEN8SOURCE={{ user `spel_amigen8source` }}",
                 "SPEL_AMIGENSSMAGENT={{ user `spel_aws_ssmagent_source` }}",
                 "SPEL_AMIGENSTORLAY={{ user `spel_amigen8storlay` }}",
@@ -482,6 +483,7 @@
                 "SPEL_AMIGENREPOSRC={{ user `spel_amigen7reposource` }}",
                 "SPEL_AMIGENSOURCE={{ user `spel_amigen7source` }}",
                 "SPEL_AMIGENSTORLAY={{ user `spel_amigen7storlay` }}",
+                "SPEL_AMIGENVGNAME=VolGroup00",
                 "SPEL_AMIUTILSSOURCE={{ user `spel_amiutilsource` }}",
                 "SPEL_AWSCLISOURCE={{ user `spel_aws_cliv1_source` }}",
                 "SPEL_BOOTLABEL=/boot",
@@ -491,8 +493,7 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_AMIGENVGNAME=VolGroup00"
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -565,6 +566,7 @@
         "spel_amigen7pkggrp": "core",
         "spel_amigen7reponames": "",
         "spel_amigen7reposource": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
+        "spel_amigen7rootnm": "",
         "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
         "spel_amigen7storlay": "/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE",
         "spel_amigen8bootsize": "20",
