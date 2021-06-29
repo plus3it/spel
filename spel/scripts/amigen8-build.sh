@@ -25,6 +25,7 @@ AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-b
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
+FIPSDISABLE="${SPEL_FIPSDISABLE}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
@@ -62,6 +63,8 @@ function err_exit {
       exit "${SCRIPTEXIT}"
    fi
 }
+
+export FIPSDISABLE
 
 # Run the builder-scripts
 function BuildChroot {
@@ -386,6 +389,23 @@ then
    rpm -q "${BUILDDEPS[@]}" || \
      err_exit "Verification failed"
 fi
+
+if [[ -n "${EPELRELEASE}" ]]
+then
+    { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+fi
+
+if [[ -n "${EPELREPO}" ]]
+then
+    yum-config-manager --enable "$EPELREPO" > /dev/null
+fi
+
+echo "Installing specified extra packages in the builder box"
+IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
+for RPM in "${BUILDER_EXTRARPMS[@]}"
+do
+      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+done
 
 # Disable strict host-key checking when doing git-over-ssh
 if [[ ${AMIGENSOURCE} =~ "@" ]]
