@@ -105,9 +105,11 @@ function CollectManifest {
 
    if [[ "${CLOUDPROVIDER}" == "aws" ]]
    then
-      echo "Saving the aws cli version to the manifest"
-      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-      set +x
+      if [[ -n "$AWSCLIV1SOURCE" ]]
+      then
+         echo "Saving the aws cli version to the manifest"
+         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+         set +x
       (
          chroot "${AMIGENCHROOT}" bash -c "(
             [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
@@ -115,6 +117,19 @@ function CollectManifest {
          )" >> /tmp/manifest.txt 2>&1
       )
       eval "$XTRACE"
+      fi
+      if [[ -n "$AWSCLIV2SOURCE" ]]
+      then
+         echo "Saving the aws-cli-v2 version to the manifest"
+         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+         set +x
+      (
+         chroot "${AMIGENCHROOT}" bash -c "(
+            [[ -x /usr/local/bin/aws2 ]] && /usr/local/bin/aws2 --version
+            )" >> /tmp/manifest.txt 2>&1
+      )
+      eval "$XTRACE"
+      fi
 
       ###
       # AWS SSM-Agent is insalled via RPM: if the AWS
