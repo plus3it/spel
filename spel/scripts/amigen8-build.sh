@@ -13,6 +13,7 @@ AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
+AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-UNDEF}"
 AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
 AMIGENROOTNM="${SPEL_AMIGENROOTNM:-UNDEF}"
@@ -25,6 +26,9 @@ AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-b
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
+EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
+EPELREPO="${SPEL_EPELREPO:-epel}"
+FIPSDISABLE="${SPEL_FIPSDISABLE}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
@@ -63,6 +67,8 @@ function err_exit {
    fi
 }
 
+export FIPSDISABLE
+
 # Run the builder-scripts
 function BuildChroot {
 
@@ -96,41 +102,38 @@ function BuildChroot {
 
 # Create a record of the build
 function CollectManifest {
+    echo "Saving the release info to the manifest"
+    cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
 
-   echo "Saving the release info to the manifest"
-   cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
+    if [[ "${CLOUDPROVIDER}" == "aws" ]]
+    then
+        if [[ -n "$AWSCLIV1SOURCE" ]]
+        then
+            echo "Saving the aws-cli-v1 version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
+        if [[ -n "$AWSCLIV2SOURCE" ]]
+        then
+            echo "Saving the aws-cli-v2 version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
+    elif [[ "${CLOUDPROVIDER}" == "azure" ]]
+    then
+        echo "Saving the waagent version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
+        eval "$XTRACE"
+    fi
 
-   if [[ "${CLOUDPROVIDER}" == "aws" ]]
-   then
-      echo "Saving the aws cli version to the manifest"
-      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-      set +x
-      (
-         chroot "${AMIGENCHROOT}" bash -c "(
-            [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
-            [[ -x /usr/local/bin/aws ]] && /usr/local/bin/aws --version
-         )" >> /tmp/manifest.txt 2>&1
-      )
-      eval "$XTRACE"
-
-      ###
-      # AWS SSM-Agent is insalled via RPM: if the AWS
-      # SSM-Agent is installed, it will show # up in the
-      # `rpm` output (below)
-      ###
-
-   elif [[ "${CLOUDPROVIDER}" == "azure" ]]
-   then
-      echo "Saving the waagent version to the manifest"
-      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-      set +x
-      chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
-      eval "$XTRACE"
-   fi
-
-   echo "Saving the RPM manifest"
-   rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
-
+    echo "Saving the RPM manifest"
+    rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
 }
 
 # Pick options for the AWSutils install command
@@ -311,6 +314,14 @@ function ComposeOSpkgString {
       OSPACKAGESTRING+="-M ${AMIGENREPOSRC}"
    fi
 
+   # Add custom pkg group
+   if [[ ${AMIGENPKGGRP} == "UNDEF" ]]
+   then
+      err_exit "Installing no custom package group" NONE
+   else
+      OSPACKAGESTRING+="-g ${AMIGENPKGGRP}"
+   fi
+
    # Return command-string for OS-script
    echo "${OSPACKAGESTRING}"
 }
@@ -386,6 +397,23 @@ then
    rpm -q "${BUILDDEPS[@]}" || \
      err_exit "Verification failed"
 fi
+
+if [[ -n "${EPELRELEASE}" ]]
+then
+    { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+fi
+
+if [[ -n "${EPELREPO}" ]]
+then
+    yum-config-manager --enable "$EPELREPO" > /dev/null
+fi
+
+echo "Installing specified extra packages in the builder box"
+IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
+for RPM in "${BUILDER_EXTRARPMS[@]}"
+do
+      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+done
 
 # Disable strict host-key checking when doing git-over-ssh
 if [[ ${AMIGENSOURCE} =~ "@" ]]
