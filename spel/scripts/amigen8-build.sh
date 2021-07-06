@@ -102,56 +102,38 @@ function BuildChroot {
 
 # Create a record of the build
 function CollectManifest {
+    echo "Saving the release info to the manifest"
+    cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
 
-   echo "Saving the release info to the manifest"
-   cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
+    if [[ "${CLOUDPROVIDER}" == "aws" ]]
+    then
+        if [[ -n "$AWSCLIV1SOURCE" ]]
+        then
+            echo "Saving the aws-cli-v1 version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
+        if [[ -n "$AWSCLIV2SOURCE" ]]
+        then
+            echo "Saving the aws-cli-v2 version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
+    elif [[ "${CLOUDPROVIDER}" == "azure" ]]
+    then
+        echo "Saving the waagent version to the manifest"
+        [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+        set +x
+        (chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
+        eval "$XTRACE"
+    fi
 
-   if [[ "${CLOUDPROVIDER}" == "aws" ]]
-   then
-      if [[ -n "$AWSCLIV1SOURCE" ]]
-      then
-         echo "Saving the aws cli version to the manifest"
-         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-         set +x
-      (
-         chroot "${AMIGENCHROOT}" bash -c "(
-            [[ -x /usr/bin/aws ]] && /usr/bin/aws --version
-            [[ -x /usr/local/bin/aws ]] && /usr/local/bin/aws --version
-         )" >> /tmp/manifest.txt 2>&1
-      )
-      eval "$XTRACE"
-      fi
-      if [[ -n "$AWSCLIV2SOURCE" ]]
-      then
-         echo "Saving the aws-cli-v2 version to the manifest"
-         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-         set +x
-      (
-         chroot "${AMIGENCHROOT}" bash -c "(
-            [[ -x /usr/local/bin/aws2 ]] && /usr/local/bin/aws2 --version
-            )" >> /tmp/manifest.txt 2>&1
-      )
-      eval "$XTRACE"
-      fi
-
-      ###
-      # AWS SSM-Agent is insalled via RPM: if the AWS
-      # SSM-Agent is installed, it will show # up in the
-      # `rpm` output (below)
-      ###
-
-   elif [[ "${CLOUDPROVIDER}" == "azure" ]]
-   then
-      echo "Saving the waagent version to the manifest"
-      [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
-      set +x
-      chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version >> /tmp/manifest.txt 2>&1
-      eval "$XTRACE"
-   fi
-
-   echo "Saving the RPM manifest"
-   rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
-
+    echo "Saving the RPM manifest"
+    rpm --root "${AMIGENCHROOT}" -qa | sort -u >> /tmp/manifest.txt
 }
 
 # Pick options for the AWSutils install command
