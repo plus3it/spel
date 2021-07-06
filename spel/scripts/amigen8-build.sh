@@ -25,6 +25,8 @@ AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-b
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
+EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
+EPELREPO="${SPEL_EPELREPO:-epel}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 
 
