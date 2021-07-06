@@ -13,6 +13,7 @@ AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
+AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-UNDEF}"
 AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
 AMIGENROOTNM="${SPEL_AMIGENROOTNM:-UNDEF}"
@@ -329,6 +330,14 @@ function ComposeOSpkgString {
       err_exit "Installing no custom mainfest" NONE
    else
       OSPACKAGESTRING+="-M ${AMIGENREPOSRC}"
+   fi
+
+   # Add custom pkg group
+   if [[ ${AMIGENPKGGRP} == "UNDEF" ]]
+   then
+      err_exit "Installing no custom package group" NONE
+   else
+      OSPACKAGESTRING+="-g ${AMIGENPKGGRP}"
    fi
 
    # Return command-string for OS-script
