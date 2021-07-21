@@ -1,6 +1,6 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/1.19.98 Python/2.7.5 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.20.98
-aws-cli/2.2.13 Python/3.8.8 Linux/3.10.0-1062.1.2.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/1.20.3 Python/3.6.8 Linux/3.10.0-1160.31.1.el7.x86_64 botocore/1.21.3
+aws-cli/2.2.21 Python/3.8.8 Linux/3.10.0-1160.31.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
