@@ -1,12 +1,28 @@
 ## Changelog
 
+### 2021.07.1
+
+**Released**: 2021.07.21
+
+**Commit Delta**: [Change from 2021.06.1 release](https://github.com/plus3it/spel/compare/2021.06.1...2021.07.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.07.1/manifests>
+
+**Summary**:
+
+*   aws-cli v1 is now installed using python3
+*   "Extra" packages updated in this release:
+    - RHEL7: aws-cli/1.20.4
+    - CentOS7: aws-cli/1.20.3
+    - aws-cli/2.2.21
+
 ### 2021.06.1
 
 **Released**: 2021.06.22
 
 **Commit Delta**: [Change from 2021.05.1 release](https://github.com/plus3it/spel/compare/2021.05.1...2021.06.1)
 
-**Manifests**: <https://github.com/plus3it/spel/blob/2021.05.1/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.06.1/manifests>
 
 **Summary**:
 
