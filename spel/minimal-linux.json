@@ -397,7 +397,8 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}"
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -431,7 +432,8 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}"
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -462,7 +464,8 @@
                 "SPEL_AWSCLIV2SOURCE={{ user `spel_aws_cliv2_source` }}",
                 "SPEL_CLOUDPROVIDER=aws",
                 "SPEL_EPELRELEASE={{ user `spel_epel8release` }}",
-                "SPEL_EPELREPO={{ user `spel_epelrepo` }}"
+                "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -493,7 +496,8 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel7release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
-                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}"
+                "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -586,6 +590,7 @@
         "spel_epel8release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm",
         "spel_epelrepo": "epel",
         "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python3",
+        "spel_grubtmout": "1",
         "spel_identifier": "",
         "spel_version": "",
         "ssh_interface": "public_dns",
