@@ -29,6 +29,7 @@ EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-rele
 EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
+GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
@@ -440,7 +441,8 @@ then
         "${ELBUILD}"/GrubSetup.sh
     ##end adding Azure grub defaults
 fi
-bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${AMIGENBUILDDEV}" || \
+bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${AMIGENBUILDDEV}" \
+  --grub-timeout "${GRUBTMOUT}"|| \
     err_exit "Failure encountered with GrubSetup.sh"
 
 echo "Executing NetSet.sh"
