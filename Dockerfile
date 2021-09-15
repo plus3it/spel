@@ -1,1 +1,1 @@
-FROM hashicorp/packer:1.7.4
+FROM hashicorp/packer:1.7.5
