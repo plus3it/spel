@@ -1,6 +1,6 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/1.20.27 Python/3.6.8 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.21.27
-aws-cli/2.2.31 Python/3.8.8 Linux/3.10.0-1062.1.2.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/1.20.44 Python/3.6.8 Linux/3.10.0-1062.1.2.el7.x86_64 botocore/1.21.44
+aws-cli/2.2.39 Python/3.8.8 Linux/3.10.0-1062.1.2.el7.x86_64 exe/x86_64.centos.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -30,7 +30,7 @@ aws-scripts-ses-2014.05.14-1.2.el7.noarch
 basesystem-10.0-7.el7.centos.noarch
 bash-4.2.46-34.el7.x86_64
 bc-1.06.95-13.el7.x86_64
-bind-export-libs-9.11.4-26.P2.el7_9.5.x86_64
+bind-export-libs-9.11.4-26.P2.el7_9.7.x86_64
 binutils-2.27-44.base.el7.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -86,7 +86,7 @@ ec2-utils-1.0-2.el7.noarch
 elfutils-default-yama-scope-0.176-5.el7.noarch
 elfutils-libelf-0.176-5.el7.x86_64
 elfutils-libs-0.176-5.el7.x86_64
-epel-release-7-13.noarch
+epel-release-7-14.noarch
 ethtool-4.8-10.el7.x86_64
 expat-2.1.0-12.el7.x86_64
 file-5.11-37.el7.x86_64
@@ -158,15 +158,15 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1160.36.2.el7.x86_64
-kernel-tools-3.10.0-1160.36.2.el7.x86_64
-kernel-tools-libs-3.10.0-1160.36.2.el7.x86_64
+kernel-3.10.0-1160.42.2.el7.x86_64
+kernel-tools-3.10.0-1160.42.2.el7.x86_64
+kernel-tools-libs-3.10.0-1160.42.2.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-1.5.8-3.el7.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
 kmod-libs-20-28.el7.x86_64
-kpartx-0.4.9-134.el7_9.x86_64
+kpartx-0.4.9-135.el7_9.x86_64
 krb5-libs-1.15.1-50.el7.x86_64
 less-458-9.el7.x86_64
 libacl-2.2.51-15.el7.x86_64
@@ -243,8 +243,8 @@ libverto-0.2.5-4.el7.x86_64
 libverto-libevent-0.2.5-4.el7.x86_64
 libwayland-client-1.15.0-1.el7.x86_64
 libwayland-server-1.15.0-1.el7.x86_64
-libX11-1.6.7-3.el7_9.x86_64
-libX11-common-1.6.7-3.el7_9.noarch
+libX11-1.6.7-4.el7_9.x86_64
+libX11-common-1.6.7-4.el7_9.noarch
 libXau-1.0.8-2.1.el7.x86_64
 libxcb-1.13-1.el7.x86_64
 libXcomposite-0.4.4-4.1.el7.x86_64
@@ -305,7 +305,7 @@ nss-util-3.53.1-1.el7_9.x86_64
 ntp-4.2.6p5-29.el7.centos.2.x86_64
 ntpdate-4.2.6p5-29.el7.centos.2.x86_64
 numactl-libs-2.0.12-5.el7.x86_64
-openldap-2.4.44-23.el7_9.x86_64
+openldap-2.4.44-24.el7_9.x86_64
 openssh-7.4p1-21.el7.x86_64
 openssh-clients-7.4p1-21.el7.x86_64
 openssh-server-7.4p1-21.el7.x86_64
@@ -429,7 +429,7 @@ python-libs-2.7.5-90.el7.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.36.2.el7.x86_64
+python-perf-3.10.0-1160.42.2.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -496,7 +496,7 @@ util-linux-2.23.2-65.el7_9.1.x86_64
 vim-common-7.4.629-8.el7_9.x86_64
 vim-filesystem-7.4.629-8.el7_9.x86_64
 vim-minimal-7.4.629-8.el7_9.x86_64
-virt-what-1.18-4.el7.x86_64
+virt-what-1.18-4.el7_9.1.x86_64
 wget-1.14-18.el7_6.1.x86_64
 which-2.20-7.el7.x86_64
 wpa_supplicant-2.6-12.el7_9.2.x86_64

@@ -6,7 +6,7 @@ autogen-libopts-5.18-5.el7.x86_64
 basesystem-10.0-7.el7.centos.noarch
 bash-4.2.46-34.el7.x86_64
 bc-1.06.95-13.el7.x86_64
-bind-export-libs-9.11.4-26.P2.el7_9.5.x86_64
+bind-export-libs-9.11.4-26.P2.el7_9.7.x86_64
 binutils-2.27-44.base.el7.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -48,7 +48,7 @@ ebtables-2.0.10-16.el7.x86_64
 elfutils-default-yama-scope-0.176-5.el7.noarch
 elfutils-libelf-0.176-5.el7.x86_64
 elfutils-libs-0.176-5.el7.x86_64
-epel-release-7-13.noarch
+epel-release-7-14.noarch
 ethtool-4.8-10.el7.x86_64
 expat-2.1.0-12.el7.x86_64
 file-5.11-37.el7.x86_64
@@ -104,14 +104,14 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-15.el7.x86_64
 kbd-legacy-1.15.5-15.el7.noarch
 kbd-misc-1.15.5-15.el7.noarch
-kernel-3.10.0-1160.36.2.el7.x86_64
-kernel-tools-3.10.0-1160.36.2.el7.x86_64
-kernel-tools-libs-3.10.0-1160.36.2.el7.x86_64
+kernel-3.10.0-1160.42.2.el7.x86_64
+kernel-tools-3.10.0-1160.42.2.el7.x86_64
+kernel-tools-libs-3.10.0-1160.42.2.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
 kmod-libs-20-28.el7.x86_64
-kpartx-0.4.9-134.el7_9.x86_64
+kpartx-0.4.9-135.el7_9.x86_64
 krb5-libs-1.15.1-50.el7.x86_64
 less-458-9.el7.x86_64
 libacl-2.2.51-15.el7.x86_64
@@ -201,7 +201,7 @@ nss-util-3.53.1-1.el7_9.x86_64
 ntp-4.2.6p5-29.el7.centos.2.x86_64
 ntpdate-4.2.6p5-29.el7.centos.2.x86_64
 numactl-libs-2.0.12-5.el7.x86_64
-openldap-2.4.44-23.el7_9.x86_64
+openldap-2.4.44-24.el7_9.x86_64
 openssh-7.4p1-21.el7.x86_64
 openssh-clients-7.4p1-21.el7.x86_64
 openssh-server-7.4p1-21.el7.x86_64

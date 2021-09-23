@@ -1,5 +1,19 @@
 ## Changelog
 
+### 2021.09.1
+
+**Released**: 2021.09.23
+
+**Commit Delta**: [Change from 2021.08.1 release](https://github.com/plus3it/spel/compare/2021.08.1...2021.09.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.09.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/1.20.44
+    - aws-cli/2.2.39
+
 ### 2021.08.1
 
 **Released**: 2021.08.24
