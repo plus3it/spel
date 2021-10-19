@@ -55,13 +55,13 @@ $(info SPEL_AWSCLIV2SOURCE=${SPEL_AWSCLIV2SOURCE})
 all: build
 
 install:
-	bash ./build/install.sh -eo pipefail
+	bash -eo pipefail ./build/install.sh
 
 pre_build: install
-	bash ./build/pre_build.sh -eo pipefail
+	bash -eo pipefail ./build/pre_build.sh
 
 build: pre_build
-	bash ./build/build.sh -eo pipefail
+	bash -eo pipefail ./build/build.sh
 
 post_build:
-	bash ./build/post_build.sh -eo pipefail
+	bash -eo pipefail ./build/post_build.sh
