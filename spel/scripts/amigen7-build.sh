@@ -18,6 +18,7 @@ AMIGENROOTNM="${SPEL_AMIGENROOTNM:-UNDEF}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-VolGroup00}"
+AMIGENHTTPPROXY="${SPEL_HTTP_PROXY:-}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
@@ -30,6 +31,7 @@ EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
+
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
@@ -331,6 +333,7 @@ set -x
 set -e
 set -o pipefail
 
+
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
 then
@@ -341,6 +344,13 @@ then
    err_exit "Verifying build-host dependencies" NONE
    rpm -q "${BUILDDEPS[@]}" || \
      err_exit "Verification failed"
+fi
+
+if [[ -n ${AMIGENHTTPPROXY:-} ]]
+then
+   echo "Setting Git Config Proxy"
+   git config --global http.proxy "${AMIGENHTTPPROXY}"
+   echo "Set git config to use proxy"
 fi
 
 echo "Installing custom repo packages in the builder box"
