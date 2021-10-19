@@ -61,7 +61,7 @@ pre_build: install
 	bash -eo pipefail ./build/pre_build.sh
 
 build: pre_build
-	bash -eo pipefail ./build/build.sh
+	bash ./build/build.sh
 
 post_build:
 	bash -eo pipefail ./build/post_build.sh

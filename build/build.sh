@@ -39,6 +39,8 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "subnet_id=$SUBNET_ID" \
   spel/minimal-linux.json
 
+BUILDEXIT=$?
+
 for BUILDER in ${SPEL_BUILDERS//,/ }; do
   AMI_NAME="$SPEL_IDENTIFIER-$BUILDER-$SPEL_VERSION.x86_64-gp2"
   BUILDER_ENV=$(echo "$BUILDER" | sed -e 's/\./_/g' -e 's/-/_/g')
@@ -59,3 +61,15 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "ssh_interface=$SSH_INTERFACE" \
   -var "subnet_id=$SUBNET_ID" \
   tests/minimal-linux.json
+
+TESTEXIT=$?
+
+if [[ $BUILDEXIT -ne 0 ]]; then
+  echo "Build failed. Scroll up past the test to see the packer error and review the build logs."
+  exit $BUILDEXIT
+fi
+
+if [[ $TESTEXIT -ne 0 ]]; then
+  echo "Test failed. Review the test logs for the error."
+  exit $TESTEXIT
+fi
