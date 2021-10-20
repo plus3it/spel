@@ -575,9 +575,6 @@
             "type": "shell"
         },
         {
-          "environment_vars": [
-              "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git"
-          ],
           "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
           "only": [
               "azure-custom-managed-image"
