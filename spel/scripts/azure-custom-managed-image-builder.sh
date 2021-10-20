@@ -7,7 +7,7 @@
 # execution for spel image creation.
 #
 ##############################################################################
-BUILDDEPS=(${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git})
+BUILDDEPS=( "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}" )
 
 retry()
 {
@@ -60,9 +60,12 @@ set -e
 
 if [[ $(rpm --quiet -q centos-release)$? -eq 0 ]]
 then
-   printf "proxy=http://proxy.dosdev.local:3128\n" >> /etc/yum.conf
+   if [[ -n ${AMIGENHTTPPROXY:-} ]]
+   then
+      echo "Setting Proxy for yum to reach centos repos"
+      printf "%s\n" "${AMIGENHTTPPROXY}" >> /etc/yum.conf
+   fi
 fi
-
 
 # raw rhel image has old refs to extinct rhui (https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/redhat-rhui#troubleshoot-connection-problems-to-azure-rhui)
 cat /etc/yum.repos.d/rh-cloud.repo
