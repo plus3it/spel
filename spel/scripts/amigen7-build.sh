@@ -31,11 +31,7 @@ EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
-
-
-
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
-
 AMIUTILS="/tmp/ami-utils"
 ELBUILD="/tmp/el-build"
 PYTHON3_BIN="/usr/bin/python3.6"
@@ -328,11 +324,9 @@ function ComposeDiskSetupString {
    fi
 }
 
-
 set -x
 set -e
 set -o pipefail
-
 
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
