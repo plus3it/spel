@@ -128,9 +128,8 @@
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
             "expect_disconnect": true,
             "inline": [
-                "yum -y install parted",
-                "parted -s /dev/xvda rm 2 mkpart primary ext4 500m 100% || true",
-                "partprobe || true",
+                "growpart /dev/xvda 2",
+                "partprobe",
                 "reboot",
                 "sleep 120"
             ],
