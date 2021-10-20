@@ -7,7 +7,8 @@
 # execution for spel image creation.
 #
 ##############################################################################
-BUILDDEPS=( "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}" )
+read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
+AMIGENHTTPPROXY="${SPEL_HTTP_PROXY:-}"
 
 retry()
 {
@@ -60,13 +61,13 @@ set -e
 
 if [[ $(rpm --quiet -q centos-release)$? -eq 0 ]]
 then
-   if [[ -n ${AMIGENHTTPPROXY:-} ]]
-   then
-      echo "Setting Proxy for yum to reach centos repos"
-      printf "%s\n" "${AMIGENHTTPPROXY}" >> /etc/yum.conf
-   fi
+   printf "%s\n" "${AMIGENHTTPPROXY}" >> /etc/yum.conf
 fi
 
+# raw rhel image has old refs to extinct rhui (https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/redhat-rhui#troubleshoot-connection-problems-to-azure-rhui)
+# cat /etc/yum.repos.d/rh-cloud.repo
+# update repo file (wasn't working previously; likely rhui update issues or nsg issues)
+# sudo yum update -y --disablerepo='*' --enablerepo='*microsoft*'
 echo "Installing build-host dependencies"
 yum -y install "${BUILDDEPS[@]}"
 
