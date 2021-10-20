@@ -67,8 +67,6 @@ then
    fi
 fi
 
-# update repo file (wasn't working previously; likely rhui update issues or nsg issues)
-sudo yum update -y --disablerepo='*' --enablerepo='*microsoft*'
 echo "Installing build-host dependencies"
 yum -y install "${BUILDDEPS[@]}"
 
