@@ -67,8 +67,6 @@ then
    fi
 fi
 
-# raw rhel image has old refs to extinct rhui (https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/redhat-rhui#troubleshoot-connection-problems-to-azure-rhui)
-cat /etc/yum.repos.d/rh-cloud.repo
 # update repo file (wasn't working previously; likely rhui update issues or nsg issues)
 sudo yum update -y --disablerepo='*' --enablerepo='*microsoft*'
 echo "Installing build-host dependencies"
