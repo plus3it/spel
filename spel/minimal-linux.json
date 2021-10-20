@@ -270,7 +270,7 @@
           "location": "{{ user `azure_location` }}",
           "managed_image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
           "managed_image_resource_group_name": "{{ user `azure_dest_resource_group` }}",
-          "name": "builder-centos-7-azure-image",
+          "name": "azure-custom-managed-image-generic_el7",
           "os_disk_size_gb": "{{ user `root_volume_size` }}",
           "os_type": "Linux",
           "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
@@ -577,7 +577,7 @@
         {
           "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
           "only": [
-              "azure-custom-managed-image"
+              "azure-custom-managed-image-generic_el7"
           ],
           "scripts": [
               "{{ template_dir }}/scripts/azure-custom-managed-image-builder.sh"
