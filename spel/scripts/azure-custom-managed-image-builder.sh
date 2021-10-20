@@ -80,13 +80,13 @@ yum -y update
 yum clean all
 
 #configure /etc/cloud/cloud.cfg
-    /usr/bin/sed -i \
-        -e 's|ssh_pwauth:   0|ssh_pwauth:   1|' \
-        -e 's|    name: centos|    name: maintuser|' \
-        -e 's|    gecos: Cloud User|    gecos: Local Maintenance User|' \
-        -e 's|    groups: [wheel, adm, systemd-journal]|    groups: [wheel, adm]|' \
-        -e 's|    sudo: ["ALL=(ALL) NOPASSWD:ALL"]|    sudo: ["ALL=(root) NOPASSWD:ALL"]|' \
-        /etc/cloud/cloud.cfg
+/usr/bin/sed -i \
+   -e 's|ssh_pwauth:   0|ssh_pwauth:   1|' \
+   -e 's|    name: centos|    name: maintuser|' \
+   -e 's|    gecos: Cloud User|    gecos: Local Maintenance User|' \
+   -e 's|    groups: [wheel, adm, systemd-journal]|    groups: [wheel, adm]|' \
+   -e 's|    sudo: ["ALL=(ALL) NOPASSWD:ALL"]|    sudo: ["ALL=(root) NOPASSWD:ALL"]|' \
+   /etc/cloud/cloud.cfg
 
 #configure waagent to use cloud-init
 echo "Configuring waagent"
