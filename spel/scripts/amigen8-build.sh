@@ -30,6 +30,7 @@ EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-rele
 EPELREPO="${SPEL_EPELREPO:-epel}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
+HTTP_PROXY="${SPEL_HTTP_PROXY:-UNDEF}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
@@ -400,6 +401,13 @@ then
    err_exit "Verifying build-host dependencies" NONE
    rpm -q "${BUILDDEPS[@]}" || \
      err_exit "Verification failed"
+fi
+
+if [[ "$HTTP_PROXY" -ne "UNDEF" ]]
+then
+   echo "Setting Git Config Proxy"
+   git config --global http.proxy "${HTTP_PROXY}"
+   echo "Set git config to use proxy"
 fi
 
 if [[ -n "${EPELRELEASE}" ]]
