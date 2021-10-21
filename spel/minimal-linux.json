@@ -256,33 +256,6 @@
             "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
             "virtual_network_resource_group_name": "{{ user `azure_virtual_network_resource_group_name` }}",
             "vm_size": "{{ user `azure_vm_size` }}"
-        },
-        {
-            "build_resource_group_name": "{{user `azure_build_resource_group_name`}}",
-            "use_azure_cli_auth": true,
-            "client_id": "{{user `azure_client_id`}}",
-            "client_secret": "{{user `azure_client_secret`}}",
-            "cloud_environment_name": "{{ user `azure_environment` }}",
-            "communicator": "ssh",
-            "image_offer": "{{ user `azure_source_image_offer` }}",
-            "image_publisher": "{{ user `azure_source_image_publisher` }}",
-            "image_sku": "{{ user `azure_source_image_sku` }}",
-            "location": "{{ user `azure_location` }}",
-            "managed_image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
-            "managed_image_resource_group_name": "{{ user `azure_dest_resource_group` }}",
-            "name": "azure-custom-managed-image-generic_el7",
-            "os_disk_size_gb": "{{ user `root_volume_size` }}",
-            "os_type": "Linux",
-            "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
-            "subscription_id": "{{user `azure_subscription_id`}}",
-            "type": "azure-arm",
-            "virtual_network_name": "{{ user `azure_virtual_network_name` }}",
-            "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
-            "virtual_network_resource_group_name": "{{ user `azure_virtual_network_resource_group_name` }}",
-            "vm_size": "{{ user `azure_vm_size` }}",
-            "azure_tags": {
-              "spel_version": "latest"
-            }
         }
     ],
     "post-processors": [
@@ -575,19 +548,6 @@
             "type": "shell"
         },
         {
-          "environment_vars": [
-            "SPEL_HTTP_PROXY={{ user `spel_http_proxy` }}"
-          ],
-          "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
-          "only": [
-              "azure-custom-managed-image-generic_el7"
-          ],
-          "scripts": [
-              "{{ template_dir }}/scripts/azure-custom-managed-image-builder.sh"
-          ],
-          "type": "shell"
-        },
-        {
             "destination": ".spel/{{ user `spel_version` }}/{{ user `spel_identifier` }}-{{ build_name }}.manifest.txt",
             "direction": "download",
             "source": "/tmp/manifest.txt",
@@ -623,9 +583,6 @@
         "azure_environment": "",
         "azure_execute_using_public_ip": "",
         "azure_location": "",
-        "azure_source_image_offer": "RHEL" ,
-        "azure_source_image_publisher": "",
-        "azure_source_image_sku": "" ,
         "azure_source_image_centos7": "",
         "azure_source_image_resource_group_centos7": "",
         "azure_source_vhd_centos7": "",
