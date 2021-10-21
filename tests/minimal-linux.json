@@ -126,14 +126,10 @@
     "provisioners": [
         {
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
-            "expect_disconnect": true,
             "inline": [
                 "growpart /dev/xvda 2",
-                "partprobe",
-                "reboot",
-                "sleep 120"
+                "partprobe"
             ],
-            "start_retry_timeout": "15m",
             "type": "shell"
         },
         {
