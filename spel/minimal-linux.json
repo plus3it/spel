@@ -576,6 +576,7 @@
         "aws_ec2_instance_type": "t3.2xlarge",
         "aws_instance_connect": "",
         "aws_region": "us-east-1",
+        "azure_build_resource_group_name": "",
         "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
         "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
         "azure_dest_resource_group": "",
