@@ -2,7 +2,6 @@
     "builders": [
         {
             "build_resource_group_name": "{{user `azure_build_resource_group_name`}}",
-            "use_azure_cli_auth": true,
             "client_id": "{{user `azure_client_id`}}",
             "client_secret": "{{user `azure_client_secret`}}",
             "cloud_environment_name": "{{ user `azure_environment` }}",
@@ -19,25 +18,26 @@
             "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
             "subscription_id": "{{user `azure_subscription_id`}}",
             "type": "azure-arm",
+            "use_azure_cli_auth": true,
             "virtual_network_name": "{{ user `azure_virtual_network_name` }}",
-            "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
             "virtual_network_resource_group_name": "{{ user `azure_virtual_network_resource_group_name` }}",
+            "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
             "vm_size": "{{ user `azure_vm_size` }}"
         }
     ],
     "provisioners": [
         {
-          "environment_vars": [
-            "SPEL_HTTP_PROXY={{ user `spel_http_proxy` }}"
-          ],
-          "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
-          "only": [
-              "builder-azure-image"
-          ],
-          "scripts": [
-              "{{ template_dir }}/scripts/builder-azure-image.sh"
-          ],
-          "type": "shell"
+            "environment_vars": [
+                "SPEL_HTTP_PROXY={{ user `spel_http_proxy` }}"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'",
+            "only": [
+                "builder-azure-image"
+            ],
+            "scripts": [
+                "{{ template_dir }}/scripts/builder-azure-image.sh"
+            ],
+            "type": "shell"
         }
     ],
     "variables": {
@@ -48,13 +48,13 @@
         "azure_environment": "",
         "azure_execute_using_public_ip": "",
         "azure_location": "",
-        "azure_source_image_offer": "RHEL" ,
+        "azure_source_image_offer": "RHEL",
         "azure_source_image_publisher": "",
-        "azure_source_image_sku": "" ,
+        "azure_source_image_sku": "",
         "azure_subnet_name": "",
-        "azure_virtual_network_resource_group_name": "",
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
+        "azure_virtual_network_resource_group_name": "",
         "azure_vm_size": "Standard_DS5_v2",
         "root_volume_size": "20",
         "spel_http_proxy": "",
