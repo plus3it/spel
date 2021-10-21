@@ -360,8 +360,8 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-rhel-7-azure-image",
                 "minimal-centos-8-hvm",
+                "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
             "type": "shell"
@@ -375,8 +375,8 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-rhel-7-azure-image",
                 "minimal-centos-8-hvm",
+                "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
             "scripts": [
@@ -399,8 +399,8 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-rhel-7-azure-image",
                 "minimal-centos-8-hvm",
+                "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
             "type": "shell"
@@ -420,8 +420,8 @@
                 "minimal-centos-7-openstack-image",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
-                "minimal-rhel-7-azure-image",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-rhel-7-azure-image"
             ],
             "type": "shell"
         },
@@ -566,8 +566,8 @@
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
                 "minimal-centos-7-azure-vhd",
-                "minimal-rhel-7-azure-image",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-rhel-7-azure-image"
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/amigen7-build.sh"
@@ -601,8 +601,8 @@
             ],
             "only": [
                 "minimal-centos-7-azure-vhd",
-                "minimal-rhel-7-azure-image",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-rhel-7-azure-image"
             ],
             "skip_clean": true,
             "type": "shell"
