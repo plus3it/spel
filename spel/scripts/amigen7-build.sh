@@ -10,7 +10,6 @@ AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-ext4}"
-AMIGENHTTPPROXY="${SPEL_HTTP_PROXY:-}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENREPOS="${SPEL_AMIGENREPOS}"
@@ -31,7 +30,11 @@ EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
+HTTP_PROXY="${SPEL_HTTP_PROXY:-UNDEF}"
+
+
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
+
 AMIUTILS="/tmp/ami-utils"
 ELBUILD="/tmp/el-build"
 PYTHON3_BIN="/usr/bin/python3.6"
@@ -324,6 +327,7 @@ function ComposeDiskSetupString {
    fi
 }
 
+
 set -x
 set -e
 set -o pipefail
@@ -340,10 +344,10 @@ then
      err_exit "Verification failed"
 fi
 
-if [[ -n ${AMIGENHTTPPROXY:-} ]]
+if [[ "$HTTP_PROXY" -ne "UNDEF" ]]
 then
    echo "Setting Git Config Proxy"
-   git config --global http.proxy "${AMIGENHTTPPROXY}"
+   git config --global http.proxy "${HTTP_PROXY}"
    echo "Set git config to use proxy"
 fi
 
