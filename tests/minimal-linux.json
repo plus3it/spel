@@ -177,7 +177,7 @@
             "inline": [
                 "PATH=/usr/local/bin:\"$PATH\"",
                 "export PATH",
-                "pytest --strict -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
+                "pytest --strict-markers -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ],
             "pause_before": "5s",
             "type": "shell"
