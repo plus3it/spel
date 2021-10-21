@@ -108,4 +108,4 @@ echo "Saving the RPM manifest"
 rpm -qa | sort -u >> /tmp/manifest.txt
 
 
-echo "azure-marketplace-builder.sh complete"'!'
+echo "builder-azure-image.sh complete"'!'
