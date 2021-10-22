@@ -9,9 +9,9 @@
 ##############################################################################
 set -eu -o pipefail
 
-HTTP_PROXY="${SPEL_HTTP_PROXY:-UNDEF}"
+HTTP_PROXY="${SPEL_HTTP_PROXY}"
 
-if [[ "$HTTP_PROXY" -ne "UNDEF" ]]
+if [[ -z "${HTTP_PROXY:-}" ]]
 then
    printf "\n%s\n" "${HTTP_PROXY}" >> /etc/yum.conf
 fi
