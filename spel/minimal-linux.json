@@ -114,7 +114,9 @@
             "storage_account": "{{user `azure_dest_storage_account`}}",
             "subscription_id": "{{user `azure_subscription_id`}}",
             "type": "azure-arm",
+            "use_azure_cli_auth": true,
             "virtual_network_name": "{{ user `azure_virtual_network_name` }}",
+            "virtual_network_resource_group_name": "{{ user `azure_virtual_network_resource_group_name` }}",
             "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
             "vm_size": "{{ user `azure_vm_size` }}"
         },
@@ -130,7 +132,7 @@
             "managed_image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
             "managed_image_resource_group_name": "{{ user `azure_dest_resource_group` }}",
             "name": "minimal-centos-7-azure-image",
-            "os_disk_size_gb": "20",
+            "os_disk_size_gb": "{{ user `root_volume_size` }}",
             "os_type": "Linux",
             "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
             "ssh_port": 22,
@@ -139,7 +141,9 @@
             "ssh_username": "spel",
             "subscription_id": "{{user `azure_subscription_id`}}",
             "type": "azure-arm",
+            "use_azure_cli_auth": true,
             "virtual_network_name": "{{ user `azure_virtual_network_name` }}",
+            "virtual_network_resource_group_name": "{{ user `azure_virtual_network_resource_group_name` }}",
             "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
             "vm_size": "{{ user `azure_vm_size` }}"
         },
@@ -224,6 +228,34 @@
             "type": "openstack",
             "use_blockstorage_volume": "false",
             "user_data_file": "{{ template_dir }}/userdata/userdata.cloud"
+        },
+        {
+            "build_resource_group_name": "{{user `azure_build_resource_group_name`}}",
+            "client_id": "{{user `azure_client_id`}}",
+            "client_secret": "{{user `azure_client_secret`}}",
+            "cloud_environment_name": "{{ user `azure_environment` }}",
+            "communicator": "ssh",
+            "custom_data_file": "{{ template_dir }}/userdata/userdata.cloud",
+            "custom_managed_image_name": "{{ user `azure_source_image_rhel7` }}",
+            "custom_managed_image_resource_group_name": "{{ user `azure_source_image_resource_group_rhel7` }}",
+            "location": "{{ user `azure_location` }}",
+            "managed_image_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}",
+            "managed_image_resource_group_name": "{{ user `azure_dest_resource_group` }}",
+            "name": "minimal-rhel-7-azure-image",
+            "os_disk_size_gb": "{{ user `root_volume_size` }}",
+            "os_type": "Linux",
+            "private_virtual_network_with_public_ip": "{{ user `azure_execute_using_public_ip` }}",
+            "ssh_port": 22,
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subscription_id": "{{user `azure_subscription_id`}}",
+            "type": "azure-arm",
+            "use_azure_cli_auth": true,
+            "virtual_network_name": "{{ user `azure_virtual_network_name` }}",
+            "virtual_network_resource_group_name": "{{ user `azure_virtual_network_resource_group_name` }}",
+            "virtual_network_subnet_name": "{{ user `azure_subnet_name` }}",
+            "vm_size": "{{ user `azure_vm_size` }}"
         }
     ],
     "post-processors": [
@@ -302,6 +334,7 @@
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
                 "minimal-centos-8-hvm",
+                "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
             "type": "shell"
@@ -316,6 +349,7 @@
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
                 "minimal-centos-8-hvm",
+                "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
             "scripts": [
@@ -339,6 +373,7 @@
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
                 "minimal-centos-8-hvm",
+                "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
             "type": "shell"
@@ -358,7 +393,8 @@
                 "minimal-centos-7-openstack-image",
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-rhel-7-azure-image"
             ],
             "type": "shell"
         },
@@ -497,12 +533,14 @@
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
+                "SPEL_HTTP_PROXY={{ user `spel_http_proxy` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
                 "minimal-centos-7-azure-vhd",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-rhel-7-azure-image"
             ],
             "scripts": [
                 "{{ template_dir }}/scripts/amigen7-build.sh"
@@ -523,7 +561,8 @@
             ],
             "only": [
                 "minimal-centos-7-azure-vhd",
-                "minimal-centos-7-azure-image"
+                "minimal-centos-7-azure-image",
+                "minimal-rhel-7-azure-image"
             ],
             "skip_clean": true,
             "type": "shell"
@@ -537,6 +576,7 @@
         "aws_ec2_instance_type": "t3.2xlarge",
         "aws_instance_connect": "",
         "aws_region": "us-east-1",
+        "azure_build_resource_group_name": "",
         "azure_client_id": "{{env `ARM_CLIENT_ID`}}",
         "azure_client_secret": "{{env `ARM_CLIENT_SECRET`}}",
         "azure_dest_resource_group": "",
@@ -550,6 +590,7 @@
         "azure_subnet_name": "",
         "azure_subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
         "azure_virtual_network_name": "",
+        "azure_virtual_network_resource_group_name": "",
         "azure_vm_size": "Standard_DS5_v2",
         "iso_url_centos7": "http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso",
         "iso_url_centos8": "http://mirror.cs.vt.edu/pub/CentOS/8/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
@@ -591,6 +632,7 @@
         "spel_epelrepo": "epel",
         "spel_extrarpms": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python3",
         "spel_grubtmout": "1",
+        "spel_http_proxy": "",
         "spel_identifier": "",
         "spel_version": "",
         "ssh_interface": "public_dns",

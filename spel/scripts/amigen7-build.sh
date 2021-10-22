@@ -30,6 +30,7 @@ EPELREPO="${SPEL_EPELREPO:-epel}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
+HTTP_PROXY="${SPEL_HTTP_PROXY}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
@@ -341,6 +342,13 @@ then
    err_exit "Verifying build-host dependencies" NONE
    rpm -q "${BUILDDEPS[@]}" || \
      err_exit "Verification failed"
+fi
+
+if [[ -z "${HTTP_PROXY:-}" ]]
+then
+   echo "Setting Git Config Proxy"
+   git config --global http.proxy "${HTTP_PROXY}"
+   echo "Set git config to use proxy"
 fi
 
 echo "Installing custom repo packages in the builder box"
