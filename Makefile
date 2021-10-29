@@ -7,20 +7,26 @@ PACKER_LOG ?= '1'
 PACKER_NO_COLOR ?= '1'
 CHECKPOINT_DISABLE ?= '1'
 SPEL_CI ?= false
-SPEL_BUILDERS ?= minimal-rhel-7-hvm,minimal-centos-7-hvm
+SPEL_BUILDERS ?= minimal-rhel-7-hvm,minimal-centos-7-hvm,minimal-rhel-8-hvm,minimal-centos-8-hvm
 SPEL_DESC_URL ?= https://github.com/plus3it/spel
 SPEL_AMIGEN7SOURCE ?= https://github.com/plus3it/AMIgen7.git
 SPEL_AMIGEN7BRANCH ?= master
+SPEL_AMIGEN7REPOSRC ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+SPEL_AMIGEN8SOURCE ?= https://github.com/plus3it/AMIgen8.git
+SPEL_AMIGEN8BRANCH ?= master
+SPEL_AMIGEN8REPOSRC ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 SPEL_AMIUTILSOURCE ?= https://github.com/ferricoxide/Lx-GetAMI-Utils.git
 SPEL_AWSCLIV1SOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
 SPEL_AWSCLIV2SOURCE ?= https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-SPEL_EPEL7RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-SPEL_AMIGENREPOSRC7 ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 SPEL_AMIGENBUILDDEV ?= /dev/nvme0n1
+SPEL_EPEL7RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+SPEL_EPEL8RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 SPEL_EPELREPO ?= epel
 SPEL_EXTRARPMS ?= https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm,python36
-SOURCE_AMI_CENTOS7_HVM ?= ami-090b9dabe1c9f40b3
-SOURCE_AMI_RHEL7_HVM ?= ami-0394fe9914b475c53
+SOURCE_AMI_CENTOS7_HVM ?= ami-0fe72edf3b2f0c9e6
+SOURCE_AMI_RHEL7_HVM ?= ami-073955d8665a7a9e7
+SOURCE_AMI_CENTOS8_HVM ?= ami-05d7cb15bfbf13b6d
+SOURCE_AMI_RHEL8_HVM ?= ami-03a454637e4aa453d
 SSH_INTERFACE ?= public_dns
 PIP_URL ?= https://bootstrap.pypa.io/get-pip.py
 PYPI_URL ?= https://pypi.org/simple
@@ -49,13 +55,13 @@ $(info SPEL_AWSCLIV2SOURCE=${SPEL_AWSCLIV2SOURCE})
 all: build
 
 install:
-	bash ./build/install.sh -eo pipefail
+	bash -eo pipefail ./build/install.sh
 
 pre_build: install
-	bash ./build/pre_build.sh -eo pipefail
+	bash -eo pipefail ./build/pre_build.sh
 
 build: pre_build
-	bash ./build/build.sh -eo pipefail
+	bash ./build/build.sh
 
 post_build:
-	bash ./build/post_build.sh -eo pipefail
+	bash -eo pipefail ./build/post_build.sh

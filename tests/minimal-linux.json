@@ -55,6 +55,62 @@
             "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
             "type": "amazon-ebs",
             "user_data_file": "{{ template_dir }}/userdata/validation.cloud"
+        },
+        {
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m4.large",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": true,
+                    "device_name": "/dev/sda1",
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "name": "minimal-centos-8-hvm",
+            "region": "{{ user `aws_region` }}",
+            "skip_save_build_region": "true",
+            "source_ami": "{{ user `source_ami_centos8_hvm` }}",
+            "ssh_interface": "{{ user `ssh_interface` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
+            "type": "amazon-ebs",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud"
+        },
+        {
+            "ami_description": "This is a validation AMI for {{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "ami_name": "validation-{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "force_deregister": "true",
+            "instance_type": "m4.large",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": true,
+                    "device_name": "/dev/sda1",
+                    "volume_size": 21,
+                    "volume_type": "gp2"
+                }
+            ],
+            "name": "minimal-rhel-8-hvm",
+            "region": "{{ user `aws_region` }}",
+            "skip_save_build_region": "true",
+            "source_ami": "{{ user `source_ami_rhel8_hvm` }}",
+            "ssh_interface": "{{ user `ssh_interface` }}",
+            "ssh_pty": true,
+            "ssh_timeout": "60m",
+            "ssh_username": "spel",
+            "subnet_id": "{{ user `subnet_id` }}",
+            "temporary_security_group_source_cidrs": "{{ user `security_group_cidrs` }}",
+            "type": "amazon-ebs",
+            "user_data_file": "{{ template_dir }}/userdata/validation.cloud"
         }
     ],
     "post-processors": [
@@ -70,15 +126,10 @@
     "provisioners": [
         {
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
-            "expect_disconnect": true,
             "inline": [
-                "yum -y install parted",
-                "parted -s /dev/xvda rm 2 mkpart primary ext4 500m 100% || true",
-                "partprobe || true",
-                "reboot",
-                "sleep 120"
+                "growpart /dev/xvda 2",
+                "partprobe"
             ],
-            "start_retry_timeout": "15m",
             "type": "shell"
         },
         {
@@ -122,7 +173,7 @@
             "inline": [
                 "PATH=/usr/local/bin:\"$PATH\"",
                 "export PATH",
-                "pytest --strict -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
+                "pytest --strict-markers -s -v --color=no /tmp/spel | tee /tmp/pytest.log"
             ],
             "pause_before": "5s",
             "type": "shell"
@@ -139,7 +190,9 @@
         "pypi_url": "https://pypi.org/simple",
         "security_group_cidrs": "0.0.0.0/0",
         "source_ami_centos7_hvm": "{{ env `minimal_centos_7_hvm` }}",
+        "source_ami_centos8_hvm": "{{ env `minimal_centos_8_hvm` }}",
         "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_hvm` }}",
+        "source_ami_rhel8_hvm": "{{ env `minimal_rhel_8_hvm` }}",
         "spel_disablefips": "",
         "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",
         "spel_version": "{{ env `SPEL_VERSION` }}",

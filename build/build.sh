@@ -18,8 +18,8 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "source_ami_rhel7_hvm=$SOURCE_AMI_RHEL7_HVM" \
   -var "source_ami_rhel8_hvm=$SOURCE_AMI_RHEL8_HVM" \
   -var "spel_amigen7branch=$SPEL_AMIGEN7BRANCH" \
-  -var "spel_amigen7reponames=$SPEL_AMIGENREPOS7" \
-  -var "spel_amigen7reposource=$SPEL_AMIGENREPOSRC7" \
+  -var "spel_amigen7reponames=$SPEL_AMIGEN7REPOS" \
+  -var "spel_amigen7reposource=$SPEL_AMIGEN7REPOSRC" \
   -var "spel_amigen7source=$SPEL_AMIGEN7SOURCE" \
   -var "spel_amigen8branch=$SPEL_AMIGEN8BRANCH" \
   -var "spel_amigen8source=$SPEL_AMIGEN8SOURCE" \
@@ -30,6 +30,7 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "spel_desc_url=$SPEL_DESC_URL" \
   -var "spel_disablefips=$SPEL_DISABLEFIPS" \
   -var "spel_epel7release=$SPEL_EPEL7RELEASE" \
+  -var "spel_epel8release=$SPEL_EPEL8RELEASE" \
   -var "spel_epelrepo=$SPEL_EPELREPO" \
   -var "spel_extrarpms=$SPEL_EXTRARPMS" \
   -var "spel_identifier=$SPEL_IDENTIFIER" \
@@ -37,6 +38,8 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "ssh_interface=$SSH_INTERFACE" \
   -var "subnet_id=$SUBNET_ID" \
   spel/minimal-linux.json
+
+BUILDEXIT=$?
 
 for BUILDER in ${SPEL_BUILDERS//,/ }; do
   AMI_NAME="$SPEL_IDENTIFIER-$BUILDER-$SPEL_VERSION.x86_64-gp2"
@@ -58,3 +61,15 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "ssh_interface=$SSH_INTERFACE" \
   -var "subnet_id=$SUBNET_ID" \
   tests/minimal-linux.json
+
+TESTEXIT=$?
+
+if [[ $BUILDEXIT -ne 0 ]]; then
+  echo "Build failed. Scroll up past the test to see the packer error and review the build logs."
+  exit $BUILDEXIT
+fi
+
+if [[ $TESTEXIT -ne 0 ]]; then
+  echo "Test failed. Review the test logs for the error."
+  exit $TESTEXIT
+fi

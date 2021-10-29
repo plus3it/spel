@@ -6,6 +6,7 @@ log = logging.getLogger('spel_validation')
 log.setLevel(logging.INFO)
 
 
+@pytest.mark.el7
 @pytest.mark.hvm
 def test_10_gigabit(host):
     interface = host.interface('eth0')
@@ -19,16 +20,6 @@ def test_root_volume_is_resized(host):
 
 
 @pytest.mark.parametrize("name", [
-    ("aws-amitools-ec2"),
-    ("aws-apitools-as"),
-    ("aws-apitools-cfn"),
-    ("aws-apitools-common"),
-    ("aws-apitools-ec2"),
-    ("aws-apitools-elb"),
-    ("aws-apitools-iam"),
-    ("aws-apitools-mon"),
-    ("aws-apitools-rds"),
-    ("aws-cfn-bootstrap")
 ])
 def test_common_aws_pkgs(host, name):
     pkg = host.package(name)
@@ -41,6 +32,16 @@ def test_common_aws_pkgs(host, name):
 
 @pytest.mark.el7
 @pytest.mark.parametrize("name", [
+    ("aws-amitools-ec2"),
+    ("aws-apitools-as"),
+    ("aws-apitools-cfn"),
+    ("aws-apitools-common"),
+    ("aws-apitools-ec2"),
+    ("aws-apitools-elb"),
+    ("aws-apitools-iam"),
+    ("aws-apitools-mon"),
+    ("aws-apitools-rds"),
+    ("aws-cfn-bootstrap"),
     ("aws-scripts-ses")
 ])
 def test_el7_aws_pkgs(host, name):
@@ -67,6 +68,7 @@ def test_repo_access(host):
     assert repos.exit_status == 0
 
 
+@pytest.mark.el7
 def test_boot_is_mounted(host):
     boot = host.mount_point('/boot')
     assert boot.exists
@@ -79,7 +81,6 @@ def test_tmp_mount_properties(host):
     assert tmp.filesystem == 'tmpfs'
 
 
-@pytest.mark.el7
 def test_el7_selinux_enforcing(host):
     cmd = 'test $(getenforce) = \'Enforcing\''
     selinux_permissive = host.run(cmd)
@@ -119,13 +120,12 @@ def test_python3_installed(host, names):
         {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
 
 
-@pytest.mark.el7
-@pytest.mark.parametrize("realpath,link", [
-    ('/usr/bin/python3.6', '/usr/bin/python3')
+@pytest.mark.parametrize("realpaths,link", [
+    (('/usr/bin/python3.6', '/usr/libexec/platform-python3.6'), '/usr/bin/python3')
 ])
-def test_python3_symlink(host, realpath, link):
+def test_python3_symlink(host, realpaths, link):
     python3_symlink = host.file(link).linked_to
-    assert python3_symlink == realpath
+    assert python3_symlink in realpaths
 
 
 @pytest.mark.parametrize("version", [
@@ -143,7 +143,6 @@ def test_python3_version(host, version):
     assert python3_version.stdout.strip().split()[1].startswith(version)
 
 
-@pytest.mark.el7
 def test_timedatectl_dbus_status(host):
     cmd = 'timedatectl'
     timedatectl = host.run(cmd)
@@ -152,19 +151,18 @@ def test_timedatectl_dbus_status(host):
     assert timedatectl.exit_status == 0
 
 
-@pytest.mark.el7
 def test_var_run_symlink(host):
     var_run_symlink = host.file('/var/run').linked_to
     assert var_run_symlink == '/run'
 
 
+@pytest.mark.el7
 @pytest.mark.parametrize("service", [
     ("autotune.service"),
     ("amazon-ssm-agent.service"),
     ("hibinit-agent.service"),
     ("ec2-instance-connect.service")
 ])
-
 def test_systemd_services(host, service):
     chk_service = host.service(service)
     assert chk_service.is_enabled
