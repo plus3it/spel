@@ -344,7 +344,7 @@ then
      err_exit "Verification failed"
 fi
 
-if [[ -z "${HTTP_PROXY:-}" ]]
+if [[ -n "${HTTP_PROXY:-}" ]]
 then
    echo "Setting Git Config Proxy"
    git config --global http.proxy "${HTTP_PROXY}"
