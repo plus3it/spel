@@ -11,7 +11,7 @@ set -eu -o pipefail
 
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
 
-if [[ -z "${HTTP_PROXY:-}" ]]
+if [[ -n "${HTTP_PROXY:-}" ]]
 then
    printf "\n%s\n" "${HTTP_PROXY}" >> /etc/yum.conf
 fi
