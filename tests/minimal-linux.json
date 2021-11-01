@@ -15,6 +15,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_save_build_region": "true",
@@ -43,6 +44,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-rhel-7-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_save_build_region": "true",
@@ -71,6 +73,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-centos-8-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_save_build_region": "true",
@@ -99,6 +102,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-rhel-8-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_save_build_region": "true",
