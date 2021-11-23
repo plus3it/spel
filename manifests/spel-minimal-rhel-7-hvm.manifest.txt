@@ -1,6 +1,6 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.20.64 Python/3.6.8 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.21.64
-aws-cli/2.2.46 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.22.11 Python/3.6.8 Linux/3.10.0-1062.4.3.el7.x86_64 botocore/1.23.11
+aws-cli/2.4.0 Python/3.8.8 Linux/3.10.0-1062.4.3.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 alsa-lib-1.1.8-1.el7.x86_64
@@ -31,7 +31,7 @@ basesystem-10.0-7.el7.noarch
 bash-4.2.46-34.el7.x86_64
 bc-1.06.95-13.el7.x86_64
 bind-export-libs-9.11.4-26.P2.el7_9.7.x86_64
-binutils-2.27-44.base.el7.x86_64
+binutils-2.27-44.base.el7_9.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
 ca-certificates-2021.2.50-72.el7_9.noarch
@@ -152,8 +152,8 @@ iputils-20160308-10.el7.x86_64
 irqbalance-1.0.7-12.el7.x86_64
 jansson-2.10-1.el7.x86_64
 jasper-libs-1.900.1-33.el7.x86_64
-java-1.8.0-openjdk-1.8.0.302.b08-0.el7_9.x86_64
-java-1.8.0-openjdk-headless-1.8.0.302.b08-0.el7_9.x86_64
+java-1.8.0-openjdk-1.8.0.312.b07-1.el7_9.x86_64
+java-1.8.0-openjdk-headless-1.8.0.312.b07-1.el7_9.x86_64
 javapackages-tools-3.4.1-11.el7.noarch
 jbigkit-libs-2.0-11.el7.x86_64
 json-c-0.11-4.el7_0.x86_64
@@ -468,7 +468,7 @@ Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-server-7.9-6.el7_9.x86_64
 redhat-support-lib-python-0.12.1-1.el7.noarch
 redhat-support-tool-0.12.2-1.el7.noarch
-rh-amazon-rhui-client-3.0.41-1.el7.noarch
+rh-amazon-rhui-client-3.0.45-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -518,8 +518,8 @@ tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
 ttmkfdir-3.0.9-42.el7.x86_64
 tuned-2.11.0-11.el7_9.noarch
-tzdata-2021c-1.el7.noarch
-tzdata-java-2021c-1.el7.noarch
+tzdata-2021e-1.el7.noarch
+tzdata-java-2021e-1.el7.noarch
 usermode-1.111-6.el7.x86_64
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-65.el7_9.1.x86_64
