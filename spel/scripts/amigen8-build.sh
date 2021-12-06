@@ -6,26 +6,25 @@
 #
 ##############################################################################
 PROGNAME="$(basename "$0")"
-AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE:-UNDEF}"
+AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
-AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
+AMIGENICNCTURL="${SPEL_AMIGENICNCTURL}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
-AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-UNDEF}"
-AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
-AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
-AMIGENROOTNM="${SPEL_AMIGENROOTNM:-UNDEF}"
+AMIGENPKGGRP="${SPEL_AMIGENPKGGRP}"
+AMIGENREPOS="${SPEL_AMIGENREPOS}"
+AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
+AMIGENROOTNM="${SPEL_AMIGENROOTNM}"
 AMIGENSOURCE="${SPEL_AMIGEN8SOURCE:-https://github.com/plus3it/AMIgen8.git}"
-AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
-AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
+AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT}"
+AMIGENSTORLAY="${SPEL_AMIGENSTORLAY}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
-AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
+AMIGENVGNAME="${SPEL_AMIGENVGNAME}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-DEBUG="${DEBUG:-UNDEF}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
@@ -38,7 +37,7 @@ read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
 ELBUILD="/tmp/el-build"
 
 # Make interactive-execution more-verbose unless explicitly told not to
-if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
+if [[ $( tty -s ) -eq 0 ]] && [[ -z ${DEBUG:-} ]]
 then
    DEBUG="true"
 fi
@@ -87,7 +86,7 @@ then
 fi
 DEFAULTREPOS+=(epel epel-modular)
 
-if [[ -z "${AMIGENREPOS}" ]]
+if [[ -z "${AMIGENREPOS:-}" ]]
 then
     AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
 fi
@@ -189,7 +188,7 @@ function ComposeAWSutilsString {
    fi
 
    # Whether to install AWS SSM-agent
-   if [[ ${AMIGENSSMAGENT} == "UNDEF" ]]
+   if [[ -z ${AMIGENSSMAGENT:-} ]]
    then
       err_exit "Skipping install of AWS SSM-agent" NONE
    else
@@ -197,7 +196,7 @@ function ComposeAWSutilsString {
    fi
 
    # Whether to install AWS InstanceConnect
-   if [[ ${AMIGENICNCTURL} == "UNDEF" ]]
+   if [[ -z ${AMIGENICNCTURL:-} ]]
    then
       err_exit "Skipping install of AWS SSM-agent" NONE
    else
@@ -232,7 +231,7 @@ function ComposeChrootMountString {
    fi
 
    # Set requested custom storage layout as necessary
-   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+   if [[ -z ${AMIGENSTORLAY:-} ]]
    then
       err_exit "Using script-default for boot-volume layout" NONE
    else
@@ -240,7 +239,7 @@ function ComposeChrootMountString {
    fi
 
    # Set device to mount
-   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+   if [[ -z ${AMIGENBUILDDEV:-} ]]
    then
       err_exit "Failed to define device to partition"
    else
@@ -258,7 +257,7 @@ function ComposeDiskSetupString {
    DISKSETUPCMD="DiskSetup.sh "
 
    # Set the offset for the OS partition
-   if [[ ${AMIGENBOOTSIZE} == "UNDEF" ]]
+   if [[ -z ${AMIGENBOOTSIZE:-} ]]
    then
       err_exit "Using minimal offset [17m] for root volumes" NONE
       DISKSETUPCMD+="-B 17m "
@@ -274,7 +273,7 @@ function ComposeDiskSetupString {
    DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
 
    # Set requested custom storage layout as necessary
-   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+   if [[ -z ${AMIGENSTORLAY:-} ]]
    then
       err_exit "Using script-default for boot-volume layout" NONE
    else
@@ -282,16 +281,16 @@ function ComposeDiskSetupString {
    fi
 
    # Set LVM2 or bare disk-formatting
-   if [[ ${AMIGENVGNAME} != "UNDEF" ]]
+   if [[ -n ${AMIGENVGNAME:-} ]]
    then
       DISKSETUPCMD+="-v ${AMIGENVGNAME} "
-   elif [[ ${AMIGENROOTNM} != "UNDEF" ]]
+   elif [[ -n ${AMIGENROOTNM:-} ]]
    then
       DISKSETUPCMD+="-r ${AMIGENROOTNM} "
    fi
 
    # Set device to carve
-   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+   if [[ -z ${AMIGENBUILDDEV:-} ]]
    then
       err_exit "Failed to define device to partition"
    else
@@ -317,7 +316,7 @@ function ComposeOSpkgString {
    fi
 
    # Pick custom yum repos
-   if [[ ${AMIGENREPOS} == "UNDEF" ]]
+   if [[ -z ${AMIGENREPOS:-} ]]
    then
       err_exit "Using script-default yum repos" NONE
    else
@@ -325,7 +324,7 @@ function ComposeOSpkgString {
    fi
 
    # Custom repo-def RPMs to install
-   if [[ ${AMIGENREPOSRC} == "UNDEF" ]]
+   if [[ -z ${AMIGENREPOSRC:-} ]]
    then
       err_exit "Installing no custom repo-config RPMs" NONE
    else
@@ -333,7 +332,7 @@ function ComposeOSpkgString {
    fi
 
    # Add custom manifest file
-   if [[ ${AMIGENMANFST} == "UNDEF" ]]
+   if [[ -z ${AMIGENMANFST:-} ]]
    then
       err_exit "Installing no custom mainfest" NONE
    else
@@ -341,7 +340,7 @@ function ComposeOSpkgString {
    fi
 
    # Add custom pkg group
-   if [[ ${AMIGENPKGGRP} == "UNDEF" ]]
+   if [[ -z ${AMIGENPKGGRP:-} ]]
    then
       err_exit "Installing no custom package group" NONE
    else
