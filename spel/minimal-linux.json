@@ -618,6 +618,7 @@
         "spel_amigen8bootsize": "20",
         "spel_amigen8branch": "master",
         "spel_amigen8manfst": "",
+        "spel_amigen8reponames": "",
         "spel_amigen8reposource": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm",
         "spel_amigen8rootnm": "",
         "spel_amigen8source": "https://github.com/plus3it/AMIgen8.git",

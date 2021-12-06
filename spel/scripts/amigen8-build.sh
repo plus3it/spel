@@ -69,7 +69,31 @@ function err_exit {
    fi
 }
 
+
+# CentOS 8 repos
+DEFAULTREPOS=(
+    baseos
+    extras
+    appstream
+)
+if rpm --quiet -q redhat-release
+then
+    DEFAULTREPOS=(
+        # RHUI 3 repo names as of EL8.5 GA
+        rhel-8-baseos-rhui-rpms
+        rhel-8-appstream-rhui-rpms
+        rhui-client-config-server-8
+    )
+fi
+DEFAULTREPOS+=(epel epel-modular)
+
+if [[ -z "${AMIGENREPOS}" ]]
+then
+    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+fi
+
 export FIPSDISABLE
+
 
 # Run the builder-scripts
 function BuildChroot {
@@ -419,6 +443,17 @@ if [[ -n "${EPELREPO}" ]]
 then
     yum-config-manager --enable "$EPELREPO" > /dev/null
 fi
+
+echo "Installing custom repo packages in the builder box"
+IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
+for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
+do
+      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+done
+
+echo "Enabling repos in the builder box"
+yum-config-manager --disable "*" > /dev/null
+yum-config-manager --enable "$AMIGENREPOS" > /dev/null
 
 echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
