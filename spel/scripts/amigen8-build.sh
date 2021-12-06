@@ -414,6 +414,9 @@ function DisableStrictHostCheck {
 ## Main program section ##
 ##########################
 
+set -x
+set -e
+set -o pipefail
 
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
