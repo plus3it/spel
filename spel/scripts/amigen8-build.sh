@@ -94,6 +94,52 @@ fi
 export FIPSDISABLE
 
 
+retry()
+{
+    # Make an arbitrary number of attempts to execute an arbitrary command,
+    # passing it arbitrary parameters. Convenient for working around
+    # intermittent errors (which occur often with poor repo mirrors).
+    #
+    # Returns the exit code of the command.
+    local n=0
+    local try=$1
+    local cmd="${*: 2}"
+    local result=1
+    [[ $# -le 1 ]] && {
+        echo "Usage $0 <number_of_retry_attempts> <Command>"
+        exit $result
+    }
+
+    echo "Will try $try time(s) :: $cmd"
+
+    if [[ "${SHELLOPTS}" == *":errexit:"* ]]
+    then
+        set +e
+        local ERREXIT=1
+    fi
+
+    until [[ $n -ge $try ]]
+    do
+        sleep $n
+        $cmd
+        result=$?
+        if [[ $result -eq 0 ]]
+        then
+            break
+        else
+            ((n++))
+            echo "Attempt $n, command failed :: $cmd"
+        fi
+    done
+
+    if [[ "${ERREXIT}" == "1" ]]
+    then
+        set -e
+    fi
+
+    return $result
+}  # ----------  end of function retry  ----------
+
 # Run the builder-scripts
 function BuildChroot {
 
@@ -482,24 +528,11 @@ fi
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
 if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
 then
-   echo "%s is a valid block device. Nuking VTOC... " "${SPEL_AMIGENBUILDDEV}"
+   echo "${SPEL_AMIGENBUILDDEV} is a valid block device. Nuking VTOC... "
 
-   ITER=0
-   while [[ $( sfdisk -d "${SPEL_AMIGENBUILDDEV}" ) != "" ]]
-   do
-      dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 \
-         count=10240 > /dev/null 2>&1
-      sleep 5
-      (( ITER++ ))
-      if [[ ${ITER} -ge 5 ]]
-      then
-         err_exit "Failed clearing VTOC"
-      fi
-   done
+   retry 5 dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
    echo "Cleared."
-
 fi
-
 
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
