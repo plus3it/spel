@@ -434,7 +434,8 @@
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
+                "SPEL_USEDEFAULTREPOS={{ user `spel_usedefaultrepos` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -469,7 +470,8 @@
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
-                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
+                "SPEL_USEDEFAULTREPOS={{ user `spel_usedefaultrepos` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -502,7 +504,8 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel8release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_FIPSDISABLE=true",
-                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
+                "SPEL_USEDEFAULTREPOS={{ user `spel_usedefaultrepos` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -535,7 +538,8 @@
                 "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE={{ user `spel_disablefips` }}",
                 "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
-                "SPEL_HTTP_PROXY={{ user `spel_http_proxy` }}"
+                "SPEL_HTTP_PROXY={{ user `spel_http_proxy` }}",
+                "SPEL_USEDEFAULTREPOS={{ user `spel_usedefaultrepos` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -637,6 +641,7 @@
         "spel_grubtmout": "1",
         "spel_http_proxy": "",
         "spel_identifier": "",
+        "spel_usedefaultrepos": "true",
         "spel_version": "",
         "ssh_interface": "public_dns",
         "subnet_id": "",

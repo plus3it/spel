@@ -31,6 +31,7 @@ EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
+USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
@@ -73,7 +74,7 @@ function err_exit {
 }
 
 
-
+# CentOS 7 repos
 DEFAULTREPOS=(
     base
     updates
@@ -103,9 +104,17 @@ then
 fi
 DEFAULTREPOS+=(epel)
 
-if [[ -z "${AMIGENREPOS}" ]]
+# Default to enabling default repos
+ENABLEDREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+
+if [[ "$USEDEFAULTREPOS" != "true" ]]
 then
-    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+    # Enable AMIGENREPOS exclusively when instructed not to use default repos
+    ENABLEDREPOS="${AMIGENREPOS}"
+elif [[ -n "${AMIGENREPOS:-}" ]]
+then
+    # When using default repos, also enable AMIGENREPOS if present
+    ENABLEDREPOS+=,"${AMIGENREPOS}"
 fi
 
 MKFSFORCEOPT="-F"
@@ -267,9 +276,9 @@ function ComposeChrootCliString {
 
     # Construct the cli option string for a custom repo
     CLIOPT_CUSTOMREPO=""
-    if [[ -n "${AMIGENREPOSRC}" && -n "${AMIGENREPOS}" ]]
+    if [[ -n "${AMIGENREPOSRC}" && -n "${ENABLEDREPOS}" ]]
     then
-        CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${AMIGENREPOS}")
+        CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${ENABLEDREPOS}")
     fi
 }
 
@@ -360,7 +369,7 @@ done
 
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$AMIGENREPOS" > /dev/null
+yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
 
 if [[ -n "${EPELRELEASE}" ]]
 then

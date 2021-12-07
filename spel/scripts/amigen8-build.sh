@@ -30,6 +30,7 @@ EPELREPO="${SPEL_EPELREPO:-epel}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
+USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
@@ -86,9 +87,17 @@ then
 fi
 DEFAULTREPOS+=(epel epel-modular)
 
-if [[ -z "${AMIGENREPOS:-}" ]]
+# Default to enabling default repos
+ENABLEDREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+
+if [[ "$USEDEFAULTREPOS" != "true" ]]
 then
-    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+    # Enable AMIGENREPOS exclusively when instructed not to use default repos
+    ENABLEDREPOS="${AMIGENREPOS}"
+elif [[ -n "${AMIGENREPOS:-}" ]]
+then
+    # When using default repos, also enable AMIGENREPOS if present
+    ENABLEDREPOS+=,"${AMIGENREPOS}"
 fi
 
 export FIPSDISABLE
@@ -362,11 +371,11 @@ function ComposeOSpkgString {
    fi
 
    # Pick custom yum repos
-   if [[ -z ${AMIGENREPOS:-} ]]
+   if [[ -z ${ENABLEDREPOS:-} ]]
    then
       err_exit "Using script-default yum repos" NONE
    else
-      OSPACKAGESTRING+="-a ${AMIGENREPOS} "
+      OSPACKAGESTRING+="-a ${ENABLEDREPOS} "
    fi
 
    # Custom repo-def RPMs to install
@@ -501,7 +510,7 @@ done
 
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$AMIGENREPOS" > /dev/null
+yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
 
 echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
