@@ -6,26 +6,25 @@
 #
 ##############################################################################
 PROGNAME="$(basename "$0")"
-AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE:-UNDEF}"
+AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
-AMIGENICNCTURL="${SPEL_AMIGENICNCTURL:-UNDEF}"
+AMIGENICNCTURL="${SPEL_AMIGENICNCTURL}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
-AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-UNDEF}"
-AMIGENREPOS="${SPEL_AMIGENREPOS:-UNDEF}"
-AMIGENREPOSRC="${SPEL_AMIGENREPOSRC:-UNDEF}"
-AMIGENROOTNM="${SPEL_AMIGENROOTNM:-UNDEF}"
+AMIGENPKGGRP="${SPEL_AMIGENPKGGRP}"
+AMIGENREPOS="${SPEL_AMIGENREPOS}"
+AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
+AMIGENROOTNM="${SPEL_AMIGENROOTNM}"
 AMIGENSOURCE="${SPEL_AMIGEN8SOURCE:-https://github.com/plus3it/AMIgen8.git}"
-AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT:-UNDEF}"
-AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-UNDEF}"
+AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT}"
+AMIGENSTORLAY="${SPEL_AMIGENSTORLAY}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
-AMIGENVGNAME="${SPEL_AMIGENVGNAME:-UNDEF}"
+AMIGENVGNAME="${SPEL_AMIGENVGNAME}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-DEBUG="${DEBUG:-UNDEF}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
@@ -38,7 +37,7 @@ read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
 ELBUILD="/tmp/el-build"
 
 # Make interactive-execution more-verbose unless explicitly told not to
-if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
+if [[ $( tty -s ) -eq 0 ]] && [[ -z ${DEBUG:-} ]]
 then
    DEBUG="true"
 fi
@@ -69,7 +68,77 @@ function err_exit {
    fi
 }
 
+
+# CentOS 8 repos
+DEFAULTREPOS=(
+    baseos
+    extras
+    appstream
+)
+if rpm --quiet -q redhat-release
+then
+    DEFAULTREPOS=(
+        # RHUI 3 repo names as of EL8.5 GA
+        rhel-8-baseos-rhui-rpms
+        rhel-8-appstream-rhui-rpms
+        rhui-client-config-server-8
+    )
+fi
+DEFAULTREPOS+=(epel epel-modular)
+
+if [[ -z "${AMIGENREPOS:-}" ]]
+then
+    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+fi
+
 export FIPSDISABLE
+
+
+retry()
+{
+    # Make an arbitrary number of attempts to execute an arbitrary command,
+    # passing it arbitrary parameters. Convenient for working around
+    # intermittent errors (which occur often with poor repo mirrors).
+    #
+    # Returns the exit code of the command.
+    local n=0
+    local try=$1
+    local cmd="${*: 2}"
+    local result=1
+    [[ $# -le 1 ]] && {
+        echo "Usage $0 <number_of_retry_attempts> <Command>"
+        exit $result
+    }
+
+    echo "Will try $try time(s) :: $cmd"
+
+    if [[ "${SHELLOPTS}" == *":errexit:"* ]]
+    then
+        set +e
+        local ERREXIT=1
+    fi
+
+    until [[ $n -ge $try ]]
+    do
+        sleep $n
+        $cmd
+        result=$?
+        if [[ $result -eq 0 ]]
+        then
+            break
+        else
+            ((n++))
+            echo "Attempt $n, command failed :: $cmd"
+        fi
+    done
+
+    if [[ "${ERREXIT}" == "1" ]]
+    then
+        set -e
+    fi
+
+    return $result
+}  # ----------  end of function retry  ----------
 
 # Run the builder-scripts
 function BuildChroot {
@@ -165,7 +234,7 @@ function ComposeAWSutilsString {
    fi
 
    # Whether to install AWS SSM-agent
-   if [[ ${AMIGENSSMAGENT} == "UNDEF" ]]
+   if [[ -z ${AMIGENSSMAGENT:-} ]]
    then
       err_exit "Skipping install of AWS SSM-agent" NONE
    else
@@ -173,7 +242,7 @@ function ComposeAWSutilsString {
    fi
 
    # Whether to install AWS InstanceConnect
-   if [[ ${AMIGENICNCTURL} == "UNDEF" ]]
+   if [[ -z ${AMIGENICNCTURL:-} ]]
    then
       err_exit "Skipping install of AWS SSM-agent" NONE
    else
@@ -208,7 +277,7 @@ function ComposeChrootMountString {
    fi
 
    # Set requested custom storage layout as necessary
-   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+   if [[ -z ${AMIGENSTORLAY:-} ]]
    then
       err_exit "Using script-default for boot-volume layout" NONE
    else
@@ -216,7 +285,7 @@ function ComposeChrootMountString {
    fi
 
    # Set device to mount
-   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+   if [[ -z ${AMIGENBUILDDEV:-} ]]
    then
       err_exit "Failed to define device to partition"
    else
@@ -234,7 +303,7 @@ function ComposeDiskSetupString {
    DISKSETUPCMD="DiskSetup.sh "
 
    # Set the offset for the OS partition
-   if [[ ${AMIGENBOOTSIZE} == "UNDEF" ]]
+   if [[ -z ${AMIGENBOOTSIZE:-} ]]
    then
       err_exit "Using minimal offset [17m] for root volumes" NONE
       DISKSETUPCMD+="-B 17m "
@@ -250,7 +319,7 @@ function ComposeDiskSetupString {
    DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
 
    # Set requested custom storage layout as necessary
-   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+   if [[ -z ${AMIGENSTORLAY:-} ]]
    then
       err_exit "Using script-default for boot-volume layout" NONE
    else
@@ -258,16 +327,16 @@ function ComposeDiskSetupString {
    fi
 
    # Set LVM2 or bare disk-formatting
-   if [[ ${AMIGENVGNAME} != "UNDEF" ]]
+   if [[ -n ${AMIGENVGNAME:-} ]]
    then
       DISKSETUPCMD+="-v ${AMIGENVGNAME} "
-   elif [[ ${AMIGENROOTNM} != "UNDEF" ]]
+   elif [[ -n ${AMIGENROOTNM:-} ]]
    then
       DISKSETUPCMD+="-r ${AMIGENROOTNM} "
    fi
 
    # Set device to carve
-   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+   if [[ -z ${AMIGENBUILDDEV:-} ]]
    then
       err_exit "Failed to define device to partition"
    else
@@ -293,7 +362,7 @@ function ComposeOSpkgString {
    fi
 
    # Pick custom yum repos
-   if [[ ${AMIGENREPOS} == "UNDEF" ]]
+   if [[ -z ${AMIGENREPOS:-} ]]
    then
       err_exit "Using script-default yum repos" NONE
    else
@@ -301,7 +370,7 @@ function ComposeOSpkgString {
    fi
 
    # Custom repo-def RPMs to install
-   if [[ ${AMIGENREPOSRC} == "UNDEF" ]]
+   if [[ -z ${AMIGENREPOSRC:-} ]]
    then
       err_exit "Installing no custom repo-config RPMs" NONE
    else
@@ -309,7 +378,7 @@ function ComposeOSpkgString {
    fi
 
    # Add custom manifest file
-   if [[ ${AMIGENMANFST} == "UNDEF" ]]
+   if [[ -z ${AMIGENMANFST:-} ]]
    then
       err_exit "Installing no custom mainfest" NONE
    else
@@ -317,7 +386,7 @@ function ComposeOSpkgString {
    fi
 
    # Add custom pkg group
-   if [[ ${AMIGENPKGGRP} == "UNDEF" ]]
+   if [[ -z ${AMIGENPKGGRP:-} ]]
    then
       err_exit "Installing no custom package group" NONE
    else
@@ -390,6 +459,9 @@ function DisableStrictHostCheck {
 ## Main program section ##
 ##########################
 
+set -x
+set -e
+set -o pipefail
 
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
@@ -420,6 +492,17 @@ then
     yum-config-manager --enable "$EPELREPO" > /dev/null
 fi
 
+echo "Installing custom repo packages in the builder box"
+IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
+for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
+do
+      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+done
+
+echo "Enabling repos in the builder box"
+yum-config-manager --disable "*" > /dev/null
+yum-config-manager --enable "$AMIGENREPOS" > /dev/null
+
 echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
@@ -445,24 +528,11 @@ fi
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
 if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
 then
-   echo "%s is a valid block device. Nuking VTOC... " "${SPEL_AMIGENBUILDDEV}"
+   echo "${SPEL_AMIGENBUILDDEV} is a valid block device. Nuking VTOC... "
 
-   ITER=0
-   while [[ $( sfdisk -d "${SPEL_AMIGENBUILDDEV}" ) != "" ]]
-   do
-      dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 \
-         count=10240 > /dev/null 2>&1
-      sleep 5
-      (( ITER++ ))
-      if [[ ${ITER} -ge 5 ]]
-      then
-         err_exit "Failed clearing VTOC"
-      fi
-   done
+   retry 5 dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
    echo "Cleared."
-
 fi
-
 
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
