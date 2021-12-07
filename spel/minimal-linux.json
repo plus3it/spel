@@ -502,7 +502,10 @@
                 "SPEL_EPELRELEASE={{ user `spel_epel8release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
                 "SPEL_FIPSDISABLE=true",
-                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}"
+                "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
+                "SPEL_CUSTOMRELEASES={{ user `spel_custom8releasepackages }}",
+                "SPEL_CUSTOMREPONAMES={{ user `spel_custom8reponames }}",
+                "SPEL_CUSTOMPACKAGES={{ user `spel_custom8packages }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
@@ -628,6 +631,9 @@
         "spel_aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "spel_aws_cliv2_source": "",
         "spel_aws_ssmagent_source": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+        "spel_custom8packages": "",
+        "spel_custom8releasepackages": "https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-8.noarch.rpm",
+        "spel_custom8reponames": "spel",
         "spel_desc_url": "https://github.com/plus3it/spel",
         "spel_disablefips": "",
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",

@@ -24,6 +24,9 @@ AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
+CUSTOMRELEASES="${SPEL_CUSTOMRELEASES:-https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-8.noarch.rpm}"
+CUSTOMREPONAMES="${SPEL_CUSTOMREPONAMES:-spel}"
+CUSTOMPACKAGES="${SPEL_CUSTOMPACKAGES}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
@@ -249,9 +252,32 @@ function ComposeAWSutilsString {
       AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
    fi
 
+   # Whether to install yum repos from release packages
+   if [[ -z "${CUSTOMRELEASES:-}" ]]
+   then
+      err_exit "Skipping install of yum repos" NONE
+   else
+      AWSUTILSSTRING+="-r ${CUSTOMRELEASES} "
+   fi
+
+   # Whether to enable yum repos
+   if [[ -z "${CUSTOMREPONAMES:-}" ]]
+   then
+      err_exit "Skipping enabling yum repos" NONE
+   else
+      AWSUTILSSTRING+="-R ${CUSTOMREPONAMES} "
+   fi
+
+   # Whether to install packages from yum repos
+   if [[ -z "${CUSTOMPACKAGES:-}" ]]
+   then
+      err_exit "Skipping install of packages from yum repos" NONE
+   else
+      AWSUTILSSTRING+="-p ${CUSTOMPACKAGES} "
+   fi
+
    # Return command-string for AWSutils-script
    echo "${AWSUTILSSTRING}"
-
 }
 
 # Pick options for chroot-mount command
