@@ -166,3 +166,15 @@ def test_var_run_symlink(host):
 def test_systemd_services(host, service):
     chk_service = host.service(service)
     assert chk_service.is_enabled
+
+
+@pytest.mark.parametrize("name", [
+    ("spel-release"),
+])
+def test_spel_packages(host, name):
+    pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            '%s',
+            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
+    assert pkg.is_installed
