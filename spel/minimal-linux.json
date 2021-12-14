@@ -638,7 +638,7 @@
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
         "spel_epel8release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm",
         "spel_epelrepo": "epel",
-        "spel_extrarpms": "python3,spel-release,ec2-hibinit-agent,ec2-instance-connect,ec2-net-utils,https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+        "spel_extrarpms": "python36,spel-release,ec2-hibinit-agent,ec2-instance-connect,ec2-net-utils,https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
         "spel_grubtmout": "1",
         "spel_http_proxy": "",
         "spel_identifier": "",
