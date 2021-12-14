@@ -27,6 +27,7 @@ AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-l
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
+EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
@@ -383,15 +384,15 @@ function ComposeOSpkgString {
    then
       err_exit "Installing no custom repo-config RPMs" NONE
    else
-      OSPACKAGESTRING+="-r ${AMIGENREPOSRC}"
+      OSPACKAGESTRING+="-r ${AMIGENREPOSRC} "
    fi
 
    # Add custom manifest file
    if [[ -z ${AMIGENMANFST:-} ]]
    then
-      err_exit "Installing no custom mainfest" NONE
+      err_exit "Installing no custom manifest" NONE
    else
-      OSPACKAGESTRING+="-M ${AMIGENREPOSRC}"
+      OSPACKAGESTRING+="-M ${AMIGENREPOSRC} "
    fi
 
    # Add custom pkg group
@@ -399,7 +400,15 @@ function ComposeOSpkgString {
    then
       err_exit "Installing no custom package group" NONE
    else
-      OSPACKAGESTRING+="-g ${AMIGENPKGGRP}"
+      OSPACKAGESTRING+="-g ${AMIGENPKGGRP} "
+   fi
+
+   # Add extra rpms
+   if [[ -z ${EXTRARPMS:-} ]]
+   then
+      err_exit "Installing no extra rpms" NONE
+   else
+      OSPACKAGESTRING+="-e ${EXTRARPMS} "
    fi
 
    # Return command-string for OS-script

@@ -503,6 +503,7 @@
                 "SPEL_CLOUDPROVIDER=aws",
                 "SPEL_EPELRELEASE={{ user `spel_epel8release` }}",
                 "SPEL_EPELREPO={{ user `spel_epelrepo` }}",
+                "SPEL_EXTRARPMS={{ user `spel_extrarpms` }}",
                 "SPEL_FIPSDISABLE=true",
                 "SPEL_GRUBTMOUT={{ user `spel_grubtmout` }}",
                 "SPEL_USEDEFAULTREPOS={{ user `spel_usedefaultrepos` }}"
