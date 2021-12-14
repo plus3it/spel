@@ -632,7 +632,7 @@
         "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
         "spel_aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "spel_aws_cliv2_source": "",
-        "spel_aws_ssmagent_source": "",
+        "spel_aws_ssmagent_source": "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
         "spel_desc_url": "https://github.com/plus3it/spel",
         "spel_disablefips": "",
         "spel_epel7release": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
