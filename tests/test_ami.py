@@ -181,7 +181,6 @@ def test_systemd_services(host, service):
     ("ec2-hibinit-agent"),
     ("ec2-instance-connect"),
     ("ec2-net-utils"),
-    ("ec2-utils"),
 ])
 def test_spel_packages(host, name):
     pkg = host.package(name)
