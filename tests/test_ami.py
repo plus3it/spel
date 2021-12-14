@@ -159,9 +159,16 @@ def test_var_run_symlink(host):
 @pytest.mark.el7
 @pytest.mark.parametrize("service", [
     ("autotune.service"),
+])
+def test_el7_systemd_services(host, service):
+    chk_service = host.service(service)
+    assert chk_service.is_enabled
+
+
+@pytest.mark.parametrize("service", [
     ("amazon-ssm-agent.service"),
+    ("ec2-instance-connect.service"),
     ("hibinit-agent.service"),
-    ("ec2-instance-connect.service")
 ])
 def test_systemd_services(host, service):
     chk_service = host.service(service)
@@ -170,6 +177,11 @@ def test_systemd_services(host, service):
 
 @pytest.mark.parametrize("name", [
     ("spel-release"),
+    ("amazon-ssm-agent"),
+    ("ec2-hibinit-agent"),
+    ("ec2-instance-connect"),
+    ("ec2-net-utils"),
+    ("ec2-utils"),
 ])
 def test_spel_packages(host, name):
     pkg = host.package(name)
