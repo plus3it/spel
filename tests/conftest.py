@@ -2,7 +2,7 @@ import os
 
 import distro
 import pytest
-from six.moves import urllib
+import urllib.request, urllib.error
 
 # Static globals
 METADATA_KERNEL = 'http://169.254.169.254/latest/meta-data/kernel-id'
