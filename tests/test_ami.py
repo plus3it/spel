@@ -6,13 +6,6 @@ log = logging.getLogger('spel_validation')
 log.setLevel(logging.INFO)
 
 
-@pytest.mark.el7
-@pytest.mark.hvm
-def test_10_gigabit(host):
-    interface = host.interface('eth0')
-    assert interface.speed == 10000
-
-
 def test_root_volume_is_resized(host):
     cmd = 'test $(vgs --noheadings -o pv_free | sed \'s/ //g\') != 0'
     pv_free = host.run(cmd)
