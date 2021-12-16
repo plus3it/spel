@@ -152,7 +152,6 @@ def test_var_run_symlink(host):
 @pytest.mark.el7
 @pytest.mark.parametrize("service", [
     ("autotune.service"),
-    ("ec2-instance-connect.service"),
     ("hibinit-agent.service"),
 ])
 def test_el7_systemd_services(host, service):
