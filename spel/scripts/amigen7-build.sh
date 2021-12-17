@@ -238,7 +238,11 @@ function CollectManifest {
 
 function ComposeAWSutilsString {
     # Construct the cli option string for aws utils
-    CLIOPT_AWSUTILS=("-m ${AMIGENCHROOT}" "-d ${ELBUILD}/AWSpkgs")
+    CLIOPT_AWSUTILS=(
+        "-m ${AMIGENCHROOT}"
+        "-d ${ELBUILD}/AWSpkgs"
+        "-t autotune,amazon-ssm-agent,hibinit-agent"
+    )
 
     # Whether to install AWS CLIv1
     if [[ -n "${AWSCLIV1SOURCE}" ]]

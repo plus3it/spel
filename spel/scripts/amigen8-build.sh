@@ -223,6 +223,9 @@ function ComposeAWSutilsString {
 
    AWSUTILSSTRING="AWSutils.sh "
 
+   # Set services to enable
+   AWSUTILSSTRING+="-t amazon-ssm-agent "
+
    # Set location for chroot-env
    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
    then
