@@ -241,7 +241,7 @@ function ComposeAWSutilsString {
     CLIOPT_AWSUTILS=(
         "-m ${AMIGENCHROOT}"
         "-d ${ELBUILD}/AWSpkgs"
-        "-t autotune,amazon-ssm-agent,hibinit-agent"
+        "-t autotune,amazon-ssm-agent"
     )
 
     # Whether to install AWS CLIv1
