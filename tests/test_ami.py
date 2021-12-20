@@ -180,3 +180,12 @@ def test_spel_packages(host, name):
             '%s',
             {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
     assert pkg.is_installed
+
+
+def test_cfn_bootstrap(host):
+    cmd = 'python3 -m pip show aws-cfn-bootstrap'
+    cfnbootstrap = host.run(cmd)
+    log.info('stdout:\n%s', cfnbootstrap.stdout)
+    log.info('stderr:\n%s', cfnbootstrap.stderr)
+    assert cfnbootstrap.exit_status == 0
+    assert 'Version: 2.0' in cfnbootstrap.stdout

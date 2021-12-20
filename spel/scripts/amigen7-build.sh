@@ -19,6 +19,7 @@ AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-VolGroup00}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
+AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
@@ -223,6 +224,14 @@ function CollectManifest {
             (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
+        if [[ -n "$AWSCFNBOOTSTRAP" ]]
+        then
+            echo "Saving the cfn bootstrap version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" python3 -m pip list) | grep aws-cfn-bootstrap | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
     elif [[ "${CLOUDPROVIDER}" == "azure" ]]
     then
         echo "Saving the waagent version to the manifest"
@@ -247,13 +256,19 @@ function ComposeAWSutilsString {
     # Whether to install AWS CLIv1
     if [[ -n "${AWSCLIV1SOURCE}" ]]
     then
-      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
+        CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
     fi
 
     # Whether to install AWS CLIv2
     if [[ -n "${AWSCLIV2SOURCE}" ]]
     then
-      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+        CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+    fi
+
+    # Whether to install cfnbootstrap
+    if [[ -n "${AWSCFNBOOTSTRAP}" ]]
+    then
+        CLIOPT_AWSUTILS+=("-n ${AWSCFNBOOTSTRAP}")
     fi
 }
 

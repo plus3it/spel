@@ -22,6 +22,7 @@ AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME}"
+AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
@@ -204,6 +205,14 @@ function CollectManifest {
             (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
+        if [[ -n "$AWSCFNBOOTSTRAP" ]]
+        then
+            echo "Saving the cfn bootstrap version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" python3 -m pip list) | grep aws-cfn-bootstrap | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
     elif [[ "${CLOUDPROVIDER}" == "azure" ]]
     then
         echo "Saving the waagent version to the manifest"
@@ -262,9 +271,16 @@ function ComposeAWSutilsString {
       AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
    fi
 
+    # Whether to install cfnbootstrap
+   if [[ -z "${AWSCFNBOOTSTRAP:-}" ]]
+   then
+      err_exit "Skipping install of AWS CFN Bootstrap" NONE
+   else
+      AWSUTILSSTRING+="-n ${AWSCFNBOOTSTRAP} "
+   fi
+
    # Return command-string for AWSutils-script
    echo "${AWSUTILSSTRING}"
-
 }
 
 # Pick options for chroot-mount command
