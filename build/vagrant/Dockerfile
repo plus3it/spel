@@ -1,2 +1,2 @@
 FROM hashicorp/packer:1.7.8
-FROM hashicorp/terraform:1.1.1
+FROM hashicorp/terraform:1.1.2
