@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2021.12.1
+
+**Released**: 2021.12.21
+
+**Commit Delta**: [Change from 2021.11.1 release](https://github.com/plus3it/spel/compare/2021.11.1...2021.12.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2021.12.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - amazon-ssm-agent-3.1.715.0-1
+    - aws-cli/1.22.25
+    - aws-cli/2.4.6
+
 ### 2021.11.1
 
 **Released**: 2021.11.23
