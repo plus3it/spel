@@ -11,7 +11,7 @@
 **Summary**:
 
 *   "Extra" packages updated in this release:
-    - amazon-ssm-agent-3.1.715.0-1.x86_64
+    - amazon-ssm-agent-3.1.715.0-1
     - aws-cli/1.22.25
     - aws-cli/2.4.6
 
