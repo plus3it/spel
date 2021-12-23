@@ -19,6 +19,7 @@ AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-VolGroup00}"
 AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
+AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
 BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
@@ -31,6 +32,7 @@ EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
+USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 parted yum-utils unzip git}"
@@ -73,7 +75,7 @@ function err_exit {
 }
 
 
-
+# CentOS 7 repos
 DEFAULTREPOS=(
     base
     updates
@@ -103,9 +105,17 @@ then
 fi
 DEFAULTREPOS+=(epel)
 
-if [[ -z "${AMIGENREPOS}" ]]
+# Default to enabling default repos
+ENABLEDREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+
+if [[ "$USEDEFAULTREPOS" != "true" ]]
 then
-    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+    # Enable AMIGENREPOS exclusively when instructed not to use default repos
+    ENABLEDREPOS="${AMIGENREPOS}"
+elif [[ -n "${AMIGENREPOS:-}" ]]
+then
+    # When using default repos, also enable AMIGENREPOS if present
+    ENABLEDREPOS+=,"${AMIGENREPOS}"
 fi
 
 MKFSFORCEOPT="-F"
@@ -214,6 +224,14 @@ function CollectManifest {
             (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
+        if [[ -n "$AWSCFNBOOTSTRAP" ]]
+        then
+            echo "Saving the cfn bootstrap version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" python3 -m pip list) | grep aws-cfn-bootstrap | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
     elif [[ "${CLOUDPROVIDER}" == "azure" ]]
     then
         echo "Saving the waagent version to the manifest"
@@ -229,18 +247,28 @@ function CollectManifest {
 
 function ComposeAWSutilsString {
     # Construct the cli option string for aws utils
-    CLIOPT_AWSUTILS=("-m ${AMIGENCHROOT}" "-d ${ELBUILD}/AWSpkgs")
+    CLIOPT_AWSUTILS=(
+        "-m ${AMIGENCHROOT}"
+        "-d ${ELBUILD}/AWSpkgs"
+        "-t autotune,amazon-ssm-agent"
+    )
 
     # Whether to install AWS CLIv1
     if [[ -n "${AWSCLIV1SOURCE}" ]]
     then
-      CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
+        CLIOPT_AWSUTILS+=("-C ${AWSCLIV1SOURCE}")
     fi
 
     # Whether to install AWS CLIv2
     if [[ -n "${AWSCLIV2SOURCE}" ]]
     then
-      CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+        CLIOPT_AWSUTILS+=("-c ${AWSCLIV2SOURCE}")
+    fi
+
+    # Whether to install cfnbootstrap
+    if [[ -n "${AWSCFNBOOTSTRAP}" ]]
+    then
+        CLIOPT_AWSUTILS+=("-n ${AWSCFNBOOTSTRAP}")
     fi
 }
 
@@ -267,9 +295,9 @@ function ComposeChrootCliString {
 
     # Construct the cli option string for a custom repo
     CLIOPT_CUSTOMREPO=""
-    if [[ -n "${AMIGENREPOSRC}" && -n "${AMIGENREPOS}" ]]
+    if [[ -n "${AMIGENREPOSRC}" && -n "${ENABLEDREPOS}" ]]
     then
-        CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${AMIGENREPOS}")
+        CLIOPT_CUSTOMREPO=(-r "${AMIGENREPOSRC}" -b "${ENABLEDREPOS}")
     fi
 }
 
@@ -360,7 +388,7 @@ done
 
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$AMIGENREPOS" > /dev/null
+yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
 
 if [[ -n "${EPELRELEASE}" ]]
 then

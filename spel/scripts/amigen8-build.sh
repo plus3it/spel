@@ -22,14 +22,17 @@ AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME}"
+AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
 EPELREPO="${SPEL_EPELREPO:-epel}"
+EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
+USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
 
 
 read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
@@ -86,9 +89,17 @@ then
 fi
 DEFAULTREPOS+=(epel epel-modular)
 
-if [[ -z "${AMIGENREPOS:-}" ]]
+# Default to enabling default repos
+ENABLEDREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+
+if [[ "$USEDEFAULTREPOS" != "true" ]]
 then
-    AMIGENREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
+    # Enable AMIGENREPOS exclusively when instructed not to use default repos
+    ENABLEDREPOS="${AMIGENREPOS}"
+elif [[ -n "${AMIGENREPOS:-}" ]]
+then
+    # When using default repos, also enable AMIGENREPOS if present
+    ENABLEDREPOS+=,"${AMIGENREPOS}"
 fi
 
 export FIPSDISABLE
@@ -194,6 +205,14 @@ function CollectManifest {
             (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
+        if [[ -n "$AWSCFNBOOTSTRAP" ]]
+        then
+            echo "Saving the cfn bootstrap version to the manifest"
+            [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
+            set +x
+            (chroot "${AMIGENCHROOT}" python3 -m pip list) | grep aws-cfn-bootstrap | tee -a /tmp/manifest.txt
+            eval "$XTRACE"
+        fi
     elif [[ "${CLOUDPROVIDER}" == "azure" ]]
     then
         echo "Saving the waagent version to the manifest"
@@ -212,6 +231,9 @@ function ComposeAWSutilsString {
    local AWSUTILSSTRING
 
    AWSUTILSSTRING="AWSutils.sh "
+
+   # Set services to enable
+   AWSUTILSSTRING+="-t amazon-ssm-agent "
 
    # Set location for chroot-env
    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
@@ -249,9 +271,16 @@ function ComposeAWSutilsString {
       AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
    fi
 
+    # Whether to install cfnbootstrap
+   if [[ -z "${AWSCFNBOOTSTRAP:-}" ]]
+   then
+      err_exit "Skipping install of AWS CFN Bootstrap" NONE
+   else
+      AWSUTILSSTRING+="-n ${AWSCFNBOOTSTRAP} "
+   fi
+
    # Return command-string for AWSutils-script
    echo "${AWSUTILSSTRING}"
-
 }
 
 # Pick options for chroot-mount command
@@ -362,11 +391,11 @@ function ComposeOSpkgString {
    fi
 
    # Pick custom yum repos
-   if [[ -z ${AMIGENREPOS:-} ]]
+   if [[ -z ${ENABLEDREPOS:-} ]]
    then
       err_exit "Using script-default yum repos" NONE
    else
-      OSPACKAGESTRING+="-a ${AMIGENREPOS} "
+      OSPACKAGESTRING+="-a ${ENABLEDREPOS} "
    fi
 
    # Custom repo-def RPMs to install
@@ -374,15 +403,15 @@ function ComposeOSpkgString {
    then
       err_exit "Installing no custom repo-config RPMs" NONE
    else
-      OSPACKAGESTRING+="-r ${AMIGENREPOSRC}"
+      OSPACKAGESTRING+="-r ${AMIGENREPOSRC} "
    fi
 
    # Add custom manifest file
    if [[ -z ${AMIGENMANFST:-} ]]
    then
-      err_exit "Installing no custom mainfest" NONE
+      err_exit "Installing no custom manifest" NONE
    else
-      OSPACKAGESTRING+="-M ${AMIGENREPOSRC}"
+      OSPACKAGESTRING+="-M ${AMIGENREPOSRC} "
    fi
 
    # Add custom pkg group
@@ -390,7 +419,15 @@ function ComposeOSpkgString {
    then
       err_exit "Installing no custom package group" NONE
    else
-      OSPACKAGESTRING+="-g ${AMIGENPKGGRP}"
+      OSPACKAGESTRING+="-g ${AMIGENPKGGRP} "
+   fi
+
+   # Add extra rpms
+   if [[ -z ${EXTRARPMS:-} ]]
+   then
+      err_exit "Installing no extra rpms" NONE
+   else
+      OSPACKAGESTRING+="-e ${EXTRARPMS} "
    fi
 
    # Return command-string for OS-script
@@ -501,7 +538,7 @@ done
 
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$AMIGENREPOS" > /dev/null
+yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
 
 echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"

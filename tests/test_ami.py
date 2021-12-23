@@ -6,13 +6,6 @@ log = logging.getLogger('spel_validation')
 log.setLevel(logging.INFO)
 
 
-@pytest.mark.el7
-@pytest.mark.hvm
-def test_10_gigabit(host):
-    interface = host.interface('eth0')
-    assert interface.speed == 10000
-
-
 def test_root_volume_is_resized(host):
     cmd = 'test $(vgs --noheadings -o pv_free | sed \'s/ //g\') != 0'
     pv_free = host.run(cmd)
@@ -159,10 +152,40 @@ def test_var_run_symlink(host):
 @pytest.mark.el7
 @pytest.mark.parametrize("service", [
     ("autotune.service"),
+])
+def test_el7_systemd_services(host, service):
+    chk_service = host.service(service)
+    assert chk_service.is_enabled
+
+
+@pytest.mark.parametrize("service", [
     ("amazon-ssm-agent.service"),
-    ("hibinit-agent.service"),
-    ("ec2-instance-connect.service")
 ])
 def test_systemd_services(host, service):
     chk_service = host.service(service)
     assert chk_service.is_enabled
+
+
+@pytest.mark.parametrize("name", [
+    ("spel-release"),
+    ("amazon-ssm-agent"),
+    ("ec2-hibinit-agent"),
+    ("ec2-instance-connect"),
+    ("ec2-net-utils"),
+])
+def test_spel_packages(host, name):
+    pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            '%s',
+            {'pkg': pkg.name, 'version': pkg.version, 'release': pkg.release})
+    assert pkg.is_installed
+
+
+def test_cfn_bootstrap(host):
+    cmd = 'python3 -m pip show aws-cfn-bootstrap'
+    cfnbootstrap = host.run(cmd)
+    log.info('stdout:\n%s', cfnbootstrap.stdout)
+    log.info('stderr:\n%s', cfnbootstrap.stderr)
+    assert cfnbootstrap.exit_status == 0
+    assert 'Version: 2.0' in cfnbootstrap.stdout
