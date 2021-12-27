@@ -151,15 +151,6 @@ def test_var_run_symlink(host):
     assert var_run_symlink == '/run'
 
 
-@pytest.mark.el7
-@pytest.mark.parametrize("service", [
-    ("autotune.service"),
-])
-def test_el7_systemd_services(host, service):
-    chk_service = host.service(service)
-    assert chk_service.is_enabled
-
-
 @pytest.mark.parametrize("service", [
     ("amazon-ssm-agent.service"),
 ])

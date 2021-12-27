@@ -249,7 +249,7 @@ function ComposeAWSutilsString {
     # Construct the cli option string for aws utils
     CLIOPT_AWSUTILS=(
         "-m ${AMIGENCHROOT}"
-        "-t autotune,amazon-ssm-agent"
+        "-t amazon-ssm-agent"
     )
 
     # Whether to install pkgs from AMI Utils
