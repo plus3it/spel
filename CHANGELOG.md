@@ -10,6 +10,7 @@
 
 **Summary**:
 
+*   Publishes images for RHEL 8 and CentOS 8
 *   "Extra" packages updated in this release:
     - amazon-ssm-agent-3.1.715.0-1
     - aws-cli/1.22.25
