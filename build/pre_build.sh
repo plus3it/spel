@@ -24,7 +24,6 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer validate \
   -var "spel_amigen8branch=$SPEL_AMIGEN8BRANCH" \
   -var "spel_amigen8source=$SPEL_AMIGEN8SOURCE" \
   -var "spel_amigenbuilddev=$SPEL_AMIGENBUILDDEV" \
-  -var "spel_amiutilsource=$SPEL_AMIUTILSOURCE" \
   -var "spel_aws_cliv1_source=$SPEL_AWSCLIV1SOURCE" \
   -var "spel_aws_cliv2_source=$SPEL_AWSCLIV2SOURCE" \
   -var "spel_desc_url=$SPEL_DESC_URL" \
