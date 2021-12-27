@@ -18,7 +18,7 @@ AMIGENROOTNM="${SPEL_AMIGENROOTNM:-UNDEF}"
 AMIGENSOURCE="${SPEL_AMIGENSOURCE:-https://github.com/plus3it/AMIgen7.git}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY:-/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME:-VolGroup00}"
-AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE:-https://github.com/ferricoxide/Lx-GetAMI-Utils.git}"
+AMIUTILSSOURCE="${SPEL_AMIUTILSSOURCE}"
 AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE}"
@@ -249,9 +249,14 @@ function ComposeAWSutilsString {
     # Construct the cli option string for aws utils
     CLIOPT_AWSUTILS=(
         "-m ${AMIGENCHROOT}"
-        "-d ${ELBUILD}/AWSpkgs"
         "-t autotune,amazon-ssm-agent"
     )
+
+    # Whether to install pkgs from AMI Utils
+    if [[ -n "${AMIUTILSSOURCE:-}" ]]
+    then
+        CLIOPT_AWSUTILS+=("-d ${ELBUILD}/AWSpkgs")
+    fi
 
     # Whether to install AWS CLIv1
     if [[ -n "${AWSCLIV1SOURCE}" ]]
@@ -415,7 +420,7 @@ then
 fi
 
 # Disable strict host-key checking when doing git-over-ssh
-if [[ "${AMIUTILSSOURCE}" == *"@"* ]]
+if [[ "${AMIUTILSSOURCE:-}" == *"@"* ]]
 then
     echo "Adding known host for AMIUtils source"
     DisableStrictHostCheck "${AMIUTILSSOURCE}"
@@ -425,14 +430,18 @@ echo "Cloning source of the AMIGen project"
 git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
 chmod +x "${ELBUILD}"/*.sh
 
-echo "Cloning source of the AMI utils project"
-git clone "${AMIUTILSSOURCE}" "${AMIUTILS}" --depth 1
+if [[ -n "${AMIUTILSSOURCE:-}" ]]
+then
 
-for RPM in "${AMIUTILS}"/*.el7.*.rpm
-do
-    echo "Creating link for ${RPM} in ${ELBUILD}/AWSpkgs/"
-    ln "${RPM}" "${ELBUILD}"/AWSpkgs/
-done
+    echo "Cloning source of the AMI utils project"
+    git clone "${AMIUTILSSOURCE}" "${AMIUTILS}" --depth 1
+
+    for RPM in "${AMIUTILS}"/*.el7.*.rpm
+    do
+        echo "Creating link for ${RPM} in ${ELBUILD}/AWSpkgs/"
+        ln "${RPM}" "${ELBUILD}"/AWSpkgs/
+    done
+fi
 
 # Invoke disk-partitioner
 ComposeDiskSetupString

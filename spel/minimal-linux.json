@@ -634,7 +634,7 @@
         "spel_amigen8source": "https://github.com/plus3it/AMIgen8.git",
         "spel_amigen8storlay": "",
         "spel_amigenbuilddev": "/dev/nvme0n1",
-        "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
+        "spel_amiutilsource": "",
         "spel_aws_cfnbootstrap": "https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz",
         "spel_aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "spel_aws_cliv2_source": "",

@@ -295,7 +295,7 @@ defaults):
     "spel_amigen7reposource": "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
     "spel_amigen7source": "https://github.com/plus3it/AMIgen7.git",
     "spel_amigen7storlay": "/:rootVol:4,swap:swapVol:2,/home:homeVol:1,/var:varVol:2,/var/log:logVol:2,/var/log/audit:auditVol:100%FREE",
-    "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
+    "spel_amiutilsource": "",
     "spel_awsclisource": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
     "spel_desc_url": "https://github.com/plus3it/spel",
     "spel_disablefips": "",
