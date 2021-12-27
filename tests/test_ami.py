@@ -12,9 +12,10 @@ def test_root_volume_is_resized(host):
     assert pv_free.exit_status == 0
 
 
+@pytest.mark.amiutils_enabled
 @pytest.mark.parametrize("name", [
 ])
-def test_common_aws_pkgs(host, name):
+def test_common_amiutils_pkgs(host, name):
     pkg = host.package(name)
     if pkg.is_installed:
         log.info(
@@ -23,6 +24,7 @@ def test_common_aws_pkgs(host, name):
     assert pkg.is_installed
 
 
+@pytest.mark.amiutils_enabled
 @pytest.mark.el7
 @pytest.mark.parametrize("name", [
     ("aws-amitools-ec2"),
@@ -37,7 +39,7 @@ def test_common_aws_pkgs(host, name):
     ("aws-cfn-bootstrap"),
     ("aws-scripts-ses")
 ])
-def test_el7_aws_pkgs(host, name):
+def test_el7_amiutils_pkgs(host, name):
     pkg = host.package(name)
     if pkg.is_installed:
         log.info(

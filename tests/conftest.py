@@ -12,11 +12,14 @@ FIPS_DISABLED = set(['true', 'TRUE', '1', 'on'])
 VIRTUALIZATION_MARKERS = set(['hvm', 'paravirtual'])
 PLAT_MARKERS = set(['el7', 'el8'])
 FIPS_MARKERS = set(['fips_enabled', 'fips_disabled'])
+AMIUTILS_MARKERS = set(['amiutils_enabled', 'amiutils_disabled'])
 
 # Platform-specific globals
 PLAT = 'el' + distro.major_version()
 FIPS = 'fips_disabled' if os.environ.get('SPEL_DISABLEFIPS') in FIPS_DISABLED \
     else 'fips_enabled'
+AMIUTILS = 'amiutils_enabled' if os.environ.get('SPEL_AMIUTILSOURCE') \
+    else 'amiutils_disabled'
 VIRT = 'hvm'
 try:
     urllib.request.urlopen(METADATA_KERNEL)
@@ -44,6 +47,12 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "fips_disabled: mark test to run only if fips is disabled"
     )
+    config.addinivalue_line(
+        "markers", "amiutils_enabled: mark test to run only if AMI Utils pkgs were used"
+    )
+    config.addinivalue_line(
+        "markers", "amiutils_disabled: mark test to run only if AMI Utils pkgs were not used"
+    )
 
 
 def pytest_runtest_setup(item):
@@ -59,6 +68,10 @@ def pytest_runtest_setup(item):
             if FIPS_MARKERS.intersection(item.keywords):
                 pytest.skip(
                     'test incompatible with fips mode, {0}'.format(FIPS))
+        if not item.get_closest_marker(AMIUTILS_MARKERS):
+            if AMIUTILS_MARKERS.intersection(item.keywords):
+                pytest.skip(
+                    'does not run when ami utils is deselected, {0}'.format(AMIUTILS))
 
 
 def pytest_logger_stdoutloggers(item):
