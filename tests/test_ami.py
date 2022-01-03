@@ -56,7 +56,7 @@ def test_aws_cli_is_in_path(host):
 
 
 def test_repo_access(host):
-    cmd = 'yum repolist all | sed -n \'/^repo id/,$p\''
+    cmd = 'yum -y repolist all | sed -n \'/^repo id/,$p\''
     repos = host.run(cmd)
     log.info('stdout:\n%s', repos.stdout)
     log.info('stderr:\n%s', repos.stderr)
