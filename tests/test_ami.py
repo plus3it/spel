@@ -61,6 +61,7 @@ def test_repo_access(host):
     log.info('stdout:\n%s', repos.stdout)
     log.info('stderr:\n%s', repos.stderr)
     assert repos.exit_status == 0
+    assert "Errno" not in repos.stderr
 
 
 @pytest.mark.el7
