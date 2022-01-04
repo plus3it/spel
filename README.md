@@ -6,7 +6,7 @@ STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
 publish Enterprise Linux images that are partitioned according to the
 [DISA STIG][0]. The resulting images also use LVM to simplify volume management.
 The images are configured with help from the scripts and packages in the
-[`AMIgen7`][31], and [`Lx-GetAMI-Utils`][9] projects.
+[`AMIgen7`][31], and [`AMIgen8`][40] projects.
 
 ## Why spel
 
@@ -41,36 +41,52 @@ recent AMI of each build will be at the top when viewed in the AWS Console.
 RPM Manifests for published images are available in the [manifests](manifests)
 directory.
 
-| AWS Region    | Builder Name / Link               |
-|---------------|-----------------------------------|
-| us-east-1     | [spel-minimal-rhel-7-hvm][1000]   |
-|               | [spel-minimal-centos-7-hvm][1002] |
-|               | [spel-minimal-rhel-8-hvm][1027]   |
-|               | [spel-minimal-centos-8-hvm][1028] |
-| us-east-2     | [spel-minimal-rhel-7-hvm][1005]   |
-|               | [spel-minimal-centos-7-hvm][1007] |
-|               | [spel-minimal-rhel-8-hvm][1029]   |
-|               | [spel-minimal-centos-8-hvm][1030] |
-| us-west-1     | [spel-minimal-rhel-7-hvm][1010]   |
-|               | [spel-minimal-centos-7-hvm][1012] |
-|               | [spel-minimal-rhel-8-hvm][1031]   |
-|               | [spel-minimal-centos-8-hvm][1032] |
-| us-west-2     | [spel-minimal-rhel-7-hvm][1015]   |
-|               | [spel-minimal-centos-7-hvm][1017] |
-|               | [spel-minimal-rhel-8-hvm][1033]   |
-|               | [spel-minimal-centos-8-hvm][1034] |
-| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]   |
-|               | [spel-minimal-centos-7-hvm][1022] |
-|               | [spel-minimal-rhel-8-hvm][1035]   |
-|               | [spel-minimal-centos-8-hvm][1036] |
-| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]   |
-|               | [spel-minimal-centos-7-hvm][1026] |
-|               | [spel-minimal-rhel-8-hvm][1037]   |
-|               | [spel-minimal-centos-8-hvm][1038] |
+| AWS Region    | Builder Name / Link                      |
+|---------------|------------------------------------------|
+| us-east-1     | [spel-minimal-rhel-7-hvm][1000]          |
+|               | [spel-minimal-centos-7-hvm][1002]        |
+|               | [spel-minimal-rhel-8-hvm][1027]          |
+|               | [spel-minimal-centos-8-stream-hvm][1039] |
+| us-east-2     | [spel-minimal-rhel-7-hvm][1005]          |
+|               | [spel-minimal-centos-7-hvm][1007]        |
+|               | [spel-minimal-rhel-8-hvm][1029]          |
+|               | [spel-minimal-centos-8-stream-hvm][1040] |
+| us-west-1     | [spel-minimal-rhel-7-hvm][1010]          |
+|               | [spel-minimal-centos-7-hvm][1012]        |
+|               | [spel-minimal-rhel-8-hvm][1031]          |
+|               | [spel-minimal-centos-8-stream-hvm][1041] |
+| us-west-2     | [spel-minimal-rhel-7-hvm][1015]          |
+|               | [spel-minimal-centos-7-hvm][1017]        |
+|               | [spel-minimal-rhel-8-hvm][1033]          |
+|               | [spel-minimal-centos-8-stream-hvm][1042] |
+| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]          |
+|               | [spel-minimal-centos-7-hvm][1022]        |
+|               | [spel-minimal-rhel-8-hvm][1035]          |
+|               | [spel-minimal-centos-8-stream-hvm][1043] |
+| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]          |
+|               | [spel-minimal-centos-7-hvm][1026]        |
+|               | [spel-minimal-rhel-8-hvm][1037]          |
+|               | [spel-minimal-centos-8-stream-hvm][1044] |
 
 | Vagrant Cloud Name                    | Vagrant Provider |
 |---------------------------------------|------------------|
 | [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
+
+## Deprecated CentOS 8 Images
+
+With the move from CentOS 8 to CentOS Stream 8, the CentOS 8
+images are deprecated. While they remain public for the moment,
+they are no longer updated and the CentOS org may remove the
+yum repos at their discretion.
+
+| AWS Region    | Builder Name / Link               |
+|---------------|-----------------------------------|
+| us-east-1     | [spel-minimal-centos-8-hvm][1028] |
+| us-east-2     | [spel-minimal-centos-8-hvm][1030] |
+| us-west-1     | [spel-minimal-centos-8-hvm][1032] |
+| us-west-2     | [spel-minimal-centos-8-hvm][1034] |
+| us-gov-west-1 | [spel-minimal-centos-8-hvm][1036] |
+| us-gov-east-1 | [spel-minimal-centos-8-hvm][1038] |
 
 [1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
@@ -96,6 +112,12 @@ directory.
 [1036]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1038]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1039]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1040]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1041]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1042]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1043]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1044]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
 
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
@@ -260,27 +282,27 @@ defaults):
 }
 ```
 
-| Variable Name           | Description                                                       |
-|-------------------------|-------------------------------------------------------------------|
-| `root_volume_size`      | Size (in GiB) of image root volume                                |
-| `security_group_cidrs`  | CIDRs to restrict security group created by Packer                |
-| `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use             |
-| `spel_amigen7reponames` | Name(s) of the custom yum repos (* or comma-separated) for EL7    |
-| `spel_amigen7reposource`| URL to a custom release RPM containing base repos for EL7         |
-| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project               |
-| `spel_amigen7storlay`   | List of MOUNT:VOLNAME:VOLSIZE tuples to customize storage-layout  |
-| `spel_amigenbuilddev`   | Override device-path for the bootstrap-host's boot disk           |
-| `spel_amiutilsource`    | URL to the git repository for the `Lx-GetAMI-Utils` project       |
-| `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`              |
-| `spel_desc_url`         | URL to detailed description of AMI                                |
-| `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                               |
-| `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                  |
-| `spel_epelrepo`         | Name of the epel repo (if different than "epel")                  |
-| `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum |
-| `spel_identifier`       | Project ID to associate to the resulting images                   |
-| `spel_version`          | Version to assign to the resulting image(s)                       |
-| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)  |
-| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                               |
+| Variable Name           | Description                                                            |
+|-------------------------|------------------------------------------------------------------------|
+| `root_volume_size`      | Size (in GiB) of image root volume                                     |
+| `security_group_cidrs`  | CIDRs to restrict security group created by Packer                     |
+| `spel_amigen7branch`    | Name of branch within the `spel_amigen7source` to use                  |
+| `spel_amigen7reponames` | Name(s) of the custom yum repos (* or comma-separated) for EL7         |
+| `spel_amigen7reposource`| URL to a custom release RPM containing base repos for EL7              |
+| `spel_amigen7source`    | URL to the git repository for the `AMIGen7` project                    |
+| `spel_amigen7storlay`   | List of MOUNT:VOLNAME:VOLSIZE tuples to customize storage-layout       |
+| `spel_amigenbuilddev`   | Override device-path for the bootstrap-host's boot disk                |
+| `spel_amiutilsource`    | URL to the git repository for the [`Lx-GetAMI-Utils`][9] project       |
+| `spel_awsclisource`     | URL to the site hosting the file `awscli-bundle.zip`                   |
+| `spel_desc_url`         | URL to detailed description of AMI                                     |
+| `spel_disablefips`      | Flag that disables FIPS in EL7 AMIs                                    |
+| `spel_epel7release`     | URL to the release RPM for the [EPEL 7][10] repo                       |
+| `spel_epelrepo`         | Name of the epel repo (if different than "epel")                       |
+| `spel_extrarpms`        | Comma-separated list of extra package/@group names to pass to yum      |
+| `spel_identifier`       | Project ID to associate to the resulting images                        |
+| `spel_version`          | Version to assign to the resulting image(s)                            |
+| `vagrantcloud_token`    | Authentication token for Vagrant Cloud (env: VAGRANTCLOUD_TOKEN)       |
+| `vagrantcloud_username` | Username in Hashicorp Vagrant Cloud                                    |
 
 For more details on the syntax for `spel_amigen7storlay`, refer to the [AMIgen doc on custom partitioning][32].
 
@@ -292,15 +314,15 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                       | Description                                                   |
-|------------------------------------|---------------------------------------------------------------|
-| `minimal-centos-8-hvm`             | amazon-ebs builder that results in a minimal CentOS 8 HVM AMI |
-| `minimal-rhel-8-hvm`               | amazon-ebs builder that results in a minimal RHEL 8 HVM AMI   |
-| `minimal-centos-7-hvm`             | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI |
-| `minimal-rhel-7-hvm`               | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI   |
-| `minimal-centos-7-azure-vhd`       | azure-arm builder that results in a minimal CentOS 7 VHD      |
-| `minimal-centos-7-azure-image`     | azure-arm builder that results in a minimal CentOS 7 Image    |
-| `minimal-centos-7-openstack-image` | openstack builder that results in a minimal CentOS 7 Image    |
+| Builder Name                       | Description                                                          |
+|------------------------------------|----------------------------------------------------------------------|
+| `minimal-centos-8-stream-hvm`      | amazon-ebs builder that results in a minimal CentOS Stream 8 HVM AMI |
+| `minimal-rhel-8-hvm`               | amazon-ebs builder that results in a minimal RHEL 8 HVM AMI          |
+| `minimal-centos-7-hvm`             | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI        |
+| `minimal-rhel-7-hvm`               | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI          |
+| `minimal-centos-7-azure-vhd`       | azure-arm builder that results in a minimal CentOS 7 VHD             |
+| `minimal-centos-7-azure-image`     | azure-arm builder that results in a minimal CentOS 7 Image           |
+| `minimal-centos-7-openstack-image` | openstack builder that results in a minimal CentOS 7 Image           |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -450,7 +472,6 @@ packer build \
 [5]: http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment
 [6]: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html
 [7]: https://www.packer.io/docs/builders/amazon.html
-[8]: https://github.com/ferricoxide/AMIgen6
 [9]: https://github.com/ferricoxide/Lx-GetAMI-Utils
 [10]: https://fedoraproject.org/wiki/EPEL
 [11]: https://www.packer.io/docs/builders/amazon-ebs.html
@@ -473,7 +494,7 @@ packer build \
 [28]: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
 [29]: https://github.com/Azure/WALinuxAgent/issues/760
 [30]: https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-features
-[31]: https://github.com/ferricoxide/AMIgen7
+[31]: https://github.com/plus3it/AMIgen7
 [32]: https://github.com/plus3it/AMIgen7/blob/master/Docs/README_CustomPartitioning.md
 [33]: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 [34]: https://www.packer.io/docs/builders/openstack#insecure
@@ -482,3 +503,4 @@ packer build \
 [37]: https://www.packer.io/docs/builders/openstack#networks
 [38]: https://www.packer.io/docs/builders/openstack#security_groups
 [39]: https://www.packer.io/docs/builders/openstack#source_image_name
+[40]: https://github.com/plus3it/amigen8
