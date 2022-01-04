@@ -12,9 +12,10 @@ def test_root_volume_is_resized(host):
     assert pv_free.exit_status == 0
 
 
+@pytest.mark.amiutils_enabled
 @pytest.mark.parametrize("name", [
 ])
-def test_common_aws_pkgs(host, name):
+def test_common_amiutils_pkgs(host, name):
     pkg = host.package(name)
     if pkg.is_installed:
         log.info(
@@ -23,6 +24,7 @@ def test_common_aws_pkgs(host, name):
     assert pkg.is_installed
 
 
+@pytest.mark.amiutils_enabled
 @pytest.mark.el7
 @pytest.mark.parametrize("name", [
     ("aws-amitools-ec2"),
@@ -37,7 +39,7 @@ def test_common_aws_pkgs(host, name):
     ("aws-cfn-bootstrap"),
     ("aws-scripts-ses")
 ])
-def test_el7_aws_pkgs(host, name):
+def test_el7_amiutils_pkgs(host, name):
     pkg = host.package(name)
     if pkg.is_installed:
         log.info(
@@ -54,11 +56,12 @@ def test_aws_cli_is_in_path(host):
 
 
 def test_repo_access(host):
-    cmd = 'yum repolist all 2> /dev/null | sed -n \'/^repo id/,$p\''
+    cmd = 'yum -y repolist all | sed -n \'/^repo id/,$p\''
     repos = host.run(cmd)
     log.info('stdout:\n%s', repos.stdout)
     log.info('stderr:\n%s', repos.stderr)
     assert repos.exit_status == 0
+    assert "Errno" not in repos.stderr
 
 
 @pytest.mark.el7
@@ -147,15 +150,6 @@ def test_timedatectl_dbus_status(host):
 def test_var_run_symlink(host):
     var_run_symlink = host.file('/var/run').linked_to
     assert var_run_symlink == '/run'
-
-
-@pytest.mark.el7
-@pytest.mark.parametrize("service", [
-    ("autotune.service"),
-])
-def test_el7_systemd_services(host, service):
-    chk_service = host.service(service)
-    assert chk_service.is_enabled
 
 
 @pytest.mark.parametrize("service", [

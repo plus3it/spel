@@ -26,7 +26,6 @@ AWS_PROFILE="$SPEL_IDENTIFIER" ./packer build \
   -var "spel_amigen8reposource=$SPEL_AMIGEN8REPOSRC" \
   -var "spel_amigen8source=$SPEL_AMIGEN8SOURCE" \
   -var "spel_amigenbuilddev=$SPEL_AMIGENBUILDDEV" \
-  -var "spel_amiutilsource=$SPEL_AMIUTILSOURCE" \
   -var "spel_aws_cliv1_source=$SPEL_AWSCLIV1SOURCE" \
   -var "spel_aws_cliv2_source=$SPEL_AWSCLIV2SOURCE" \
   -var "spel_desc_url=$SPEL_DESC_URL" \

@@ -45,6 +45,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos7_hvm` }}",
@@ -78,6 +79,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-rhel-7-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel7_hvm` }}",
@@ -166,6 +168,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-centos-8-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos8_hvm` }}",
@@ -199,6 +202,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-rhel-8-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_rhel8_hvm` }}",
@@ -634,7 +638,7 @@
         "spel_amigen8source": "https://github.com/plus3it/AMIgen8.git",
         "spel_amigen8storlay": "",
         "spel_amigenbuilddev": "/dev/nvme0n1",
-        "spel_amiutilsource": "https://github.com/ferricoxide/Lx-GetAMI-Utils.git",
+        "spel_amiutilsource": "",
         "spel_aws_cfnbootstrap": "https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz",
         "spel_aws_cliv1_source": "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip",
         "spel_aws_cliv2_source": "",

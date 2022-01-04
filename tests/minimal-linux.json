@@ -15,6 +15,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-centos-7-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_create_ami": "true",
@@ -44,6 +45,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-rhel-7-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_create_ami": "true",
@@ -73,6 +75,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-centos-8-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_create_ami": "true",
@@ -102,6 +105,7 @@
                     "volume_type": "gp2"
                 }
             ],
+            "max_retries": 20,
             "name": "minimal-rhel-8-hvm",
             "region": "{{ user `aws_region` }}",
             "skip_create_ami": "true",
@@ -171,6 +175,7 @@
         {
             "environment_vars": [
                 "LVM_SUPPRESS_FD_WARNINGS=1",
+                "SPEL_AMIUTILSOURCE={{ user `spel_amiutilsource` }}",
                 "SPEL_DISABLEFIPS={{ user `spel_disablefips` }}"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'",
@@ -197,6 +202,7 @@
         "source_ami_centos8_hvm": "{{ env `minimal_centos_8_hvm` }}",
         "source_ami_rhel7_hvm": "{{ env `minimal_rhel_7_hvm` }}",
         "source_ami_rhel8_hvm": "{{ env `minimal_rhel_8_hvm` }}",
+        "spel_amiutilsource": "{{ env `SPEL_AMIUTILSOURCE` }}",
         "spel_disablefips": "",
         "spel_identifier": "{{ env `SPEL_IDENTIFIER` }}",
         "spel_version": "{{ env `SPEL_VERSION` }}",

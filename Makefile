@@ -17,7 +17,6 @@ SPEL_AMIGEN8SOURCE ?= https://github.com/plus3it/AMIgen8.git
 SPEL_AMIGEN8BRANCH ?= master
 SPEL_AMIGEN8REPOSRC ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm,https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-8.noarch.rpm
 SPEL_AMIGEN8REPOS ?= spel
-SPEL_AMIUTILSOURCE ?= https://github.com/ferricoxide/Lx-GetAMI-Utils.git
 SPEL_AWSCLIV1SOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
 SPEL_AWSCLIV2SOURCE ?= https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 SPEL_AMIGENBUILDDEV ?= /dev/nvme0n1
