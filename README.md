@@ -72,64 +72,16 @@ directory.
 |---------------------------------------|------------------|
 | [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
 
-## Deprecated EL6 Images
-
-The AMI table below contains links to EL6 images that have been deprecated. These
-images are no longer being generated on a monthly base. The last published AMI
-of each build will be at the top when viewed in the AWS Console.
-
-The last version for these EL6 builds was [2018.10.1][3000]. To build any them,
-or to view the manifests, checkout that version of this project.
-
-These EL6 images were created with the help of the [`AMIgen6`][8] project.
-
-| AWS Region    | Builder Name / Link               |
-|---------------|-----------------------------------|
-| us-east-1     | [spel-minimal-rhel-6-hvm][1001]   |
-|               | [spel-minimal-centos-6-pvm][1003] |
-|               | [spel-minimal-centos-6-hvm][1004] |
-| us-east-2     | [spel-minimal-rhel-6-hvm][1006]   |
-|               | [spel-minimal-centos-6-pvm][1008] |
-|               | [spel-minimal-centos-6-hvm][1009] |
-| us-west-1     | [spel-minimal-rhel-6-hvm][1011]   |
-|               | [spel-minimal-centos-6-pvm][1013] |
-|               | [spel-minimal-centos-6-hvm][1014] |
-| us-west-2     | [spel-minimal-rhel-6-hvm][1016]   |
-|               | [spel-minimal-centos-6-pvm][1018] |
-|               | [spel-minimal-centos-6-hvm][1019] |
-| us-gov-west-1 | [spel-minimal-rhel-6-hvm][1021]   |
-|               | [spel-minimal-centos-6-pvm][1023] |
-|               | [spel-minimal-centos-6-hvm][1024] |
-
-| Vagrant Cloud Name                    | Vagrant Provider |
-|---------------------------------------|------------------|
-| [plus3it/spel-minimal-centos-6][2000] | virtualbox       |
-
 [1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1001]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1003]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1004]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1006]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1008]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1009]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1011]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1013]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1014]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1016]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1018]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1019]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1021]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1023]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-pvm-.*x86_64-gp2;sort=desc:creationDate>
-[1024]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-6-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1025]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1026]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1027]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
@@ -145,10 +97,7 @@ These EL6 images were created with the help of the [`AMIgen6`][8] project.
 [1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1038]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
 
-[2000]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-6>
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
-
-[3000]: <https://github.com/plus3it/spel/tree/2018.10.1>
 
 ## Default username
 
