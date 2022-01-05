@@ -41,32 +41,32 @@ recent AMI of each build will be at the top when viewed in the AWS Console.
 RPM Manifests for published images are available in the [manifests](manifests)
 directory.
 
-| AWS Region    | Builder Name / Link                      |
-|---------------|------------------------------------------|
-| us-east-1     | [spel-minimal-rhel-7-hvm][1000]          |
-|               | [spel-minimal-centos-7-hvm][1002]        |
-|               | [spel-minimal-rhel-8-hvm][1027]          |
-|               | [spel-minimal-centos-8-stream-hvm][1039] |
-| us-east-2     | [spel-minimal-rhel-7-hvm][1005]          |
-|               | [spel-minimal-centos-7-hvm][1007]        |
-|               | [spel-minimal-rhel-8-hvm][1029]          |
-|               | [spel-minimal-centos-8-stream-hvm][1040] |
-| us-west-1     | [spel-minimal-rhel-7-hvm][1010]          |
-|               | [spel-minimal-centos-7-hvm][1012]        |
-|               | [spel-minimal-rhel-8-hvm][1031]          |
-|               | [spel-minimal-centos-8-stream-hvm][1041] |
-| us-west-2     | [spel-minimal-rhel-7-hvm][1015]          |
-|               | [spel-minimal-centos-7-hvm][1017]        |
-|               | [spel-minimal-rhel-8-hvm][1033]          |
-|               | [spel-minimal-centos-8-stream-hvm][1042] |
-| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]          |
-|               | [spel-minimal-centos-7-hvm][1022]        |
-|               | [spel-minimal-rhel-8-hvm][1035]          |
-|               | [spel-minimal-centos-8-stream-hvm][1043] |
-| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]          |
-|               | [spel-minimal-centos-7-hvm][1026]        |
-|               | [spel-minimal-rhel-8-hvm][1037]          |
-|               | [spel-minimal-centos-8-stream-hvm][1044] |
+| AWS Region    | Builder Name / Link                     |
+|---------------|-----------------------------------------|
+| us-east-1     | [spel-minimal-rhel-7-hvm][1000]         |
+|               | [spel-minimal-centos-7-hvm][1002]       |
+|               | [spel-minimal-rhel-8-hvm][1027]         |
+|               | [spel-minimal-centos-8stream-hvm][1039] |
+| us-east-2     | [spel-minimal-rhel-7-hvm][1005]         |
+|               | [spel-minimal-centos-7-hvm][1007]       |
+|               | [spel-minimal-rhel-8-hvm][1029]         |
+|               | [spel-minimal-centos-8stream-hvm][1040] |
+| us-west-1     | [spel-minimal-rhel-7-hvm][1010]         |
+|               | [spel-minimal-centos-7-hvm][1012]       |
+|               | [spel-minimal-rhel-8-hvm][1031]         |
+|               | [spel-minimal-centos-8stream-hvm][1041] |
+| us-west-2     | [spel-minimal-rhel-7-hvm][1015]         |
+|               | [spel-minimal-centos-7-hvm][1017]       |
+|               | [spel-minimal-rhel-8-hvm][1033]         |
+|               | [spel-minimal-centos-8stream-hvm][1042] |
+| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]         |
+|               | [spel-minimal-centos-7-hvm][1022]       |
+|               | [spel-minimal-rhel-8-hvm][1035]         |
+|               | [spel-minimal-centos-8stream-hvm][1043] |
+| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]         |
+|               | [spel-minimal-centos-7-hvm][1026]       |
+|               | [spel-minimal-rhel-8-hvm][1037]         |
+|               | [spel-minimal-centos-8stream-hvm][1044] |
 
 | Vagrant Cloud Name                    | Vagrant Provider |
 |---------------------------------------|------------------|
@@ -112,12 +112,12 @@ yum repos at their discretion.
 [1036]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
 [1038]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1039]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1040]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1041]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1042]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1043]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1044]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1039]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1040]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1041]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1042]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1043]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1044]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
 
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
@@ -314,15 +314,15 @@ builder][18] or the [vmware-iso builder][14].
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                       | Description                                                          |
-|------------------------------------|----------------------------------------------------------------------|
-| `minimal-centos-8-stream-hvm`      | amazon-ebs builder that results in a minimal CentOS Stream 8 HVM AMI |
-| `minimal-rhel-8-hvm`               | amazon-ebs builder that results in a minimal RHEL 8 HVM AMI          |
-| `minimal-centos-7-hvm`             | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI        |
-| `minimal-rhel-7-hvm`               | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI          |
-| `minimal-centos-7-azure-vhd`       | azure-arm builder that results in a minimal CentOS 7 VHD             |
-| `minimal-centos-7-azure-image`     | azure-arm builder that results in a minimal CentOS 7 Image           |
-| `minimal-centos-7-openstack-image` | openstack builder that results in a minimal CentOS 7 Image           |
+| Builder Name                       | Description                                                         |
+|------------------------------------|---------------------------------------------------------------------|
+| `minimal-centos-8stream-hvm`      | amazon-ebs builder that results in a minimal CentOS Stream 8 HVM AMI |
+| `minimal-rhel-8-hvm`               | amazon-ebs builder that results in a minimal RHEL 8 HVM AMI         |
+| `minimal-centos-7-hvm`             | amazon-ebs builder that results in a minimal CentOS 7 HVM AMI       |
+| `minimal-rhel-7-hvm`               | amazon-ebs builder that results in a minimal RHEL 7 HVM AMI         |
+| `minimal-centos-7-azure-vhd`       | azure-arm builder that results in a minimal CentOS 7 VHD            |
+| `minimal-centos-7-azure-image`     | azure-arm builder that results in a minimal CentOS 7 Image          |
+| `minimal-centos-7-openstack-image` | openstack builder that results in a minimal CentOS 7 Image          |
 
 ### Minimal Linux Packer Post-Provisioners
 

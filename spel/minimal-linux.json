@@ -169,7 +169,7 @@
                 }
             ],
             "max_retries": 20,
-            "name": "minimal-centos-8-stream-hvm",
+            "name": "minimal-centos-8stream-hvm",
             "region": "{{ user `aws_region` }}",
             "source_ami": "{{ user `source_ami_centos8stream_hvm` }}",
             "sriov_support": true,
@@ -337,7 +337,7 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-stream-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
@@ -352,7 +352,7 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-stream-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
@@ -376,7 +376,7 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-stream-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
@@ -409,7 +409,7 @@
                 "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot"
             ],
             "only": [
-                "minimal-centos-8-stream-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-8-hvm"
             ],
             "type": "shell"
@@ -517,7 +517,7 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
-                "minimal-centos-8-stream-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-8-hvm"
             ],
             "scripts": [
