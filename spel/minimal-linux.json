@@ -150,7 +150,7 @@
             "vm_size": "{{ user `azure_vm_size` }}"
         },
         {
-            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 8 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
+            "ami_description": "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS Stream 8 AMI, with updates through {{ isotime \"2006-01-02\" }}. Default username `maintuser`. See {{ user `spel_desc_url` }}.",
             "ami_groups": "{{ user `ami_groups` }}",
             "ami_name": "{{ user `spel_identifier` }}-{{ build_name }}-{{ user `spel_version` }}.x86_64-gp2",
             "ami_regions": "{{ user `ami_regions` }}",
@@ -169,9 +169,9 @@
                 }
             ],
             "max_retries": 20,
-            "name": "minimal-centos-8-hvm",
+            "name": "minimal-centos-8stream-hvm",
             "region": "{{ user `aws_region` }}",
-            "source_ami": "{{ user `source_ami_centos8_hvm` }}",
+            "source_ami": "{{ user `source_ami_centos8stream_hvm` }}",
             "sriov_support": true,
             "ssh_interface": "{{ user `ssh_interface` }}",
             "ssh_port": 22,
@@ -337,7 +337,7 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
@@ -352,7 +352,7 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
@@ -376,7 +376,7 @@
                 "minimal-rhel-7-hvm",
                 "minimal-centos-7-azure-vhd",
                 "minimal-centos-7-azure-image",
-                "minimal-centos-8-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-7-azure-image",
                 "minimal-rhel-8-hvm"
             ],
@@ -409,7 +409,7 @@
                 "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot"
             ],
             "only": [
-                "minimal-centos-8-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-8-hvm"
             ],
             "type": "shell"
@@ -517,7 +517,7 @@
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'",
             "only": [
-                "minimal-centos-8-hvm",
+                "minimal-centos-8stream-hvm",
                 "minimal-rhel-8-hvm"
             ],
             "scripts": [
@@ -618,7 +618,7 @@
         "root_volume_size": "20",
         "security_group_cidrs": "0.0.0.0/0",
         "source_ami_centos7_hvm": "ami-00e87074e52e6c9f9",
-        "source_ami_centos8_hvm": "ami-05d7cb15bfbf13b6d",
+        "source_ami_centos8stream_hvm": "ami-0ee70e88eed976a1b",
         "source_ami_rhel7_hvm": "ami-073955d8665a7a9e7",
         "source_ami_rhel8_hvm": "ami-06644055bed38ebd9",
         "spel_amigen7branch": "master",
