@@ -719,82 +719,262 @@ source "virtualbox-iso" "minimal-centos-7-virtualbox" {
 # Start of build blocks
 ###
 
-# a build block invokes sources and runs provisioning steps on them. The
-# documentation for build blocks can be found here:
-# https://www.packer.io/docs/templates/hcl_templates/blocks/build
 build {
-  sources = ["source.amazon-ebs.minimal-centos-7-hvm", "source.amazon-ebs.minimal-centos-8stream-hvm", "source.amazon-ebs.minimal-rhel-7-hvm", "source.amazon-ebs.minimal-rhel-8-hvm", "source.azure-arm.minimal-centos-7-azure-image", "source.azure-arm.minimal-rhel-7-azure-image", "source.openstack.minimal-centos-7-openstack-image", "source.virtualbox-iso.minimal-centos-7-virtualbox"]
+  sources = [
+    "source.amazon-ebs.minimal-centos-7-hvm",
+    "source.amazon-ebs.minimal-centos-8stream-hvm",
+    "source.amazon-ebs.minimal-rhel-7-hvm",
+    "source.amazon-ebs.minimal-rhel-8-hvm",
+    "source.azure-arm.minimal-centos-7-azure-image",
+    "source.azure-arm.minimal-rhel-7-azure-image",
+    "source.openstack.minimal-centos-7-openstack-image",
+    "source.virtualbox-iso.minimal-centos-7-virtualbox",
+  ]
 
   provisioner "file" {
     destination = "/tmp/retry.sh"
-    only        = ["minimal-centos-7-virtualbox"]
-    source      = "${path.root}/scripts/retry.sh"
+    only = [
+      "minimal-centos-7-virtualbox",
+    ]
+    source = "${path.root}/scripts/retry.sh"
   }
 
   provisioner "shell" {
     execute_command = "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'"
-    only            = ["minimal-centos-7-virtualbox"]
-    scripts         = ["${path.root}/scripts/base.sh", "${path.root}/scripts/virtualbox.sh", "${path.root}/scripts/vmware.sh", "${path.root}/scripts/vagrant.sh", "${path.root}/scripts/dep.sh", "${path.root}/scripts/cleanup.sh", "${path.root}/scripts/zerodisk.sh"]
+    only = [
+      "minimal-centos-7-virtualbox",
+    ]
+    scripts = [
+      "${path.root}/scripts/base.sh",
+      "${path.root}/scripts/virtualbox.sh",
+      "${path.root}/scripts/vmware.sh",
+      "${path.root}/scripts/vagrant.sh",
+      "${path.root}/scripts/dep.sh",
+      "${path.root}/scripts/cleanup.sh",
+      "${path.root}/scripts/zerodisk.sh",
+    ]
   }
 
   provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
-    inline          = ["/usr/bin/cloud-init status --wait", "setenforce 0", "yum -y update"]
-    only            = ["minimal-centos-7-hvm", "minimal-centos-7-openstack-image", "minimal-rhel-7-hvm", "minimal-centos-7-azure-image", "minimal-centos-8stream-hvm", "minimal-rhel-7-azure-image", "minimal-rhel-8-hvm"]
+    inline = [
+      "/usr/bin/cloud-init status --wait",
+      "setenforce 0",
+      "yum -y update",
+    ]
+    only = [
+      "minimal-centos-7-hvm",
+      "minimal-centos-7-openstack-image",
+      "minimal-rhel-7-hvm",
+      "minimal-centos-7-azure-image",
+      "minimal-centos-8stream-hvm",
+      "minimal-rhel-7-azure-image",
+      "minimal-rhel-8-hvm",
+    ]
   }
 
   provisioner "shell" {
-    execute_command     = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    expect_disconnect   = true
-    only                = ["minimal-centos-7-hvm", "minimal-centos-7-openstack-image", "minimal-rhel-7-hvm", "minimal-centos-7-azure-image", "minimal-centos-8stream-hvm", "minimal-rhel-7-azure-image", "minimal-rhel-8-hvm"]
-    scripts             = ["${path.root}/scripts/pivot-root.sh"]
+    execute_command   = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    expect_disconnect = true
+    only = [
+      "minimal-centos-7-hvm",
+      "minimal-centos-7-openstack-image",
+      "minimal-rhel-7-hvm",
+      "minimal-centos-7-azure-image",
+      "minimal-centos-8stream-hvm",
+      "minimal-rhel-7-azure-image",
+      "minimal-rhel-8-hvm",
+    ]
+    scripts = [
+      "${path.root}/scripts/pivot-root.sh",
+    ]
     start_retry_timeout = "15m"
   }
 
   provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
-    inline          = ["echo Restarting systemd", "systemctl daemon-reexec", "echo Killing processes locking /oldroot", "fuser -vmk /oldroot"]
-    only            = ["minimal-centos-7-hvm", "minimal-centos-7-openstack-image", "minimal-rhel-7-hvm", "minimal-centos-7-azure-image", "minimal-centos-8stream-hvm", "minimal-rhel-7-azure-image", "minimal-rhel-8-hvm"]
+    inline = [
+      "echo Restarting systemd",
+      "systemctl daemon-reexec",
+      "echo Killing processes locking /oldroot",
+      "fuser -vmk /oldroot",
+    ]
+    only = [
+      "minimal-centos-7-hvm",
+      "minimal-centos-7-openstack-image",
+      "minimal-rhel-7-hvm",
+      "minimal-centos-7-azure-image",
+      "minimal-centos-8stream-hvm",
+      "minimal-rhel-7-azure-image",
+      "minimal-rhel-8-hvm",
+    ]
   }
 
   provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
-    inline          = ["echo Unmounting /oldroot", "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot", "echo Unmounting /boot", "test $(grep -c /boot /proc/mounts) -eq 0 || umount /boot", "echo Unmounting /mnt", "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt"]
-    only            = ["minimal-centos-7-hvm", "minimal-centos-7-openstack-image", "minimal-rhel-7-hvm", "minimal-centos-7-azure-image", "minimal-rhel-7-azure-image"]
+    inline = [
+      "echo Unmounting /oldroot",
+      "test $(grep -c /oldroot /proc/mounts) -eq 0 || umount /oldroot",
+      "echo Unmounting /boot",
+      "test $(grep -c /boot /proc/mounts) -eq 0 || umount /boot",
+      "echo Unmounting /mnt",
+      "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt",
+    ]
+    only = [
+      "minimal-centos-7-hvm",
+      "minimal-centos-7-openstack-image",
+      "minimal-rhel-7-hvm",
+      "minimal-centos-7-azure-image",
+      "minimal-rhel-7-azure-image",
+    ]
   }
 
   provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
-    inline          = ["echo Unmounting /oldroot", "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot"]
-    only            = ["minimal-centos-8stream-hvm", "minimal-rhel-8-hvm"]
+    inline = [
+      "echo Unmounting /oldroot",
+      "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
+    ]
+    only = [
+      "minimal-centos-8stream-hvm",
+      "minimal-rhel-8-hvm",
+    ]
   }
 
   provisioner "shell" {
-    environment_vars = ["SPEL_AMIGENBRANCH=${var.amigen7_source_branch}", "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}", "SPEL_AMIGENCHROOT=/mnt/ec2-root", "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}", "SPEL_AMIGENPKGGRP=${var.amigen7_package_groups}", "SPEL_AMIGENREPOS=${var.amigen7_repo_names}", "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}", "SPEL_AMIGENROOTNM=${var.amigen7_filesystem_label}", "SPEL_AMIGENSOURCE=${var.amigen7_source_url}", "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}", "SPEL_AMIGENVGNAME=VolGroup00", "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}", "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}", "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}", "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}", "SPEL_BOOTLABEL=/boot", "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git", "SPEL_BUILDNAME=${build.name}", "SPEL_CLOUDPROVIDER=aws", "SPEL_EXTRARPMS=${var.amigen_extra_rpms}", "SPEL_FIPSDISABLE=${var.amigen_fips_disable}", "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}", "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}"]
-    execute_command  = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only             = ["minimal-centos-7-hvm", "minimal-rhel-7-hvm"]
-    scripts          = ["${path.root}/scripts/amigen7-build.sh"]
+    environment_vars = [
+      "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
+      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
+      "SPEL_AMIGENPKGGRP=${var.amigen7_package_groups}",
+      "SPEL_AMIGENREPOS=${var.amigen7_repo_names}",
+      "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}",
+      "SPEL_AMIGENROOTNM=${var.amigen7_filesystem_label}",
+      "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
+      "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}",
+      "SPEL_AMIGENVGNAME=VolGroup00",
+      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_BOOTLABEL=/boot",
+      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+      "SPEL_BUILDNAME=${build.name}",
+      "SPEL_CLOUDPROVIDER=aws",
+      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    only = [
+      "minimal-centos-7-hvm",
+      "minimal-rhel-7-hvm",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen7-build.sh",
+    ]
   }
 
   provisioner "shell" {
-    environment_vars = ["SPEL_AMIGENBRANCH=${var.amigen7_source_branch}", "SPEL_AMIGENBUILDDEV=/dev/vda", "SPEL_AMIGENCHROOT=/mnt/ec2-root", "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}", "SPEL_AMIGENPKGGRP=${var.amigen7_package_groups}", "SPEL_AMIGENREPOS=${var.amigen7_repo_names}", "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}", "SPEL_AMIGENSOURCE=${var.amigen7_source_url}", "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}", "SPEL_AMIGENVGNAME=VolGroup00", "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}", "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}", "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}", "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}", "SPEL_BOOTLABEL=/boot", "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git", "SPEL_BUILDNAME=${build.name}", "SPEL_CLOUDPROVIDER=openstack", "SPEL_EXTRARPMS=${var.amigen_extra_rpms}", "SPEL_FIPSDISABLE=${var.amigen_fips_disable}", "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}", "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}"]
-    execute_command  = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only             = ["minimal-centos-7-openstack-image"]
-    scripts          = ["${path.root}/scripts/amigen7-build.sh"]
+    environment_vars = [
+      "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
+      "SPEL_AMIGENBUILDDEV=/dev/vda",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
+      "SPEL_AMIGENPKGGRP=${var.amigen7_package_groups}",
+      "SPEL_AMIGENREPOS=${var.amigen7_repo_names}",
+      "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}",
+      "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
+      "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}",
+      "SPEL_AMIGENVGNAME=VolGroup00",
+      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_BOOTLABEL=/boot",
+      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+      "SPEL_BUILDNAME=${build.name}",
+      "SPEL_CLOUDPROVIDER=openstack",
+      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    only = [
+      "minimal-centos-7-openstack-image",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen7-build.sh",
+    ]
   }
 
   provisioner "shell" {
-    environment_vars = ["SPEL_AMIGENBRANCH=${var.amigen8_source_branch}", "SPEL_AMIGENBOOTSIZE=17m", "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}", "SPEL_AMIGENCHROOT=/mnt/ec2-root", "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}", "SPEL_AMIGENREPOS=${var.amigen8_repo_names}", "SPEL_AMIGENREPOSRC=${var.amigen8_repo_sources}", "SPEL_AMIGENROOTNM=${var.amigen8_filesystem_label}", "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}", "SPEL_AMIGENSTORLAY=${var.amigen8_storage_layout}", "SPEL_AMIGENVGNAME=RootVG", "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}", "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}", "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}", "SPEL_CLOUDPROVIDER=aws", "SPEL_EXTRARPMS=${var.amigen_extra_rpms}", "SPEL_FIPSDISABLE=true", "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}", "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}"]
-    execute_command  = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only             = ["minimal-centos-8stream-hvm", "minimal-rhel-8-hvm"]
-    scripts          = ["${path.root}/scripts/amigen8-build.sh"]
+    environment_vars = [
+      "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
+      "SPEL_AMIGENBOOTSIZE=17m",
+      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}",
+      "SPEL_AMIGENREPOS=${var.amigen8_repo_names}",
+      "SPEL_AMIGENREPOSRC=${var.amigen8_repo_sources}",
+      "SPEL_AMIGENROOTNM=${var.amigen8_filesystem_label}",
+      "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
+      "SPEL_AMIGENSTORLAY=${var.amigen8_storage_layout}",
+      "SPEL_AMIGENVGNAME=RootVG",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_CLOUDPROVIDER=aws",
+      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_FIPSDISABLE=true",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    only = [
+      "minimal-centos-8stream-hvm",
+      "minimal-rhel-8-hvm",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen8-build.sh",
+    ]
   }
 
   provisioner "shell" {
-    environment_vars = ["SPEL_AMIGENBRANCH=${var.amigen7_source_branch}", "SPEL_AMIGENBUILDDEV=/dev/sda", "SPEL_AMIGENCHROOT=/mnt/ec2-root", "SPEL_AMIGENREPOS=${var.amigen7_repo_names}", "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}", "SPEL_AMIGENSOURCE=${var.amigen7_source_url}", "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}", "SPEL_AMIGENVGNAME=VolGroup00", "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}", "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}", "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}", "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}", "SPEL_BOOTLABEL=/boot", "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git", "SPEL_BUILDNAME=${build.name}", "SPEL_CLOUDPROVIDER=azure", "SPEL_EXTRARPMS=${var.amigen_extra_rpms}", "SPEL_FIPSDISABLE=${var.amigen_fips_disable}", "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}", "SPEL_HTTP_PROXY=${var.spel_http_proxy}", "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}"]
-    execute_command  = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only             = ["minimal-centos-7-azure-image", "minimal-rhel-7-azure-image"]
-    scripts          = ["${path.root}/scripts/amigen7-build.sh"]
+    environment_vars = [
+      "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
+      "SPEL_AMIGENBUILDDEV=/dev/sda",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENREPOS=${var.amigen7_repo_names}",
+      "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}",
+      "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
+      "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}",
+      "SPEL_AMIGENVGNAME=VolGroup00",
+      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_BOOTLABEL=/boot",
+      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+      "SPEL_BUILDNAME=${build.name}",
+      "SPEL_CLOUDPROVIDER=azure",
+      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_HTTP_PROXY=${var.spel_http_proxy}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    only = [
+      "minimal-centos-7-azure-image",
+      "minimal-rhel-7-azure-image",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen7-build.sh",
+    ]
   }
 
   provisioner "file" {
@@ -805,28 +985,45 @@ build {
 
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
-    inline          = ["chkconfig waagent on", "/usr/sbin/waagent -force -deprovision && export HISTSIZE=0 && sync"]
-    only            = ["minimal-centos-7-azure-image", "minimal-rhel-7-azure-image"]
-    skip_clean      = true
+    inline = [
+      "chkconfig waagent on",
+      "/usr/sbin/waagent -force -deprovision",
+      "export HISTSIZE=0",
+      "sync",
+    ]
+    only = [
+      "minimal-centos-7-azure-image",
+      "minimal-rhel-7-azure-image",
+    ]
+    skip_clean = true
   }
 
   post-processor "artifice" {
-    files = [".spel/${var.spel_version}/${var.spel_identifier}-${build.name}.manifest.txt"]
+    files = [
+      ".spel/${var.spel_version}/${var.spel_identifier}-${build.name}.manifest.txt",
+    ]
   }
+
   post-processors {
     post-processor "vagrant" {
       keep_input_artifact = false
       compression_level   = 9
-      only                = ["minimal-centos-7-virtualbox"]
-      output              = ".spel/${var.spel_version}/${var.spel_identifier}-{{ .BuildName }}.box"
+      only = [
+        "minimal-centos-7-virtualbox",
+      ]
+      output = ".spel/${var.spel_version}/${var.spel_identifier}-{{ .BuildName }}.box"
     }
+
     post-processor "vagrant-cloud" {
-      box_tag             = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-minimal-centos-7"
-      only                = ["minimal-centos-7-virtualbox"]
+      box_tag = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-minimal-centos-7"
+      only = [
+        "minimal-centos-7-virtualbox",
+      ]
       version             = " ${var.spel_version} "
-      version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. For details, see https://github.com/plus3it/spel."
+      version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. For details, see ${var.spel_description_url}."
     }
   }
+
   post-processor "manifest" {
     output = ".spel/${var.spel_version}/packer-manifest.json"
   }
