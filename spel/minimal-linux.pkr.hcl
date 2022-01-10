@@ -281,7 +281,7 @@ variable "amigen_build_device" {
 variable "amigen_amiutils_source_url" {
   description = "URL of the AMI Utils repo to be cloned using git, containing AWS utility rpms that will be installed to the AMIs"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "amigen_aws_cfnbootstrap" {
@@ -340,7 +340,7 @@ variable "amigen_use_default_repos" {
 variable "amigen7_filesystem_label" {
   description = "Label for the root filesystem when creating bare partitions for EL7 images"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "amigen7_package_groups" {
@@ -352,7 +352,7 @@ variable "amigen7_package_groups" {
 variable "amigen7_package_manifest" {
   description = "File containing a list of RPMs to use as the build manifest for EL7 images"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "amigen7_repo_names" {
@@ -402,7 +402,7 @@ variable "amigen7_storage_layout" {
 variable "amigen8_filesystem_label" {
   description = "Label for the root filesystem when creating bare partitions for EL8 images"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "amigen8_package_groups" {
@@ -414,7 +414,7 @@ variable "amigen8_package_groups" {
 variable "amigen8_package_manifest" {
   description = "File containing a list of RPMs to use as the build manifest for EL8 images"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "amigen8_repo_names" {
@@ -463,7 +463,7 @@ variable "spel_description_url" {
 variable "spel_http_proxy" {
   description = "Used as the value for the git config http.proxy setting in the builder nodes"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "spel_identifier" {
