@@ -22,12 +22,12 @@ variable "azure_build_resource_group_name" {
 
 variable "azure_client_id" {
   type    = string
-  default = "${env("ARM_CLIENT_ID")}"
+  default = env("ARM_CLIENT_ID")
 }
 
 variable "azure_client_secret" {
   type    = string
-  default = "${env("ARM_CLIENT_SECRET")}"
+  default = env("ARM_CLIENT_SECRET")
 }
 
 variable "azure_dest_resource_group" {
@@ -72,7 +72,7 @@ variable "azure_subnet_name" {
 
 variable "azure_subscription_id" {
   type    = string
-  default = "${env("ARM_SUBSCRIPTION_ID")}"
+  default = env("ARM_SUBSCRIPTION_ID")
 }
 
 variable "azure_virtual_network_name" {
@@ -115,26 +115,26 @@ variable "spel_version" {
 # source. Read the documentation for source blocks here:
 # https://www.packer.io/docs/templates/hcl_templates/blocks/source
 source "azure-arm" "builder-azure-image" {
-  build_resource_group_name              = "${var.azure_build_resource_group_name}"
-  client_id                              = "${var.azure_client_id}"
-  client_secret                          = "${var.azure_client_secret}"
-  cloud_environment_name                 = "${var.azure_environment}"
+  build_resource_group_name              = var.azure_build_resource_group_name
+  client_id                              = var.azure_client_id
+  client_secret                          = var.azure_client_secret
+  cloud_environment_name                 = var.azure_environment
   communicator                           = "ssh"
-  image_offer                            = "${var.azure_source_image_offer}"
-  image_publisher                        = "${var.azure_source_image_publisher}"
-  image_sku                              = "${var.azure_source_image_sku}"
-  location                               = "${var.azure_location}"
+  image_offer                            = var.azure_source_image_offer
+  image_publisher                        = var.azure_source_image_publisher
+  image_sku                              = var.azure_source_image_sku
+  location                               = var.azure_location
   managed_image_name                     = "${var.spel_identifier}-${build.name}-${var.spel_version}"
-  managed_image_resource_group_name      = "${var.azure_dest_resource_group}"
-  os_disk_size_gb                        = "${var.root_volume_size}"
+  managed_image_resource_group_name      = var.azure_dest_resource_group
+  os_disk_size_gb                        = var.root_volume_size
   os_type                                = "Linux"
-  private_virtual_network_with_public_ip = "${var.azure_execute_using_public_ip}"
-  subscription_id                        = "${var.azure_subscription_id}"
+  private_virtual_network_with_public_ip = var.azure_execute_using_public_ip
+  subscription_id                        = var.azure_subscription_id
   use_azure_cli_auth                     = true
-  virtual_network_name                   = "${var.azure_virtual_network_name}"
-  virtual_network_resource_group_name    = "${var.azure_virtual_network_resource_group_name}"
-  virtual_network_subnet_name            = "${var.azure_subnet_name}"
-  vm_size                                = "${var.azure_vm_size}"
+  virtual_network_name                   = var.azure_virtual_network_name
+  virtual_network_resource_group_name    = var.azure_virtual_network_resource_group_name
+  virtual_network_subnet_name            = var.azure_subnet_name
+  vm_size                                = var.azure_vm_size
 }
 
 # a build block invokes sources and runs provisioning steps on them. The

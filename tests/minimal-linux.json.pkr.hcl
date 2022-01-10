@@ -17,7 +17,7 @@
 # https://www.packer.io/docs/templates/hcl_templates/variables#type-constraints for more info.
 variable "aws_region" {
   type    = string
-  default = "${env("AWS_REGION")}"
+  default = env("AWS_REGION")
 }
 
 variable "pypi_url" {
@@ -32,27 +32,27 @@ variable "security_group_cidrs" {
 
 variable "source_ami_centos7_hvm" {
   type    = string
-  default = "${env("minimal_centos_7_hvm")}"
+  default = env("minimal_centos_7_hvm")
 }
 
 variable "source_ami_centos8stream_hvm" {
   type    = string
-  default = "${env("minimal_centos_8stream_hvm")}"
+  default = env("minimal_centos_8stream_hvm")
 }
 
 variable "source_ami_rhel7_hvm" {
   type    = string
-  default = "${env("minimal_rhel_7_hvm")}"
+  default = env("minimal_rhel_7_hvm")
 }
 
 variable "source_ami_rhel8_hvm" {
   type    = string
-  default = "${env("minimal_rhel_8_hvm")}"
+  default = env("minimal_rhel_8_hvm")
 }
 
 variable "spel_amiutilsource" {
   type    = string
-  default = "${env("SPEL_AMIUTILSOURCE")}"
+  default = env("SPEL_AMIUTILSOURCE")
 }
 
 variable "spel_disablefips" {
@@ -62,12 +62,12 @@ variable "spel_disablefips" {
 
 variable "spel_identifier" {
   type    = string
-  default = "${env("SPEL_IDENTIFIER")}"
+  default = env("SPEL_IDENTIFIER")
 }
 
 variable "spel_version" {
   type    = string
-  default = "${env("SPEL_VERSION")}"
+  default = env("SPEL_VERSION")
 }
 
 variable "ssh_interface" {
@@ -98,16 +98,16 @@ source "amazon-ebs" "minimal-centos-7-hvm" {
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
+  region                                = var.aws_region
   skip_create_ami                       = "true"
   skip_save_build_region                = "true"
-  source_ami                            = "${var.source_ami_centos7_hvm}"
-  ssh_interface                         = "${var.ssh_interface}"
+  source_ami                            = var.source_ami_centos7_hvm
+  ssh_interface                         = var.ssh_interface
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/validation.cloud"
 }
 
@@ -125,16 +125,16 @@ source "amazon-ebs" "minimal-centos-8stream-hvm" {
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
+  region                                = var.aws_region
   skip_create_ami                       = "true"
   skip_save_build_region                = "true"
-  source_ami                            = "${var.source_ami_centos8stream_hvm}"
-  ssh_interface                         = "${var.ssh_interface}"
+  source_ami                            = var.source_ami_centos8stream_hvm
+  ssh_interface                         = var.ssh_interface
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/validation.cloud"
 }
 
@@ -152,16 +152,16 @@ source "amazon-ebs" "minimal-rhel-7-hvm" {
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
+  region                                = var.aws_region
   skip_create_ami                       = "true"
   skip_save_build_region                = "true"
-  source_ami                            = "${var.source_ami_rhel7_hvm}"
-  ssh_interface                         = "${var.ssh_interface}"
+  source_ami                            = var.source_ami_rhel7_hvm
+  ssh_interface                         = var.ssh_interface
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/validation.cloud"
 }
 
@@ -179,16 +179,16 @@ source "amazon-ebs" "minimal-rhel-8-hvm" {
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
+  region                                = var.aws_region
   skip_create_ami                       = "true"
   skip_save_build_region                = "true"
-  source_ami                            = "${var.source_ami_rhel8_hvm}"
-  ssh_interface                         = "${var.ssh_interface}"
+  source_ami                            = var.source_ami_rhel8_hvm
+  ssh_interface                         = var.ssh_interface
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/validation.cloud"
 }
 

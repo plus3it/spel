@@ -57,12 +57,12 @@ variable "azure_build_resource_group_name" {
 
 variable "azure_client_id" {
   type    = string
-  default = "${env("ARM_CLIENT_ID")}"
+  default = env("ARM_CLIENT_ID")
 }
 
 variable "azure_client_secret" {
   type    = string
-  default = "${env("ARM_CLIENT_SECRET")}"
+  default = env("ARM_CLIENT_SECRET")
 }
 
 variable "azure_dest_resource_group" {
@@ -112,7 +112,7 @@ variable "azure_subnet_name" {
 
 variable "azure_subscription_id" {
   type    = string
-  default = "${env("ARM_SUBSCRIPTION_ID")}"
+  default = env("ARM_SUBSCRIPTION_ID")
 }
 
 variable "azure_virtual_network_name" {
@@ -377,7 +377,7 @@ variable "subnet_id" {
 
 variable "vagrantcloud_token" {
   type    = string
-  default = "${env("VAGRANTCLOUD_TOKEN")}"
+  default = env("VAGRANTCLOUD_TOKEN")
 }
 
 variable "vagrantcloud_username" {
@@ -392,216 +392,216 @@ variable "vagrantcloud_username" {
 # https://www.packer.io/docs/templates/hcl_templates/blocks/source
 source "amazon-ebs" "minimal-centos-7-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_desc_url}."
-  ami_groups                  = "${var.ami_groups}"
+  ami_groups                  = var.ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_regions                 = "${var.ami_regions}"
-  ami_users                   = "${var.ami_users}"
+  ami_regions                 = var.ami_regions
+  ami_users                   = var.ami_users
   associate_public_ip_address = true
   communicator                = "ssh"
   ena_support                 = true
-  force_deregister            = "${var.ami_force_deregister}"
-  instance_type               = "${var.aws_ec2_instance_type}"
+  force_deregister            = var.ami_force_deregister
+  instance_type               = var.aws_ec2_instance_type
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
-    volume_size           = "${var.root_volume_size}"
+    volume_size           = var.root_volume_size
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
-  source_ami                            = "${var.source_ami_centos7_hvm}"
+  region                                = var.aws_region
+  source_ami                            = var.source_ami_centos7_hvm
   sriov_support                         = true
-  ssh_interface                         = "${var.ssh_interface}"
+  ssh_interface                         = var.ssh_interface
   ssh_port                              = 22
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
 
 source "amazon-ebs" "minimal-centos-8stream-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS Stream 8 AMI, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_desc_url}."
-  ami_groups                  = "${var.ami_groups}"
+  ami_groups                  = var.ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_regions                 = "${var.ami_regions}"
-  ami_users                   = "${var.ami_users}"
+  ami_regions                 = var.ami_regions
+  ami_users                   = var.ami_users
   associate_public_ip_address = true
   communicator                = "ssh"
   ena_support                 = true
-  force_deregister            = "${var.ami_force_deregister}"
-  instance_type               = "${var.aws_ec2_instance_type}"
+  force_deregister            = var.ami_force_deregister
+  instance_type               = var.aws_ec2_instance_type
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
-    volume_size           = "${var.root_volume_size}"
+    volume_size           = var.root_volume_size
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
-  source_ami                            = "${var.source_ami_centos8stream_hvm}"
+  region                                = var.aws_region
+  source_ami                            = var.source_ami_centos8stream_hvm
   sriov_support                         = true
-  ssh_interface                         = "${var.ssh_interface}"
+  ssh_interface                         = var.ssh_interface
   ssh_port                              = 22
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
 
 source "amazon-ebs" "minimal-rhel-7-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_desc_url}."
-  ami_groups                  = "${var.ami_groups}"
+  ami_groups                  = var.ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_regions                 = "${var.ami_regions}"
-  ami_users                   = "${var.ami_users}"
+  ami_regions                 = var.ami_regions
+  ami_users                   = var.ami_users
   associate_public_ip_address = true
   communicator                = "ssh"
   ena_support                 = true
-  force_deregister            = "${var.ami_force_deregister}"
-  instance_type               = "${var.aws_ec2_instance_type}"
+  force_deregister            = var.ami_force_deregister
+  instance_type               = var.aws_ec2_instance_type
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
-    volume_size           = "${var.root_volume_size}"
+    volume_size           = var.root_volume_size
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
-  source_ami                            = "${var.source_ami_rhel7_hvm}"
+  region                                = var.aws_region
+  source_ami                            = var.source_ami_rhel7_hvm
   sriov_support                         = true
-  ssh_interface                         = "${var.ssh_interface}"
+  ssh_interface                         = var.ssh_interface
   ssh_port                              = 22
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
 
 source "amazon-ebs" "minimal-rhel-8-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_desc_url}."
-  ami_groups                  = "${var.ami_groups}"
+  ami_groups                  = var.ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_regions                 = "${var.ami_regions}"
-  ami_users                   = "${var.ami_users}"
+  ami_regions                 = var.ami_regions
+  ami_users                   = var.ami_users
   associate_public_ip_address = true
   communicator                = "ssh"
   ena_support                 = true
-  force_deregister            = "${var.ami_force_deregister}"
-  instance_type               = "${var.aws_ec2_instance_type}"
+  force_deregister            = var.ami_force_deregister
+  instance_type               = var.aws_ec2_instance_type
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
-    volume_size           = "${var.root_volume_size}"
+    volume_size           = var.root_volume_size
     volume_type           = "gp2"
   }
   max_retries                           = 20
-  region                                = "${var.aws_region}"
-  source_ami                            = "${var.source_ami_rhel8_hvm}"
+  region                                = var.aws_region
+  source_ami                            = var.source_ami_rhel8_hvm
   sriov_support                         = true
-  ssh_interface                         = "${var.ssh_interface}"
+  ssh_interface                         = var.ssh_interface
   ssh_port                              = 22
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = "spel"
-  subnet_id                             = "${var.subnet_id}"
-  temporary_security_group_source_cidrs = "${var.security_group_cidrs}"
+  subnet_id                             = var.subnet_id
+  temporary_security_group_source_cidrs = var.security_group_cidrs
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
 
 source "azure-arm" "minimal-centos-7-azure-image" {
-  client_id                                = "${var.azure_client_id}"
-  client_secret                            = "${var.azure_client_secret}"
-  cloud_environment_name                   = "${var.azure_environment}"
+  client_id                                = var.azure_client_id
+  client_secret                            = var.azure_client_secret
+  cloud_environment_name                   = var.azure_environment
   communicator                             = "ssh"
   custom_data_file                         = "${path.root}/userdata/userdata.cloud"
-  custom_managed_image_name                = "${var.azure_source_image_centos7}"
-  custom_managed_image_resource_group_name = "${var.azure_source_image_resource_group_centos7}"
-  location                                 = "${var.azure_location}"
+  custom_managed_image_name                = var.azure_source_image_centos7
+  custom_managed_image_resource_group_name = var.azure_source_image_resource_group_centos7
+  location                                 = var.azure_location
   managed_image_name                       = "${var.spel_identifier}-${build.name}-${var.spel_version}"
-  managed_image_resource_group_name        = "${var.azure_dest_resource_group}"
-  os_disk_size_gb                          = "${var.root_volume_size}"
+  managed_image_resource_group_name        = var.azure_dest_resource_group
+  os_disk_size_gb                          = var.root_volume_size
   os_type                                  = "Linux"
-  private_virtual_network_with_public_ip   = "${var.azure_execute_using_public_ip}"
+  private_virtual_network_with_public_ip   = var.azure_execute_using_public_ip
   ssh_port                                 = 22
   ssh_pty                                  = true
   ssh_timeout                              = "60m"
   ssh_username                             = "spel"
-  subscription_id                          = "${var.azure_subscription_id}"
+  subscription_id                          = var.azure_subscription_id
   use_azure_cli_auth                       = true
-  virtual_network_name                     = "${var.azure_virtual_network_name}"
-  virtual_network_resource_group_name      = "${var.azure_virtual_network_resource_group_name}"
-  virtual_network_subnet_name              = "${var.azure_subnet_name}"
-  vm_size                                  = "${var.azure_vm_size}"
+  virtual_network_name                     = var.azure_virtual_network_name
+  virtual_network_resource_group_name      = var.azure_virtual_network_resource_group_name
+  virtual_network_subnet_name              = var.azure_subnet_name
+  vm_size                                  = var.azure_vm_size
 }
 
 source "azure-arm" "minimal-centos-7-azure-vhd" {
   capture_container_name                 = "images"
   capture_name_prefix                    = "${var.spel_identifier}-${var.spel_version}"
-  client_id                              = "${var.azure_client_id}"
-  client_secret                          = "${var.azure_client_secret}"
-  cloud_environment_name                 = "${var.azure_environment}"
+  client_id                              = var.azure_client_id
+  client_secret                          = var.azure_client_secret
+  cloud_environment_name                 = var.azure_environment
   communicator                           = "ssh"
   custom_data_file                       = "${path.root}/userdata/userdata.cloud"
-  image_url                              = "${var.azure_source_vhd_centos7}"
-  location                               = "${var.azure_location}"
-  os_disk_size_gb                        = "${var.root_volume_size}"
+  image_url                              = var.azure_source_vhd_centos7
+  location                               = var.azure_location
+  os_disk_size_gb                        = var.root_volume_size
   os_type                                = "Linux"
-  private_virtual_network_with_public_ip = "${var.azure_execute_using_public_ip}"
-  resource_group_name                    = "${var.azure_dest_resource_group}"
+  private_virtual_network_with_public_ip = var.azure_execute_using_public_ip
+  resource_group_name                    = var.azure_dest_resource_group
   ssh_port                               = 22
   ssh_pty                                = true
   ssh_timeout                            = "60m"
   ssh_username                           = "spel"
-  storage_account                        = "${var.azure_dest_storage_account}"
-  subscription_id                        = "${var.azure_subscription_id}"
+  storage_account                        = var.azure_dest_storage_account
+  subscription_id                        = var.azure_subscription_id
   use_azure_cli_auth                     = true
-  virtual_network_name                   = "${var.azure_virtual_network_name}"
-  virtual_network_resource_group_name    = "${var.azure_virtual_network_resource_group_name}"
-  virtual_network_subnet_name            = "${var.azure_subnet_name}"
-  vm_size                                = "${var.azure_vm_size}"
+  virtual_network_name                   = var.azure_virtual_network_name
+  virtual_network_resource_group_name    = var.azure_virtual_network_resource_group_name
+  virtual_network_subnet_name            = var.azure_subnet_name
+  vm_size                                = var.azure_vm_size
 }
 
 source "azure-arm" "minimal-rhel-7-azure-image" {
-  build_resource_group_name                = "${var.azure_build_resource_group_name}"
-  client_id                                = "${var.azure_client_id}"
-  client_secret                            = "${var.azure_client_secret}"
-  cloud_environment_name                   = "${var.azure_environment}"
+  build_resource_group_name                = var.azure_build_resource_group_name
+  client_id                                = var.azure_client_id
+  client_secret                            = var.azure_client_secret
+  cloud_environment_name                   = var.azure_environment
   communicator                             = "ssh"
   custom_data_file                         = "${path.root}/userdata/userdata.cloud"
-  custom_managed_image_name                = "${var.azure_source_image_rhel7}"
-  custom_managed_image_resource_group_name = "${var.azure_source_image_resource_group_rhel7}"
-  location                                 = "${var.azure_location}"
+  custom_managed_image_name                = var.azure_source_image_rhel7
+  custom_managed_image_resource_group_name = var.azure_source_image_resource_group_rhel7
+  location                                 = var.azure_location
   managed_image_name                       = "${var.spel_identifier}-${build.name}-${var.spel_version}"
-  managed_image_resource_group_name        = "${var.azure_dest_resource_group}"
-  os_disk_size_gb                          = "${var.root_volume_size}"
+  managed_image_resource_group_name        = var.azure_dest_resource_group
+  os_disk_size_gb                          = var.root_volume_size
   os_type                                  = "Linux"
-  private_virtual_network_with_public_ip   = "${var.azure_execute_using_public_ip}"
+  private_virtual_network_with_public_ip   = var.azure_execute_using_public_ip
   ssh_port                                 = 22
   ssh_pty                                  = true
   ssh_timeout                              = "60m"
   ssh_username                             = "spel"
-  subscription_id                          = "${var.azure_subscription_id}"
+  subscription_id                          = var.azure_subscription_id
   use_azure_cli_auth                       = true
-  virtual_network_name                     = "${var.azure_virtual_network_name}"
-  virtual_network_resource_group_name      = "${var.azure_virtual_network_resource_group_name}"
-  virtual_network_subnet_name              = "${var.azure_subnet_name}"
-  vm_size                                  = "${var.azure_vm_size}"
+  virtual_network_name                     = var.azure_virtual_network_name
+  virtual_network_resource_group_name      = var.azure_virtual_network_resource_group_name
+  virtual_network_subnet_name              = var.azure_subnet_name
+  vm_size                                  = var.azure_vm_size
 }
 
 source "openstack" "minimal-centos-7-openstack-image" {
-  flavor                  = "${var.openstack_flavor_name}"
-  floating_ip_network     = "${var.openstack_floating_ip_network_name}"
+  flavor                  = var.openstack_flavor_name
+  floating_ip_network     = var.openstack_floating_ip_network_name
   image_name              = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64"
-  insecure                = "${var.openstack_allow_insecure_connection}"
-  networks                = "${var.openstack_network_ids}"
-  security_groups         = "${var.openstack_security_group_names}"
-  source_image_name       = "${var.openstack_source_image_name}"
+  insecure                = var.openstack_allow_insecure_connection
+  networks                = var.openstack_network_ids
+  security_groups         = var.openstack_security_group_names
+  source_image_name       = var.openstack_source_image_name
   ssh_port                = 22
   ssh_timeout             = "30m"
   ssh_username            = "spel"
@@ -619,7 +619,7 @@ source "virtualbox-iso" "minimal-centos-7-virtualbox" {
   headless                = true
   http_directory          = "${path.root}/kickstarts"
   iso_checksum            = "file:http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/sha256sum.txt"
-  iso_url                 = "${var.iso_url_centos7}"
+  iso_url                 = var.iso_url_centos7
   output_directory        = ".spel/${var.spel_version}/${var.spel_identifier}-${build.name}"
   shutdown_command        = "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'"
   ssh_password            = "vagrant"
@@ -732,7 +732,7 @@ build {
       output              = ".spel/${var.spel_version}/${var.spel_identifier}-{{ .BuildName }}.box"
     }
     post-processor "vagrant-cloud" {
-      access_token        = "${var.vagrantcloud_token}"
+      access_token        = var.vagrantcloud_token
       box_tag             = "${var.vagrantcloud_username}/${var.spel_identifier}-minimal-centos-7"
       only                = ["minimal-centos-7-virtualbox"]
       version             = " ${var.spel_version} "
