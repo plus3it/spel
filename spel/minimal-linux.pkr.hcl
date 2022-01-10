@@ -494,14 +494,8 @@ variable "spel_version" {
 # Start of source blocks
 ###
 
-# The "legacy_isotime" function has been provided for backwards compatability, but we recommend switching to the timestamp and formatdate functions.
-
-# source blocks are generated from your builders; a source can be referenced in
-# build blocks. A build block runs provisioner and post-processors on a
-# source. Read the documentation for source blocks here:
-# https://www.packer.io/docs/templates/hcl_templates/blocks/source
 source "amazon-ebs" "minimal-centos-7-hvm" {
-  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_description_url}."
+  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
@@ -532,7 +526,7 @@ source "amazon-ebs" "minimal-centos-7-hvm" {
 }
 
 source "amazon-ebs" "minimal-centos-8stream-hvm" {
-  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS Stream 8 AMI, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_description_url}."
+  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS Stream 8 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
@@ -563,7 +557,7 @@ source "amazon-ebs" "minimal-centos-8stream-hvm" {
 }
 
 source "amazon-ebs" "minimal-rhel-7-hvm" {
-  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_description_url}."
+  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
@@ -594,7 +588,7 @@ source "amazon-ebs" "minimal-rhel-7-hvm" {
 }
 
 source "amazon-ebs" "minimal-rhel-8-hvm" {
-  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. See ${var.spel_description_url}."
+  ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
   ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
@@ -1020,7 +1014,7 @@ build {
         "minimal-centos-7-virtualbox",
       ]
       version             = " ${var.spel_version} "
-      version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${legacy_isotime("2006-01-02")}. Default username `maintuser`. For details, see ${var.spel_description_url}."
+      version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. For details, see ${var.spel_description_url}."
     }
   }
 
