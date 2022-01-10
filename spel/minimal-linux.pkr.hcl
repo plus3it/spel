@@ -497,7 +497,7 @@ variable "spel_version" {
 source "amazon-ebs" "minimal-centos-7-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
-  ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
   associate_public_ip_address = true
@@ -528,7 +528,7 @@ source "amazon-ebs" "minimal-centos-7-hvm" {
 source "amazon-ebs" "minimal-centos-8stream-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS Stream 8 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
-  ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
   associate_public_ip_address = true
@@ -559,7 +559,7 @@ source "amazon-ebs" "minimal-centos-8stream-hvm" {
 source "amazon-ebs" "minimal-rhel-7-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
-  ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
   associate_public_ip_address = true
@@ -590,7 +590,7 @@ source "amazon-ebs" "minimal-rhel-7-hvm" {
 source "amazon-ebs" "minimal-rhel-8-hvm" {
   ami_description             = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
   ami_groups                  = var.aws_ami_groups
-  ami_name                    = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
   associate_public_ip_address = true
@@ -627,7 +627,7 @@ source "azure-arm" "minimal-centos-7-azure-image" {
   custom_managed_image_name                = var.azure_custom_managed_image_name_centos7
   custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_centos7
   location                                 = var.azure_location
-  managed_image_name                       = "${var.spel_identifier}-${build.name}-${var.spel_version}"
+  managed_image_name                       = "${var.spel_identifier}-${source.name}-${var.spel_version}"
   managed_image_resource_group_name        = var.azure_resource_group_name
   os_disk_size_gb                          = var.spel_root_volume_size
   os_type                                  = "Linux"
@@ -654,7 +654,7 @@ source "azure-arm" "minimal-rhel-7-azure-image" {
   custom_managed_image_name                = var.azure_custom_managed_image_name_rhel7
   custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel7
   location                                 = var.azure_location
-  managed_image_name                       = "${var.spel_identifier}-${build.name}-${var.spel_version}"
+  managed_image_name                       = "${var.spel_identifier}-${source.name}-${var.spel_version}"
   managed_image_resource_group_name        = var.azure_resource_group_name
   os_disk_size_gb                          = var.spel_root_volume_size
   os_type                                  = "Linux"
@@ -674,7 +674,7 @@ source "azure-arm" "minimal-rhel-7-azure-image" {
 source "openstack" "minimal-centos-7-openstack-image" {
   flavor                  = var.openstack_flavor
   floating_ip_network     = var.openstack_floating_ip_network_name
-  image_name              = "${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64"
+  image_name              = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64"
   insecure                = var.openstack_insecure
   networks                = var.openstack_networks
   security_groups         = var.openstack_security_groups
@@ -697,20 +697,20 @@ source "virtualbox-iso" "minimal-centos-7-virtualbox" {
   http_directory          = "${path.root}/kickstarts"
   iso_checksum            = "file:http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/sha256sum.txt"
   iso_url                 = var.virtualbox_iso_url_centos7
-  output_directory        = ".spel/${var.spel_version}/${var.spel_identifier}-${build.name}"
+  output_directory        = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}"
   shutdown_command        = "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'"
   ssh_password            = "vagrant"
   ssh_port                = 22
   ssh_timeout             = "10000s"
   ssh_username            = "vagrant"
   virtualbox_version_file = ".vbox_version"
-  vm_name                 = "${var.spel_identifier}-${build.name}-${var.spel_version}"
+  vm_name                 = "${var.spel_identifier}-${source.name}-${var.spel_version}"
 }
 
 ###
 # End of source blocks
 ###
-# Start of build blocks
+# Start of build block
 ###
 
 build {
@@ -854,7 +854,7 @@ build {
       "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
       "SPEL_BOOTLABEL=/boot",
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-      "SPEL_BUILDNAME=${build.name}",
+      "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=aws",
       "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
@@ -889,7 +889,7 @@ build {
       "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
       "SPEL_BOOTLABEL=/boot",
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-      "SPEL_BUILDNAME=${build.name}",
+      "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=openstack",
       "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
@@ -953,7 +953,7 @@ build {
       "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
       "SPEL_BOOTLABEL=/boot",
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-      "SPEL_BUILDNAME=${build.name}",
+      "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=azure",
       "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
@@ -972,7 +972,7 @@ build {
   }
 
   provisioner "file" {
-    destination = ".spel/${var.spel_version}/${var.spel_identifier}-${build.name}.manifest.txt"
+    destination = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.manifest.txt"
     direction   = "download"
     source      = "/tmp/manifest.txt"
   }
@@ -994,7 +994,7 @@ build {
 
   post-processor "artifice" {
     files = [
-      ".spel/${var.spel_version}/${var.spel_identifier}-${build.name}.manifest.txt",
+      ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.manifest.txt",
     ]
   }
 
@@ -1005,7 +1005,7 @@ build {
       only = [
         "minimal-centos-7-virtualbox",
       ]
-      output = ".spel/${var.spel_version}/${var.spel_identifier}-{{ .BuildName }}.box"
+      output = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.box"
     }
 
     post-processor "vagrant-cloud" {
