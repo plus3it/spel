@@ -637,7 +637,7 @@ build {
   provisioner "file" {
     destination = "/tmp/retry.sh"
     only = [
-      "minimal-centos-7-virtualbox",
+      "virtualbox-iso.minimal-centos-7-virtualbox",
     ]
     source = "${path.root}/scripts/retry.sh"
   }
@@ -645,7 +645,7 @@ build {
   provisioner "shell" {
     execute_command = "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'"
     only = [
-      "minimal-centos-7-virtualbox",
+      "virtualbox-iso.minimal-centos-7-virtualbox",
     ]
     scripts = [
       "${path.root}/scripts/base.sh",
@@ -666,13 +666,13 @@ build {
       "yum -y update",
     ]
     only = [
-      "minimal-centos-7-hvm",
-      "minimal-centos-7-openstack-image",
-      "minimal-rhel-7-hvm",
-      "minimal-centos-7-azure-image",
-      "minimal-centos-8stream-hvm",
-      "minimal-rhel-7-azure-image",
-      "minimal-rhel-8-hvm",
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
+      "amazon-ebs.minimal-rhel-8-hvm",
+      "azure-arm.minimal-centos-7-azure-image",
+      "azure-arm.minimal-rhel-7-azure-image",
+      "openstack.minimal-centos-7-openstack-image",
     ]
   }
 
@@ -680,13 +680,13 @@ build {
     execute_command   = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     expect_disconnect = true
     only = [
-      "minimal-centos-7-hvm",
-      "minimal-centos-7-openstack-image",
-      "minimal-rhel-7-hvm",
-      "minimal-centos-7-azure-image",
-      "minimal-centos-8stream-hvm",
-      "minimal-rhel-7-azure-image",
-      "minimal-rhel-8-hvm",
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
+      "amazon-ebs.minimal-rhel-8-hvm",
+      "azure-arm.minimal-centos-7-azure-image",
+      "azure-arm.minimal-rhel-7-azure-image",
+      "openstack.minimal-centos-7-openstack-image",
     ]
     scripts = [
       "${path.root}/scripts/pivot-root.sh",
@@ -703,13 +703,13 @@ build {
       "fuser -vmk /oldroot",
     ]
     only = [
-      "minimal-centos-7-hvm",
-      "minimal-centos-7-openstack-image",
-      "minimal-rhel-7-hvm",
-      "minimal-centos-7-azure-image",
-      "minimal-centos-8stream-hvm",
-      "minimal-rhel-7-azure-image",
-      "minimal-rhel-8-hvm",
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
+      "amazon-ebs.minimal-rhel-8-hvm",
+      "azure-arm.minimal-centos-7-azure-image",
+      "azure-arm.minimal-rhel-7-azure-image",
+      "openstack.minimal-centos-7-openstack-image",
     ]
   }
 
@@ -724,11 +724,11 @@ build {
       "test $(grep -c /mnt /proc/mounts) -eq 0 || umount /mnt",
     ]
     only = [
-      "minimal-centos-7-hvm",
-      "minimal-centos-7-openstack-image",
-      "minimal-rhel-7-hvm",
-      "minimal-centos-7-azure-image",
-      "minimal-rhel-7-azure-image",
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
+      "azure-arm.minimal-centos-7-azure-image",
+      "azure-arm.minimal-rhel-7-azure-image",
+      "openstack.minimal-centos-7-openstack-image",
     ]
   }
 
@@ -739,8 +739,8 @@ build {
       "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
     ]
     only = [
-      "minimal-centos-8stream-hvm",
-      "minimal-rhel-8-hvm",
+      "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-rhel-8-hvm",
     ]
   }
 
@@ -772,8 +772,8 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "minimal-centos-7-hvm",
-      "minimal-rhel-7-hvm",
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen7-build.sh",
@@ -807,7 +807,7 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "minimal-centos-7-openstack-image",
+      "openstack.minimal-centos-7-openstack-image",
     ]
     scripts = [
       "${path.root}/scripts/amigen7-build.sh",
@@ -838,8 +838,8 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "minimal-centos-8stream-hvm",
-      "minimal-rhel-8-hvm",
+      "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-rhel-8-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen8-build.sh",
@@ -872,8 +872,8 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "minimal-centos-7-azure-image",
-      "minimal-rhel-7-azure-image",
+      "azure-arm.minimal-centos-7-azure-image",
+      "azure-arm.minimal-rhel-7-azure-image",
     ]
     scripts = [
       "${path.root}/scripts/amigen7-build.sh",
@@ -895,8 +895,8 @@ build {
       "sync",
     ]
     only = [
-      "minimal-centos-7-azure-image",
-      "minimal-rhel-7-azure-image",
+      "azure-arm.minimal-centos-7-azure-image",
+      "azure-arm.minimal-rhel-7-azure-image",
     ]
     skip_clean = true
   }
@@ -912,7 +912,7 @@ build {
       keep_input_artifact = false
       compression_level   = 9
       only = [
-        "minimal-centos-7-virtualbox",
+        "virtualbox-iso.minimal-centos-7-virtualbox",
       ]
       output = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.box"
     }
@@ -920,7 +920,7 @@ build {
     post-processor "vagrant-cloud" {
       box_tag = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-minimal-centos-7"
       only = [
-        "minimal-centos-7-virtualbox",
+        "virtualbox-iso.minimal-centos-7-virtualbox",
       ]
       version             = " ${var.spel_version} "
       version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. For details, see ${var.spel_description_url}."
