@@ -1,3 +1,27 @@
+# Guidance on naming and organizing variables
+#
+# Variable names are prefixed by builder, or by amigen project. Any variables
+# used by many builders are prefixed with the keyword `spel`. Variables are grouped
+# by their prefix. Current prefixes
+# include:
+#   * aws - amazon-ebs builder
+#   * azure - azure-arm builder
+#   * openstack - openstack builder
+#   * virtualbox - virtualbox builder
+#   * amigen - used by both amigen7 and amigen8
+#   * amigen7 - amigen7 only
+#   * amigen8 - amigen8 only
+#   * spel - everything else
+#
+# For variables passed to a builder argument, just apply prefix to the argument
+# name. Do not "reinterpret" the argument and create a new name. E.g. for the
+# argument `instance_type`, the variable name should be `aws_instance_type`.
+#
+# For variables used by amigen, consider what the variable is actually being applied
+# to within the amigen project, and provide a descriptive name. Avoid abbreviations!
+#
+# Within each prefix, all variables should be sort alphabetically by name.
+
 ###
 # Variables for AWS builders
 ###
