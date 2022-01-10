@@ -614,22 +614,22 @@ build {
   source "azure-arm.base" {
     custom_managed_image_name                = var.azure_custom_managed_image_name_centos7
     custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_centos7
-    name                                     = "minimal-centos-7-azure-image"
+    name                                     = "minimal-centos-7-image"
   }
 
   source "azure-arm.base" {
     custom_managed_image_name                = var.azure_custom_managed_image_name_rhel7
     custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel7
-    name                                     = "minimal-rhel-7-azure-image"
+    name                                     = "minimal-rhel-7-image"
   }
 
   source "openstack.base" {
-    name = "minimal-centos-7-openstack-image"
+    name = "minimal-centos-7-image"
   }
 
   source "virtualbox-iso.base" {
     boot_command = ["<esc><wait>", "linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.centos7.minimal.cfg VAGRANT", "<enter><wait>"]
-    name         = "minimal-centos-7-virtualbox"
+    name         = "minimal-centos-7"
     iso_checksum = "file:http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/sha256sum.txt"
     iso_url      = var.virtualbox_iso_url_centos7
   }
@@ -637,7 +637,7 @@ build {
   provisioner "file" {
     destination = "/tmp/retry.sh"
     only = [
-      "virtualbox-iso.minimal-centos-7-virtualbox",
+      "virtualbox-iso.minimal-centos-7",
     ]
     source = "${path.root}/scripts/retry.sh"
   }
@@ -645,7 +645,7 @@ build {
   provisioner "shell" {
     execute_command = "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'"
     only = [
-      "virtualbox-iso.minimal-centos-7-virtualbox",
+      "virtualbox-iso.minimal-centos-7",
     ]
     scripts = [
       "${path.root}/scripts/base.sh",
@@ -670,9 +670,9 @@ build {
       "amazon-ebs.minimal-centos-8stream-hvm",
       "amazon-ebs.minimal-rhel-7-hvm",
       "amazon-ebs.minimal-rhel-8-hvm",
-      "azure-arm.minimal-centos-7-azure-image",
-      "azure-arm.minimal-rhel-7-azure-image",
-      "openstack.minimal-centos-7-openstack-image",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+      "openstack.minimal-centos-7-image",
     ]
   }
 
@@ -684,9 +684,9 @@ build {
       "amazon-ebs.minimal-centos-8stream-hvm",
       "amazon-ebs.minimal-rhel-7-hvm",
       "amazon-ebs.minimal-rhel-8-hvm",
-      "azure-arm.minimal-centos-7-azure-image",
-      "azure-arm.minimal-rhel-7-azure-image",
-      "openstack.minimal-centos-7-openstack-image",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+      "openstack.minimal-centos-7-image",
     ]
     scripts = [
       "${path.root}/scripts/pivot-root.sh",
@@ -707,9 +707,9 @@ build {
       "amazon-ebs.minimal-centos-8stream-hvm",
       "amazon-ebs.minimal-rhel-7-hvm",
       "amazon-ebs.minimal-rhel-8-hvm",
-      "azure-arm.minimal-centos-7-azure-image",
-      "azure-arm.minimal-rhel-7-azure-image",
-      "openstack.minimal-centos-7-openstack-image",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+      "openstack.minimal-centos-7-image",
     ]
   }
 
@@ -726,9 +726,9 @@ build {
     only = [
       "amazon-ebs.minimal-centos-7-hvm",
       "amazon-ebs.minimal-rhel-7-hvm",
-      "azure-arm.minimal-centos-7-azure-image",
-      "azure-arm.minimal-rhel-7-azure-image",
-      "openstack.minimal-centos-7-openstack-image",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+      "openstack.minimal-centos-7-image",
     ]
   }
 
@@ -807,7 +807,7 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "openstack.minimal-centos-7-openstack-image",
+      "openstack.minimal-centos-7-image",
     ]
     scripts = [
       "${path.root}/scripts/amigen7-build.sh",
@@ -872,8 +872,8 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "azure-arm.minimal-centos-7-azure-image",
-      "azure-arm.minimal-rhel-7-azure-image",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
     ]
     scripts = [
       "${path.root}/scripts/amigen7-build.sh",
@@ -895,8 +895,8 @@ build {
       "sync",
     ]
     only = [
-      "azure-arm.minimal-centos-7-azure-image",
-      "azure-arm.minimal-rhel-7-azure-image",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
     ]
     skip_clean = true
   }
@@ -912,7 +912,7 @@ build {
       keep_input_artifact = false
       compression_level   = 9
       only = [
-        "virtualbox-iso.minimal-centos-7-virtualbox",
+        "virtualbox-iso.minimal-centos-7",
       ]
       output = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.box"
     }
@@ -920,7 +920,7 @@ build {
     post-processor "vagrant-cloud" {
       box_tag = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-minimal-centos-7"
       only = [
-        "virtualbox-iso.minimal-centos-7-virtualbox",
+        "virtualbox-iso.minimal-centos-7",
       ]
       version             = " ${var.spel_version} "
       version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. For details, see ${var.spel_description_url}."
