@@ -583,7 +583,27 @@ source "virtualbox-iso" "base" {
 ###
 # End of source blocks
 ###
-# Start of build block
+# Start of locals block
+###
+
+locals {
+  # Join lists to create strings appropriate for environment variables and AMIgen
+  # expectations. AMIgen expects some vars to be comma-delimited, and others to
+  # be space-delimited.
+  amigen_extra_rpms      = join(",", var.amigen_extra_rpms)
+  amigen7_package_groups = join(" ", var.amigen7_package_groups) # space-delimited
+  amigen7_repo_names     = join(",", var.amigen7_repo_names)
+  amigen7_repo_sources   = join(",", var.amigen7_repo_sources)
+  amigen7_storage_layout = join(",", var.amigen7_storage_layout)
+  amigen8_repo_names     = join(",", var.amigen8_repo_names)
+  amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
+  amigen8_storage_layout = join(",", var.amigen8_storage_layout)
+}
+
+###
+# End of locals block
+###
+# Start of build bock
 ###
 
 build {
@@ -750,12 +770,12 @@ build {
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
-      "SPEL_AMIGENPKGGRP=${var.amigen7_package_groups}",
-      "SPEL_AMIGENREPOS=${var.amigen7_repo_names}",
-      "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}",
+      "SPEL_AMIGENPKGGRP=${local.amigen7_package_groups}",
+      "SPEL_AMIGENREPOS=${local.amigen7_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen7_repo_sources}",
       "SPEL_AMIGENROOTNM=${var.amigen7_filesystem_label}",
       "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
-      "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}",
+      "SPEL_AMIGENSTORLAY=${local.amigen7_storage_layout}",
       "SPEL_AMIGENVGNAME=VolGroup00",
       "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
       "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
@@ -765,7 +785,7 @@ build {
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
       "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=aws",
-      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
@@ -786,11 +806,11 @@ build {
       "SPEL_AMIGENBUILDDEV=/dev/vda",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
-      "SPEL_AMIGENPKGGRP=${var.amigen7_package_groups}",
-      "SPEL_AMIGENREPOS=${var.amigen7_repo_names}",
-      "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}",
+      "SPEL_AMIGENPKGGRP=${local.amigen7_package_groups}",
+      "SPEL_AMIGENREPOS=${local.amigen7_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen7_repo_sources}",
       "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
-      "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}",
+      "SPEL_AMIGENSTORLAY=${local.amigen7_storage_layout}",
       "SPEL_AMIGENVGNAME=VolGroup00",
       "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
       "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
@@ -800,7 +820,7 @@ build {
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
       "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=openstack",
-      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
@@ -821,17 +841,17 @@ build {
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}",
-      "SPEL_AMIGENREPOS=${var.amigen8_repo_names}",
-      "SPEL_AMIGENREPOSRC=${var.amigen8_repo_sources}",
+      "SPEL_AMIGENREPOS=${local.amigen8_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen8_repo_sources}",
       "SPEL_AMIGENROOTNM=${var.amigen8_filesystem_label}",
       "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
-      "SPEL_AMIGENSTORLAY=${var.amigen8_storage_layout}",
+      "SPEL_AMIGENSTORLAY=${local.amigen8_storage_layout}",
       "SPEL_AMIGENVGNAME=RootVG",
       "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
       "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
       "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
       "SPEL_CLOUDPROVIDER=aws",
-      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=true",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
@@ -851,10 +871,10 @@ build {
       "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
       "SPEL_AMIGENBUILDDEV=/dev/sda",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
-      "SPEL_AMIGENREPOS=${var.amigen7_repo_names}",
-      "SPEL_AMIGENREPOSRC=${var.amigen7_repo_sources}",
+      "SPEL_AMIGENREPOS=${local.amigen7_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen7_repo_sources}",
       "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
-      "SPEL_AMIGENSTORLAY=${var.amigen7_storage_layout}",
+      "SPEL_AMIGENSTORLAY=${local.amigen7_storage_layout}",
       "SPEL_AMIGENVGNAME=VolGroup00",
       "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
       "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
@@ -864,7 +884,7 @@ build {
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
       "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=azure",
-      "SPEL_EXTRARPMS=${var.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_HTTP_PROXY=${var.spel_http_proxy}",
