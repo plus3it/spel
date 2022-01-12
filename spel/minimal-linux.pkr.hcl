@@ -538,6 +538,7 @@ source "amazon-ebs" "base" {
   ssh_timeout                           = "60m"
   ssh_username                          = var.spel_ssh_username
   subnet_id                             = var.aws_subnet_id
+  tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
   temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
@@ -621,6 +622,9 @@ locals {
   amigen8_repo_names     = join(",", var.amigen8_repo_names)
   amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
   amigen8_storage_layout = join(",", var.amigen8_storage_layout)
+
+  # Template the description string
+  description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" %s, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
 }
 
 ###
@@ -632,42 +636,51 @@ locals {
 # AMIgen builds
 build {
   source "amazon-ebs.base" {
-    ami_description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS 7 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
+    ami_description = format(local.description, "CentOS 7 AMI")
     name            = "minimal-centos-7-hvm"
     source_ami      = var.aws_source_ami_centos7_hvm
   }
 
   source "amazon-ebs.base" {
-    ami_description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" CentOS Stream 8 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
+    ami_description = format(local.description, "CentOS Stream 8 AMI")
     name            = "minimal-centos-8stream-hvm"
     source_ami      = var.aws_source_ami_centos8stream_hvm
   }
 
   source "amazon-ebs.base" {
-    ami_description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 7 AMI (yum and license chargeback included) with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
+    ami_description = format(local.description, "RHEL 7 AMI")
     name            = "minimal-rhel-7-hvm"
     source_ami      = var.aws_source_ami_rhel7_hvm
   }
 
   source "amazon-ebs.base" {
-    ami_description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" RHEL 8 AMI, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
+    ami_description = format(local.description, "RHEL 8 AMI")
     name            = "minimal-rhel-8-hvm"
     source_ami      = var.aws_source_ami_rhel8_hvm
   }
 
   source "azure-arm.base" {
+    azure_tags = {
+      Description = format(local.description, "CentOS 7 image")
+    }
     custom_managed_image_name                = var.azure_custom_managed_image_name_centos7
     custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_centos7
     name                                     = "minimal-centos-7-image"
   }
 
   source "azure-arm.base" {
+    azure_tags = {
+      Description = format(local.description, "RHEL 8 image")
+    }
     custom_managed_image_name                = var.azure_custom_managed_image_name_rhel7
     custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel7
     name                                     = "minimal-rhel-7-image"
   }
 
   source "openstack.base" {
+    metadata = {
+      Description = format(local.description, "CentOS 7 image")
+    }
     name = "minimal-centos-7-image"
   }
 
@@ -924,9 +937,15 @@ build {
     }
 
     post-processor "vagrant-cloud" {
-      box_tag             = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-${source.name}"
-      version             = " ${var.spel_version} "
-      version_description = "STIG-partitioned, LVM-enabled, \"minimal\" CentOS 7 image, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. For details, see ${var.spel_description_url}."
+      box_tag = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-${source.name}"
+      version = " ${var.spel_version} "
+      # Lookup the description template values using source.name
+      version_description = format(
+        local.description,
+        {
+          "minimal-centos-7" = "CentOS 7 image"
+        }[source.name]
+      )
     }
   }
 
