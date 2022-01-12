@@ -697,6 +697,14 @@ build {
       "systemctl daemon-reexec",
       "echo Killing processes locking /oldroot",
       "fuser -vmk /oldroot",
+    ]
+  }
+
+  # Keep the unmount in a separate provisioner. This forces packer to disconnect
+  # and release the ssh session that would otherwise lock the target.
+  provisioner "shell" {
+    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
+    inline = [
       "echo Unmounting /oldroot",
       "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
     ]
