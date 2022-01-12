@@ -161,20 +161,39 @@ variable "azure_custom_managed_image_resource_group_name_rhel7" {
   default     = null
 }
 
+variable "azure_image_offer" {
+  description = "Name of the publisher offer to use for your base image (Azure Marketplace Images only)"
+  type        = string
+  default     = null
+}
+
+variable "azure_image_publisher" {
+  description = "Name of the publisher to use for your base image (Azure Marketplace Images only)"
+  type        = string
+  default     = null
+}
+
+variable "azure_image_sku" {
+  description = "SKU of the image offer to use for your base image (Azure Marketplace Images only)"
+  type        = string
+  default     = null
+}
+
 variable "azure_location" {
   description = "Azure datacenter in which your VM will build"
   type        = string
   default     = null
 }
 
-variable "azure_private_virtual_network_with_public_ip" {
-  type    = bool
-  default = null
-}
-
-variable "azure_resource_group_name" {
+variable "azure_managed_image_resource_group_name" {
   description = "Resource group name where the result of the Packer build will be saved. The resource group must already exist"
   type        = string
+  default     = null
+}
+
+variable "azure_private_virtual_network_with_public_ip" {
+  description = "Boolean toggle whether a public IP will be assigned when using `azure_virtual_network_name`"
+  type        = bool
   default     = null
 }
 
@@ -524,14 +543,18 @@ source "amazon-ebs" "base" {
 }
 
 source "azure-arm" "base" {
+  build_resource_group_name              = var.azure_build_resource_group_name
   client_id                              = var.azure_client_id
   client_secret                          = var.azure_client_secret
   cloud_environment_name                 = var.azure_cloud_environment_name
   communicator                           = "ssh"
   custom_data_file                       = "${path.root}/userdata/userdata.cloud"
+  image_offer                            = var.azure_image_offer
+  image_publisher                        = var.azure_image_publisher
+  image_sku                              = var.azure_image_sku
   location                               = var.azure_location
   managed_image_name                     = "${var.spel_identifier}-${source.name}-${var.spel_version}"
-  managed_image_resource_group_name      = var.azure_resource_group_name
+  managed_image_resource_group_name      = var.azure_managed_image_resource_group_name
   os_disk_size_gb                        = var.spel_root_volume_size
   os_type                                = "Linux"
   private_virtual_network_with_public_ip = var.azure_private_virtual_network_with_public_ip
