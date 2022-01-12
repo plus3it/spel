@@ -26,8 +26,8 @@ AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE:-https://s3.amazonaws.com/aws-cli/awscli-bundle.zip}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm}"
-EPELREPO="${SPEL_EPELREPO:-epel}"
+EPELRELEASE="${SPEL_EPELRELEASE}"
+EPELREPO="${SPEL_EPELREPO}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
@@ -519,12 +519,12 @@ then
    echo "Set git config to use proxy"
 fi
 
-if [[ -n "${EPELRELEASE}" ]]
+if [[ -n "${EPELRELEASE:-}" ]]
 then
     { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 fi
 
-if [[ -n "${EPELREPO}" ]]
+if [[ -n "${EPELREPO:-}" ]]
 then
     yum-config-manager --enable "$EPELREPO" > /dev/null
 fi
