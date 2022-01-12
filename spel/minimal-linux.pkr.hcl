@@ -62,28 +62,56 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "aws_source_ami_centos7_hvm" {
-  description = "Source AMI for CentOS 7 HVM builds"
-  type        = string
-  default     = "ami-00e87074e52e6c9f9"
+variable "aws_source_ami_filter_centos7_hvm" {
+  description = "Object with source AMI filters for CentOS 7 HVM builds"
+  type = object({
+    name  = string
+    owner = string
+  })
+  default = {
+    name = "CentOS 7.* x86_64"
+    # Official CentOS account, https://wiki.centos.org/Cloud/AWS
+    owner = "125523088429"
+  }
 }
 
-variable "aws_source_ami_centos8stream_hvm" {
-  description = "Source AMI for CentOS Stream 8 HVM builds"
-  type        = string
-  default     = "ami-0ee70e88eed976a1b"
+variable "aws_source_ami_filter_centos8stream_hvm" {
+  description = "Object with source AMI filters for CentOS Stream 8 HVM builds"
+  type = object({
+    name  = string
+    owner = string
+  })
+  default = {
+    name = "CentOS Stream 8 x86_64 *"
+    # Official CentOS account, https://wiki.centos.org/Cloud/AWS
+    owner = "125523088429"
+  }
 }
 
-variable "aws_source_ami_rhel7_hvm" {
-  description = "Source AMI for RHEL 7 HVM builds"
-  type        = string
-  default     = "ami-073955d8665a7a9e7"
+variable "aws_source_ami_filter_rhel7_hvm" {
+  description = "Object with source AMI filters for RHEL 7 HVM builds"
+  type = object({
+    name  = string
+    owner = string
+  })
+  default = {
+    name = "RHEL-7.*_HVM-*-x86_64-*-Hourly2-GP2"
+    # Official Red Hat account, https://access.redhat.com/solutions/15356
+    owner = "309956199498"
+  }
 }
 
-variable "aws_source_ami_rhel8_hvm" {
-  description = "Source AMI for RHEL 8 HVM builds"
-  type        = string
-  default     = "ami-06644055bed38ebd9"
+variable "aws_source_ami_filter_rhel8_hvm" {
+  description = "Object with source AMI filters for RHEL 8 HVM builds"
+  type = object({
+    name  = string
+    owner = string
+  })
+  default = {
+    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly2-GP2"
+    # Official Red Hat account, https://access.redhat.com/solutions/15356
+    owner = "309956199498"
+  }
 }
 
 variable "aws_ssh_interface" {
@@ -638,25 +666,57 @@ build {
   source "amazon-ebs.base" {
     ami_description = format(local.description, "CentOS 7 AMI")
     name            = "minimal-centos-7-hvm"
-    source_ami      = var.aws_source_ami_centos7_hvm
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_centos7_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = [var.aws_source_ami_filter_centos7_hvm.owner]
+      most_recent = true
+    }
   }
 
   source "amazon-ebs.base" {
     ami_description = format(local.description, "CentOS Stream 8 AMI")
     name            = "minimal-centos-8stream-hvm"
-    source_ami      = var.aws_source_ami_centos8stream_hvm
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_centos8stream_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = [var.aws_source_ami_filter_centos8stream_hvm.owner]
+      most_recent = true
+    }
   }
 
   source "amazon-ebs.base" {
     ami_description = format(local.description, "RHEL 7 AMI")
     name            = "minimal-rhel-7-hvm"
-    source_ami      = var.aws_source_ami_rhel7_hvm
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_rhel7_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = [var.aws_source_ami_filter_rhel7_hvm.owner]
+      most_recent = true
+    }
   }
 
   source "amazon-ebs.base" {
     ami_description = format(local.description, "RHEL 8 AMI")
     name            = "minimal-rhel-8-hvm"
-    source_ami      = var.aws_source_ami_rhel8_hvm
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_rhel8_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = [var.aws_source_ami_filter_rhel8_hvm.owner]
+      most_recent = true
+    }
   }
 
   source "azure-arm.base" {
