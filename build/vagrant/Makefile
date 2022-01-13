@@ -10,6 +10,13 @@ ISO_URL_CENTOS7_BASE ?= http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64
 ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?=")'
 ISO_URL_CENTOS7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
 
+CODEBUILD_SOURCE_REPO_URL ?= https://github.com/plus3it/spel.git
+CODEBUILD_SOURCE_VERSION  ?= master
+ARTIFACT_LOCATION ?= spel-vagrant
+SSM_VAGRANTCLOUD_TOKEN ?= /spel/vagrantcloud/token
+VAGRANTCLOUD_USER ?= plus3it
+SPEL_IDENTIFIER ?= spel
+
 .PHONY: all install pre_build build post_build
 .EXPORT_ALL_VARIABLES:
 
@@ -33,13 +40,15 @@ install:
 	go mod init spel-vagrant
 	go build ./...
 	go mod tidy
-	curl -sSL $(TERRAFORM_URL) -o terraform.zip
-	unzip terraform.zip
-	chmod +x terraform
-	mv terraform /usr/local/bin/
+	if ! hash terraform 2> /dev/null; then \
+		curl -sSL $(TERRAFORM_URL) -o terraform.zip ;\
+		unzip terraform.zip ;\
+		chmod +x terraform ;\
+		mv terraform /usr/local/bin/ ;\
+	fi
 	terraform version
 
-pre_build: install
+pre_build:
 
 build: pre_build
 	go test -timeout 60m

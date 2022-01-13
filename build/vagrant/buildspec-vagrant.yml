@@ -4,11 +4,12 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      golang: 1.14
+      golang: 1.16
     commands:
+      - make -C build/vagrant install
   build:
     commands:
-      - make -C build/vagrant
+      - make -C build/vagrant build
   post_build:
     commands:
       - find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f

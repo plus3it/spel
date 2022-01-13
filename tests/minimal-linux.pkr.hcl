@@ -26,28 +26,28 @@ variable "pypi_url" {
 }
 
 variable "security_group_cidrs" {
-  type    = string
-  default = "0.0.0.0/0"
+  type    = list(string)
+  default = ["0.0.0.0/0"]
 }
 
 variable "source_ami_centos7_hvm" {
   type    = string
-  default = env("minimal_centos_7_hvm")
+  default = env("amazon_ebs_minimal_centos_7_hvm")
 }
 
 variable "source_ami_centos8stream_hvm" {
   type    = string
-  default = env("minimal_centos_8stream_hvm")
+  default = env("amazon_ebs_minimal_centos_8stream_hvm")
 }
 
 variable "source_ami_rhel7_hvm" {
   type    = string
-  default = env("minimal_rhel_7_hvm")
+  default = env("amazon_ebs_minimal_rhel_7_hvm")
 }
 
 variable "source_ami_rhel8_hvm" {
   type    = string
-  default = env("minimal_rhel_8_hvm")
+  default = env("amazon_ebs_minimal_rhel_8_hvm")
 }
 
 variable "spel_amiutilsource" {
@@ -85,8 +85,8 @@ variable "subnet_id" {
 # source. Read the documentation for source blocks here:
 # https://www.packer.io/docs/templates/hcl_templates/blocks/source
 source "amazon-ebs" "minimal-centos-7-hvm" {
-  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_name                    = "validation-${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   associate_public_ip_address = true
   communicator                = "ssh"
   force_deregister            = "true"
@@ -112,8 +112,8 @@ source "amazon-ebs" "minimal-centos-7-hvm" {
 }
 
 source "amazon-ebs" "minimal-centos-8stream-hvm" {
-  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_name                    = "validation-${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   associate_public_ip_address = true
   communicator                = "ssh"
   force_deregister            = "true"
@@ -139,8 +139,8 @@ source "amazon-ebs" "minimal-centos-8stream-hvm" {
 }
 
 source "amazon-ebs" "minimal-rhel-7-hvm" {
-  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_name                    = "validation-${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   associate_public_ip_address = true
   communicator                = "ssh"
   force_deregister            = "true"
@@ -166,8 +166,8 @@ source "amazon-ebs" "minimal-rhel-7-hvm" {
 }
 
 source "amazon-ebs" "minimal-rhel-8-hvm" {
-  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
-  ami_name                    = "validation-${var.spel_identifier}-${build.name}-${var.spel_version}.x86_64-gp2"
+  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
   associate_public_ip_address = true
   communicator                = "ssh"
   force_deregister            = "true"
@@ -231,12 +231,12 @@ build {
   }
 
   provisioner "file" {
-    destination = ".spel/${var.spel_version}/validation-${var.spel_identifier}-${build.name}.log"
+    destination = ".spel/${var.spel_version}/validation-${var.spel_identifier}-${source.name}.log"
     direction   = "download"
     source      = "/tmp/pytest.log"
   }
 
   post-processor "artifice" {
-    files = [".spel/${var.spel_version}/validation-${var.spel_identifier}-${build.name}.log"]
+    files = [".spel/${var.spel_version}/validation-${var.spel_identifier}-${source.name}.log"]
   }
 }

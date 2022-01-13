@@ -1,17 +1,17 @@
 #!/bin/bash
 echo "==========STARTING INSTALL========="
 echo "Installing unzip............"
-apt -y install unzip
+hash unzip || apt -y install unzip
 echo "Installing packer..."
 echo "$PWD"
-curl -L "$PACKER_ZIP" -o packer.zip && unzip packer.zip
-./packer version
-
-# Check if $SPEL_ACCESS_KEY is not empty
-if [ -n "$SPEL_ACCESS_KEY" ]; then
-    export AWS_ACCESS_KEY_ID=$SPEL_ACCESS_KEY
-    export AWS_SECRET_ACCESS_KEY=$SPEL_SECRET_KEY
+if ! hash packer 2> /dev/null
+then
+  curl -L "$PACKER_ZIP" -o packer.zip
+  unzip packer.zip
+  mkdir -p "${HOME}/.local/bin"
+  mv packer "${HOME}/.local/bin"
 fi
+packer version
 
 # Check if $SPEL_SSM_ACCESS_KEY is not empty
 if [ -n "$SPEL_SSM_ACCESS_KEY" ]; then

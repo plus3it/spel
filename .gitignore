@@ -61,3 +61,5 @@ __pycache__
 .idea
 .terraform.lock.hcl
 *.log
+terraform.tfstate*
+go.*
