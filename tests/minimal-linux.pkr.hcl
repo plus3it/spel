@@ -17,7 +17,7 @@
 # https://www.packer.io/docs/templates/hcl_templates/variables#type-constraints for more info.
 variable "aws_region" {
   type    = string
-  default = env("AWS_REGION")
+  default = "us-east-1"
 }
 
 variable "pypi_url" {

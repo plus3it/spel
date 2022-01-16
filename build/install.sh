@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "==========STARTING INSTALL========="
 echo "Installing unzip............"
-hash unzip || apt -y install unzip
+hash unzip 2> /dev/null || apt -y install unzip
 echo "Installing packer..."
 echo "$PWD"
 if ! hash packer 2> /dev/null
@@ -34,4 +34,4 @@ elif [ -n "$AWS_ACCESS_KEY_ID" ]; then
 fi
 
 # Setup the profile region
-aws configure set region "$AWS_REGION" --profile "$SPEL_IDENTIFIER"
+aws configure set region "${PKR_VAR_aws_region:?}" --profile "$SPEL_IDENTIFIER"

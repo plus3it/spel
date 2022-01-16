@@ -65,52 +65,62 @@ variable "aws_region" {
 variable "aws_source_ami_filter_centos7_hvm" {
   description = "Object with source AMI filters for CentOS 7 HVM builds"
   type = object({
-    name  = string
-    owner = string
+    name   = string
+    owners = list(string)
   })
   default = {
-    name = "CentOS 7.* x86_64"
-    # Official CentOS account, https://wiki.centos.org/Cloud/AWS
-    owner = "125523088429"
+    name = "CentOS 7.* x86_64" # GovCloud: "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
+    owners = [
+      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
+      "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
   }
 }
 
 variable "aws_source_ami_filter_centos8stream_hvm" {
   description = "Object with source AMI filters for CentOS Stream 8 HVM builds"
   type = object({
-    name  = string
-    owner = string
+    name   = string
+    owners = list(string)
   })
   default = {
-    name = "CentOS Stream 8 x86_64 *"
-    # Official CentOS account, https://wiki.centos.org/Cloud/AWS
-    owner = "125523088429"
+    name = "CentOS Stream 8 x86_64 *" # GovCloud: "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2"
+    owners = [
+      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
+      "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
   }
 }
 
 variable "aws_source_ami_filter_rhel7_hvm" {
   description = "Object with source AMI filters for RHEL 7 HVM builds"
   type = object({
-    name  = string
-    owner = string
+    name   = string
+    owners = list(string)
   })
   default = {
-    name = "RHEL-7.*_HVM-*-x86_64-*-Hourly2-GP2"
-    # Official Red Hat account, https://access.redhat.com/solutions/15356
-    owner = "309956199498"
+    name = "RHEL-7.*_HVM-*-x86_64-*-Hourly*-GP2"
+    owners = [
+      "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
+      "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
+    ]
   }
 }
 
 variable "aws_source_ami_filter_rhel8_hvm" {
   description = "Object with source AMI filters for RHEL 8 HVM builds"
   type = object({
-    name  = string
-    owner = string
+    name   = string
+    owners = list(string)
   })
   default = {
-    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly2-GP2"
-    # Official Red Hat account, https://access.redhat.com/solutions/15356
-    owner = "309956199498"
+    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP2"
+    owners = [
+      "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
+      "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
+    ]
   }
 }
 
@@ -672,7 +682,7 @@ build {
         name                = var.aws_source_ami_filter_centos7_hvm.name
         root-device-type    = "ebs"
       }
-      owners      = [var.aws_source_ami_filter_centos7_hvm.owner]
+      owners      = var.aws_source_ami_filter_centos7_hvm.owners
       most_recent = true
     }
   }
@@ -686,7 +696,7 @@ build {
         name                = var.aws_source_ami_filter_centos8stream_hvm.name
         root-device-type    = "ebs"
       }
-      owners      = [var.aws_source_ami_filter_centos8stream_hvm.owner]
+      owners      = var.aws_source_ami_filter_centos8stream_hvm.owners
       most_recent = true
     }
   }
@@ -700,7 +710,7 @@ build {
         name                = var.aws_source_ami_filter_rhel7_hvm.name
         root-device-type    = "ebs"
       }
-      owners      = [var.aws_source_ami_filter_rhel7_hvm.owner]
+      owners      = var.aws_source_ami_filter_rhel7_hvm.owners
       most_recent = true
     }
   }
@@ -714,7 +724,7 @@ build {
         name                = var.aws_source_ami_filter_rhel8_hvm.name
         root-device-type    = "ebs"
       }
-      owners      = [var.aws_source_ami_filter_rhel8_hvm.owner]
+      owners      = var.aws_source_ami_filter_rhel8_hvm.owners
       most_recent = true
     }
   }
