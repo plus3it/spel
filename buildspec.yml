@@ -26,4 +26,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: '.spel'
+  base-directory: .spel

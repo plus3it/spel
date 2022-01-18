@@ -1,56 +1,62 @@
 SHELL := /bin/bash
-SOURCE_CIDR := $(shell curl -sSL 'https://api.ipify.org')/32
+
+PACKER_LOG = '1'
+PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.build-spel-vagrant.log
+PACKER_LOG_DIR = $(dir $(PACKER_LOG_PATH))
 
 PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 PACKER_URL ?= https://releases.hashicorp.com/packer/$(PACKER_VERSION)/packer_$(PACKER_VERSION)_linux_amd64.zip
-TERRAFORM_VERSION ?= $(shell grep 'FROM hashicorp/terraform' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
-TERRAFORM_URL ?= https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
 
 ISO_URL_CENTOS7_BASE ?= http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64
 ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?=")'
-ISO_URL_CENTOS7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
 
 CODEBUILD_SOURCE_REPO_URL ?= https://github.com/plus3it/spel.git
 CODEBUILD_SOURCE_VERSION  ?= master
-ARTIFACT_LOCATION ?= spel-vagrant
-SSM_VAGRANTCLOUD_TOKEN ?= /spel/vagrantcloud/token
-VAGRANTCLOUD_USER ?= plus3it
+
 SPEL_IDENTIFIER ?= spel
 
 .PHONY: all install pre_build build post_build
 .EXPORT_ALL_VARIABLES:
 
+# Set SPEL_VERSION if SPEL_CI is "true"
+ifeq ($(SPEL_CI),true)
+SPEL_VERSION := $(or $(SPEL_VERSION),$(shell date +%Y.%m.dev%s))
+endif
+
+# Exit with error if SPEL_VERSION is not set
+ifndef SPEL_VERSION
+$(error [make]: Must set one of SPEL_VERSION, or SPEL_CI=true!)
+endif
+
+$(info SPEL_IDENTIFIER=$(SPEL_IDENTIFIER))
+$(info SPEL_VERSION=$(SPEL_VERSION))
+
 all: build
 
 install:
-	@ if [[ \
-		"$(SPEL_CI)" != "true" && \
-		-z "$(SPEL_VERSION)" \
-	]] ; then \
-		echo "[make]: Must set one of SPEL_VERSION, or SPEL_CI=true!" >&2 ;\
-		exit 1 ;\
+	if ! hash packer 2> /dev/null; then \
+		curl -sSL $(PACKER_URL) -o packer.zip ;\
+		unzip packer.zip ;\
+		chmod +x packer ;\
+		mv packer /usr/local/bin/ ;\
 	fi
-	@ if [[ \
-		"$(SPEL_CI)" == "true" && \
-		-n "$(SPEL_VERSION)" \
-	]] ; then \
-		echo "[make]: Can't set both SPEL_VERSION, and SPEL_CI=true!" >&2 ;\
-		exit 1 ;\
+	packer version
+
+build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://api.ipify.org)/32"]
+build: export PKR_VAR_virtualbox_iso_url_centos7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
+
+build:
+	mkdir -p "$(PACKER_LOG_DIR)"
+	packer build \
+		-var spel_ci=$(SPEL_CI) \
+		-var spel_identifier=$(SPEL_IDENTIFIER) \
+		-var spel_packer_url=$(PACKER_URL) \
+		-var spel_repo_url=$(CODEBUILD_SOURCE_REPO_URL) \
+		-var spel_repo_commit=$(CODEBUILD_SOURCE_VERSION) \
+		-var spel_version=$(SPEL_VERSION) \
+		build-spel-vagrant.pkr.hcl
+	@if [[ "$(SPEL_CI)" = "true" ]]; then \
+		echo "Moving "$(PACKER_LOG_DIR)" to .spel/ci" ;\
+		mkdir -p .spel/ci ;\
+		mv "$(PACKER_LOG_DIR)" .spel/ci ;\
 	fi
-	go mod init spel-vagrant
-	go build ./...
-	go mod tidy
-	if ! hash terraform 2> /dev/null; then \
-		curl -sSL $(TERRAFORM_URL) -o terraform.zip ;\
-		unzip terraform.zip ;\
-		chmod +x terraform ;\
-		mv terraform /usr/local/bin/ ;\
-	fi
-	terraform version
-
-pre_build:
-
-build: pre_build
-	go test -timeout 60m
-
-post_build:

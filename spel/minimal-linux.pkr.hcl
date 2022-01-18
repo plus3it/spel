@@ -950,14 +950,14 @@ build {
 
   # Common post-processors
   provisioner "file" {
-    destination = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.manifest.txt"
+    destination = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.${source.type}.manifest.txt"
     direction   = "download"
     source      = "/tmp/manifest.txt"
   }
 
   post-processor "artifice" {
     files = [
-      ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.manifest.txt",
+      ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.${source.type}.manifest.txt",
     ]
   }
 
@@ -993,9 +993,15 @@ build {
     ]
   }
 
+  provisioner "file" {
+    destination = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.vagrant.manifest.txt"
+    direction   = "download"
+    source      = "/tmp/manifest.txt"
+  }
+
   post-processor "artifice" {
     files = [
-      ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.manifest.txt",
+      ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.vagrant.manifest.txt",
     ]
   }
 

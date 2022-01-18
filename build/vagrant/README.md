@@ -5,11 +5,8 @@ Project that allows for a vagrant box to be created using the SPEL AMI. Specific
 # environment variables
 
 There are a number of environment variables that are needed within the CodeBuild job for it to execute successfully
+
 * AWS_REGION
-* SSM_VAGRANTCLOUD_TOKEN - the path to the SSM parameter that is holding your vagrantcloud token
-* VAGRANTCLOUD_USER - your vagrantcloud username
-* SPEL_IDENTIFIER
-* SPEL_VERSION - the version of SPEL that is being released
-* TERRAFORM_VERSION - the version of terraform to use
-* PACKER_VERSION - the version of packer to use
-* KMS_KEY - the AWS KMS Key used to decrtyp the SSM parameter
+* SPEL_IDENTIFIER - namespace for the image
+* SPEL_VERSION - version for the image
+* VAGRANT_CLOUD_TOKEN - token with write permission to the vagrant cloud account

@@ -50,7 +50,7 @@ Temporary Items
 *.bundle
 packer_cache
 .vagrant
-.spel/*
+.spel
 !.spel/.gitkeep
 *.zip
 *.exe
