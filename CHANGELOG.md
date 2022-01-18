@@ -1,5 +1,31 @@
 ## Changelog
 
+### 2022.01.1
+
+**Released**: 2022.01.18
+
+**Commit Delta**: [Change from 2021.12.1 release](https://github.com/plus3it/spel/compare/2021.12.1...2022.01.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.01.1/manifests>
+
+**Summary**:
+
+*   Publishes image for CentOS 8 Stream
+*   Deprecates CentOS 8 image -- published `minimal-centos-8-hvm` images will remain available for the time being
+*   "Extra" packages updated in this release:
+    - amazon-ssm-agent-3.1.804.0-1
+    - aws-cli/1.22.37
+    - aws-cli/2.4.11
+    - aws-cfn-bootstrap (2.0)
+    - ec2-hibinit-agent-1.0.2-3
+    - ec2-instance-connect-1.1-15
+    - ec2-net-utils-1.5-3
+*   Yum repo is now being maintained where amazon/aws/ec2 packages are being published
+    - A bare minimum of the packages are now pre-installed that align with Amazon Linux 2
+    - Other packages are available via the spel repo and can be installed using `yum install ....` 
+    - The spel repo itself can be installed using the `spel-release` package
+    - The spel repo can be browsed at https://spel-packages.cloudarmor.io
+
 ### 2021.12.1
 
 **Released**: 2021.12.21

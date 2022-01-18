@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux release 8.5 (Ootpa)
-aws-cli/1.22.26 Python/3.6.8 Linux/4.18.0-348.el8.x86_64 botocore/1.23.26
-aws-cli/2.4.7 Python/3.8.8 Linux/4.18.0-348.el8.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/1.22.37 Python/3.6.8 Linux/4.18.0-348.el8.x86_64 botocore/1.23.37
+aws-cli/2.4.11 Python/3.8.8 Linux/4.18.0-348.el8.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.1.715.0-1.x86_64
+amazon-ssm-agent-3.1.804.0-1.x86_64
 audit-3.0-0.17.20191104git1c2f876.el8.x86_64
 audit-libs-3.0-0.17.20191104git1c2f876.el8.x86_64
 authselect-1.2.2-3.el8.x86_64
@@ -405,7 +405,7 @@ shadow-utils-4.6-14.el8.x86_64
 shared-mime-info-1.9-3.el8.x86_64
 slang-2.3.2-3.el8.x86_64
 snappy-1.1.8-3.el8.x86_64
-spel-release-8-2.noarch
+spel-release-8-3.noarch
 sqlite-libs-3.26.0-15.el8.x86_64
 squashfs-tools-4.3-20.el8.x86_64
 sssd-client-2.5.2-2.el8_5.3.x86_64
