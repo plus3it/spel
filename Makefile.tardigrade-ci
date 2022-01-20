@@ -1,1 +1,5 @@
+TFDOCS_PATH = spel
+TFDOCS_FILE = $(PWD)/README.md
+TFDOCS_OPTIONS = --hide modules --hide resources --sort-by required --hide outputs --hide requirements --hide providers --indent 3
+
 include $(shell test -f .tardigrade-ci || curl -sSL -o .tardigrade-ci "https://raw.githubusercontent.com/plus3it/tardigrade-ci/master/bootstrap/Makefile.bootstrap"; echo .tardigrade-ci)

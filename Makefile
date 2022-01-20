@@ -26,7 +26,7 @@ PKR_VAR_aws_source_ami_filter_centos7_hvm = {name = "*-Recovery (No-LVM)-ACB-Cen
 PKR_VAR_aws_source_ami_filter_centos8stream_hvm = {name = "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2", owners = ["039368651566"]}
 endif
 
-.PHONY: all install pre_build build post_build
+.PHONY: all install pre_build build post_build docs
 .EXPORT_ALL_VARIABLES:
 
 $(info SPEL_IDENTIFIER=$(SPEL_IDENTIFIER))
@@ -43,6 +43,12 @@ $(shell mkdir -p ".spel/$(SPEL_VERSION)")
 endif
 
 all: build
+
+docs/lint:
+	$(MAKE) -f Makefile.tardigrade-ci docs/lint
+
+docs/generate:
+	$(MAKE) -f Makefile.tardigrade-ci docs/generate
 
 install: PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 install:

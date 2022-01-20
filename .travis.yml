@@ -12,15 +12,10 @@ if: branch = master OR type = pull_request
 
 jobs:
   include:
-    - stage: test
-      name: Shell Script Syntax Verification
-      script: eval $FIND_SH | $XARGS shellcheck {}
-    - stage: test
-      name: JSON Syntax Verification
-      script: eval $FIND_JSON | $XARGS jq --exit-status . {} > /dev/null
-    - stage: test
-      name: JSON Lint/Format Verification
-      script: eval $FIND_JSON | $XARGS bash -c 'cmp {} <(jq --indent 4 -S . {})'
+    - stage: lint
+      name: Project Syntax Verification
+      install: make -f Makefile.tardigrade-ci install
+      script: make -f Makefile.tardigrade-ci lint
     - stage: deploy
       if: branch = master AND type = push AND repo = plus3it/spel
       before_script:
