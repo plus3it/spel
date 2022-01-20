@@ -46,6 +46,7 @@ all: build
 
 install: PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 install:
+	$(MAKE) -f Makefile.tardigrade-ci packer/install
 	bash -eo pipefail ./build/install.sh
 
 # The profile and region envs are used only by the `pre_build`, `build`, and `post_build`

@@ -2,18 +2,6 @@
 set -eu -o pipefail
 
 echo "==========STARTING INSTALL========="
-echo "Installing unzip............"
-hash unzip 2> /dev/null || apt -y install unzip
-echo "Installing packer..."
-echo "$PWD"
-if ! hash packer 2> /dev/null
-then
-  curl -L "$PACKER_ZIP" -o packer.zip
-  unzip packer.zip
-  mkdir -p "${HOME}/.local/bin"
-  mv packer "${HOME}/.local/bin"
-fi
-packer version
 
 # Check if $SPEL_SSM_ACCESS_KEY is not empty
 if [[ -n "${SPEL_SSM_ACCESS_KEY:-}" ]]; then
