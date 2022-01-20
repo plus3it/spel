@@ -22,4 +22,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: .spel
+  base-directory: build/vagrant/.spel
