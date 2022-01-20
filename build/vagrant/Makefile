@@ -26,8 +26,6 @@ endif
 # Exit with error if SPEL_VERSION is not set
 ifndef SPEL_VERSION
 $(error [make]: Must set one of SPEL_VERSION, or SPEL_CI=true!)
-else
-$(shell mkdir -p "$(PACKER_LOG_DIR)")
 endif
 
 $(info SPEL_IDENTIFIER=$(SPEL_IDENTIFIER))
@@ -48,6 +46,7 @@ build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl
 build: export PKR_VAR_virtualbox_iso_url_centos7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
 
 build:
+	mkdir -p "$(PACKER_LOG_DIR)"
 	packer build \
 		-var spel_ci=$(SPEL_CI) \
 		-var spel_identifier=$(SPEL_IDENTIFIER) \
