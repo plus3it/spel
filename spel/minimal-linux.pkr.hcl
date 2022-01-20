@@ -740,7 +740,7 @@ build {
 
   source "azure-arm.base" {
     azure_tags = {
-      Description = format(local.description, "RHEL 8 image")
+      Description = format(local.description, "RHEL 7 image")
     }
     custom_managed_image_name                = var.azure_custom_managed_image_name_rhel7
     custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel7
