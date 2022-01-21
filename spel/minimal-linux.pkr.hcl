@@ -1007,14 +1007,15 @@ build {
 
   post-processors {
     post-processor "vagrant" {
-      keep_input_artifact = false
       compression_level   = 9
+      keep_input_artifact = false
       output              = ".spel/${var.spel_version}/${var.spel_identifier}-${source.name}.box"
     }
 
     post-processor "vagrant-cloud" {
-      box_tag = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-${source.name}"
-      version = " ${var.spel_version} "
+      box_tag             = "${var.virtualbox_vagrantcloud_username}/${var.spel_identifier}-${source.name}"
+      keep_input_artifact = false
+      version             = " ${var.spel_version} "
       # Lookup the description template values using source.name
       version_description = format(
         local.description,

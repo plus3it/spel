@@ -57,3 +57,6 @@ packer build \
 
 # remove subdirectories from the artifact location
 find "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/" -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 rm -rf
+
+# remove .ova and .box files from artifact location
+find "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/" -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
