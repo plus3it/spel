@@ -440,10 +440,10 @@ like:
 
 ```bash
 packer build \
-   -var 'amigen7_source_url=https://github.com/<FORK_USER>/AMIgen7.git' \
-   -var 'amigen7_source_branch=IssueNN' \
-   ...
-   minimal-linux.pkr.hcl
+    -var 'amigen7_source_url=https://github.com/<FORK_USER>/AMIgen7.git' \
+    -var 'amigen7_source_branch=IssueNN' \
+    ...
+    minimal-linux.pkr.hcl
 ```
 
 
