@@ -58,5 +58,6 @@ build:
 	@if [[ "$(SPEL_CI)" = "true" ]]; then \
 		echo "Moving "$(PACKER_LOG_DIR)" to .spel/ci" ;\
 		mkdir -p .spel/ci ;\
+		rm -rf .spel/ci/$(SPEL_VERSION); \
 		mv "$(PACKER_LOG_DIR)" .spel/ci ;\
 	fi
