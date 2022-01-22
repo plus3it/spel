@@ -4,7 +4,7 @@ set -eu -o pipefail
 # internal vars
 CLONE_DIR=/tmp/spel
 
-if [ "${SPEL_CI:?}" = "true" ]
+if [[ "${SPEL_CI:?}" = "true" ]]
 then
     # CI build will skip vagrant-cloud post-provisioner
     EXCEPT_STEP="vagrant-cloud"
