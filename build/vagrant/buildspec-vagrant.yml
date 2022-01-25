@@ -1,14 +1,20 @@
 ---
 version: 0.2
 
+env:
+  variables:
+    PACKER_NO_COLOR: 1
+  parameter-store:
+    VAGRANT_CLOUD_TOKEN: /spel/vagrantcloud/token
+  git-credential-helper: yes
+
 phases:
   install:
-    runtime-versions:
-      golang: 1.14
     commands:
+      - make -C build/vagrant install
   build:
     commands:
-      - make -C build/vagrant
+      - make -C build/vagrant build
   post_build:
     commands:
       - find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
@@ -16,4 +22,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory:
+  base-directory: build/vagrant/.spel

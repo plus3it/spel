@@ -1,6 +1,10 @@
 ---
 version: 0.2
 
+env:
+  variables:
+    PACKER_NO_COLOR: 1
+
 phases:
   install:
     commands:
@@ -10,9 +14,10 @@ phases:
           SPEL_VERSION=$(date +%Y.%m.dev%s)
           export SPEL_VERSION
         fi
+      - make install
   build:
     commands:
-      - make
+      - make build
   post_build:
     commands:
       - make post_build
@@ -21,4 +26,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: '.spel'
+  base-directory: .spel

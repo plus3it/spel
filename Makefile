@@ -1,43 +1,36 @@
 SHELL := /bin/bash
 
-AWS_EC2_INSTANCE_TYPE ?= t3.2xlarge
-PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 PACKER_ZIP ?= https://releases.hashicorp.com/packer/$(PACKER_VERSION)/packer_$(PACKER_VERSION)_linux_amd64.zip
 PACKER_LOG ?= '1'
-PACKER_NO_COLOR ?= '1'
+PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.log
 CHECKPOINT_DISABLE ?= '1'
 SPEL_CI ?= false
-SPEL_BUILDERS ?= minimal-rhel-7-hvm,minimal-centos-7-hvm,minimal-rhel-8-hvm,minimal-centos-8-hvm
-SPEL_DESC_URL ?= https://github.com/plus3it/spel
-SPEL_AMIGEN7SOURCE ?= https://github.com/plus3it/AMIgen7.git
-SPEL_AMIGEN7BRANCH ?= master
-SPEL_AMIGEN7REPOSRC ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm,https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-7.noarch.rpm
-SPEL_AMIGEN7REPOS ?= spel
-SPEL_AMIGEN8SOURCE ?= https://github.com/plus3it/AMIgen8.git
-SPEL_AMIGEN8BRANCH ?= master
-SPEL_AMIGEN8REPOSRC ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm,https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-8.noarch.rpm
-SPEL_AMIGEN8REPOS ?= spel
-SPEL_AWSCLIV1SOURCE ?= https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
-SPEL_AWSCLIV2SOURCE ?= https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-SPEL_AMIGENBUILDDEV ?= /dev/nvme0n1
-SPEL_EPEL7RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-SPEL_EPEL8RELEASE ?= https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-SPEL_EPELREPO ?= epel
-SPEL_EXTRARPMS ?= python36,spel-release,ec2-hibinit-agent,ec2-instance-connect,ec2-net-utils,https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-SOURCE_AMI_CENTOS7_HVM ?= ami-00e87074e52e6c9f9
-SOURCE_AMI_RHEL7_HVM ?= ami-073955d8665a7a9e7
-SOURCE_AMI_CENTOS8STREAM_HVM ?= ami-0ee70e88eed976a1b
-SOURCE_AMI_RHEL8_HVM ?= ami-06644055bed38ebd9
-SSH_INTERFACE ?= public_dns
-PIP_URL ?= https://bootstrap.pypa.io/get-pip.py
-PYPI_URL ?= https://pypi.org/simple
-SECURITY_GROUP_CIDR := $(shell curl -sSL 'https://api.ipify.org')/32
+SPEL_BUILDERS ?= amazon-ebs.minimal-rhel-7-hvm,amazon-ebs.minimal-centos-7-hvm,amazon-ebs.minimal-rhel-8-hvm,amazon-ebs.minimal-centos-8stream-hvm
+export PATH := $(HOME)/.local/bin:$(PATH)
+
+# The `pre_build`, `build`, and `post_build` targets all use packer in a way that
+# supports both Commercial and GovCloud partitions. For GovCloud, the `install`
+# target is used to setup an aws profile with credentials retrieved from SSM. For
+# the Commercial partition, the profile is created but the credentials are sourced
+# from the execution environment (meaning your workstation or CodeBuild).
+
+# Due to the use of an aws profile, when running interactively, it is required
+# to export AWS_PROFILE with a valid profile. For CodeBuild CI, it is set to $SPEL_IDENTIFIER,
+# and `make install` will create it.
+
+# For GovCloud, set the ami filters to find the correct AMIs. The default values
+# otherwise work fine for all RedHat build (GovCloud or otherwise), and for all
+# builds in the Commercial partition.
+ifeq ($(PKR_VAR_aws_region),us-gov-west-1)
+PKR_VAR_aws_source_ami_filter_centos7_hvm = {name = "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA", owners = ["039368651566"]}
+PKR_VAR_aws_source_ami_filter_centos8stream_hvm = {name = "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2", owners = ["039368651566"]}
+endif
 
 .PHONY: all install pre_build build post_build
 .EXPORT_ALL_VARIABLES:
 
-$(info SPEL_IDENTIFIER=${SPEL_IDENTIFIER})
-$(info SPEL_VERSION=${SPEL_VERSION})
+$(info SPEL_IDENTIFIER=$(SPEL_IDENTIFIER))
+$(info SPEL_VERSION=$(SPEL_VERSION))
 
 ifndef SPEL_IDENTIFIER
 $(error SPEL_IDENTIFIER is not set)
@@ -46,23 +39,31 @@ endif
 ifndef SPEL_VERSION
 $(error SPEL_VERSION is not set)
 else
-$(shell mkdir -p ".spel/${SPEL_VERSION}")
-PACKER_LOG_PATH := .spel/${SPEL_VERSION}/packer.log
+$(shell mkdir -p ".spel/$(SPEL_VERSION)")
 endif
-
-$(info SPEL_AWSCLIV1SOURCE=${SPEL_AWSCLIV1SOURCE})
-$(info SPEL_AWSCLIV2SOURCE=${SPEL_AWSCLIV2SOURCE})
 
 all: build
 
+install: PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 install:
 	bash -eo pipefail ./build/install.sh
 
-pre_build: install
-	bash -eo pipefail ./build/pre_build.sh
+# The profile and region envs are used only by the `pre_build`, `build`, and `post_build`
+# targets. For the region targets, do not use "?=" because we *always* want to
+# override this in codebuild. We cannot set these in the buildspec because that
+# breaks codebuild when building for GovCloud.
+pre_build build post_build: export AWS_PROFILE ?= $(SPEL_IDENTIFIER)
+pre_build build post_build: export AWS_DEFAULT_REGION := $(or $(PKR_VAR_aws_region),$(AWS_REGION))
+pre_build build post_build: export AWS_REGION := $(or $(PKR_VAR_aws_region),$(AWS_REGION))
+
+# Set the source security group cidr
+pre_build build post_build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://api.ipify.org)/32"]
+
+pre_build:
+	bash ./build/pre_build.sh
 
 build: pre_build
 	bash ./build/build.sh
 
 post_build:
-	bash -eo pipefail ./build/post_build.sh
+	bash ./build/post_build.sh

@@ -50,7 +50,7 @@ Temporary Items
 *.bundle
 packer_cache
 .vagrant
-.spel/*
+.spel
 !.spel/.gitkeep
 *.zip
 *.exe
@@ -61,3 +61,5 @@ __pycache__
 .idea
 .terraform.lock.hcl
 *.log
+terraform.tfstate*
+go.*

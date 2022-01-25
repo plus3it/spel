@@ -26,8 +26,8 @@ BOOTLABEL="${SPEL_BOOTLABEL:-/boot}"
 BUILDNAME="${SPEL_BUILDNAME}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
 DEBUG="${DEBUG:-UNDEF}"
-EPELRELEASE="${SPEL_EPELRELEASE:-https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm}"
-EPELREPO="${SPEL_EPELREPO:-epel}"
+EPELRELEASE="${SPEL_EPELRELEASE}"
+EPELREPO="${SPEL_EPELREPO}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
@@ -395,12 +395,12 @@ echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
 yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
 
-if [[ -n "${EPELRELEASE}" ]]
+if [[ -n "${EPELRELEASE:-}" ]]
 then
     { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 fi
 
-if [[ -n "${EPELREPO}" ]]
+if [[ -n "${EPELREPO:-}" ]]
 then
     yum-config-manager --enable "$EPELREPO" > /dev/null
 fi
