@@ -8,6 +8,8 @@ CODEBUILD_SOURCE_VERSION  ?= master
 
 SPEL_IDENTIFIER ?= spel
 
+export PATH := $(HOME)/bin:$(PATH)
+
 .PHONY: all install pre_build build post_build
 .EXPORT_ALL_VARIABLES:
 

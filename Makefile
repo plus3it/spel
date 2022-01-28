@@ -6,7 +6,7 @@ PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.log
 CHECKPOINT_DISABLE ?= '1'
 SPEL_CI ?= false
 SPEL_BUILDERS ?= amazon-ebs.minimal-rhel-7-hvm,amazon-ebs.minimal-centos-7-hvm,amazon-ebs.minimal-rhel-8-hvm,amazon-ebs.minimal-centos-8stream-hvm
-export PATH := $(HOME)/.local/bin:$(PATH)
+export PATH := $(HOME)/bin:$(PATH)
 
 # The `pre_build`, `build`, and `post_build` targets all use packer in a way that
 # supports both Commercial and GovCloud partitions. For GovCloud, the `install`
