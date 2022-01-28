@@ -50,7 +50,6 @@ docs/lint:
 docs/generate:
 	$(MAKE) -f Makefile.tardigrade-ci docs/generate
 
-install: PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
 install:
 	$(MAKE) -f Makefile.tardigrade-ci packer/install
 	bash -eo pipefail ./build/install.sh
