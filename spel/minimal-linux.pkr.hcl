@@ -217,6 +217,12 @@ variable "azure_image_sku" {
   default     = null
 }
 
+variable "azure_keep_os_disk" {
+  description = "whether you keep the disk or erase it after packer runs"
+  type        = bool
+  default     = false
+}
+
 variable "azure_location" {
   description = "Azure datacenter in which your VM will build"
   type        = string
@@ -607,7 +613,7 @@ source "azure-arm" "base" {
   virtual_network_resource_group_name    = var.azure_virtual_network_resource_group_name
   virtual_network_subnet_name            = var.azure_virtual_network_subnet_name
   vm_size                                = var.azure_vm_size
-  keep_os_disk                           = true
+  keep_os_disk                           = var.azure_keep_os_disk
 }
 
 source "openstack" "base" {
