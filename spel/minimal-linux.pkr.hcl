@@ -607,6 +607,7 @@ source "azure-arm" "base" {
   virtual_network_resource_group_name    = var.azure_virtual_network_resource_group_name
   virtual_network_subnet_name            = var.azure_virtual_network_subnet_name
   vm_size                                = var.azure_vm_size
+  keep_os_disk                           = true
 }
 
 source "openstack" "base" {
