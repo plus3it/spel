@@ -597,6 +597,7 @@ source "azure-arm" "base" {
   image_offer                            = var.azure_image_offer
   image_publisher                        = var.azure_image_publisher
   image_sku                              = var.azure_image_sku
+  keep_os_disk                           = var.azure_keep_os_disk
   location                               = var.azure_location
   managed_image_name                     = "${var.spel_identifier}-${source.name}-${var.spel_version}"
   managed_image_resource_group_name      = var.azure_managed_image_resource_group_name
@@ -613,7 +614,6 @@ source "azure-arm" "base" {
   virtual_network_resource_group_name    = var.azure_virtual_network_resource_group_name
   virtual_network_subnet_name            = var.azure_virtual_network_subnet_name
   vm_size                                = var.azure_vm_size
-  keep_os_disk                           = var.azure_keep_os_disk
 }
 
 source "openstack" "base" {
