@@ -218,7 +218,7 @@ variable "azure_image_sku" {
 }
 
 variable "azure_keep_os_disk" {
-  description = "whether you keep the disk or erase it after packer runs"
+  description = "Boolean toggle whether to keep the managed disk or delete it after packer runs"
   type        = bool
   default     = false
 }
