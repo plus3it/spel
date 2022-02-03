@@ -217,6 +217,12 @@ variable "azure_image_sku" {
   default     = null
 }
 
+variable "azure_keep_os_disk" {
+  description = "Boolean toggle whether to keep the managed disk or delete it after packer runs"
+  type        = bool
+  default     = false
+}
+
 variable "azure_location" {
   description = "Azure datacenter in which your VM will build"
   type        = string
@@ -591,6 +597,7 @@ source "azure-arm" "base" {
   image_offer                            = var.azure_image_offer
   image_publisher                        = var.azure_image_publisher
   image_sku                              = var.azure_image_sku
+  keep_os_disk                           = var.azure_keep_os_disk
   location                               = var.azure_location
   managed_image_name                     = "${var.spel_identifier}-${source.name}-${var.spel_version}"
   managed_image_resource_group_name      = var.azure_managed_image_resource_group_name
