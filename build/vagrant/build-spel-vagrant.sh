@@ -49,7 +49,7 @@ packer build \
     -var "spel_identifier=${SPEL_IDENTIFIER:?}" \
     -var "spel_version=${SPEL_VERSION:?}" \
     -only "virtualbox-iso.minimal-centos-7" \
-    -except "$EXCEPT_STEP" \
+    -except "${EXCEPT_STEP:-}" \
     spel/minimal-linux.pkr.hcl
 
 # remove subdirectories from the artifact location
