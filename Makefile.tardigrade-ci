@@ -1,6 +1,5 @@
 TFDOCS_PATH = spel
 TFDOCS_FILE = $(PWD)/README.md
-TFDOCS_OPTIONS = --hide modules --hide resources --sort-by required --hide outputs --hide requirements --hide providers --indent 3
 
 FIND_EXCLUDES ?= -not \( -name .terraform -prune \) -not \( -name .terragrunt-cache -prune \) -not \( -name .spel -prune \)
 
