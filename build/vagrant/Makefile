@@ -6,6 +6,7 @@ ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?
 CODEBUILD_SOURCE_REPO_URL ?= https://github.com/plus3it/spel.git
 CODEBUILD_SOURCE_VERSION  ?= master
 
+SPEL_CI ?= false
 SPEL_IDENTIFIER ?= spel
 
 export PATH := $(HOME)/bin:$(PATH)
