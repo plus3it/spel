@@ -1,10 +1,10 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/1.22.37 Python/3.6.8 Linux/3.10.0-1160.el7.x86_64 botocore/1.23.37
-aws-cli/2.4.11 Python/3.8.8 Linux/3.10.0-1160.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/1.22.55 Python/3.6.8 Linux/3.10.0-1160.el7.x86_64 botocore/1.24.0
+aws-cli/2.4.18 Python/3.8.8 Linux/3.10.0-1160.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.1.804.0-1.x86_64
+amazon-ssm-agent-3.1.941.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -119,9 +119,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.49.1.el7.x86_64
-kernel-tools-3.10.0-1160.49.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.49.1.el7.x86_64
+kernel-3.10.0-1160.53.1.el7.x86_64
+kernel-tools-3.10.0-1160.53.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.53.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -223,8 +223,8 @@ openldap-2.4.44-24.el7_9.x86_64
 openssh-7.4p1-22.el7_9.x86_64
 openssh-clients-7.4p1-22.el7_9.x86_64
 openssh-server-7.4p1-22.el7_9.x86_64
-openssl-1.0.2k-22.el7_9.x86_64
-openssl-libs-1.0.2k-22.el7_9.x86_64
+openssl-1.0.2k-24.el7_9.x86_64
+openssl-libs-1.0.2k-24.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -238,7 +238,7 @@ pinentry-0.8.1-17.el7.x86_64
 pkgconfig-0.27.1-4.el7.x86_64
 policycoreutils-2.5-34.el7.x86_64
 policycoreutils-python-2.5-34.el7.x86_64
-polkit-0.112-26.el7.x86_64
+polkit-0.112-26.el7_9.1.x86_64
 polkit-pkla-compat-0.1-4.el7.x86_64
 popt-1.13-16.el7.x86_64
 postfix-2.10.1-9.el7.x86_64
@@ -270,7 +270,7 @@ python-kitchen-1.1.1-5.el7.noarch
 python-libs-2.7.5-90.el7.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.49.1.el7.x86_64
+python-perf-3.10.0-1160.53.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
