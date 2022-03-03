@@ -12,21 +12,15 @@ then
 fi
 
 # update PATH
-export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/bin:${PATH}"
 
 # update machine
 /usr/bin/cloud-init status --wait
 sudo apt-get update && sudo apt-get install -y \
+    jq \
     vagrant \
     virtualbox \
     virtualbox-guest-additions-iso
-
-#install packer
-curl -sSL "${SPEL_PACKER_URL:?}" -o packer.zip
-unzip "packer.zip"
-chmod +x ./packer
-sudo mv packer /usr/local/bin/
-packer version
 
 # download spel
 git clone "${SPEL_REPO_URL:?}" "$CLONE_DIR"
@@ -41,19 +35,22 @@ if [[ -n "${SPEL_REPO_COMMIT:-}" ]] ; then
     git checkout "$SPEL_REPO_COMMIT"
 fi
 
+#install packer
+make -f Makefile.tardigrade-ci packer/install
+
 # build vagrant box
 mkdir -p "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/"
 export PACKER_LOG=1
 export PACKER_LOG_PATH="${CLONE_DIR}/.spel/${SPEL_VERSION:?}/packer.log"
 
 packer build \
-  -var "virtualbox_iso_url_centos7=${VIRTUALBOX_ISO_URL_CENTOS7:?}" \
-  -var "virtualbox_vagrantcloud_username=${VAGRANT_CLOUD_USER:?}" \
-  -var "spel_identifier=${SPEL_IDENTIFIER:?}" \
-  -var "spel_version=${SPEL_VERSION:?}" \
-  -only "virtualbox-iso.minimal-centos-7" \
-  -except "$EXCEPT_STEP" \
-  spel/minimal-linux.pkr.hcl
+    -var "virtualbox_iso_url_centos7=${VIRTUALBOX_ISO_URL_CENTOS7:?}" \
+    -var "virtualbox_vagrantcloud_username=${VAGRANT_CLOUD_USER:?}" \
+    -var "spel_identifier=${SPEL_IDENTIFIER:?}" \
+    -var "spel_version=${SPEL_VERSION:?}" \
+    -only "virtualbox-iso.minimal-centos-7" \
+    -except "${EXCEPT_STEP:-}" \
+    spel/minimal-linux.pkr.hcl
 
 # remove subdirectories from the artifact location
 find "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/" -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 rm -rf

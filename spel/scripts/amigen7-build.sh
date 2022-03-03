@@ -45,33 +45,33 @@ PYTHON3_LINK="/usr/bin/python3"
 # Make interactive-execution more-verbose unless explicitly told not to
 if [[ $( tty -s ) -eq 0 ]] && [[ ${DEBUG} == "UNDEF" ]]
 then
-   DEBUG="true"
+    DEBUG="true"
 fi
 
 
 # Error handler function
 function err_exit {
-   local ERRSTR
-   local ISNUM
-   local SCRIPTEXIT
+    local ERRSTR
+    local ISNUM
+    local SCRIPTEXIT
 
-   ERRSTR="${1}"
-   ISNUM='^[0-9]+$'
-   SCRIPTEXIT="${2:-1}"
+    ERRSTR="${1}"
+    ISNUM='^[0-9]+$'
+    SCRIPTEXIT="${2:-1}"
 
-   if [[ ${DEBUG} == true ]]
-   then
-      # Our output channels
-      logger -i -t "${PROGNAME}" -p kern.crit -s -- "${ERRSTR}"
-   else
-      logger -i -t "${PROGNAME}" -p kern.crit -- "${ERRSTR}"
-   fi
+    if [[ ${DEBUG} == true ]]
+    then
+        # Our output channels
+        logger -i -t "${PROGNAME}" -p kern.crit -s -- "${ERRSTR}"
+    else
+        logger -i -t "${PROGNAME}" -p kern.crit -- "${ERRSTR}"
+    fi
 
-   # Only exit if requested exit is numerical
-   if [[ ${SCRIPTEXIT} =~ ${ISNUM} ]]
-   then
-      exit "${SCRIPTEXIT}"
-   fi
+    # Only exit if requested exit is numerical
+    if [[ ${SCRIPTEXIT} =~ ${ISNUM} ]]
+    then
+        exit "${SCRIPTEXIT}"
+    fi
 }
 
 
@@ -283,11 +283,11 @@ function ComposeChrootCliString {
     CLIOPT_ALTMANIFEST=""
     if [[ -n ${AMIGENMANFST} ]]
     then
-       CLIOPT_ALTMANIFEST=( -m "${AMIGENMANFST}" )
-       echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
+        CLIOPT_ALTMANIFEST=( -m "${AMIGENMANFST}" )
+        echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
     else
-       CLIOPT_ALTMANIFEST=( -g "${AMIGENPKGGRP}" )
-       echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
+        CLIOPT_ALTMANIFEST=( -g "${AMIGENPKGGRP}" )
+        echo "Sending manifest-option '${CLIOPT_ALTMANIFEST[*]}'"
     fi
 
 
@@ -310,54 +310,54 @@ declare -a DISKSETUPARGS
 ## # Pick options for disk-setup command
 function ComposeDiskSetupString {
 
-   # Set the offset for the OS partition
-   if [[ ${AMIGENBOOTSIZE} == "UNDEF" ]]
-   then
-      err_exit "Using minimal offset [17m] for root volumes" NONE
-      DISKSETUPARGS+=("-B 17m ")
-   else
-      DISKSETUPARGS+=("-B" "${AMIGENBOOTSIZE}")
-   fi
+    # Set the offset for the OS partition
+    if [[ ${AMIGENBOOTSIZE} == "UNDEF" ]]
+    then
+        err_exit "Using minimal offset [17m] for root volumes" NONE
+        DISKSETUPARGS+=("-B 17m ")
+    else
+        DISKSETUPARGS+=("-B" "${AMIGENBOOTSIZE}")
+    fi
 
-   # Set the bootlabel for the OS partition
-   if [[ ${BOOTLABEL} == "UNDEF" ]]
-   then
-      err_exit "boot label needs to be defined" NONE
-   else
-      DISKSETUPARGS+=("-b" "${BOOTLABEL}")
-   fi
+    # Set the bootlabel for the OS partition
+    if [[ ${BOOTLABEL} == "UNDEF" ]]
+    then
+        err_exit "boot label needs to be defined" NONE
+    else
+        DISKSETUPARGS+=("-b" "${BOOTLABEL}")
+    fi
 
-   # Set the filesystem-type to use for OS filesystems
-   if [[ ${AMIGENFSTYPE} == "ext4" ]]
-   then
-      err_exit "Using default fstype [ext4] for boot filesysems" NONE
-   fi
-   DISKSETUPARGS+=("-f" "${AMIGENFSTYPE}")
+    # Set the filesystem-type to use for OS filesystems
+    if [[ ${AMIGENFSTYPE} == "ext4" ]]
+    then
+        err_exit "Using default fstype [ext4] for boot filesysems" NONE
+    fi
+    DISKSETUPARGS+=("-f" "${AMIGENFSTYPE}")
 
-   # Set requested custom storage layout as necessary
-   if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
-   then
-      err_exit "Using script-default for boot-volume layout" NONE
-   else
-      DISKSETUPARGS+=("-p" "${AMIGENSTORLAY}")
-   fi
+    # Set requested custom storage layout as necessary
+    if [[ ${AMIGENSTORLAY} == "UNDEF" ]]
+    then
+        err_exit "Using script-default for boot-volume layout" NONE
+    else
+        DISKSETUPARGS+=("-p" "${AMIGENSTORLAY}")
+    fi
 
-   # Set LVM2 or bare disk-formatting
-   if [[ ${AMIGENVGNAME} != "UNDEF" ]]
-   then
-      DISKSETUPARGS+=("-v" "${AMIGENVGNAME}")
-   elif [[ ${AMIGENROOTNM} != "UNDEF" ]]
-   then
-      DISKSETUPARGS+=("-r" "${AMIGENROOTNM}")
-   fi
+    # Set LVM2 or bare disk-formatting
+    if [[ ${AMIGENVGNAME} != "UNDEF" ]]
+    then
+        DISKSETUPARGS+=("-v" "${AMIGENVGNAME}")
+    elif [[ ${AMIGENROOTNM} != "UNDEF" ]]
+    then
+        DISKSETUPARGS+=("-r" "${AMIGENROOTNM}")
+    fi
 
-   # Set device to carve
-   if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
-   then
-      err_exit "Failed to define device to partition"
-   else
-      DISKSETUPARGS+=("-d" "${AMIGENBUILDDEV}")
-   fi
+    # Set device to carve
+    if [[ ${AMIGENBUILDDEV} == "UNDEF" ]]
+    then
+        err_exit "Failed to define device to partition"
+    else
+        DISKSETUPARGS+=("-d" "${AMIGENBUILDDEV}")
+    fi
 }
 
 
@@ -368,27 +368,27 @@ set -o pipefail
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
 then
-   err_exit "Installing build-host dependencies" NONE
-   yum -y install "${BUILDDEPS[@]}" || \
-     err_exit "Failed installing build-host dependencies"
+    err_exit "Installing build-host dependencies" NONE
+    yum -y install "${BUILDDEPS[@]}" || \
+        err_exit "Failed installing build-host dependencies"
 
-   err_exit "Verifying build-host dependencies" NONE
-   rpm -q "${BUILDDEPS[@]}" || \
-     err_exit "Verification failed"
+    err_exit "Verifying build-host dependencies" NONE
+    rpm -q "${BUILDDEPS[@]}" || \
+        err_exit "Verification failed"
 fi
 
 if [[ -n "${HTTP_PROXY:-}" ]]
 then
-   echo "Setting Git Config Proxy"
-   git config --global http.proxy "${HTTP_PROXY}"
-   echo "Set git config to use proxy"
+    echo "Setting Git Config Proxy"
+    git config --global http.proxy "${HTTP_PROXY}"
+    echo "Set git config to use proxy"
 fi
 
 echo "Installing custom repo packages in the builder box"
 IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
 for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
 do
-      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 echo "Enabling repos in the builder box"
@@ -409,7 +409,7 @@ echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
 do
-      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 # Disable strict host-key checking when doing git-over-ssh
@@ -487,7 +487,7 @@ then
     ##end adding Azure grub defaults
 fi
 bash -eux -o pipefail "${ELBUILD}"/GrubSetup.sh "${AMIGENBUILDDEV}" \
-  --grub-timeout "${GRUBTMOUT}"|| \
+    --grub-timeout "${GRUBTMOUT}"|| \
     err_exit "Failure encountered with GrubSetup.sh"
 
 echo "Executing NetSet.sh"

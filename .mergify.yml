@@ -11,7 +11,6 @@ pull_request_rules:
     conditions:
       - author~=dependabot\[bot\]|dependabot-preview\[bot\]
       - "#approved-reviews-by>=1"
-      - -files=build/vagrant/Dockerfile
     actions:
       comment:
         message: go codebuild go
@@ -20,7 +19,6 @@ pull_request_rules:
     conditions:
       - author~=dependabot\[bot\]|dependabot-preview\[bot\]
       - "#approved-reviews-by>=1"
-      - files=build/vagrant/Dockerfile
     actions:
       comment:
         message: go vagrant go
@@ -29,20 +27,9 @@ pull_request_rules:
     conditions:
       - author~=dependabot\[bot\]|dependabot-preview\[bot\]
       - "#approved-reviews-by>=1"
-      - -files=build/vagrant/Dockerfile
       # Must pass codebuild jobs before merge
       - status-success=codebuild/spel-ci/pr
       - status-success=codebuild/spel-govcloud-ci/pr
-    actions:
-      merge:
-        method: merge
-
-  - name: merge dependabot vagrant pull requests
-    conditions:
-      - author~=dependabot\[bot\]|dependabot-preview\[bot\]
-      - "#approved-reviews-by>=1"
-      - files=build/vagrant/Dockerfile
-      # Must pass vagrant job before merge
       - status-success=codebuild/spel-vagrant-ci/pr
     actions:
       merge:

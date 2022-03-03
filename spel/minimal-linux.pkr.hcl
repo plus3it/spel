@@ -160,13 +160,13 @@ variable "azure_build_resource_group_name" {
 variable "azure_client_id" {
   description = "Application ID of the AAD Service Principal. Requires either client_secret, client_cert_path or client_jwt to be set as well"
   type        = string
-  default     = env("ARM_CLIENT_ID")
+  default     = null
 }
 
 variable "azure_client_secret" {
   description = "Password/secret registered for the AAD Service Principal"
   type        = string
-  default     = env("ARM_CLIENT_SECRET")
+  default     = null
 }
 
 variable "azure_cloud_environment_name" {
@@ -243,7 +243,7 @@ variable "azure_private_virtual_network_with_public_ip" {
 
 variable "azure_subscription_id" {
   type    = string
-  default = env("ARM_SUBSCRIPTION_ID")
+  default = null
 }
 
 variable "azure_virtual_network_name" {

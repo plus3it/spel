@@ -17,10 +17,6 @@ variable "spel_identifier" {
   type = string
 }
 
-variable "spel_packer_url" {
-  type = string
-}
-
 variable "spel_repo_commit" {
   type    = string
   default = "master"
@@ -88,7 +84,6 @@ build {
       "PACKER_NO_COLOR=1",
       "SPEL_CI=${var.spel_ci}",
       "SPEL_IDENTIFIER=${var.spel_identifier}",
-      "SPEL_PACKER_URL=${var.spel_packer_url}",
       "SPEL_REPO_COMMIT=${var.spel_repo_commit}",
       "SPEL_REPO_URL=${var.spel_repo_url}",
       "SPEL_VERSION=${var.spel_version}",

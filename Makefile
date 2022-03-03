@@ -6,7 +6,7 @@ PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.log
 CHECKPOINT_DISABLE ?= '1'
 SPEL_CI ?= false
 SPEL_BUILDERS ?= amazon-ebs.minimal-rhel-7-hvm,amazon-ebs.minimal-centos-7-hvm,amazon-ebs.minimal-rhel-8-hvm,amazon-ebs.minimal-centos-8stream-hvm
-export PATH := $(HOME)/.local/bin:$(PATH)
+export PATH := $(HOME)/bin:$(PATH)
 
 # The `pre_build`, `build`, and `post_build` targets all use packer in a way that
 # supports both Commercial and GovCloud partitions. For GovCloud, the `install`
@@ -26,7 +26,7 @@ PKR_VAR_aws_source_ami_filter_centos7_hvm = {name = "*-Recovery (No-LVM)-ACB-Cen
 PKR_VAR_aws_source_ami_filter_centos8stream_hvm = {name = "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2", owners = ["039368651566"]}
 endif
 
-.PHONY: all install pre_build build post_build
+.PHONY: all install pre_build build post_build docs
 .EXPORT_ALL_VARIABLES:
 
 $(info SPEL_IDENTIFIER=$(SPEL_IDENTIFIER))
@@ -44,8 +44,14 @@ endif
 
 all: build
 
-install: PACKER_VERSION ?= $(shell grep 'FROM hashicorp/packer' Dockerfile 2> /dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' 2> /dev/null)
+docs/lint:
+	$(MAKE) -f Makefile.tardigrade-ci docs/lint
+
+docs/generate:
+	$(MAKE) -f Makefile.tardigrade-ci docs/generate
+
 install:
+	$(MAKE) -f Makefile.tardigrade-ci packer/install
 	bash -eo pipefail ./build/install.sh
 
 # The profile and region envs are used only by the `pre_build`, `build`, and `post_build`

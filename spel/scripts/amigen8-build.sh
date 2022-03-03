@@ -42,33 +42,33 @@ ELBUILD="/tmp/el-build"
 # Make interactive-execution more-verbose unless explicitly told not to
 if [[ $( tty -s ) -eq 0 ]] && [[ -z ${DEBUG:-} ]]
 then
-   DEBUG="true"
+    DEBUG="true"
 fi
 
 
 # Error handler function
 function err_exit {
-   local ERRSTR
-   local ISNUM
-   local SCRIPTEXIT
+    local ERRSTR
+    local ISNUM
+    local SCRIPTEXIT
 
-   ERRSTR="${1}"
-   ISNUM='^[0-9]+$'
-   SCRIPTEXIT="${2:-1}"
+    ERRSTR="${1}"
+    ISNUM='^[0-9]+$'
+    SCRIPTEXIT="${2:-1}"
 
-   if [[ ${DEBUG} == true ]]
-   then
-      # Our output channels
-      logger -i -t "${PROGNAME}" -p kern.crit -s -- "${ERRSTR}"
-   else
-      logger -i -t "${PROGNAME}" -p kern.crit -- "${ERRSTR}"
-   fi
+    if [[ ${DEBUG} == true ]]
+    then
+        # Our output channels
+        logger -i -t "${PROGNAME}" -p kern.crit -s -- "${ERRSTR}"
+    else
+        logger -i -t "${PROGNAME}" -p kern.crit -- "${ERRSTR}"
+    fi
 
-   # Only exit if requested exit is numerical
-   if [[ ${SCRIPTEXIT} =~ ${ISNUM} ]]
-   then
-      exit "${SCRIPTEXIT}"
-   fi
+    # Only exit if requested exit is numerical
+    if [[ ${SCRIPTEXIT} =~ ${ISNUM} ]]
+    then
+        exit "${SCRIPTEXIT}"
+    fi
 }
 
 
@@ -154,32 +154,32 @@ retry()
 # Run the builder-scripts
 function BuildChroot {
 
-   # Invoke disk-partitioner
-   bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
-     err_exit "Failure encountered with DiskSetup.sh"
+    # Invoke disk-partitioner
+    bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
+        err_exit "Failure encountered with DiskSetup.sh"
 
-   # Invoke chroot-env disk-mounter
-   bash -euxo pipefail "${ELBUILD}"/$( ComposeChrootMountString ) || \
-     err_exit "Failure encountered with MkChrootTree.sh"
+    # Invoke chroot-env disk-mounter
+    bash -euxo pipefail "${ELBUILD}"/$( ComposeChrootMountString ) || \
+        err_exit "Failure encountered with MkChrootTree.sh"
 
-   # Invoke OS software installer
-   bash -euxo pipefail "${ELBUILD}"/$( ComposeOSpkgString ) || \
-     err_exit "Failure encountered with OSpackages.sh"
+    # Invoke OS software installer
+    bash -euxo pipefail "${ELBUILD}"/$( ComposeOSpkgString ) || \
+        err_exit "Failure encountered with OSpackages.sh"
 
-   # Invoke AWSutils installer
-   bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
-     err_exit "Failure encountered with AWSutils.sh"
+    # Invoke AWSutils installer
+    bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
+        err_exit "Failure encountered with AWSutils.sh"
 
-   # Post-installation configurator
-   bash -euxo pipefail "${ELBUILD}"/$( PostBuildString ) || \
-     err_exit "Failure encountered with PostBuild.sh"
+    # Post-installation configurator
+    bash -euxo pipefail "${ELBUILD}"/$( PostBuildString ) || \
+        err_exit "Failure encountered with PostBuild.sh"
 
-   # Collect insallation-manifest
-   CollectManifest
+    # Collect insallation-manifest
+    CollectManifest
 
-   # Invoke unmounter
-   bash -euxo pipefail "${ELBUILD}"/Umount.sh -c "${AMIGENCHROOT}" || \
-     err_exit "Failure encountered with Umount.sh"
+    # Invoke unmounter
+    bash -euxo pipefail "${ELBUILD}"/Umount.sh -c "${AMIGENCHROOT}" || \
+        err_exit "Failure encountered with Umount.sh"
 }
 
 # Create a record of the build
@@ -228,266 +228,266 @@ function CollectManifest {
 
 # Pick options for the AWSutils install command
 function ComposeAWSutilsString {
-   local AWSUTILSSTRING
+    local AWSUTILSSTRING
 
-   AWSUTILSSTRING="AWSutils.sh "
+    AWSUTILSSTRING="AWSutils.sh "
 
-   # Set services to enable
-   AWSUTILSSTRING+="-t amazon-ssm-agent "
+    # Set services to enable
+    AWSUTILSSTRING+="-t amazon-ssm-agent "
 
-   # Set location for chroot-env
-   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
-   then
-      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
-   else
-      AWSUTILSSTRING+="-m ${AMIGENCHROOT} "
-   fi
+    # Set location for chroot-env
+    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
+    then
+        err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
+    else
+        AWSUTILSSTRING+="-m ${AMIGENCHROOT} "
+    fi
 
-   # Whether to install AWS CLIv1
-   if [[ -n "${AWSCLIV1SOURCE}" ]]
-   then
-      AWSUTILSSTRING+="-C ${AWSCLIV1SOURCE} "
-   fi
+    # Whether to install AWS CLIv1
+    if [[ -n "${AWSCLIV1SOURCE}" ]]
+    then
+        AWSUTILSSTRING+="-C ${AWSCLIV1SOURCE} "
+    fi
 
-   # Whether to install AWS CLIv2
-   if [[ -n "${AWSCLIV2SOURCE}" ]]
-   then
-      AWSUTILSSTRING+="-c ${AWSCLIV2SOURCE} "
-   fi
+    # Whether to install AWS CLIv2
+    if [[ -n "${AWSCLIV2SOURCE}" ]]
+    then
+        AWSUTILSSTRING+="-c ${AWSCLIV2SOURCE} "
+    fi
 
-   # Whether to install AWS SSM-agent
-   if [[ -z ${AMIGENSSMAGENT:-} ]]
-   then
-      err_exit "Skipping install of AWS SSM-agent" NONE
-   else
-      AWSUTILSSTRING+="-s ${AMIGENSSMAGENT} "
-   fi
+    # Whether to install AWS SSM-agent
+    if [[ -z ${AMIGENSSMAGENT:-} ]]
+    then
+        err_exit "Skipping install of AWS SSM-agent" NONE
+    else
+        AWSUTILSSTRING+="-s ${AMIGENSSMAGENT} "
+    fi
 
-   # Whether to install AWS InstanceConnect
-   if [[ -z ${AMIGENICNCTURL:-} ]]
-   then
-      err_exit "Skipping install of AWS SSM-agent" NONE
-   else
-      AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
-   fi
+    # Whether to install AWS InstanceConnect
+    if [[ -z ${AMIGENICNCTURL:-} ]]
+    then
+        err_exit "Skipping install of AWS SSM-agent" NONE
+    else
+        AWSUTILSSTRING+="-i ${AMIGENICNCTURL} "
+    fi
 
     # Whether to install cfnbootstrap
-   if [[ -z "${AWSCFNBOOTSTRAP:-}" ]]
-   then
-      err_exit "Skipping install of AWS CFN Bootstrap" NONE
-   else
-      AWSUTILSSTRING+="-n ${AWSCFNBOOTSTRAP} "
-   fi
+    if [[ -z "${AWSCFNBOOTSTRAP:-}" ]]
+    then
+        err_exit "Skipping install of AWS CFN Bootstrap" NONE
+    else
+        AWSUTILSSTRING+="-n ${AWSCFNBOOTSTRAP} "
+    fi
 
-   # Return command-string for AWSutils-script
-   echo "${AWSUTILSSTRING}"
+    # Return command-string for AWSutils-script
+    echo "${AWSUTILSSTRING}"
 }
 
 # Pick options for chroot-mount command
 function ComposeChrootMountString {
-   local MOUNTCHROOTCMD
+    local MOUNTCHROOTCMD
 
-   MOUNTCHROOTCMD="MkChrootTree.sh "
+    MOUNTCHROOTCMD="MkChrootTree.sh "
 
-   # Set location for chroot-env
-   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
-   then
-      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
-   else
-      MOUNTCHROOTCMD+="-m ${AMIGENCHROOT} "
-   fi
+    # Set location for chroot-env
+    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
+    then
+        err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
+    else
+        MOUNTCHROOTCMD+="-m ${AMIGENCHROOT} "
+    fi
 
-   # Set the filesystem-type to use for OS filesystems
-   if [[ ${AMIGENFSTYPE} == "xfs" ]]
-   then
-      err_exit "Using default fstype [xfs] for boot filesysems" NONE
-   else
-      MOUNTCHROOTCMD+="-f ${AMIGENFSTYPE} "
-   fi
+    # Set the filesystem-type to use for OS filesystems
+    if [[ ${AMIGENFSTYPE} == "xfs" ]]
+    then
+        err_exit "Using default fstype [xfs] for boot filesysems" NONE
+    else
+        MOUNTCHROOTCMD+="-f ${AMIGENFSTYPE} "
+    fi
 
-   # Set requested custom storage layout as necessary
-   if [[ -z ${AMIGENSTORLAY:-} ]]
-   then
-      err_exit "Using script-default for boot-volume layout" NONE
-   else
-      MOUNTCHROOTCMD+="-p ${AMIGENSTORLAY} "
-   fi
+    # Set requested custom storage layout as necessary
+    if [[ -z ${AMIGENSTORLAY:-} ]]
+    then
+        err_exit "Using script-default for boot-volume layout" NONE
+    else
+        MOUNTCHROOTCMD+="-p ${AMIGENSTORLAY} "
+    fi
 
-   # Set device to mount
-   if [[ -z ${AMIGENBUILDDEV:-} ]]
-   then
-      err_exit "Failed to define device to partition"
-   else
-      MOUNTCHROOTCMD+="-d ${AMIGENBUILDDEV}"
-   fi
+    # Set device to mount
+    if [[ -z ${AMIGENBUILDDEV:-} ]]
+    then
+        err_exit "Failed to define device to partition"
+    else
+        MOUNTCHROOTCMD+="-d ${AMIGENBUILDDEV}"
+    fi
 
-   # Return command-string for mount-script
-   echo "${MOUNTCHROOTCMD}"
+    # Return command-string for mount-script
+    echo "${MOUNTCHROOTCMD}"
 }
 
 ## # Pick options for disk-setup command
 function ComposeDiskSetupString {
-   local DISKSETUPCMD
+    local DISKSETUPCMD
 
-   DISKSETUPCMD="DiskSetup.sh "
+    DISKSETUPCMD="DiskSetup.sh "
 
-   # Set the offset for the OS partition
-   if [[ -z ${AMIGENBOOTSIZE:-} ]]
-   then
-      err_exit "Using minimal offset [17m] for root volumes" NONE
-      DISKSETUPCMD+="-B 17m "
-   else
-      DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
-   fi
+    # Set the offset for the OS partition
+    if [[ -z ${AMIGENBOOTSIZE:-} ]]
+    then
+        err_exit "Using minimal offset [17m] for root volumes" NONE
+        DISKSETUPCMD+="-B 17m "
+    else
+        DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
+    fi
 
-   # Set the filesystem-type to use for OS filesystems
-   if [[ ${AMIGENFSTYPE} == "xfs" ]]
-   then
-      err_exit "Using default fstype [xfs] for boot filesysems" NONE
-   fi
-   DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
+    # Set the filesystem-type to use for OS filesystems
+    if [[ ${AMIGENFSTYPE} == "xfs" ]]
+    then
+        err_exit "Using default fstype [xfs] for boot filesysems" NONE
+    fi
+    DISKSETUPCMD+="-f ${AMIGENFSTYPE} "
 
-   # Set requested custom storage layout as necessary
-   if [[ -z ${AMIGENSTORLAY:-} ]]
-   then
-      err_exit "Using script-default for boot-volume layout" NONE
-   else
-      DISKSETUPCMD+="-p ${AMIGENSTORLAY} "
-   fi
+    # Set requested custom storage layout as necessary
+    if [[ -z ${AMIGENSTORLAY:-} ]]
+    then
+        err_exit "Using script-default for boot-volume layout" NONE
+    else
+        DISKSETUPCMD+="-p ${AMIGENSTORLAY} "
+    fi
 
-   # Set LVM2 or bare disk-formatting
-   if [[ -n ${AMIGENVGNAME:-} ]]
-   then
-      DISKSETUPCMD+="-v ${AMIGENVGNAME} "
-   elif [[ -n ${AMIGENROOTNM:-} ]]
-   then
-      DISKSETUPCMD+="-r ${AMIGENROOTNM} "
-   fi
+    # Set LVM2 or bare disk-formatting
+    if [[ -n ${AMIGENVGNAME:-} ]]
+    then
+        DISKSETUPCMD+="-v ${AMIGENVGNAME} "
+    elif [[ -n ${AMIGENROOTNM:-} ]]
+    then
+        DISKSETUPCMD+="-r ${AMIGENROOTNM} "
+    fi
 
-   # Set device to carve
-   if [[ -z ${AMIGENBUILDDEV:-} ]]
-   then
-      err_exit "Failed to define device to partition"
-   else
-      DISKSETUPCMD+="-d ${AMIGENBUILDDEV}"
-   fi
+    # Set device to carve
+    if [[ -z ${AMIGENBUILDDEV:-} ]]
+    then
+        err_exit "Failed to define device to partition"
+    else
+        DISKSETUPCMD+="-d ${AMIGENBUILDDEV}"
+    fi
 
-   # Return command-string for disk-setup script
-   echo "${DISKSETUPCMD}"
+    # Return command-string for disk-setup script
+    echo "${DISKSETUPCMD}"
 }
 
 # Pick options for the OS-install command
 function ComposeOSpkgString {
-   local OSPACKAGESTRING
+    local OSPACKAGESTRING
 
-   OSPACKAGESTRING="OSpackages.sh "
+    OSPACKAGESTRING="OSpackages.sh "
 
-   # Set location for chroot-env
-   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
-   then
-      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
-   else
-      OSPACKAGESTRING+="-m ${AMIGENCHROOT} "
-   fi
+    # Set location for chroot-env
+    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
+    then
+        err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
+    else
+        OSPACKAGESTRING+="-m ${AMIGENCHROOT} "
+    fi
 
-   # Pick custom yum repos
-   if [[ -z ${ENABLEDREPOS:-} ]]
-   then
-      err_exit "Using script-default yum repos" NONE
-   else
-      OSPACKAGESTRING+="-a ${ENABLEDREPOS} "
-   fi
+    # Pick custom yum repos
+    if [[ -z ${ENABLEDREPOS:-} ]]
+    then
+        err_exit "Using script-default yum repos" NONE
+    else
+        OSPACKAGESTRING+="-a ${ENABLEDREPOS} "
+    fi
 
-   # Custom repo-def RPMs to install
-   if [[ -z ${AMIGENREPOSRC:-} ]]
-   then
-      err_exit "Installing no custom repo-config RPMs" NONE
-   else
-      OSPACKAGESTRING+="-r ${AMIGENREPOSRC} "
-   fi
+    # Custom repo-def RPMs to install
+    if [[ -z ${AMIGENREPOSRC:-} ]]
+    then
+        err_exit "Installing no custom repo-config RPMs" NONE
+    else
+        OSPACKAGESTRING+="-r ${AMIGENREPOSRC} "
+    fi
 
-   # Add custom manifest file
-   if [[ -z ${AMIGENMANFST:-} ]]
-   then
-      err_exit "Installing no custom manifest" NONE
-   else
-      OSPACKAGESTRING+="-M ${AMIGENREPOSRC} "
-   fi
+    # Add custom manifest file
+    if [[ -z ${AMIGENMANFST:-} ]]
+    then
+        err_exit "Installing no custom manifest" NONE
+    else
+        OSPACKAGESTRING+="-M ${AMIGENREPOSRC} "
+    fi
 
-   # Add custom pkg group
-   if [[ -z ${AMIGENPKGGRP:-} ]]
-   then
-      err_exit "Installing no custom package group" NONE
-   else
-      OSPACKAGESTRING+="-g ${AMIGENPKGGRP} "
-   fi
+    # Add custom pkg group
+    if [[ -z ${AMIGENPKGGRP:-} ]]
+    then
+        err_exit "Installing no custom package group" NONE
+    else
+        OSPACKAGESTRING+="-g ${AMIGENPKGGRP} "
+    fi
 
-   # Add extra rpms
-   if [[ -z ${EXTRARPMS:-} ]]
-   then
-      err_exit "Installing no extra rpms" NONE
-   else
-      OSPACKAGESTRING+="-e ${EXTRARPMS} "
-   fi
+    # Add extra rpms
+    if [[ -z ${EXTRARPMS:-} ]]
+    then
+        err_exit "Installing no extra rpms" NONE
+    else
+        OSPACKAGESTRING+="-e ${EXTRARPMS} "
+    fi
 
-   # Return command-string for OS-script
-   echo "${OSPACKAGESTRING}"
+    # Return command-string for OS-script
+    echo "${OSPACKAGESTRING}"
 }
 
 function PostBuildString {
-   local POSTBUILDCMD
+    local POSTBUILDCMD
 
-   POSTBUILDCMD="PostBuild.sh "
+    POSTBUILDCMD="PostBuild.sh "
 
-   # Set the filesystem-type to use for OS filesystems
-   if [[ ${AMIGENFSTYPE} == "xfs" ]]
-   then
-      err_exit "Using default fstype [xfs] for boot filesysems" NONE
-   fi
-   POSTBUILDCMD+="-f ${AMIGENFSTYPE} "
+    # Set the filesystem-type to use for OS filesystems
+    if [[ ${AMIGENFSTYPE} == "xfs" ]]
+    then
+        err_exit "Using default fstype [xfs] for boot filesysems" NONE
+    fi
+    POSTBUILDCMD+="-f ${AMIGENFSTYPE} "
 
-   # Set location for chroot-env
-   if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
-   then
-      err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
-   else
-      POSTBUILDCMD+="-m ${AMIGENCHROOT} "
-   fi
+    # Set location for chroot-env
+    if [[ ${AMIGENCHROOT} == "/mnt/ec2-root" ]]
+    then
+        err_exit "Using default chroot-env location [${AMIGENCHROOT}]" NONE
+    else
+        POSTBUILDCMD+="-m ${AMIGENCHROOT} "
+    fi
 
-   # Set AMI starting time-zone
-   if [[ ${AMIGENTIMEZONE} == "UTC" ]]
-   then
-      err_exit "Using default AMI timezone [${AMIGENCHROOT}]" NONE
-   else
-      POSTBUILDCMD+="-z ${AMIGENTIMEZONE} "
-   fi
+    # Set AMI starting time-zone
+    if [[ ${AMIGENTIMEZONE} == "UTC" ]]
+    then
+        err_exit "Using default AMI timezone [${AMIGENCHROOT}]" NONE
+    else
+        POSTBUILDCMD+="-z ${AMIGENTIMEZONE} "
+    fi
 
-   # Set image GRUB_TIMEOUT value
-   POSTBUILDCMD+="--grub-timeout ${GRUBTMOUT}"
+    # Set image GRUB_TIMEOUT value
+    POSTBUILDCMD+="--grub-timeout ${GRUBTMOUT}"
 
-   # Return command-string for OS-script
-   echo "${POSTBUILDCMD}"
+    # Return command-string for OS-script
+    echo "${POSTBUILDCMD}"
 }
 
 # Disable strict hostkey checking
 function DisableStrictHostCheck {
-   local HOSTVAL
+    local HOSTVAL
 
-   if [[ ${1:-} == '' ]]
-   then
-      err_exit "No connect-string passed to function [${0}]"
-   else
-      HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
-   fi
+    if [[ ${1:-} == '' ]]
+    then
+        err_exit "No connect-string passed to function [${0}]"
+    else
+        HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
+    fi
 
-   # Git host-target parameters
-   err_exit "Disabling SSH's strict hostkey checking for ${HOSTVAL}" NONE
-   (
-      printf "Host %s\n" "${HOSTVAL}"
-      printf "  Hostname %s\n" "${HOSTVAL}"
-      printf "  StrictHostKeyChecking off\n"
-   ) >> "${HOME}/.ssh/config" || \
-   err_exit "Failed disabling SSH's strict hostkey checking"
+    # Git host-target parameters
+    err_exit "Disabling SSH's strict hostkey checking for ${HOSTVAL}" NONE
+    (
+        printf "Host %s\n" "${HOSTVAL}"
+        printf "  Hostname %s\n" "${HOSTVAL}"
+        printf "  StrictHostKeyChecking off\n"
+    ) >> "${HOME}/.ssh/config" || \
+    err_exit "Failed disabling SSH's strict hostkey checking"
 }
 
 
@@ -503,20 +503,20 @@ set -o pipefail
 # Install supplementary tooling
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
 then
-   err_exit "Installing build-host dependencies" NONE
-   yum -y install "${BUILDDEPS[@]}" || \
-     err_exit "Failed installing build-host dependencies"
+    err_exit "Installing build-host dependencies" NONE
+    yum -y install "${BUILDDEPS[@]}" || \
+        err_exit "Failed installing build-host dependencies"
 
-   err_exit "Verifying build-host dependencies" NONE
-   rpm -q "${BUILDDEPS[@]}" || \
-     err_exit "Verification failed"
+    err_exit "Verifying build-host dependencies" NONE
+    rpm -q "${BUILDDEPS[@]}" || \
+        err_exit "Verification failed"
 fi
 
 if [[ -n "${HTTP_PROXY:-}" ]]
 then
-   echo "Setting Git Config Proxy"
-   git config --global http.proxy "${HTTP_PROXY}"
-   echo "Set git config to use proxy"
+    echo "Setting Git Config Proxy"
+    git config --global http.proxy "${HTTP_PROXY}"
+    echo "Set git config to use proxy"
 fi
 
 if [[ -n "${EPELRELEASE:-}" ]]
@@ -533,7 +533,7 @@ echo "Installing custom repo packages in the builder box"
 IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
 for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
 do
-      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 echo "Enabling repos in the builder box"
@@ -544,39 +544,39 @@ echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
 do
-      { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 # Disable strict host-key checking when doing git-over-ssh
 if [[ ${AMIGENSOURCE} =~ "@" ]]
 then
-   DisableStrictHostCheck "${AMIGENSOURCE}"
+    DisableStrictHostCheck "${AMIGENSOURCE}"
 fi
 
 # Dismount /oldroot as needed
 if [[ $( mountpoint /oldroot ) =~ "is a mountpoint" ]]
 then
-   err_exit "Dismounting /oldroot..." NONE
-   umount /oldroot || \
-     err_exit "Failed dismounting /oldroot"
+    err_exit "Dismounting /oldroot..." NONE
+    umount /oldroot || \
+        err_exit "Failed dismounting /oldroot"
 fi
 
 # Null out the build-dev's VTOC
 echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
 if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
 then
-   echo "${SPEL_AMIGENBUILDDEV} is a valid block device. Nuking VTOC... "
+    echo "${SPEL_AMIGENBUILDDEV} is a valid block device. Nuking VTOC... "
 
-   retry 5 dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
-   echo "Cleared."
+    retry 5 dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
+    echo "Cleared."
 fi
 
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
 then
-   err_exit "Creating build-tools directory [${ELBUILD}]..." NONE
-   install -dDm 000755 "${ELBUILD}" || \
-     err_exit "Failed creating build-tools directory"
+    err_exit "Creating build-tools directory [${ELBUILD}]..." NONE
+    install -dDm 000755 "${ELBUILD}" || \
+        err_exit "Failed creating build-tools directory"
 fi
 
 # Pull build-tools from git clone-source
