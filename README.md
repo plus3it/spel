@@ -383,7 +383,6 @@ Login to azure using the az cli. Packer will use the session setup by the az cli
 packer build \
     -var 'spel_identifier=unique-project-id' \
     -var 'spel_version=0.0.1' \
-    -var 'spel_disablefips=true' \
     -var 'amigen_extra_rpms=["WALinuxAgent"]' \
     -var 'amigen_fips_disable=true' \
     -var 'amigen7_repo_names=["rhui-microsoft-azure-rhel7"]' \
@@ -392,7 +391,7 @@ packer build \
     -var 'azure_image_sku=7-raw' \
     -var 'azure_managed_image_resource_group_name=<resource group short name>' \
     -only 'azure-arm.minimal-rhel-7-image' \
-    spel/minimal-linux.json
+    spel/minimal-linux.pkr.hcl
 ```
 
 ## Building for OpenStack
@@ -415,7 +414,7 @@ packer build \
     -var 'openstack_security_groups=your_security_group_name_for_temporary_instance,second_sg_name,etc.' \
     -var 'openstack_source_image_name=your_source_image_name' \
     -only 'openstack.*' \
-    spel/minimal-linux.json
+    spel/minimal-linux.pkr.hcl
 ```
 
 For expected values, see links below:
