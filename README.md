@@ -88,36 +88,36 @@ yum repos at their discretion.
 | us-gov-west-1 | [spel-minimal-centos-8-hvm][1036] |
 | us-gov-east-1 | [spel-minimal-centos-8-hvm][1038] |
 
-[1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1025]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1026]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1027]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1028]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1029]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1030]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1031]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1032]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1033]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1034]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1035]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1036]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1038]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1039]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1040]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1041]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1042]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1043]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
-[1044]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;name=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1025]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-rhel-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1026]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-centos-7-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1027]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1028]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1029]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1030]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1031]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1032]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1033]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1034]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1035]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1036]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-rhel-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1038]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-centos-8-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1039]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1040]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1041]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1042]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;ownerAlias=701759196663;imageName=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1043]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
+[1044]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;ownerAlias=039368651566;imageName=spel-minimal-centos-8stream-hvm-.*x86_64-gp2;sort=desc:creationDate>
 
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
