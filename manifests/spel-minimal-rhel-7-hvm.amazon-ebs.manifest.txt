@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.22.55 Python/3.6.8 Linux/3.10.0-1160.45.1.el7.x86_64 botocore/1.24.0
-aws-cli/2.4.18 Python/3.8.8 Linux/3.10.0-1160.45.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.22.78 Python/3.6.8 Linux/3.10.0-1160.59.1.el7.x86_64 botocore/1.24.23
+aws-cli/2.4.27 Python/3.8.8 Linux/3.10.0-1160.59.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.1.941.0-1.x86_64
+amazon-ssm-agent-3.1.1080.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -13,7 +13,7 @@ autogen-libopts-5.18-5.el7.x86_64
 basesystem-10.0-7.el7.noarch
 bash-4.2.46-35.el7_9.x86_64
 bc-1.06.95-13.el7.x86_64
-bind-export-libs-9.11.4-26.P2.el7_9.8.x86_64
+bind-export-libs-9.11.4-26.P2.el7_9.9.x86_64
 binutils-2.27-44.base.el7_9.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -21,7 +21,7 @@ ca-certificates-2021.2.50-72.el7_9.noarch
 checkpolicy-2.5-8.el7.x86_64
 chkconfig-1.7.6-1.el7.x86_64
 chrony-3.4-1.el7.x86_64
-cloud-init-19.4-7.el7_9.5.x86_64
+cloud-init-19.4-7.el7_9.6.x86_64
 cloud-utils-growpart-0.29-5.el7.noarch
 coreutils-8.22-24.el7_9.2.x86_64
 cpio-2.11-28.el7.x86_64
@@ -32,7 +32,7 @@ cronie-anacron-1.4.11-24.el7_9.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
 curl-7.29.0-59.el7_9.1.x86_64
-cyrus-sasl-lib-2.1.26-23.el7.x86_64
+cyrus-sasl-lib-2.1.26-24.el7_9.x86_64
 dbus-1.10.24-15.el7.x86_64
 dbus-glib-0.100-7.el7.x86_64
 dbus-libs-1.10.24-15.el7.x86_64
@@ -58,7 +58,7 @@ e2fsprogs-libs-1.42.9-19.el7.x86_64
 ebtables-2.0.10-16.el7.x86_64
 ec2-hibinit-agent-1.0.2-3.el7.noarch
 ec2-instance-connect-1.1-15.el7.noarch
-ec2-net-utils-1.5-3.el7.noarch
+ec2-net-utils-1.6-1.el7.noarch
 elfutils-default-yama-scope-0.176-5.el7.noarch
 elfutils-libelf-0.176-5.el7.x86_64
 elfutils-libs-0.176-5.el7.x86_64
@@ -121,9 +121,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.53.1.el7.x86_64
-kernel-tools-3.10.0-1160.53.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.53.1.el7.x86_64
+kernel-3.10.0-1160.59.1.el7.x86_64
+kernel-tools-3.10.0-1160.59.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.59.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -163,6 +163,7 @@ libnfnetlink-1.0.1-4.el7.x86_64
 libnl-1.1.4-3.el7.x86_64
 libnl3-3.2.28-4.el7.x86_64
 libnl3-cli-3.2.28-4.el7.x86_64
+libpcap-1.5.3-12.el7.x86_64
 libpipeline-1.2.3-3.el7.x86_64
 libpng-1.5.13-8.el7.x86_64
 libpwquality-1.2.3-5.el7.x86_64
@@ -214,6 +215,7 @@ NetworkManager-team-1.18.8-2.el7_9.x86_64
 NetworkManager-tui-1.18.8-2.el7_9.x86_64
 newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
+nmap-ncat-6.40-19.el7.x86_64
 nspr-4.32.0-1.el7_9.x86_64
 nss-3.67.0-4.el7_9.x86_64
 nss-pem-1.0.3-7.el7.x86_64
@@ -225,7 +227,7 @@ nss-util-3.67.0-1.el7_9.x86_64
 ntp-4.2.6p5-29.el7_8.2.x86_64
 ntpdate-4.2.6p5-29.el7_8.2.x86_64
 numactl-libs-2.0.12-5.el7.x86_64
-openldap-2.4.44-24.el7_9.x86_64
+openldap-2.4.44-25.el7_9.x86_64
 openssh-7.4p1-22.el7_9.x86_64
 openssh-clients-7.4p1-22.el7_9.x86_64
 openssh-server-7.4p1-22.el7_9.x86_64
@@ -240,6 +242,7 @@ passwd-0.79-6.el7.x86_64
 pciutils-3.5.1-3.el7.x86_64
 pciutils-libs-3.5.1-3.el7.x86_64
 pcre-8.32-17.el7.x86_64
+pexpect-2.3-11.el7.noarch
 pinentry-0.8.1-17.el7.x86_64
 pkgconfig-0.27.1-4.el7.x86_64
 policycoreutils-2.5-34.el7.x86_64
@@ -256,6 +259,7 @@ pyliblzma-0.5.3-11.el7.x86_64
 pyOpenSSL-0.13.1-4.el7.x86_64
 pyserial-2.6-6.el7.noarch
 python-2.7.5-90.el7.x86_64
+python2-futures-3.1.1-5.el7.noarch
 python3-3.6.8-18.el7.x86_64
 python3-libs-3.6.8-18.el7.x86_64
 python3-pip-9.0.3-8.el7.noarch
@@ -287,7 +291,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.53.1.el7.x86_64
+python-perf-3.10.0-1160.59.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -308,8 +312,8 @@ readline-6.2-11.el7.x86_64
 Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-eula-7.8-0.el7.noarch
 redhat-release-server-7.9-6.el7_9.x86_64
-redhat-support-lib-python-0.12.1-1.el7.noarch
-redhat-support-tool-0.12.2-1.el7.noarch
+redhat-support-lib-python-0.13.0-0.el7_9.noarch
+redhat-support-tool-0.13.0-0.el7_9.noarch
 rh-amazon-rhui-client-3.0.45-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
