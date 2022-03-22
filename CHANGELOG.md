@@ -1,5 +1,21 @@
 ## Changelog
 
+### 2022.03.1
+
+**Released**: 2022.03.22
+
+**Commit Delta**: [Change from 2022.02.1 release](https://github.com/plus3it/spel/compare/2022.02.1...2022.03.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.03.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - amazon-ssm-agent-3.1.1080.0-1
+    - aws-cli/1.22.78
+    - aws-cli/2.4.27
+    - ec2-net-utils-1.6-1
+
 ### 2022.02.1
 
 **Released**: 2022.02.16

@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux release 8.5 (Ootpa)
-aws-cli/1.22.55 Python/3.6.8 Linux/4.18.0-348.12.2.el8_5.x86_64 botocore/1.24.0
-aws-cli/2.4.18 Python/3.8.8 Linux/4.18.0-348.12.2.el8_5.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/1.22.78 Python/3.6.8 Linux/4.18.0-348.12.2.el8_5.x86_64 botocore/1.24.23
+aws-cli/2.4.27 Python/3.8.8 Linux/4.18.0-348.12.2.el8_5.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.1.941.0-1.x86_64
+amazon-ssm-agent-3.1.1080.0-1.x86_64
 audit-3.0-0.17.20191104git1c2f876.el8.x86_64
 audit-libs-3.0-0.17.20191104git1c2f876.el8.x86_64
 authselect-1.2.2-3.el8.x86_64
@@ -19,7 +19,7 @@ c-ares-1.13.0-5.el8.x86_64
 checkpolicy-2.9-1.el8.x86_64
 chkconfig-1.19.1-1.el8.x86_64
 chrony-4.1-1.el8.x86_64
-cloud-init-21.1-7.el8_5.3.noarch
+cloud-init-21.1-7.el8_5.4.noarch
 cloud-utils-growpart-0.31-3.el8.noarch
 coreutils-8.30-12.el8.x86_64
 coreutils-common-8.30-12.el8.x86_64
@@ -33,17 +33,17 @@ crypto-policies-20210617-1.gitc776d3e.el8.noarch
 crypto-policies-scripts-20210617-1.gitc776d3e.el8.noarch
 cryptsetup-libs-2.3.3-4.el8_5.1.x86_64
 curl-7.61.1-22.el8.x86_64
-cyrus-sasl-lib-2.1.27-5.el8.x86_64
+cyrus-sasl-lib-2.1.27-6.el8_5.x86_64
 dbus-1.12.8-14.el8.x86_64
 dbus-common-1.12.8-14.el8.noarch
 dbus-daemon-1.12.8-14.el8.x86_64
 dbus-glib-0.110-2.el8.x86_64
 dbus-libs-1.12.8-14.el8.x86_64
 dbus-tools-1.12.8-14.el8.x86_64
-device-mapper-1.02.177-10.el8.x86_64
-device-mapper-event-1.02.177-10.el8.x86_64
-device-mapper-event-libs-1.02.177-10.el8.x86_64
-device-mapper-libs-1.02.177-10.el8.x86_64
+device-mapper-1.02.177-11.el8_5.x86_64
+device-mapper-event-1.02.177-11.el8_5.x86_64
+device-mapper-event-libs-1.02.177-11.el8_5.x86_64
+device-mapper-libs-1.02.177-11.el8_5.x86_64
 device-mapper-persistent-data-0.9.0-4.el8.x86_64
 dhcp-client-4.3.6-45.el8.x86_64
 dhcp-common-4.3.6-45.el8.noarch
@@ -53,7 +53,7 @@ dmidecode-3.2-10.el8.x86_64
 dnf-4.7.0-4.el8.noarch
 dnf-data-4.7.0-4.el8.noarch
 dnf-plugins-core-4.0.21-4.el8_5.noarch
-dnf-plugin-subscription-manager-1.28.21-3.el8.x86_64
+dnf-plugin-subscription-manager-1.28.21-5.el8_5.x86_64
 dracut-049-191.git20210920.el8.x86_64
 dracut-config-generic-049-191.git20210920.el8.x86_64
 dracut-config-rescue-049-191.git20210920.el8.x86_64
@@ -63,20 +63,20 @@ e2fsprogs-1.45.6-2.el8.x86_64
 e2fsprogs-libs-1.45.6-2.el8.x86_64
 ec2-hibinit-agent-1.0.2-3.el8.noarch
 ec2-instance-connect-1.1-15.el8.noarch
-ec2-net-utils-1.5-3.el8.noarch
+ec2-net-utils-1.6-1.el8.noarch
 elfutils-debuginfod-client-0.185-1.el8.x86_64
 elfutils-default-yama-scope-0.185-1.el8.noarch
 elfutils-libelf-0.185-1.el8.x86_64
 elfutils-libs-0.185-1.el8.x86_64
 epel-release-8-14.el8.noarch
 ethtool-5.8-7.el8.x86_64
-expat-2.2.5-4.el8.x86_64
+expat-2.2.5-4.el8_5.3.x86_64
 file-5.33-20.el8.x86_64
 file-libs-5.33-20.el8.x86_64
 filesystem-3.8-6.el8.x86_64
 findutils-4.6.0-20.el8.x86_64
-firewalld-0.9.3-7.el8.noarch
-firewalld-filesystem-0.9.3-7.el8.noarch
+firewalld-0.9.3-7.el8_5.1.noarch
+firewalld-filesystem-0.9.3-7.el8_5.1.noarch
 fuse-libs-2.9.7-12.el8.x86_64
 gawk-4.2.1-2.el8.x86_64
 gdbm-1.18-1.el8.x86_64
@@ -87,9 +87,9 @@ geolite2-country-20180605-1.el8.noarch
 gettext-0.19.8.1-17.el8.x86_64
 gettext-libs-0.19.8.1-17.el8.x86_64
 glib2-2.56.4-156.el8.x86_64
-glibc-2.28-164.el8.x86_64
-glibc-all-langpacks-2.28-164.el8.x86_64
-glibc-common-2.28-164.el8.x86_64
+glibc-2.28-164.el8_5.3.x86_64
+glibc-all-langpacks-2.28-164.el8_5.3.x86_64
+glibc-common-2.28-164.el8_5.3.x86_64
 gmp-6.1.2-10.el8.x86_64
 gnupg2-2.2.20-2.el8.x86_64
 gnupg2-smime-2.2.20-2.el8.x86_64
@@ -130,11 +130,11 @@ json-glib-1.4.4-1.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
 kbd-legacy-2.0.4-10.el8.noarch
 kbd-misc-2.0.4-10.el8.noarch
-kernel-4.18.0-348.12.2.el8_5.x86_64
-kernel-core-4.18.0-348.12.2.el8_5.x86_64
-kernel-modules-4.18.0-348.12.2.el8_5.x86_64
-kernel-tools-4.18.0-348.12.2.el8_5.x86_64
-kernel-tools-libs-4.18.0-348.12.2.el8_5.x86_64
+kernel-4.18.0-348.20.1.el8_5.x86_64
+kernel-core-4.18.0-348.20.1.el8_5.x86_64
+kernel-modules-4.18.0-348.20.1.el8_5.x86_64
+kernel-tools-4.18.0-348.20.1.el8_5.x86_64
+kernel-tools-libs-4.18.0-348.20.1.el8_5.x86_64
 kexec-tools-2.0.20-57.el8_5.1.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-18.el8.x86_64
@@ -144,7 +144,7 @@ krb5-libs-1.18.2-14.el8.x86_64
 less-530-1.el8.x86_64
 libacl-2.2.53-1.el8.x86_64
 libaio-0.3.112-1.el8.x86_64
-libarchive-3.3.3-1.el8.x86_64
+libarchive-3.3.3-3.el8_5.x86_64
 libassuan-2.5.1-3.el8.x86_64
 libattr-2.4.48-3.el8.x86_64
 libbasicobjects-0.1.1-39.el8.x86_64
@@ -192,7 +192,7 @@ libnghttp2-1.33.0-3.el8_2.1.x86_64
 libnl3-3.5.0-1.el8.x86_64
 libnl3-cli-3.5.0-1.el8.x86_64
 libnsl2-1.2.0-2.20180605git4a062cf.el8.x86_64
-libnsl-2.28-164.el8.x86_64
+libnsl-2.28-164.el8_5.3.x86_64
 libpath_utils-0.2.1-39.el8.x86_64
 libpcap-1.9.1-5.el8.x86_64
 libpipeline-1.5.0-2.el8.x86_64
@@ -235,17 +235,17 @@ libuuid-2.32.1-28.el8.x86_64
 libverto-0.3.0-5.el8.x86_64
 libxcrypt-4.1.1-6.el8.x86_64
 libxkbcommon-0.9.1-1.el8.x86_64
-libxml2-2.9.7-9.el8_4.2.x86_64
+libxml2-2.9.7-12.el8_5.x86_64
 libyaml-0.1.7-5.el8.x86_64
 libzstd-1.4.4-1.el8.x86_64
-linux-firmware-20210702-103.gitd79c2677.el8.noarch
+linux-firmware-20210702-104.gitd79c2677.el8_5.noarch
 lmdb-libs-0.9.24-1.el8.x86_64
 logrotate-3.14.0-4.el8.x86_64
 lshw-B.02.19.2-6.el8.x86_64
 lsscsi-0.32-3.el8.x86_64
 lua-libs-5.3.4-12.el8.x86_64
-lvm2-2.03.12-10.el8.x86_64
-lvm2-libs-2.03.12-10.el8.x86_64
+lvm2-2.03.12-11.el8_5.x86_64
+lvm2-libs-2.03.12-11.el8_5.x86_64
 lz4-libs-1.8.3-3.el8_4.x86_64
 lzo-2.08-14.el8.x86_64
 man-db-2.7.6.1-18.el8.x86_64
@@ -287,9 +287,9 @@ pinentry-1.1.0-2.el8.x86_64
 platform-python-3.6.8-41.el8.x86_64
 platform-python-pip-9.0.3-20.el8.noarch
 platform-python-setuptools-39.2.0-6.el8.noarch
-plymouth-0.9.4-10.20200615git1e36e30.el8.x86_64
-plymouth-core-libs-0.9.4-10.20200615git1e36e30.el8.x86_64
-plymouth-scripts-0.9.4-10.20200615git1e36e30.el8.x86_64
+plymouth-0.9.4-10.20200615git1e36e30.el8_5.1.x86_64
+plymouth-core-libs-0.9.4-10.20200615git1e36e30.el8_5.1.x86_64
+plymouth-scripts-0.9.4-10.20200615git1e36e30.el8_5.1.x86_64
 policycoreutils-2.9-16.el8.x86_64
 polkit-0.115-13.el8_5.1.x86_64
 polkit-libs-0.115-13.el8_5.1.x86_64
@@ -309,7 +309,7 @@ python3-audit-3.0-0.17.20191104git1c2f876.el8.x86_64
 python3-babel-2.5.1-7.el8.noarch
 python3-cffi-1.11.5-5.el8.x86_64
 python3-chardet-3.0.4-7.el8.noarch
-python3-cloud-what-1.28.21-3.el8.x86_64
+python3-cloud-what-1.28.21-5.el8_5.x86_64
 python3-configobj-5.0.6-11.el8.noarch
 python3-cryptography-3.2.1-5.el8.x86_64
 python3-dateutil-2.6.1-6.el8.noarch
@@ -319,7 +319,7 @@ python3-dmidecode-3.12.2-15.el8.x86_64
 python3-dnf-4.7.0-4.el8.noarch
 python3-dnf-plugins-core-4.0.21-4.el8_5.noarch
 python3-ethtool-0.14-3.el8.x86_64
-python3-firewall-0.9.3-7.el8.noarch
+python3-firewall-0.9.3-7.el8_5.1.noarch
 python3-gobject-base-3.28.3-2.el8.x86_64
 python3-gpg-1.13.1-9.el8.x86_64
 python3-hawkey-0.63.0-3.el8.x86_64
@@ -337,12 +337,13 @@ python3-librepo-1.14.0-2.el8.x86_64
 python3-libs-3.6.8-41.el8.x86_64
 python3-libselinux-2.9-5.el8.x86_64
 python3-libsemanage-2.9-6.el8.x86_64
-python3-libxml2-2.9.7-9.el8_4.2.x86_64
+python3-libxml2-2.9.7-12.el8_5.x86_64
 python3-linux-procfs-0.6.3-1.el8.noarch
 python3-markupsafe-0.23-19.el8.x86_64
+python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-0.9.3-21.el8.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-348.12.2.el8_5.x86_64
+python3-perf-4.18.0-348.20.1.el8_5.x86_64
 python3-pip-9.0.3-20.el8.noarch
 python3-pip-wheel-9.0.3-20.el8.noarch
 python3-ply-3.9-9.el8.noarch
@@ -362,8 +363,8 @@ python3-setuptools-wheel-39.2.0-6.el8.noarch
 python3-six-1.11.0-8.el8.noarch
 python3-slip-0.6.4-11.el8.noarch
 python3-slip-dbus-0.6.4-11.el8.noarch
-python3-subscription-manager-rhsm-1.28.21-3.el8.x86_64
-python3-syspurpose-1.28.21-3.el8.x86_64
+python3-subscription-manager-rhsm-1.28.21-5.el8_5.x86_64
+python3-syspurpose-1.28.21-5.el8_5.x86_64
 python3-unbound-1.7.3-17.el8.x86_64
 python3-urllib3-1.24.2-5.el8.noarch
 rdma-core-35.0-1.el8.x86_64
@@ -396,13 +397,13 @@ sssd-client-2.5.2-2.el8_5.4.x86_64
 sssd-common-2.5.2-2.el8_5.4.x86_64
 sssd-kcm-2.5.2-2.el8_5.4.x86_64
 sssd-nfs-idmap-2.5.2-2.el8_5.4.x86_64
-subscription-manager-1.28.21-3.el8.x86_64
-subscription-manager-rhsm-certificates-1.28.21-3.el8.x86_64
+subscription-manager-1.28.21-5.el8_5.x86_64
+subscription-manager-rhsm-certificates-1.28.21-5.el8_5.x86_64
 sudo-1.8.29-7.el8_4.1.x86_64
-systemd-239-51.el8_5.3.x86_64
-systemd-libs-239-51.el8_5.3.x86_64
-systemd-pam-239-51.el8_5.3.x86_64
-systemd-udev-239-51.el8_5.3.x86_64
+systemd-239-51.el8_5.5.x86_64
+systemd-libs-239-51.el8_5.5.x86_64
+systemd-pam-239-51.el8_5.5.x86_64
+systemd-udev-239-51.el8_5.5.x86_64
 tar-1.30-5.el8.x86_64
 teamd-1.31-2.el8.x86_64
 timedatex-0.5-3.el8.x86_64
@@ -415,7 +416,7 @@ unbound-libs-1.7.3-17.el8.x86_64
 unzip-6.0-45.el8_4.x86_64
 usermode-1.113-2.el8.x86_64
 util-linux-2.32.1-28.el8.x86_64
-vim-minimal-8.0.1763-16.el8_5.4.x86_64
+vim-minimal-8.0.1763-16.el8_5.12.x86_64
 virt-what-1.18-12.el8.x86_64
 which-2.21-16.el8.x86_64
 xfsprogs-5.0.0-9.el8.x86_64
