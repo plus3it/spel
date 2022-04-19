@@ -1,10 +1,10 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/1.22.78 Python/3.6.8 Linux/3.10.0-1160.el7.x86_64 botocore/1.24.23
-aws-cli/2.4.27 Python/3.8.8 Linux/3.10.0-1160.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/1.22.98 Python/3.6.8 Linux/3.10.0-1160.el7.x86_64 botocore/1.24.43
+aws-cli/2.5.6 Python/3.9.11 Linux/3.10.0-1160.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.1.1080.0-1.x86_64
+amazon-ssm-agent-3.1.1208.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -58,13 +58,13 @@ e2fsprogs-libs-1.42.9-19.el7.x86_64
 ebtables-2.0.10-16.el7.x86_64
 ec2-hibinit-agent-1.0.2-3.el7.noarch
 ec2-instance-connect-1.1-15.el7.noarch
-ec2-net-utils-1.6-1.el7.noarch
+ec2-net-utils-1.6.1-2.el7.noarch
 elfutils-default-yama-scope-0.176-5.el7.noarch
 elfutils-libelf-0.176-5.el7.x86_64
 elfutils-libs-0.176-5.el7.x86_64
 epel-release-7-14.noarch
 ethtool-4.8-10.el7.x86_64
-expat-2.1.0-12.el7.x86_64
+expat-2.1.0-14.el7_9.x86_64
 file-5.11-37.el7.x86_64
 file-libs-5.11-37.el7.x86_64
 filesystem-3.2-25.el7.x86_64
@@ -119,9 +119,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.59.1.el7.x86_64
-kernel-tools-3.10.0-1160.59.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.59.1.el7.x86_64
+kernel-3.10.0-1160.62.1.el7.x86_64
+kernel-tools-3.10.0-1160.62.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.62.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -196,7 +196,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.11.el7_9.x86_64
+microcode_ctl-2.1-73.13.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -223,8 +223,8 @@ openldap-2.4.44-25.el7_9.x86_64
 openssh-7.4p1-22.el7_9.x86_64
 openssh-clients-7.4p1-22.el7_9.x86_64
 openssh-server-7.4p1-22.el7_9.x86_64
-openssl-1.0.2k-24.el7_9.x86_64
-openssl-libs-1.0.2k-24.el7_9.x86_64
+openssl-1.0.2k-25.el7_9.x86_64
+openssl-libs-1.0.2k-25.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -270,7 +270,7 @@ python-kitchen-1.1.1-5.el7.noarch
 python-libs-2.7.5-90.el7.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.59.1.el7.x86_64
+python-perf-3.10.0-1160.62.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -293,7 +293,7 @@ rpm-build-libs-4.11.3-48.el7_9.x86_64
 rpm-libs-4.11.3-48.el7_9.x86_64
 rpm-python-4.11.3-48.el7_9.x86_64
 rsync-3.1.2-10.el7.x86_64
-rsyslog-8.24.0-57.el7_9.1.x86_64
+rsyslog-8.24.0-57.el7_9.2.x86_64
 sed-4.2.2-7.el7.x86_64
 selinux-policy-3.13.1-268.el7_9.2.noarch
 selinux-policy-targeted-3.13.1-268.el7_9.2.noarch
@@ -316,7 +316,7 @@ tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
 tuned-2.11.0-11.el7_9.noarch
-tzdata-2021e-1.el7.noarch
+tzdata-2022a-1.el7.noarch
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-65.el7_9.1.x86_64
 vim-common-7.4.629-8.el7_9.x86_64

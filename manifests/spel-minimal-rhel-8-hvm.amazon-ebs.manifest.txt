@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux release 8.5 (Ootpa)
-aws-cli/1.22.78 Python/3.6.8 Linux/4.18.0-348.12.2.el8_5.x86_64 botocore/1.24.23
-aws-cli/2.4.27 Python/3.8.8 Linux/4.18.0-348.12.2.el8_5.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/1.22.98 Python/3.6.8 Linux/4.18.0-348.12.2.el8_5.x86_64 botocore/1.24.43
+aws-cli/2.5.6 Python/3.9.11 Linux/4.18.0-348.12.2.el8_5.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.1.1080.0-1.x86_64
+amazon-ssm-agent-3.1.1208.0-1.x86_64
 audit-3.0-0.17.20191104git1c2f876.el8.x86_64
 audit-libs-3.0-0.17.20191104git1c2f876.el8.x86_64
 authselect-1.2.2-3.el8.x86_64
@@ -63,12 +63,12 @@ e2fsprogs-1.45.6-2.el8.x86_64
 e2fsprogs-libs-1.45.6-2.el8.x86_64
 ec2-hibinit-agent-1.0.2-3.el8.noarch
 ec2-instance-connect-1.1-15.el8.noarch
-ec2-net-utils-1.6-1.el8.noarch
+ec2-net-utils-1.6.1-2.el8.noarch
 elfutils-debuginfod-client-0.185-1.el8.x86_64
 elfutils-default-yama-scope-0.185-1.el8.noarch
 elfutils-libelf-0.185-1.el8.x86_64
 elfutils-libs-0.185-1.el8.x86_64
-epel-release-8-14.el8.noarch
+epel-release-8-15.el8.noarch
 ethtool-5.8-7.el8.x86_64
 expat-2.2.5-4.el8_5.3.x86_64
 file-5.33-20.el8.x86_64
@@ -269,8 +269,8 @@ openldap-2.4.46-18.el8.x86_64
 openssh-8.0p1-10.el8.x86_64
 openssh-clients-8.0p1-10.el8.x86_64
 openssh-server-8.0p1-10.el8.x86_64
-openssl-1.1.1k-5.el8_5.x86_64
-openssl-libs-1.1.1k-5.el8_5.x86_64
+openssl-1.1.1k-6.el8_5.x86_64
+openssl-libs-1.1.1k-6.el8_5.x86_64
 openssl-pkcs11-0.4.10-2.el8.x86_64
 os-prober-1.74-9.el8.x86_64
 p11-kit-0.23.22-1.el8.x86_64
@@ -411,7 +411,7 @@ tpm2-tss-2.3.2-4.el8.x86_64
 trousers-0.3.15-1.el8.x86_64
 trousers-lib-0.3.15-1.el8.x86_64
 tuned-2.16.0-1.el8.noarch
-tzdata-2021e-1.el8.noarch
+tzdata-2022a-1.el8.noarch
 unbound-libs-1.7.3-17.el8.x86_64
 unzip-6.0-45.el8_4.x86_64
 usermode-1.113-2.el8.x86_64
