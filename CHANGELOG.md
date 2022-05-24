@@ -1,5 +1,21 @@
 ## Changelog
 
+### 2022.05.1
+
+**Released**: 2022.05.24
+
+**Commit Delta**: [Change from 2022.04.1 release](https://github.com/plus3it/spel/compare/2022.04.1...2022.05.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.04.1/manifests>
+
+**Summary**:
+
+*   Red Hat Enterprise Linux release 8.6 (Ootpa)
+*   "Extra" packages updated in this release:
+    - aws-cli/1.24.6
+    - aws-cli/2.7.2
+    - amazon-ssm-agent-3.1.1374.0-1
+
 ### 2022.04.1
 
 **Released**: 2022.04.19
