@@ -6,7 +6,7 @@
 
 **Commit Delta**: [Change from 2022.04.1 release](https://github.com/plus3it/spel/compare/2022.04.1...2022.05.1)
 
-**Manifests**: <https://github.com/plus3it/spel/blob/2022.04.1/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.05.1/manifests>
 
 **Summary**:
 
