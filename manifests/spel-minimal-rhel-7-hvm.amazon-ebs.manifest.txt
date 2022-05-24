@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.22.98 Python/3.6.8 Linux/3.10.0-1160.59.1.el7.x86_64 botocore/1.24.43
-aws-cli/2.5.6 Python/3.9.11 Linux/3.10.0-1160.59.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/1.24.6 Python/3.6.8 Linux/3.10.0-1160.66.1.el7.x86_64 botocore/1.26.6
+aws-cli/2.7.2 Python/3.9.11 Linux/3.10.0-1160.66.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.1.1208.0-1.x86_64
+amazon-ssm-agent-3.1.1374.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -81,8 +81,8 @@ gdisk-0.8.10-3.el7.x86_64
 gettext-0.19.8.1-3.el7_9.x86_64
 gettext-libs-0.19.8.1-3.el7_9.x86_64
 glib2-2.56.1-9.el7_9.x86_64
-glibc-2.17-325.el7_9.x86_64
-glibc-common-2.17-325.el7_9.x86_64
+glibc-2.17-326.el7_9.x86_64
+glibc-common-2.17-326.el7_9.x86_64
 gmp-6.0.0-15.el7.x86_64
 gnupg2-2.0.22-5.el7_5.x86_64
 gobject-introspection-1.56.1-1.el7.x86_64
@@ -93,15 +93,15 @@ gpg-pubkey-e96e3db7-6196a254
 gpg-pubkey-fd431d51-4ae0493b
 grep-2.20-3.el7.x86_64
 groff-base-1.22.2-8.el7.x86_64
-grub2-2.02-0.87.el7_9.7.x86_64
-grub2-common-2.02-0.87.el7_9.7.noarch
-grub2-pc-2.02-0.87.el7_9.7.x86_64
-grub2-pc-modules-2.02-0.87.el7_9.7.noarch
-grub2-tools-2.02-0.87.el7_9.7.x86_64
-grub2-tools-extra-2.02-0.87.el7_9.7.x86_64
-grub2-tools-minimal-2.02-0.87.el7_9.7.x86_64
+grub2-2.02-0.87.el7_9.9.x86_64
+grub2-common-2.02-0.87.el7_9.9.noarch
+grub2-pc-2.02-0.87.el7_9.9.x86_64
+grub2-pc-modules-2.02-0.87.el7_9.9.noarch
+grub2-tools-2.02-0.87.el7_9.9.x86_64
+grub2-tools-extra-2.02-0.87.el7_9.9.x86_64
+grub2-tools-minimal-2.02-0.87.el7_9.9.x86_64
 grubby-8.28-26.el7.x86_64
-gzip-1.5-10.el7.x86_64
+gzip-1.5-11.el7_9.x86_64
 hardlink-1.0-19.el7.x86_64
 hmaccalc-0.9.13-4.el7.x86_64
 hostname-3.13-3.el7_7.1.x86_64
@@ -121,9 +121,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.62.1.el7.x86_64
-kernel-tools-3.10.0-1160.62.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.62.1.el7.x86_64
+kernel-3.10.0-1160.66.1.el7.x86_64
+kernel-tools-3.10.0-1160.66.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.66.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -291,7 +291,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.62.1.el7.x86_64
+python-perf-3.10.0-1160.66.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -301,7 +301,7 @@ python-setuptools-0.9.8-7.el7.noarch
 python-six-1.9.0-2.el7.noarch
 python-slip-0.4.0-4.el7.noarch
 python-slip-dbus-0.4.0-4.el7.noarch
-python-syspurpose-1.24.50-1.el7_9.x86_64
+python-syspurpose-1.24.51-1.el7_9.x86_64
 python-urlgrabber-3.10-10.el7.noarch
 python-urllib3-1.10.2-7.el7.noarch
 pyxattr-0.5.1-5.el7.x86_64
@@ -314,7 +314,7 @@ redhat-release-eula-7.8-0.el7.noarch
 redhat-release-server-7.9-6.el7_9.x86_64
 redhat-support-lib-python-0.13.0-0.el7_9.noarch
 redhat-support-tool-0.13.0-0.el7_9.noarch
-rh-amazon-rhui-client-3.0.45-1.el7.noarch
+rh-amazon-rhui-client-4.0.4-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -340,9 +340,9 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 spel-release-7-3.noarch
 sqlite-3.7.17-8.el7_7.1.x86_64
-subscription-manager-1.24.50-1.el7_9.x86_64
-subscription-manager-rhsm-1.24.50-1.el7_9.x86_64
-subscription-manager-rhsm-certificates-1.24.50-1.el7_9.x86_64
+subscription-manager-1.24.51-1.el7_9.x86_64
+subscription-manager-rhsm-1.24.51-1.el7_9.x86_64
+subscription-manager-rhsm-certificates-1.24.51-1.el7_9.x86_64
 sudo-1.8.23-10.el7_9.2.x86_64
 systemd-219-78.el7_9.5.x86_64
 systemd-libs-219-78.el7_9.5.x86_64
@@ -371,4 +371,4 @@ yum-3.4.3-168.el7.noarch
 yum-metadata-parser-1.1.4-10.el7.x86_64
 yum-rhn-plugin-2.0.1-10.el7.noarch
 yum-utils-1.1.31-54.el7_8.noarch
-zlib-1.2.7-19.el7_9.x86_64
+zlib-1.2.7-20.el7_9.x86_64
