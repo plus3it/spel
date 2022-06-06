@@ -356,7 +356,7 @@ variable "amigen_aws_cfnbootstrap" {
 variable "amigen_aws_cliv1_source" {
   description = "URL of the .zip bundle containing the installer for AWS CLI v1"
   type        = string
-  default     = "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
+  default     = ""
 }
 
 variable "amigen_aws_cliv2_source" {
