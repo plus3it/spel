@@ -1,10 +1,9 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/1.24.6 Python/3.6.8 Linux/3.10.0-1160.66.1.el7.x86_64 botocore/1.26.6
-aws-cli/2.7.2 Python/3.9.11 Linux/3.10.0-1160.66.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.7.9 Python/3.9.11 Linux/3.10.0-1160.66.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.1.1374.0-1.x86_64
+amazon-ssm-agent-3.1.1511.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -326,7 +325,7 @@ rpm-build-libs-4.11.3-48.el7_9.x86_64
 rpm-libs-4.11.3-48.el7_9.x86_64
 rpm-python-4.11.3-48.el7_9.x86_64
 rsync-3.1.2-10.el7.x86_64
-rsyslog-8.24.0-57.el7_9.2.x86_64
+rsyslog-8.24.0-57.el7_9.3.x86_64
 sed-4.2.2-7.el7.x86_64
 selinux-policy-3.13.1-268.el7_9.2.noarch
 selinux-policy-targeted-3.13.1-268.el7_9.2.noarch
@@ -365,8 +364,8 @@ which-2.20-7.el7.x86_64
 wpa_supplicant-2.6-12.el7_9.2.x86_64
 xdg-utils-1.1.0-0.17.20120809git.el7.noarch
 xfsprogs-4.5.0-22.el7.x86_64
-xz-5.2.2-1.el7.x86_64
-xz-libs-5.2.2-1.el7.x86_64
+xz-5.2.2-2.el7_9.x86_64
+xz-libs-5.2.2-2.el7_9.x86_64
 yum-3.4.3-168.el7.noarch
 yum-metadata-parser-1.1.4-10.el7.x86_64
 yum-rhn-plugin-2.0.1-10.el7.noarch

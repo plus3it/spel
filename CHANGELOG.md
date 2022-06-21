@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2022.06.1
+
+**Released**: 2022.06.21
+
+**Commit Delta**: [Change from 2022.05.1 release](https://github.com/plus3it/spel/compare/2022.05.1...2022.06.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.06.1/manifests>
+
+**Summary**:
+
+*   Removes aws-cli v1 since it no longer supports Python 3.6
+*   "Extra" packages updated in this release:
+    - aws-cli/2.7.9
+    - amazon-ssm-agent-3.1.1511.0-1
+
 ### 2022.05.1
 
 **Released**: 2022.05.24
