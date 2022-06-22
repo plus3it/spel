@@ -94,6 +94,21 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
   }
 }
 
+variable "aws_source_ami_filter_ol8_hvm" {
+  description = "Object with source AMI filters for Oracle Linux 8 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "OL8.*-x86_64-HVM-*" # Govcloud: spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2
+    owners = [
+      "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
+      "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
 variable "aws_source_ami_filter_rhel7_hvm" {
   description = "Object with source AMI filters for RHEL 7 HVM builds"
   type = object({
@@ -709,6 +724,20 @@ build {
   }
 
   source "amazon-ebs.base" {
+    ami_description = format(local.description, "Oracle Linux 8 AMI")
+    name            = "minimal-ol-8-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_ol8_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_ol8_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebs.base" {
     ami_description = format(local.description, "RHEL 7 AMI")
     name            = "minimal-rhel-7-hvm"
     source_ami_filter {
@@ -863,6 +892,7 @@ build {
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
       "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-ol-8-hvm",
       "amazon-ebs.minimal-rhel-8-hvm",
     ]
     scripts = [

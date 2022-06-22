@@ -5,7 +5,7 @@ PACKER_LOG ?= '1'
 PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.log
 CHECKPOINT_DISABLE ?= '1'
 SPEL_CI ?= false
-SPEL_BUILDERS ?= amazon-ebs.minimal-rhel-7-hvm,amazon-ebs.minimal-centos-7-hvm,amazon-ebs.minimal-rhel-8-hvm,amazon-ebs.minimal-centos-8stream-hvm
+SPEL_BUILDERS ?= amazon-ebs.minimal-rhel-7-hvm,amazon-ebs.minimal-centos-7-hvm,amazon-ebs.minimal-rhel-8-hvm,amazon-ebs.minimal-centos-8stream-hvm,amazon-ebs.minimal-ol-8-hvm
 export PATH := $(HOME)/bin:$(PATH)
 
 # The `pre_build`, `build`, and `post_build` targets all use packer in a way that
@@ -24,6 +24,7 @@ export PATH := $(HOME)/bin:$(PATH)
 ifeq ($(PKR_VAR_aws_region),us-gov-west-1)
 PKR_VAR_aws_source_ami_filter_centos7_hvm = {name = "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA", owners = ["039368651566"]}
 PKR_VAR_aws_source_ami_filter_centos8stream_hvm = {name = "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2", owners = ["039368651566"]}
+PKR_VAR_aws_source_ami_filter_ol8_hvm = {name = "spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2", owners = ["039368651566"]}
 endif
 
 .PHONY: all install pre_build build post_build docs
