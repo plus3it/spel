@@ -54,7 +54,7 @@ source "amazon-ebs" "ubuntu" {
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
-    volume_size           = 8
+    volume_size           = 16
     volume_type           = "gp2"
   }
   max_retries            = 20
