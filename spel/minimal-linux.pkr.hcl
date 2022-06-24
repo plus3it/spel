@@ -792,6 +792,10 @@ build {
 
   # Common provisioners
   provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
+    ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
     inline = [
       "/usr/bin/cloud-init status --wait",
@@ -801,6 +805,10 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
+    ]
     execute_command   = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     expect_disconnect = true
     scripts = [
@@ -869,6 +877,8 @@ build {
   # AWS EL8 provisioners
   provisioner "shell" {
     environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
       "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
       "SPEL_AMIGENBOOTSIZE=17m",
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
