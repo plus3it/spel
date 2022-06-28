@@ -212,7 +212,7 @@ function BuildChroot {
 # Create a record of the build
 function CollectManifest {
     echo "Saving the release info to the manifest"
-    cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
+    grep "PRETTY_NAME=" "${AMIGENCHROOT}/etc/os-release" | cut --delimiter '"' -f2 > /tmp/manifest.txt
 
     if [[ "${CLOUDPROVIDER}" == "aws" ]]
     then
