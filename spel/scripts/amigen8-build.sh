@@ -77,36 +77,36 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
         BUILDER=centos-8stream
 
         DEFAULTREPOS=(
-        baseos
-        appstream
-        extras
+            baseos
+            appstream
+            extras
         )
         ;;
     centos-release )
         BUILDER=centos-8
 
         DEFAULTREPOS=(
-        BaseOS
-        AppStream
-        extras
+            BaseOS
+            AppStream
+            extras
         )
         ;;
     redhat-release-server|redhat-release)
         BUILDER=rhel-8
 
         DEFAULTREPOS=(
-        rhel-8-appstream-rhui-rpms
-        rhel-8-baseos-rhui-rpms
-        rhui-client-config-server-8
+            rhel-8-appstream-rhui-rpms
+            rhel-8-baseos-rhui-rpms
+            rhui-client-config-server-8
         )
         ;;
     oraclelinux-release)
         BUILDER=ol-8
 
         DEFAULTREPOS=(
-        ol8_UEKR6
-        ol8_appstream
-        ol8_baseos_latest
+            ol8_UEKR6
+            ol8_appstream
+            ol8_baseos_latest
         )
         ;;
     *)
