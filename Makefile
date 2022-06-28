@@ -18,15 +18,6 @@ export PATH := $(HOME)/bin:$(PATH)
 # to export AWS_PROFILE with a valid profile. For CodeBuild CI, it is set to $SPEL_IDENTIFIER,
 # and `make install` will create it.
 
-# For GovCloud, set the ami filters to find the correct AMIs. The default values
-# otherwise work fine for all RedHat build (GovCloud or otherwise), and for all
-# builds in the Commercial partition.
-ifeq ($(PKR_VAR_aws_region),us-gov-west-1)
-PKR_VAR_aws_source_ami_filter_centos7_hvm = {name = "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA", owners = ["039368651566"]}
-PKR_VAR_aws_source_ami_filter_centos8stream_hvm = {name = "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2", owners = ["039368651566"]}
-PKR_VAR_aws_source_ami_filter_ol8_hvm = {name = "spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2", owners = ["039368651566"]}
-endif
-
 .PHONY: all install pre_build build post_build docs
 .EXPORT_ALL_VARIABLES:
 

@@ -69,7 +69,7 @@ variable "aws_source_ami_filter_centos7_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS 7.* x86_64" # GovCloud: "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
+    name = "CentOS 7.* x86_64,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
@@ -85,7 +85,7 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS Stream 8 x86_64 *" # GovCloud: "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2"
+    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
@@ -101,7 +101,7 @@ variable "aws_source_ami_filter_ol8_hvm" {
     owners = list(string)
   })
   default = {
-    name = "OL8.*-x86_64-HVM-*" # Govcloud: spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2
+    name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2"
     owners = [
       "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
       "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
