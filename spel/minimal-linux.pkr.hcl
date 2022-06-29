@@ -69,7 +69,7 @@ variable "aws_source_ami_filter_centos7_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS 7.* x86_64" # GovCloud: "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
+    name = "CentOS 7.* x86_64,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
@@ -85,10 +85,25 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS Stream 8 x86_64 *" # GovCloud: "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2"
+    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
+      "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
+variable "aws_source_ami_filter_ol8_hvm" {
+  description = "Object with source AMI filters for Oracle Linux 8 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2"
+    owners = [
+      "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
       "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
   }
@@ -709,6 +724,20 @@ build {
   }
 
   source "amazon-ebs.base" {
+    ami_description = format(local.description, "Oracle Linux 8 AMI")
+    name            = "minimal-ol-8-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_ol8_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_ol8_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebs.base" {
     ami_description = format(local.description, "RHEL 7 AMI")
     name            = "minimal-rhel-7-hvm"
     source_ami_filter {
@@ -763,6 +792,10 @@ build {
 
   # Common provisioners
   provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
+    ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
     inline = [
       "/usr/bin/cloud-init status --wait",
@@ -772,6 +805,10 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
+    ]
     execute_command   = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     expect_disconnect = true
     scripts = [
@@ -840,6 +877,8 @@ build {
   # AWS EL8 provisioners
   provisioner "shell" {
     environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
       "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
       "SPEL_AMIGENBOOTSIZE=17m",
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
@@ -863,6 +902,7 @@ build {
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
       "amazon-ebs.minimal-centos-8stream-hvm",
+      "amazon-ebs.minimal-ol-8-hvm",
       "amazon-ebs.minimal-rhel-8-hvm",
     ]
     scripts = [

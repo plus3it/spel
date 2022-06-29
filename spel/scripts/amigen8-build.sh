@@ -71,22 +71,49 @@ function err_exit {
     fi
 }
 
+# Setup per-builder values
+case $( rpm -qf /etc/os-release --qf '%{name}' ) in
+    centos-linux-release | centos-stream-release )
+        BUILDER=centos-8stream
 
-# CentOS 8 repos
-DEFAULTREPOS=(
-    baseos
-    extras
-    appstream
-)
-if rpm --quiet -q redhat-release
-then
-    DEFAULTREPOS=(
-        # RHUI 3 repo names as of EL8.5 GA
-        rhel-8-baseos-rhui-rpms
-        rhel-8-appstream-rhui-rpms
-        rhui-client-config-server-8
-    )
-fi
+        DEFAULTREPOS=(
+            baseos
+            appstream
+            extras
+        )
+        ;;
+    centos-release )
+        BUILDER=centos-8
+
+        DEFAULTREPOS=(
+            BaseOS
+            AppStream
+            extras
+        )
+        ;;
+    redhat-release-server|redhat-release)
+        BUILDER=rhel-8
+
+        DEFAULTREPOS=(
+            rhel-8-appstream-rhui-rpms
+            rhel-8-baseos-rhui-rpms
+            rhui-client-config-server-8
+        )
+        ;;
+    oraclelinux-release)
+        BUILDER=ol-8
+
+        DEFAULTREPOS=(
+            ol8_UEKR6
+            ol8_appstream
+            ol8_baseos_latest
+        )
+        ;;
+    *)
+        echo "Unknown OS. Aborting" >&2
+        exit 1
+        ;;
+esac
 DEFAULTREPOS+=(epel epel-modular)
 
 # Default to enabling default repos
@@ -185,7 +212,7 @@ function BuildChroot {
 # Create a record of the build
 function CollectManifest {
     echo "Saving the release info to the manifest"
-    cat "${AMIGENCHROOT}/etc/redhat-release" > /tmp/manifest.txt
+    grep "PRETTY_NAME=" "${AMIGENCHROOT}/etc/os-release" | cut --delimiter '"' -f2 > /tmp/manifest.txt
 
     if [[ "${CLOUDPROVIDER}" == "aws" ]]
     then
@@ -428,6 +455,16 @@ function ComposeOSpkgString {
         err_exit "Installing no extra rpms" NONE
     else
         OSPACKAGESTRING+="-e ${EXTRARPMS} "
+    fi
+
+    # Customization for Oracle Linux
+    if [[ $BUILDER == "ol-8" ]]
+    then
+        # Exclude Unbreakable Enterprise Kernel
+        OSPACKAGESTRING+="-x kernel-uek,redhat*,*rhn*,*spacewalk*,*ulninfo* "
+
+        # DNF hack
+        OSPACKAGESTRING+="--setup-dnf ociregion=,ocidomain=oracle.com "
     fi
 
     # Return command-string for OS-script
