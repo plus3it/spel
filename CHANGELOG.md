@@ -1,5 +1,20 @@
 ## Changelog
 
+### 2022.07.1
+
+**Released**: 2022.07.19
+
+**Commit Delta**: [Change from 2022.06.1 release](https://github.com/plus3it/spel/compare/2022.06.1...2022.07.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.07.1/manifests>
+
+**Summary**:
+
+*   Publishes AMIs for Oracle Linux 8
+*   "Extra" packages updated in this release:
+    - aws-cli/2.7.16
+    - amazon-ssm-agent-3.1.1575.0-1
+
 ### 2022.06.1
 
 **Released**: 2022.06.21
