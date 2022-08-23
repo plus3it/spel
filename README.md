@@ -323,8 +323,8 @@ No resources.
 | <a name="input_spel_http_proxy"></a> [spel\_http\_proxy](#input\_spel\_http\_proxy) | Used as the value for the git config http.proxy setting in the builder nodes | `string` | `""` | no |
 | <a name="input_spel_root_volume_size"></a> [spel\_root\_volume\_size](#input\_spel\_root\_volume\_size) | Size in GB of the root volume | `number` | `20` | no |
 | <a name="input_spel_ssh_username"></a> [spel\_ssh\_username](#input\_spel\_ssh\_username) | Name of the user for the ssh connection to the instance. Defaults to `spel`, which is set by cloud-config userdata. If your starting image does not have `cloud-init` installed, override the default user name | `string` | `"spel"` | no |
-| <a name="input_virtualbox_iso_url_centos7"></a> [virtualbox\_iso\_url\_centos7](#input\_virtualbox\_iso\_url\_centos7) | URL to the CentOS7 .iso to use for Virtualbox builds | `string` | `"http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso"` | no |
-| <a name="input_virtualbox_iso_url_centos8"></a> [virtualbox\_iso\_url\_centos8](#input\_virtualbox\_iso\_url\_centos8) | URL to the CentOS8 .iso to use for Virtualbox builds | `string` | `"http://mirror.cs.vt.edu/pub/CentOS/8/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso"` | no |
+| <a name="input_virtualbox_iso_url_centos7"></a> [virtualbox\_iso\_url\_centos7](#input\_virtualbox\_iso\_url\_centos7) | URL to the CentOS7 .iso to use for Virtualbox builds | `string` | `"http://mirror.facebook.net/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso"` | no |
+| <a name="input_virtualbox_iso_url_centos8"></a> [virtualbox\_iso\_url\_centos8](#input\_virtualbox\_iso\_url\_centos8) | URL to the CentOS8 .iso to use for Virtualbox builds | `string` | `"http://mirror.facebook.net/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-latest-dvd1.iso"` | no |
 | <a name="input_virtualbox_vagrantcloud_username"></a> [virtualbox\_vagrantcloud\_username](#input\_virtualbox\_vagrantcloud\_username) | Vagrant Cloud username, used to namespace the vagrant boxes | `string` | `null` | no |
 
 <!-- END TFDOCS -->
