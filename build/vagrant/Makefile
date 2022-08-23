@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
-ISO_URL_CENTOS7_BASE ?= http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64
-ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?=")'
+ISO_URL_CENTOS7_BASE ?= http://mirror.facebook.net/centos/7/isos/x86_64
+ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?=")' | sort -r | head -1
 
 CODEBUILD_SOURCE_REPO_URL ?= https://github.com/plus3it/spel.git
 CODEBUILD_SOURCE_VERSION  ?= master
