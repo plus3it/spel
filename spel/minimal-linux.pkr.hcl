@@ -331,13 +331,13 @@ variable "openstack_source_image_name" {
 variable "virtualbox_iso_url_centos7" {
   description = "URL to the CentOS7 .iso to use for Virtualbox builds"
   type        = string
-  default     = "http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso"
+  default     = "http://mirror.facebook.net/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso"
 }
 
 variable "virtualbox_iso_url_centos8" {
   description = "URL to the CentOS8 .iso to use for Virtualbox builds"
   type        = string
-  default     = "http://mirror.cs.vt.edu/pub/CentOS/8/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso"
+  default     = "http://mirror.facebook.net/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-latest-dvd1.iso"
 }
 
 variable "virtualbox_vagrantcloud_username" {
@@ -1018,7 +1018,7 @@ build {
   source "virtualbox-iso.base" {
     boot_command = ["<esc><wait>", "linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.centos7.minimal.cfg VAGRANT", "<enter><wait>"]
     name         = "minimal-centos-7"
-    iso_checksum = "file:http://mirror.cs.vt.edu/pub/CentOS/7/isos/x86_64/sha256sum.txt"
+    iso_checksum = "file:http://mirror.facebook.net/centos/7/isos/x86_64/sha256sum.txt"
     iso_url      = var.virtualbox_iso_url_centos7
   }
 
