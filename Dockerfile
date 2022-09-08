@@ -1,1 +1,1 @@
-FROM plus3it/tardigrade-ci:0.21.9
+FROM plus3it/tardigrade-ci:0.22.0
