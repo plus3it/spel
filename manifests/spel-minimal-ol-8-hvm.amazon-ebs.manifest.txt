@@ -1,9 +1,9 @@
 Oracle Linux Server 8.6
-aws-cli/2.7.25 Python/3.9.11 Linux/4.18.0-372.9.1.el8.x86_64 exe/x86_64.oracle.8 prompt/off
+aws-cli/2.7.33 Python/3.9.11 Linux/5.4.17-2136.307.3.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.1.1732.0-1.x86_64
+amazon-ssm-agent-3.1.1767.0-1.x86_64
 audit-3.0.7-2.el8.2.x86_64
 audit-libs-3.0.7-2.el8.2.x86_64
 authselect-1.2.2-3.el8.x86_64
@@ -15,7 +15,7 @@ bind-export-libs-9.11.36-3.el8.x86_64
 brotli-1.0.6-3.el8.x86_64
 btrfs-progs-5.15.1-0.el8.x86_64
 bzip2-libs-1.0.6-26.el8.x86_64
-ca-certificates-2021.2.50-80.0.el8_4.noarch
+ca-certificates-2022.2.54-80.2.el8_6.noarch
 c-ares-1.13.0-6.el8.x86_64
 checkpolicy-2.9-1.el8.x86_64
 chkconfig-1.19.1-1.0.1.el8.x86_64
@@ -32,7 +32,7 @@ cronie-anacron-1.5.2-6.el8.x86_64
 crontabs-1.11-17.20190603git.el8.noarch
 crypto-policies-20211116-1.gitae470d6.el8.noarch
 cryptsetup-libs-2.3.7-2.el8.x86_64
-curl-7.61.1-22.el8_6.3.x86_64
+curl-7.61.1-22.el8_6.4.x86_64
 cyrus-sasl-lib-2.1.27-6.el8_5.x86_64
 dbus-1.12.8-18.0.1.el8_6.1.x86_64
 dbus-common-1.12.8-18.0.1.el8_6.1.noarch
@@ -87,7 +87,7 @@ glibc-2.28-189.5.0.1.el8_6.x86_64
 glibc-all-langpacks-2.28-189.5.0.1.el8_6.x86_64
 glibc-common-2.28-189.5.0.1.el8_6.x86_64
 gmp-6.1.2-10.el8.x86_64
-gnupg2-2.2.20-2.el8.x86_64
+gnupg2-2.2.20-3.el8_6.x86_64
 gnutls-3.6.16-4.el8.x86_64
 gobject-introspection-1.56.1-1.el8.x86_64
 gpgme-1.13.1-11.el8.x86_64
@@ -106,9 +106,9 @@ hostname-3.20-6.el8.x86_64
 hwdata-0.314-8.12.el8.noarch
 ima-evm-utils-1.3.2-12.el8.x86_64
 info-6.5-7.el8.x86_64
-initscripts-10.00.15-1.el8.x86_64
+initscripts-10.00.17-1.el8_6.2.x86_64
 ipcalc-0.2.4-4.el8.x86_64
-iproute-5.15.0-4.el8.x86_64
+iproute-5.15.0-4.el8_6.1.x86_64
 ipset-7.1-1.el8.x86_64
 ipset-libs-7.1-1.el8.x86_64
 iptables-1.8.4-22.0.1.el8.x86_64
@@ -121,11 +121,11 @@ json-c-0.13.1-3.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
 kbd-legacy-2.0.4-10.el8.noarch
 kbd-misc-2.0.4-10.el8.noarch
-kernel-4.18.0-372.19.1.0.1.el8_6.x86_64
-kernel-core-4.18.0-372.19.1.0.1.el8_6.x86_64
-kernel-modules-4.18.0-372.19.1.0.1.el8_6.x86_64
-kernel-tools-4.18.0-372.19.1.0.1.el8_6.x86_64
-kernel-tools-libs-4.18.0-372.19.1.0.1.el8_6.x86_64
+kernel-4.18.0-372.26.1.0.1.el8_6.x86_64
+kernel-core-4.18.0-372.26.1.0.1.el8_6.x86_64
+kernel-modules-4.18.0-372.26.1.0.1.el8_6.x86_64
+kernel-tools-4.18.0-372.26.1.0.1.el8_6.x86_64
+kernel-tools-libs-4.18.0-372.26.1.0.1.el8_6.x86_64
 kexec-tools-2.0.20-68.0.3.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.0.1.el8.x86_64
@@ -146,12 +146,12 @@ libcollection-0.7.0-39.el8.x86_64
 libcom_err-1.45.6-4.el8.x86_64
 libcomps-0.1.18-1.el8.x86_64
 libcroco-0.6.12-4.el8_2.1.x86_64
-libcurl-7.61.1-22.el8_6.3.x86_64
+libcurl-7.61.1-22.el8_6.4.x86_64
 libdaemon-0.14-15.el8.x86_64
 libdb-5.3.28-42.el8_4.x86_64
 libdb-utils-5.3.28-42.el8_4.x86_64
 libdhash-0.5.0-39.el8.x86_64
-libdnf-0.63.0-8.1.0.1.el8_6.x86_64
+libdnf-0.63.0-8.2.0.1.el8_6.x86_64
 libedit-3.1-23.20170329cvs.el8.x86_64
 libestr-0.1.10-1.el8.x86_64
 libfastjson-0.99.9-1.el8.x86_64
@@ -260,13 +260,13 @@ oraclelinux-release-el8-1.0-25.el8.x86_64
 os-prober-1.74-9.0.1.el8.x86_64
 p11-kit-0.23.22-1.el8.x86_64
 p11-kit-trust-0.23.22-1.el8.x86_64
-pam-1.3.1-16.el8.x86_64
+pam-1.3.1-16.el8_6.1.x86_64
 parted-3.2-39.0.1.el8.x86_64
 passwd-0.80-4.el8.x86_64
 pciutils-libs-3.7.0-1.el8.x86_64
 pcre2-10.32-3.el8_6.x86_64
 pcre-8.42-6.el8.x86_64
-platform-python-3.6.8-45.0.1.el8.x86_64
+platform-python-3.6.8-47.0.1.el8_6.x86_64
 platform-python-pip-9.0.3-22.el8.noarch
 platform-python-setuptools-39.2.0-6.el8.noarch
 plymouth-0.9.4-11.20200615git1e36e30.0.1.el8.x86_64
@@ -301,7 +301,7 @@ python3-dnf-plugins-core-4.0.21-11.0.1.el8.noarch
 python3-firewall-0.9.3-13.0.1.el8.noarch
 python3-gobject-base-3.28.3-2.el8.x86_64
 python3-gpg-1.13.1-11.el8.x86_64
-python3-hawkey-0.63.0-8.1.0.1.el8_6.x86_64
+python3-hawkey-0.63.0-8.2.0.1.el8_6.x86_64
 python3-idna-2.5-5.el8.noarch
 python3-jinja2-2.10.1-3.el8.noarch
 python3-jsonpatch-1.21-2.el8.noarch
@@ -310,8 +310,8 @@ python3-jsonschema-2.6.0-4.el8.noarch
 python3-jwt-1.6.1-2.el8.noarch
 python3-kmod-0.9-20.el8.x86_64
 python3-libcomps-0.1.18-1.el8.x86_64
-python3-libdnf-0.63.0-8.1.0.1.el8_6.x86_64
-python3-libs-3.6.8-45.0.1.el8.x86_64
+python3-libdnf-0.63.0-8.2.0.1.el8_6.x86_64
+python3-libs-3.6.8-47.0.1.el8_6.x86_64
 python3-libselinux-2.9-5.el8.x86_64
 python3-libsemanage-2.9-8.el8.x86_64
 python3-linux-procfs-0.7.0-1.el8.noarch
@@ -319,7 +319,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-0.9.3-25.el8.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-372.19.1.0.1.el8_6.x86_64
+python3-perf-4.18.0-372.26.1.0.1.el8_6.x86_64
 python3-pip-9.0.3-22.el8.noarch
 python3-pip-wheel-9.0.3-22.el8.noarch
 python3-ply-3.9-9.el8.noarch
@@ -352,8 +352,8 @@ rpm-libs-4.14.3-23.el8.x86_64
 rpm-plugin-selinux-4.14.3-23.el8.x86_64
 rsyslog-8.2102.0-7.el8_6.1.x86_64
 sed-4.5-5.el8.x86_64
-selinux-policy-3.14.3-95.0.2.el8_6.1.noarch
-selinux-policy-targeted-3.14.3-95.0.2.el8_6.1.noarch
+selinux-policy-3.14.3-95.0.2.el8_6.4.noarch
+selinux-policy-targeted-3.14.3-95.0.2.el8_6.4.noarch
 setup-2.12.2-6.el8.noarch
 sg3_utils-1.44-5.el8.x86_64
 sg3_utils-libs-1.44-5.el8.x86_64
@@ -367,21 +367,21 @@ sssd-client-2.6.2-4.0.2.el8_6.1.x86_64
 sssd-common-2.6.2-4.0.2.el8_6.1.x86_64
 sssd-kcm-2.6.2-4.0.2.el8_6.1.x86_64
 sudo-1.8.29-8.el8.x86_64
-systemd-239-58.0.1.el8_6.3.x86_64
-systemd-libs-239-58.0.1.el8_6.3.x86_64
-systemd-pam-239-58.0.1.el8_6.3.x86_64
-systemd-udev-239-58.0.1.el8_6.3.x86_64
+systemd-239-58.0.1.el8_6.7.x86_64
+systemd-libs-239-58.0.1.el8_6.7.x86_64
+systemd-pam-239-58.0.1.el8_6.7.x86_64
+systemd-udev-239-58.0.1.el8_6.7.x86_64
 tar-1.30-5.el8.x86_64
 teamd-1.31-2.el8.x86_64
 tpm2-tss-2.3.2-4.el8.x86_64
 tuned-2.18.0-2.0.1.el8_6.1.noarch
-tzdata-2022a-1.el8.noarch
-unzip-6.0-46.el8.x86_64
+tzdata-2022c-1.el8.noarch
+unzip-6.0-46.0.1.el8.x86_64
 util-linux-2.32.1-35.el8.x86_64
 vim-minimal-8.0.1763-19.0.1.el8_6.4.x86_64
 virt-what-1.18-13.el8.x86_64
 which-2.21-17.el8.x86_64
-xfsprogs-5.4.0-1.0.1.el8.x86_64
+xfsprogs-5.4.0-1.0.3.el8.x86_64
 xz-5.2.4-4.el8_6.x86_64
 xz-libs-5.2.4-4.el8_6.x86_64
 yum-4.7.0-8.0.1.el8.noarch
