@@ -252,7 +252,7 @@ rpm-4.11.3-48.el7_9.x86_64
 rpm-build-libs-4.11.3-48.el7_9.x86_64
 rpm-libs-4.11.3-48.el7_9.x86_64
 rpm-python-4.11.3-48.el7_9.x86_64
-rsync-3.1.2-10.el7.x86_64
+rsync-3.1.2-11.el7_9.x86_64
 rsyslog-8.24.0-57.el7_9.3.x86_64
 sed-4.2.2-7.el7.x86_64
 selinux-policy-3.13.1-268.el7_9.2.noarch
@@ -266,14 +266,14 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 sudo-1.8.23-10.el7_9.2.x86_64
-systemd-219-78.el7_9.5.x86_64
-systemd-libs-219-78.el7_9.5.x86_64
-systemd-sysv-219-78.el7_9.5.x86_64
+systemd-219-78.el7_9.7.x86_64
+systemd-libs-219-78.el7_9.7.x86_64
+systemd-sysv-219-78.el7_9.7.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
-tzdata-2022a-1.el7.noarch
+tzdata-2022c-1.el7.noarch
 unzip-6.0-24.el7_9.x86_64
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-65.el7_9.1.x86_64

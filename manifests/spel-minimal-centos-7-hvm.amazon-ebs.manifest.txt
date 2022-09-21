@@ -1,9 +1,9 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/2.7.25 Python/3.9.11 Linux/3.10.0-1160.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/2.7.33 Python/3.9.11 Linux/3.10.0-1160.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.1.1732.0-1.x86_64
+amazon-ssm-agent-3.1.1767.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -291,7 +291,7 @@ rpm-4.11.3-48.el7_9.x86_64
 rpm-build-libs-4.11.3-48.el7_9.x86_64
 rpm-libs-4.11.3-48.el7_9.x86_64
 rpm-python-4.11.3-48.el7_9.x86_64
-rsync-3.1.2-10.el7.x86_64
+rsync-3.1.2-11.el7_9.x86_64
 rsyslog-8.24.0-57.el7_9.3.x86_64
 sed-4.2.2-7.el7.x86_64
 selinux-policy-3.13.1-268.el7_9.2.noarch
@@ -307,15 +307,15 @@ snappy-1.1.0-3.el7.x86_64
 spel-release-7-3.noarch
 sqlite-3.7.17-8.el7_7.1.x86_64
 sudo-1.8.23-10.el7_9.2.x86_64
-systemd-219-78.el7_9.5.x86_64
-systemd-libs-219-78.el7_9.5.x86_64
-systemd-sysv-219-78.el7_9.5.x86_64
+systemd-219-78.el7_9.7.x86_64
+systemd-libs-219-78.el7_9.7.x86_64
+systemd-sysv-219-78.el7_9.7.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
 tuned-2.11.0-11.el7_9.noarch
-tzdata-2022a-1.el7.noarch
+tzdata-2022c-1.el7.noarch
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-65.el7_9.1.x86_64
 vim-common-7.4.629-8.el7_9.x86_64
