@@ -175,7 +175,6 @@ def test_systemd_services(host, service):  # noqa: D103
         ("spel-release"),
         ("amazon-ssm-agent"),
         ("ec2-hibinit-agent"),
-        ("ec2-instance-connect"),
         ("ec2-net-utils"),
     ],
 )
