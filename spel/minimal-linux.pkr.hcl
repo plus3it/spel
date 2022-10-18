@@ -393,7 +393,6 @@ variable "amigen_extra_rpms" {
     "python36",
     "spel-release",
     "ec2-hibinit-agent",
-    "ec2-instance-connect",
     "ec2-net-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
   ]
