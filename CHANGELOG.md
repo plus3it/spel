@@ -1,5 +1,22 @@
 ## Changelog
 
+### 2022.10.1
+
+**Released**: 2022.10.21
+
+**Commit Delta**: [Change from 2022.09.1 release](https://github.com/plus3it/spel/compare/2022.09.1...2022.10.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.10.1/manifests>
+
+**Summary**:
+
+*   Removed `ec2-instance-connect` as a default-installed package due to incompatibilities with RHEL8 and Oracle Linux 8
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.8.4
+    - amazon-ssm-agent-3.1.1927.0-1
+    - ec2-net-utils-1.7.1-1
+
 ### 2022.09.1
 
 **Released**: 2022.09.20
