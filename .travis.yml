@@ -8,7 +8,7 @@ jobs:
   include:
     - stage: lint
       name: Project Syntax Verification
-      install: make -f Makefile.tardigrade-ci install
+      install: make -f Makefile.tardigrade-ci lint/install
       script: make -f Makefile.tardigrade-ci lint
     - stage: deploy
       if: branch = master AND type = push AND repo = plus3it/spel
