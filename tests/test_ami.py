@@ -87,16 +87,14 @@ def test_el7_selinux_enforcing(host):  # noqa: D103
     assert selinux_permissive.exit_status == 0
 
 
-@pytest.mark.el7
 @pytest.mark.fips_enabled
-def test_el7_fips_enabled(host):  # noqa: D103
+def test_fips_enabled(host):  # noqa: D103
     fips = host.file("/proc/sys/crypto/fips_enabled")
     assert fips.exists and fips.content.strip() == b"1"
 
 
-@pytest.mark.el7
 @pytest.mark.fips_disabled
-def test_el7_fips_disabled(host):  # noqa: D103
+def test_fips_disabled(host):  # noqa: D103
     fips = host.file("/proc/sys/crypto/fips_enabled")
     assert not fips.exists or fips.content.strip() == b"0"
 

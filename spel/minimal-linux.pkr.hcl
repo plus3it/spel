@@ -894,7 +894,7 @@ build {
       "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
       "SPEL_CLOUDPROVIDER=aws",
       "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
-      "SPEL_FIPSDISABLE=true",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
     ]
