@@ -1,5 +1,24 @@
 ## Changelog
 
+### 2022.12.1
+
+**Released**: 2022.12.20
+
+**Commit Delta**: [Change from 2022.11.1 release](https://github.com/plus3it/spel/compare/2022.11.1...2022.12.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2022.12.1/manifests>
+
+**Summary**:
+
+*   Oracle Linux 8 was skipped for this release, as their updated cloud-init package was badly broken.
+    Waiting on a response to determine whether they are going to fix it, or if we need to handle the
+    brokenness. See also [amigen8/pull/69](https://github.com/plus3it/amigen8/pull/69).
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.9.8
+    - amazon-ssm-agent-3.2.286.0-1
+    - ec2-net-utils-1.7.3-1
+
 ### 2022.11.1
 
 **Released**: 2022.11.23
