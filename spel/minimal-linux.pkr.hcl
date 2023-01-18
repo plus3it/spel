@@ -386,18 +386,6 @@ variable "amigen_fips_disable" {
   default     = false
 }
 
-variable "amigen_extra_rpms" {
-  description = "List of package specs (rpm names or URLs to .rpm files) to install to the builders and images"
-  type        = list(string)
-  default = [
-    "python36",
-    "spel-release",
-    "ec2-hibinit-agent",
-    "ec2-net-utils",
-    "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
-  ]
-}
-
 variable "amigen_grub_timeout" {
   description = "Timeout value to set in the grub config of each image"
   type        = number
@@ -413,6 +401,18 @@ variable "amigen_use_default_repos" {
 ###
 # Variables used by AMIgen7
 ###
+
+variable "amigen7_extra_rpms" {
+  description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL7 builders and images"
+  type        = list(string)
+  default = [
+    "python36",
+    "spel-release",
+    "ec2-hibinit-agent",
+    "ec2-net-utils",
+    "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+  ]
+}
 
 variable "amigen7_filesystem_label" {
   description = "Label for the root filesystem when creating bare partitions for EL7 images"
@@ -475,6 +475,18 @@ variable "amigen7_storage_layout" {
 ###
 # Variables used by AMIgen8
 ###
+
+variable "amigen8_extra_rpms" {
+  description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL8 builders and images"
+  type        = list(string)
+  default = [
+    "python38",
+    "spel-release",
+    "ec2-hibinit-agent",
+    "ec2-net-utils",
+    "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+  ]
+}
 
 variable "amigen8_filesystem_label" {
   description = "Label for the root filesystem when creating bare partitions for EL8 images"
@@ -673,11 +685,12 @@ locals {
   # Join lists to create strings appropriate for environment variables and AMIgen
   # expectations. AMIgen expects some vars to be comma-delimited, and others to
   # be space-delimited.
-  amigen_extra_rpms      = join(",", var.amigen_extra_rpms)
+  amigen7_extra_rpms     = join(",", var.amigen7_extra_rpms)
   amigen7_package_groups = join(" ", var.amigen7_package_groups) # space-delimited
   amigen7_repo_names     = join(",", var.amigen7_repo_names)
   amigen7_repo_sources   = join(",", var.amigen7_repo_sources)
   amigen7_storage_layout = join(",", var.amigen7_storage_layout)
+  amigen8_extra_rpms     = join(",", var.amigen8_extra_rpms)
   amigen8_repo_names     = join(",", var.amigen8_repo_names)
   amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
   amigen8_storage_layout = join(",", var.amigen8_storage_layout)
@@ -858,7 +871,7 @@ build {
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
       "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=aws",
-      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen7_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
@@ -893,7 +906,7 @@ build {
       "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
       "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
       "SPEL_CLOUDPROVIDER=aws",
-      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen8_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
@@ -928,7 +941,7 @@ build {
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
       "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=azure",
-      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen7_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_HTTP_PROXY=${var.spel_http_proxy}",
@@ -980,7 +993,7 @@ build {
       "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
       "SPEL_BUILDNAME=${source.name}",
       "SPEL_CLOUDPROVIDER=openstack",
-      "SPEL_EXTRARPMS=${local.amigen_extra_rpms}",
+      "SPEL_EXTRARPMS=${local.amigen7_extra_rpms}",
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
