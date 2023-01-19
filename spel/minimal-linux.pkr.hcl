@@ -480,7 +480,7 @@ variable "amigen8_extra_rpms" {
   description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL8 builders and images"
   type        = list(string)
   default = [
-    "python38",
+    "python39",
     "spel-release",
     "ec2-hibinit-agent",
     "ec2-net-utils",
