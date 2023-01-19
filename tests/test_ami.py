@@ -106,6 +106,8 @@ def test_fips_disabled(host):  # noqa: D103
             [
                 "python3",
                 "python36",
+                "python38",
+                "python39",
             ]
         )
     ],
@@ -123,15 +125,25 @@ def test_python3_installed(host, names):  # noqa: D103
 
 @pytest.mark.parametrize(
     "realpaths,link",
-    [(("/usr/bin/python3.6", "/usr/libexec/platform-python3.6"), "/usr/bin/python3")],
+    [
+        (
+            (
+                "/usr/bin/python3.6",
+                "/usr/libexec/platform-python3.6",
+                "/usr/bin/python3.8",
+                "/usr/bin/python3.9",
+            ),
+            "/usr/bin/python3",
+        )
+    ],
 )
 def test_python3_symlink(host, realpaths, link):  # noqa: D103
     python3_symlink = host.file(link).linked_to
     assert python3_symlink in realpaths
 
 
-@pytest.mark.parametrize("version", [("3.6")])
-def test_python3_version(host, version):  # noqa: D103
+@pytest.mark.parametrize("versions", [(["3.6", "3.8", "3.9"])])
+def test_python3_version(host, versions):  # noqa: D103
     cmd = "python3 --version"
     python3_version = host.run(cmd)
     log.info("`%s` stdout: %s", cmd, python3_version.stdout)
@@ -140,7 +152,10 @@ def test_python3_version(host, version):  # noqa: D103
     assert python3_version.exit_status == 0
 
     # Example stdout content: 'Python 3.6.8'
-    assert python3_version.stdout.strip().split()[1].startswith(version)
+    version = python3_version.stdout.strip().split()[1]
+
+    major_minor = ".".join(version.split(".")[:2])
+    assert major_minor in versions
 
 
 def test_timedatectl_dbus_status(host):  # noqa: D103
