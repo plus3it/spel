@@ -481,6 +481,9 @@ variable "amigen8_extra_rpms" {
   type        = list(string)
   default = [
     "python39",
+    "python39-pip",
+    "python39-setuptools",
+    "crypto-policies-scripts",
     "spel-release",
     "ec2-hibinit-agent",
     "ec2-net-utils",
