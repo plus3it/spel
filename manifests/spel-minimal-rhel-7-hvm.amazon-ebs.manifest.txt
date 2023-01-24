@@ -1,9 +1,9 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.9.8 Python/3.9.11 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.9.17 Python/3.9.11 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.286.0-1.x86_64
+amazon-ssm-agent-3.2.419.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -12,7 +12,7 @@ autogen-libopts-5.18-5.el7.x86_64
 basesystem-10.0-7.el7.noarch
 bash-4.2.46-35.el7_9.x86_64
 bc-1.06.95-13.el7.x86_64
-bind-export-libs-9.11.4-26.P2.el7_9.10.x86_64
+bind-export-libs-9.11.4-26.P2.el7_9.13.x86_64
 binutils-2.27-44.base.el7_9.1.x86_64
 btrfs-progs-4.9.1-1.el7.x86_64
 bzip2-libs-1.0.6-13.el7.x86_64
@@ -119,9 +119,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.81.1.el7.x86_64
-kernel-tools-3.10.0-1160.81.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.81.1.el7.x86_64
+kernel-3.10.0-1160.83.1.el7.x86_64
+kernel-tools-3.10.0-1160.83.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.83.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -289,7 +289,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.81.1.el7.x86_64
+python-perf-3.10.0-1160.83.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -341,7 +341,7 @@ sqlite-3.7.17-8.el7_7.1.x86_64
 subscription-manager-1.24.51-1.el7_9.x86_64
 subscription-manager-rhsm-1.24.51-1.el7_9.x86_64
 subscription-manager-rhsm-certificates-1.24.51-1.el7_9.x86_64
-sudo-1.8.23-10.el7_9.2.x86_64
+sudo-1.8.23-10.el7_9.3.x86_64
 systemd-219-78.el7_9.7.x86_64
 systemd-libs-219-78.el7_9.7.x86_64
 systemd-sysv-219-78.el7_9.7.x86_64

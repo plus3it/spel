@@ -1,5 +1,35 @@
 ## Changelog
 
+### 2023.01.1
+
+**Released**: 2022.12.20
+
+**Commit Delta**: [Change from 2022.12.1 release](https://github.com/plus3it/spel/compare/2022.12.1...2023.01.1)
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.01.1/manifests>
+
+**Summary**:
+
+*   Installs `python39` to EL8 images. Previously, `python36` was installed to EL8.
+    Now, `python36` is installed only to EL7, and `python39` is installed to EL8.
+*   Restores builds for Oracle Linux 8. As part of the investigation, it was realized
+    that at some point, probably the 8.7 release, Oracle Linux became unable to
+    resolve weak dependencies (those marked in an rpm spec file as "Recommends").
+    This is a problem because RHEL8 and all other EL8 derivatives do install weak
+    dependencies by default. To fix the OL8 builds, dependencies used expliclity
+    by the build process were added as "extra" packages. It is probably good overall
+    to explicitly list such dependencies, anyways. **However**, this also means
+    it is _likely_ that the OL8 images vary significantly from RHEL8 and other
+    EL8 derivatives. Be aware of this delta, and **use caution** if your expectation
+    is that the OL8 images are package-equivalent to the RHEL8 images!
+*   Separates EL7 and EL8 input arguments for amigen extra packages. This allowed
+    installing different versions of python3 to EL7 vs EL8, as well as restoring
+    builds for OL8.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.9.17
+    - amazon-ssm-agent-3.2.419.0-1
+
 ### 2022.12.1
 
 **Released**: 2022.12.20
