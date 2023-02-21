@@ -1,9 +1,9 @@
 Red Hat Enterprise Linux 8.7 (Ootpa)
-aws-cli/2.9.17 Python/3.9.11 Linux/4.18.0-425.3.1.el8.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.10.1 Python/3.9.11 Linux/4.18.0-305.76.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.2.419.0-1.x86_64
+amazon-ssm-agent-3.2.582.0-1.x86_64
 audit-3.0.7-4.el8.x86_64
 audit-libs-3.0.7-4.el8.x86_64
 authselect-1.2.5-2.el8_7.x86_64
@@ -31,7 +31,7 @@ crontabs-1.11-17.20190603git.el8.noarch
 crypto-policies-20211116-1.gitae470d6.el8.noarch
 crypto-policies-scripts-20211116-1.gitae470d6.el8.noarch
 cryptsetup-libs-2.3.7-2.el8.x86_64
-curl-7.61.1-25.el8_7.1.x86_64
+curl-7.61.1-25.el8_7.2.x86_64
 cyrus-sasl-lib-2.1.27-6.el8_5.x86_64
 dbus-1.12.8-23.el8_7.1.x86_64
 dbus-common-1.12.8-23.el8_7.1.noarch
@@ -101,10 +101,10 @@ gpg-pubkey-e96e3db7-6196a254
 gpg-pubkey-fd431d51-4ae0493b
 grep-3.1-6.el8.x86_64
 groff-base-1.22.3-18.el8.x86_64
-grub2-common-2.02-142.el8_7.1.noarch
-grub2-pc-modules-2.02-142.el8_7.1.noarch
-grub2-tools-2.02-142.el8_7.1.x86_64
-grub2-tools-minimal-2.02-142.el8_7.1.x86_64
+grub2-common-2.02-142.el8_7.3.noarch
+grub2-pc-modules-2.02-142.el8_7.3.noarch
+grub2-tools-2.02-142.el8_7.3.x86_64
+grub2-tools-minimal-2.02-142.el8_7.3.x86_64
 grubby-8.40-47.el8.x86_64
 gzip-1.9-13.el8_5.x86_64
 hardlink-1.3-6.el8.x86_64
@@ -118,9 +118,9 @@ ipcalc-0.2.4-4.el8.x86_64
 iproute-5.18.0-1.el8.x86_64
 ipset-7.1-1.el8.x86_64
 ipset-libs-7.1-1.el8.x86_64
-iptables-1.8.4-23.el8.x86_64
-iptables-ebtables-1.8.4-23.el8.x86_64
-iptables-libs-1.8.4-23.el8.x86_64
+iptables-1.8.4-23.el8_7.1.x86_64
+iptables-ebtables-1.8.4-23.el8_7.1.x86_64
+iptables-libs-1.8.4-23.el8_7.1.x86_64
 iputils-20180629-10.el8.x86_64
 irqbalance-1.9.0-3.el8.x86_64
 jansson-2.14-1.el8.x86_64
@@ -129,11 +129,11 @@ json-glib-1.4.4-1.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
 kbd-legacy-2.0.4-10.el8.noarch
 kbd-misc-2.0.4-10.el8.noarch
-kernel-4.18.0-425.10.1.el8_7.x86_64
-kernel-core-4.18.0-425.10.1.el8_7.x86_64
-kernel-modules-4.18.0-425.10.1.el8_7.x86_64
-kernel-tools-4.18.0-425.10.1.el8_7.x86_64
-kernel-tools-libs-4.18.0-425.10.1.el8_7.x86_64
+kernel-4.18.0-425.13.1.el8_7.x86_64
+kernel-core-4.18.0-425.13.1.el8_7.x86_64
+kernel-modules-4.18.0-425.13.1.el8_7.x86_64
+kernel-tools-4.18.0-425.13.1.el8_7.x86_64
+kernel-tools-libs-4.18.0-425.13.1.el8_7.x86_64
 kexec-tools-2.0.24-6.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.el8.x86_64
@@ -155,7 +155,7 @@ libcollection-0.7.0-40.el8.x86_64
 libcom_err-1.45.6-5.el8.x86_64
 libcomps-0.1.18-1.el8.x86_64
 libcroco-0.6.12-4.el8_2.1.x86_64
-libcurl-7.61.1-25.el8_7.1.x86_64
+libcurl-7.61.1-25.el8_7.2.x86_64
 libdaemon-0.14-15.el8.x86_64
 libdb-5.3.28-42.el8_4.x86_64
 libdb-utils-5.3.28-42.el8_4.x86_64
@@ -176,7 +176,7 @@ libidn2-2.2.0-1.el8.x86_64
 libini_config-1.3.1-40.el8.x86_64
 libkcapi-1.2.0-2.el8.x86_64
 libkcapi-hmaccalc-1.2.0-2.el8.x86_64
-libksba-1.3.5-8.el8_6.x86_64
+libksba-1.3.5-9.el8_7.x86_64
 libldb-2.5.2-2.el8.x86_64
 libmaxminddb-1.2.0-10.el8.x86_64
 libmnl-1.0.4-6.el8.x86_64
@@ -185,7 +185,7 @@ libmount-2.32.1-39.el8_7.x86_64
 libndp-1.7-6.el8.x86_64
 libnetfilter_conntrack-1.0.6-5.el8.x86_64
 libnfnetlink-1.0.1-13.el8.x86_64
-libnfsidmap-2.3.3-57.el8.x86_64
+libnfsidmap-2.3.3-57.el8_7.1.x86_64
 libnftnl-1.1.5-5.el8.x86_64
 libnghttp2-1.33.0-3.el8_2.1.x86_64
 libnl3-3.7.0-1.el8.x86_64
@@ -265,9 +265,9 @@ nftables-0.9.3-26.el8.x86_64
 npth-1.5-4.el8.x86_64
 numactl-libs-2.0.12-13.el8.x86_64
 openldap-2.4.46-18.el8.x86_64
-openssh-8.0p1-16.el8.x86_64
-openssh-clients-8.0p1-16.el8.x86_64
-openssh-server-8.0p1-16.el8.x86_64
+openssh-8.0p1-17.el8_7.x86_64
+openssh-clients-8.0p1-17.el8_7.x86_64
+openssh-server-8.0p1-17.el8_7.x86_64
 openssl-1.1.1k-7.el8_6.x86_64
 openssl-libs-1.1.1k-7.el8_6.x86_64
 openssl-pkcs11-0.4.10-2.el8.x86_64
@@ -282,9 +282,9 @@ pcre2-10.32-3.el8_6.x86_64
 pcre-8.42-6.el8.x86_64
 pigz-2.4-4.el8.x86_64
 pinentry-1.1.0-2.el8.x86_64
-platform-python-3.6.8-48.el8_7.x86_64
+platform-python-3.6.8-48.el8_7.1.x86_64
 platform-python-pip-9.0.3-22.el8.noarch
-platform-python-setuptools-39.2.0-6.el8.noarch
+platform-python-setuptools-39.2.0-6.el8_7.1.noarch
 plymouth-0.9.4-11.20200615git1e36e30.el8.x86_64
 plymouth-core-libs-0.9.4-11.20200615git1e36e30.el8.x86_64
 plymouth-scripts-0.9.4-11.20200615git1e36e30.el8.x86_64
@@ -338,7 +338,7 @@ python3-jwt-1.6.1-2.el8.noarch
 python3-libcomps-0.1.18-1.el8.x86_64
 python3-libdnf-0.63.0-11.1.el8.x86_64
 python3-librepo-1.14.2-3.el8.x86_64
-python3-libs-3.6.8-48.el8_7.x86_64
+python3-libs-3.6.8-48.el8_7.1.x86_64
 python3-libselinux-2.9-6.el8.x86_64
 python3-libsemanage-2.9-9.el8_6.x86_64
 python3-libxml2-2.9.7-15.el8_7.1.x86_64
@@ -347,7 +347,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-0.9.3-26.el8.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-425.10.1.el8_7.x86_64
+python3-perf-4.18.0-425.13.1.el8_7.x86_64
 python3-pip-wheel-9.0.3-22.el8.noarch
 python3-ply-3.9-9.el8.noarch
 python3-policycoreutils-2.9-20.el8.noarch
@@ -361,7 +361,7 @@ python3-pyyaml-3.12-12.el8.x86_64
 python3-requests-2.20.0-2.1.el8_1.noarch
 python3-rpm-4.14.3-24.el8_7.x86_64
 python3-setools-4.3.0-3.el8.x86_64
-python3-setuptools-wheel-39.2.0-6.el8.noarch
+python3-setuptools-wheel-39.2.0-6.el8_7.1.noarch
 python3-six-1.11.0-8.el8.noarch
 python3-slip-0.6.4-13.el8.noarch
 python3-slip-dbus-0.6.4-13.el8.noarch
@@ -372,7 +372,7 @@ python3-urllib3-1.24.2-5.el8.noarch
 readline-7.0-10.el8.x86_64
 redhat-release-8.7-0.3.el8.x86_64
 redhat-release-eula-8.7-0.3.el8.x86_64
-rh-amazon-rhui-client-4.0.4-1.el8.noarch
+rh-amazon-rhui-client-4.0.5-1.el8.noarch
 rng-tools-6.15-1.el8.x86_64
 rootfiles-8.1-22.el8.noarch
 rpm-4.14.3-24.el8_7.x86_64
@@ -401,11 +401,11 @@ sssd-nfs-idmap-2.7.3-4.el8_7.3.x86_64
 subscription-manager-1.28.32-1.el8.x86_64
 subscription-manager-rhsm-certificates-1.28.32-1.el8.x86_64
 sudo-1.8.29-8.el8_7.1.x86_64
-systemd-239-68.el8_7.2.x86_64
-systemd-libs-239-68.el8_7.2.x86_64
-systemd-pam-239-68.el8_7.2.x86_64
-systemd-udev-239-68.el8_7.2.x86_64
-tar-1.30-6.el8.x86_64
+systemd-239-68.el8_7.4.x86_64
+systemd-libs-239-68.el8_7.4.x86_64
+systemd-pam-239-68.el8_7.4.x86_64
+systemd-udev-239-68.el8_7.4.x86_64
+tar-1.30-6.el8_7.1.x86_64
 teamd-1.31-2.el8.x86_64
 timedatex-0.5-3.el8.x86_64
 tpm2-tss-2.3.2-4.el8.x86_64

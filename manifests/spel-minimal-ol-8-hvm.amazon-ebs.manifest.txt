@@ -1,9 +1,9 @@
 Oracle Linux Server 8.7
-aws-cli/2.9.17 Python/3.9.11 Linux/5.4.17-2136.307.3.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
+aws-cli/2.10.1 Python/3.9.11 Linux/5.4.17-2136.307.3.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.2.419.0-1.x86_64
+amazon-ssm-agent-3.2.582.0-1.x86_64
 audit-3.0.7-4.el8.x86_64
 audit-libs-3.0.7-4.el8.x86_64
 authselect-1.2.5-2.el8_7.x86_64
@@ -54,11 +54,11 @@ dmidecode-3.3-4.el8.x86_64
 dnf-4.7.0-11.0.1.el8.noarch
 dnf-data-4.7.0-11.0.1.el8.noarch
 dnf-plugins-core-4.0.21-14.1.0.1.el8.noarch
-dracut-049-209.git20220815.0.1.el8.x86_64
-dracut-config-generic-049-209.git20220815.0.1.el8.x86_64
-dracut-config-rescue-049-209.git20220815.0.1.el8.x86_64
-dracut-network-049-209.git20220815.0.1.el8.x86_64
-dracut-squash-049-209.git20220815.0.1.el8.x86_64
+dracut-049-218.git20221019.0.1.el8_7.x86_64
+dracut-config-generic-049-218.git20221019.0.1.el8_7.x86_64
+dracut-config-rescue-049-218.git20221019.0.1.el8_7.x86_64
+dracut-network-049-218.git20221019.0.1.el8_7.x86_64
+dracut-squash-049-218.git20221019.0.1.el8_7.x86_64
 e2fsprogs-1.45.6-5.el8.x86_64
 e2fsprogs-libs-1.45.6-5.el8.x86_64
 ec2-hibinit-agent-1.0.2-3.el8.noarch
@@ -96,10 +96,10 @@ gpg-pubkey-ad986da3-5cabf60d
 gpg-pubkey-e96e3db7-6196a254
 grep-3.1-6.el8.x86_64
 groff-base-1.22.3-18.el8.x86_64
-grub2-common-2.02-142.0.1.el8.noarch
-grub2-pc-modules-2.02-142.0.1.el8.noarch
-grub2-tools-2.02-142.0.1.el8.x86_64
-grub2-tools-minimal-2.02-142.0.1.el8.x86_64
+grub2-common-2.02-142.0.3.el8_7.1.noarch
+grub2-pc-modules-2.02-142.0.3.el8_7.1.noarch
+grub2-tools-2.02-142.0.3.el8_7.1.x86_64
+grub2-tools-minimal-2.02-142.0.3.el8_7.1.x86_64
 grubby-8.40-47.0.1.el8.x86_64
 gzip-1.9-13.el8_5.x86_64
 hdparm-9.54-4.el8.x86_64
@@ -116,7 +116,7 @@ iptables-1.8.4-23.0.1.el8.x86_64
 iptables-ebtables-1.8.4-23.0.1.el8.x86_64
 iptables-libs-1.8.4-23.0.1.el8.x86_64
 iputils-20180629-10.el8.x86_64
-irqbalance-1.9.0-3.el8.x86_64
+irqbalance-1.9.0-3.0.1.el8.x86_64
 jansson-2.14-1.el8.x86_64
 json-c-0.13.1-3.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
@@ -158,16 +158,16 @@ libestr-0.1.10-3.el8.x86_64
 libfastjson-0.99.9-1.el8.x86_64
 libfdisk-2.32.1-39.el8_7.x86_64
 libffi-3.1-23.el8.x86_64
-libgcc-8.5.0-16.0.1.el8_7.x86_64
+libgcc-8.5.0-16.0.2.el8_7.x86_64
 libgcrypt-1.8.5-7.el8_6.x86_64
-libgomp-8.5.0-16.0.1.el8_7.x86_64
+libgomp-8.5.0-16.0.2.el8_7.x86_64
 libgpg-error-1.31-1.el8.x86_64
 libibverbs-41.0-1.el8.x86_64
 libidn2-2.2.0-1.el8.x86_64
 libini_config-1.3.1-40.el8.x86_64
 libkcapi-1.2.0-2.0.1.el8.x86_64
 libkcapi-hmaccalc-1.2.0-2.0.1.el8.x86_64
-libksba-1.3.5-8.el8_6.x86_64
+libksba-1.3.5-9.el8_7.x86_64
 libldb-2.5.2-2.el8.x86_64
 libmnl-1.0.4-6.el8.x86_64
 libmodulemd-2.13.0-1.el8.x86_64
@@ -203,7 +203,7 @@ libssh-config-0.9.6-3.el8.noarch
 libsss_certmap-2.7.3-4.0.1.el8_7.3.x86_64
 libsss_idmap-2.7.3-4.0.1.el8_7.3.x86_64
 libsss_nss_idmap-2.7.3-4.0.1.el8_7.3.x86_64
-libstdc++-8.5.0-16.0.1.el8_7.x86_64
+libstdc++-8.5.0-16.0.2.el8_7.x86_64
 libsysfs-2.1.0-25.el8.x86_64
 libtalloc-2.3.3-2.el8.x86_64
 libtasn1-4.13-4.el8_7.x86_64
@@ -240,10 +240,10 @@ ncurses-6.1-9.20180224.el8.x86_64
 ncurses-base-6.1-9.20180224.el8.noarch
 ncurses-libs-6.1-9.20180224.el8.x86_64
 nettle-3.4.1-7.el8.x86_64
-NetworkManager-1.40.0-5.0.1.el8_7.x86_64
-NetworkManager-libnm-1.40.0-5.0.1.el8_7.x86_64
-NetworkManager-team-1.40.0-5.0.1.el8_7.x86_64
-NetworkManager-tui-1.40.0-5.0.1.el8_7.x86_64
+NetworkManager-1.40.0-5.0.3.el8_7.x86_64
+NetworkManager-libnm-1.40.0-5.0.3.el8_7.x86_64
+NetworkManager-team-1.40.0-5.0.3.el8_7.x86_64
+NetworkManager-tui-1.40.0-5.0.3.el8_7.x86_64
 newt-0.52.20-11.el8.x86_64
 nftables-0.9.3-26.el8.x86_64
 npth-1.5-4.el8.x86_64
@@ -355,8 +355,8 @@ rpm-libs-4.14.3-24.el8_7.x86_64
 rpm-plugin-selinux-4.14.3-24.el8_7.x86_64
 rsyslog-8.2102.0-10.el8.x86_64
 sed-4.5-5.el8.x86_64
-selinux-policy-3.14.3-108.0.2.el8_7.1.noarch
-selinux-policy-targeted-3.14.3-108.0.2.el8_7.1.noarch
+selinux-policy-3.14.3-108.0.3.el8_7.1.noarch
+selinux-policy-targeted-3.14.3-108.0.3.el8_7.1.noarch
 setup-2.12.2-7.el8.noarch
 sg3_utils-1.44-6.el8.x86_64
 sg3_utils-libs-1.44-6.el8.x86_64
