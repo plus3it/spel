@@ -1,8 +1,20 @@
 ## Changelog
 
+### [2023.02.1](https://github.com/plus3it/spel/releases/tag/2023.02.1)
+
+**Released**: 2023.02.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.02.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.10.1
+    - amazon-ssm-agent-3.2.582.0-1
+
 ### 2023.01.1
 
-**Released**: 2022.12.20
+**Released**: 2023.01.24
 
 **Commit Delta**: [Change from 2022.12.1 release](https://github.com/plus3it/spel/compare/2022.12.1...2023.01.1)
 
