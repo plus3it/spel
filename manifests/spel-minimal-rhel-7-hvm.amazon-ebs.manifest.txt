@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.10.1 Python/3.9.11 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.11.4 Python/3.11.2 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
@@ -45,7 +45,7 @@ device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64
 dhclient-4.2.5-83.el7_9.1.x86_64
 dhcp-common-4.2.5-83.el7_9.1.x86_64
 dhcp-libs-4.2.5-83.el7_9.1.x86_64
-diffutils-3.3-5.el7.x86_64
+diffutils-3.3-6.el7_9.x86_64
 dmidecode-3.2-5.el7_9.1.x86_64
 dracut-033-572.el7.x86_64
 dracut-config-generic-033-572.el7.x86_64
@@ -55,7 +55,7 @@ dracut-network-033-572.el7.x86_64
 e2fsprogs-1.42.9-19.el7.x86_64
 e2fsprogs-libs-1.42.9-19.el7.x86_64
 ebtables-2.0.10-16.el7.x86_64
-ec2-hibinit-agent-1.0.2-3.el7.noarch
+ec2-hibinit-agent-1.0.2-4.el7.noarch
 ec2-net-utils-1.7.3-1.el7.noarch
 elfutils-default-yama-scope-0.176-5.el7.noarch
 elfutils-libelf-0.176-5.el7.x86_64
@@ -119,9 +119,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.83.1.el7.x86_64
-kernel-tools-3.10.0-1160.83.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.83.1.el7.x86_64
+kernel-3.10.0-1160.88.1.el7.x86_64
+kernel-tools-3.10.0-1160.88.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.88.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -215,12 +215,12 @@ newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
 nmap-ncat-6.40-19.el7.x86_64
 nspr-4.34.0-3.1.el7_9.x86_64
-nss-3.79.0-4.el7_9.x86_64
+nss-3.79.0-5.el7_9.x86_64
 nss-pem-1.0.3-7.el7.x86_64
 nss-softokn-3.79.0-4.el7_9.x86_64
 nss-softokn-freebl-3.79.0-4.el7_9.x86_64
-nss-sysinit-3.79.0-4.el7_9.x86_64
-nss-tools-3.79.0-4.el7_9.x86_64
+nss-sysinit-3.79.0-5.el7_9.x86_64
+nss-tools-3.79.0-5.el7_9.x86_64
 nss-util-3.79.0-1.el7_9.x86_64
 ntp-4.2.6p5-29.el7_8.2.x86_64
 ntpdate-4.2.6p5-29.el7_8.2.x86_64
@@ -229,8 +229,8 @@ openldap-2.4.44-25.el7_9.x86_64
 openssh-7.4p1-22.el7_9.x86_64
 openssh-clients-7.4p1-22.el7_9.x86_64
 openssh-server-7.4p1-22.el7_9.x86_64
-openssl-1.0.2k-25.el7_9.x86_64
-openssl-libs-1.0.2k-25.el7_9.x86_64
+openssl-1.0.2k-26.el7_9.x86_64
+openssl-libs-1.0.2k-26.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -289,7 +289,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.83.1.el7.x86_64
+python-perf-3.10.0-1160.88.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -369,4 +369,4 @@ yum-3.4.3-168.el7.noarch
 yum-metadata-parser-1.1.4-10.el7.x86_64
 yum-rhn-plugin-2.0.1-10.el7.noarch
 yum-utils-1.1.31-54.el7_8.noarch
-zlib-1.2.7-20.el7_9.x86_64
+zlib-1.2.7-21.el7_9.x86_64

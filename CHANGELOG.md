@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2023.03.1](https://github.com/plus3it/spel/releases/tag/2023.03.1)
+
+**Released**: 2023.03.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.03.1/manifests>
+
+**Summary**:
+
+*   The repos for Oracle Linux 8 appear to have addressed their issues with weak
+    dependency resolution. The prior warning published in SPEL 2023.01.1 about
+    likely discrepancies between OL8 images and other EL8 images no longer applies.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.11.4
+    - ec2-hibinit-agent-1.0.2-4
+
+
 ### [2023.02.1](https://github.com/plus3it/spel/releases/tag/2023.02.1)
 
 **Released**: 2023.02.21
