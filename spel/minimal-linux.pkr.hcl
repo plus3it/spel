@@ -539,7 +539,15 @@ variable "amigen8_source_url" {
 variable "amigen8_storage_layout" {
   description = "List of colon-separated tuples (mount:name:size) that describe the desired partitions for LVM-partitioned disks on EL8 images"
   type        = list(string)
-  default     = []
+  default = [
+    "/:rootVol:5",
+    "swap:swapVol:2",
+    "/home:homeVol:1",
+    "/var:varVol:2",
+    "/var/tmp:varTmpVol:2",
+    "/var/log:logVol:2",
+    "/var/log/audit:auditVol:100%FREE",
+  ]
 }
 
 ###
