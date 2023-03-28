@@ -510,7 +510,9 @@ fi
 
 if [[ "${CLOUDPROVIDER}" == "azure" ]]
 then
+    echo "Updating RHUI RPMS"
     echo "Configuring waagent"
+    yum update -y --disablerepo='*' --enablerepo='*microsoft*'
     #per https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-centos#centos-70
     chroot "${AMIGENCHROOT}" /usr/sbin/chkconfig waagent on
     chroot "${AMIGENCHROOT}" /usr/bin/sed -i 's|USERCTL="yes"|USERCTL="no"|' /etc/sysconfig/network-scripts/ifcfg-eth0
