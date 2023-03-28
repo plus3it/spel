@@ -1,5 +1,19 @@
 ## Changelog
 
+### [2023.03.2](https://github.com/plus3it/spel/releases/tag/2023.03.2)
+
+**Released**: 2023.03.28
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.03.2/manifests>
+
+**Summary**:
+
+*   This is an EL8-only release.
+*   Increased the size of the `/` LVM volume from 4GB to 5GB for EL8 images
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.11.6
+
 ### [2023.03.1](https://github.com/plus3it/spel/releases/tag/2023.03.1)
 
 **Released**: 2023.03.21

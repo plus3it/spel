@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux 8.7 (Ootpa)
-aws-cli/2.11.4 Python/3.11.2 Linux/4.18.0-305.82.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.11.6 Python/3.11.2 Linux/4.18.0-305.82.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
@@ -268,8 +268,8 @@ openldap-2.4.46-18.el8.x86_64
 openssh-8.0p1-17.el8_7.x86_64
 openssh-clients-8.0p1-17.el8_7.x86_64
 openssh-server-8.0p1-17.el8_7.x86_64
-openssl-1.1.1k-7.el8_6.x86_64
-openssl-libs-1.1.1k-7.el8_6.x86_64
+openssl-1.1.1k-9.el8_7.x86_64
+openssl-libs-1.1.1k-9.el8_7.x86_64
 openssl-pkcs11-0.4.10-2.el8.x86_64
 os-prober-1.74-9.el8.x86_64
 p11-kit-0.23.22-1.el8.x86_64

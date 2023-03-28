@@ -1,5 +1,5 @@
 CentOS Stream 8
-aws-cli/2.11.4 Python/3.11.2 Linux/4.18.0-448.el8.x86_64 exe/x86_64.centos.8 prompt/off
+aws-cli/2.11.6 Python/3.11.2 Linux/4.18.0-448.el8.x86_64 exe/x86_64.centos.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
@@ -139,7 +139,7 @@ kexec-tools-2.0.25-5.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.el8.x86_64
 kmod-libs-25-19.el8.x86_64
-kpartx-0.8.4-37.el8.x86_64
+kpartx-0.8.4-39.el8.x86_64
 krb5-libs-1.18.2-22.el8.x86_64
 less-530-1.el8.x86_64
 libacl-2.2.53-1.el8.x86_64

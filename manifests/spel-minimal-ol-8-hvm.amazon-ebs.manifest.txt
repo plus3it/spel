@@ -1,5 +1,5 @@
 Oracle Linux Server 8.7
-aws-cli/2.11.4 Python/3.11.2 Linux/5.15.0-3.60.5.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
+aws-cli/2.11.6 Python/3.11.2 Linux/5.15.0-3.60.5.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
@@ -269,8 +269,8 @@ openldap-2.4.46-18.el8.x86_64
 openssh-8.0p1-17.el8_7.x86_64
 openssh-clients-8.0p1-17.el8_7.x86_64
 openssh-server-8.0p1-17.el8_7.x86_64
-openssl-1.1.1k-7.el8_6.x86_64
-openssl-libs-1.1.1k-7.el8_6.x86_64
+openssl-1.1.1k-9.el8_7.x86_64
+openssl-libs-1.1.1k-9.el8_7.x86_64
 openssl-pkcs11-0.4.10-2.el8.x86_64
 oraclelinux-release-8.7-1.0.6.el8.x86_64
 oraclelinux-release-el8-1.0-28.el8.x86_64
@@ -406,7 +406,7 @@ tpm2-tss-2.3.2-4.el8.x86_64
 trousers-0.3.15-1.el8.x86_64
 trousers-lib-0.3.15-1.el8.x86_64
 tuned-2.19.0-1.0.1.el8.noarch
-tzdata-2022g-1.el8.noarch
+tzdata-2023b-1.el8.noarch
 unbound-libs-1.16.2-2.el8.x86_64
 unzip-6.0-46.0.1.el8.x86_64
 util-linux-2.32.1-39.el8_7.x86_64
