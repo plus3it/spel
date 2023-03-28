@@ -971,6 +971,7 @@ build {
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
     inline = [
+      "yum update -y --disablerepo='*' --enablerepo='*microsoft*'",
       "chkconfig waagent on",
       "/usr/sbin/waagent -force -deprovision",
       "export HISTSIZE=0",
