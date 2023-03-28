@@ -935,6 +935,16 @@ build {
 
   # Azure EL7 provisioners
   provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    inline = [
+      "yum update -y --disablerepo='*' --enablerepo='*microsoft*'",
+    ]
+    only = [
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+    ]
+  }
+  provisioner "shell" {
     environment_vars = [
       "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
       "SPEL_AMIGENBUILDDEV=/dev/sda",
