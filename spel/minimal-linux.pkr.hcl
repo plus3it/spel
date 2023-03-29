@@ -813,6 +813,18 @@ build {
     name = "minimal-centos-7-image"
   }
 
+  # Azure EL7 provisioners
+  provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    inline = [
+      "yum update -y --disablerepo='*' --enablerepo='*microsoft*'",
+    ]
+    only = [
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+    ]
+  }
+
   # Common provisioners
   provisioner "shell" {
     environment_vars = [
