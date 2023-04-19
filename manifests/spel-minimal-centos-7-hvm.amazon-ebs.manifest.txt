@@ -1,9 +1,9 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/2.11.4 Python/3.11.2 Linux/3.10.0-1062.1.2.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/2.11.13 Python/3.11.3 Linux/3.10.0-1062.1.2.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.582.0-1.x86_64
+amazon-ssm-agent-3.2.815.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -207,12 +207,12 @@ NetworkManager-tui-1.18.8-2.el7_9.x86_64
 newt-0.52.15-4.el7.x86_64
 newt-python-0.52.15-4.el7.x86_64
 nspr-4.34.0-3.1.el7_9.x86_64
-nss-3.79.0-4.el7_9.x86_64
+nss-3.79.0-5.el7_9.x86_64
 nss-pem-1.0.3-7.el7.x86_64
 nss-softokn-3.79.0-4.el7_9.x86_64
 nss-softokn-freebl-3.79.0-4.el7_9.x86_64
-nss-sysinit-3.79.0-4.el7_9.x86_64
-nss-tools-3.79.0-4.el7_9.x86_64
+nss-sysinit-3.79.0-5.el7_9.x86_64
+nss-tools-3.79.0-5.el7_9.x86_64
 nss-util-3.79.0-1.el7_9.x86_64
 ntp-4.2.6p5-29.el7.centos.2.x86_64
 ntpdate-4.2.6p5-29.el7.centos.2.x86_64
@@ -221,8 +221,8 @@ openldap-2.4.44-25.el7_9.x86_64
 openssh-7.4p1-22.el7_9.x86_64
 openssh-clients-7.4p1-22.el7_9.x86_64
 openssh-server-7.4p1-22.el7_9.x86_64
-openssl-1.0.2k-25.el7_9.x86_64
-openssl-libs-1.0.2k-25.el7_9.x86_64
+openssl-1.0.2k-26.el7_9.x86_64
+openssl-libs-1.0.2k-26.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
 p11-kit-0.23.5-3.el7.x86_64
 p11-kit-trust-0.23.5-3.el7.x86_64
@@ -314,7 +314,7 @@ tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
 teamd-1.29-3.el7.x86_64
 tuned-2.11.0-12.el7_9.noarch
-tzdata-2022g-1.el7.noarch
+tzdata-2023c-1.el7.noarch
 ustr-1.0.4-16.el7.x86_64
 util-linux-2.23.2-65.el7_9.1.x86_64
 vim-common-7.4.629-8.el7_9.x86_64

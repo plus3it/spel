@@ -1,5 +1,21 @@
 ## Changelog
 
+### [2023.04.1](https://github.com/plus3it/spel/releases/tag/2023.04.1)
+
+**Released**: 2023.04.19
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.04.1/manifests>
+
+**Summary**:
+
+*   Removes old json templates, in favor of hcl
+*   Updates Microsoft certs for Azure EL7 builds before doing anything else
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.11.13
+    - amazon-ssm-agent-3.2.815.0-1
+
+
 ### [2023.03.2](https://github.com/plus3it/spel/releases/tag/2023.03.2)
 
 **Released**: 2023.03.28
