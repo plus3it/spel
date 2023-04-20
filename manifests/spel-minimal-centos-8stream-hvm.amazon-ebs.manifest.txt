@@ -1,9 +1,9 @@
 CentOS Stream 8
-aws-cli/2.11.6 Python/3.11.2 Linux/4.18.0-448.el8.x86_64 exe/x86_64.centos.8 prompt/off
+aws-cli/2.11.13 Python/3.11.3 Linux/4.18.0-448.el8.x86_64 exe/x86_64.centos.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.2.582.0-1.x86_64
+amazon-ssm-agent-3.2.815.0-1.x86_64
 audit-3.0.7-4.el8.x86_64
 audit-libs-3.0.7-4.el8.x86_64
 authselect-1.2.6-1.el8.x86_64
@@ -78,6 +78,7 @@ filesystem-3.8-6.el8.x86_64
 findutils-4.6.0-20.el8.x86_64
 firewalld-0.9.3-13.el8.noarch
 firewalld-filesystem-0.9.3-13.el8.noarch
+freetype-2.9.1-9.el8.x86_64
 fuse-libs-2.9.7-16.el8.x86_64
 gawk-4.2.1-4.el8.x86_64
 gdbm-1.18-2.el8.x86_64
@@ -104,8 +105,10 @@ gpg-pubkey-e96e3db7-6196a254
 grep-3.1-6.el8.x86_64
 groff-base-1.22.3-18.el8.x86_64
 grub2-common-2.02-129.el8.noarch
+grub2-pc-2.02-129.el8.x86_64
 grub2-pc-modules-2.02-129.el8.noarch
 grub2-tools-2.02-129.el8.x86_64
+grub2-tools-extra-2.02-129.el8.x86_64
 grub2-tools-minimal-2.02-129.el8.x86_64
 grubby-8.40-47.el8.x86_64
 gzip-1.9-13.el8.x86_64
@@ -130,11 +133,11 @@ json-c-0.13.1-3.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
 kbd-legacy-2.0.4-10.el8.noarch
 kbd-misc-2.0.4-10.el8.noarch
-kernel-4.18.0-448.el8.x86_64
-kernel-core-4.18.0-448.el8.x86_64
-kernel-modules-4.18.0-448.el8.x86_64
-kernel-tools-4.18.0-448.el8.x86_64
-kernel-tools-libs-4.18.0-448.el8.x86_64
+kernel-4.18.0-485.el8.x86_64
+kernel-core-4.18.0-485.el8.x86_64
+kernel-modules-4.18.0-485.el8.x86_64
+kernel-tools-4.18.0-485.el8.x86_64
+kernel-tools-libs-4.18.0-485.el8.x86_64
 kexec-tools-2.0.25-5.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.el8.x86_64
@@ -196,6 +199,7 @@ libnsl-2.28-225.el8.x86_64
 libpath_utils-0.2.1-40.el8.x86_64
 libpcap-1.9.1-5.el8.x86_64
 libpipeline-1.5.0-2.el8.x86_64
+libpng-1.6.34-5.el8.x86_64
 libpsl-0.20.2-6.el8.x86_64
 libpwquality-1.4.4-6.el8.x86_64
 libref_array-0.1.5-40.el8.x86_64
@@ -256,10 +260,10 @@ ncurses-6.1-9.20180224.el8.x86_64
 ncurses-base-6.1-9.20180224.el8.noarch
 ncurses-libs-6.1-9.20180224.el8.x86_64
 nettle-3.4.1-7.el8.x86_64
-NetworkManager-1.40.16-1.el8.x86_64
-NetworkManager-libnm-1.40.16-1.el8.x86_64
-NetworkManager-team-1.40.16-1.el8.x86_64
-NetworkManager-tui-1.40.16-1.el8.x86_64
+NetworkManager-1.40.16-2.el8.x86_64
+NetworkManager-libnm-1.40.16-2.el8.x86_64
+NetworkManager-team-1.40.16-2.el8.x86_64
+NetworkManager-tui-1.40.16-2.el8.x86_64
 newt-0.52.20-11.el8.x86_64
 nftables-0.9.3-26.el8.x86_64
 npth-1.5-4.el8.x86_64
@@ -340,7 +344,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-0.9.3-26.el8.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-448.el8.x86_64
+python3-perf-4.18.0-485.el8.x86_64
 python3-pip-wheel-9.0.3-22.el8.noarch
 python3-ply-3.9-9.el8.noarch
 python3-policycoreutils-2.9-24.el8.noarch
@@ -406,7 +410,7 @@ unzip-6.0-46.el8.x86_64
 util-linux-2.32.1-41.el8.x86_64
 vim-minimal-8.0.1763-19.el8.4.x86_64
 virt-what-1.25-3.el8.x86_64
-which-2.21-18.el8.x86_64
+which-2.21-20.el8.x86_64
 xfsprogs-5.0.0-10.el8.x86_64
 xkeyboard-config-2.28-1.el8.noarch
 xz-5.2.4-4.el8.x86_64
