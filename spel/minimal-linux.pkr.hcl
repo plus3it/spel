@@ -463,7 +463,7 @@ variable "amigen7_storage_layout" {
   description = "List of colon-separated tuples (mount:name:size) that describe the desired partitions for LVM-partitioned disks on EL7 images"
   type        = list(string)
   default = [
-    "/:rootVol:4",
+    "/:rootVol:5",
     "swap:swapVol:2",
     "/home:homeVol:1",
     "/var:varVol:2",
