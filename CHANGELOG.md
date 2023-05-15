@@ -1,5 +1,23 @@
 ## Changelog
 
+### [2023.05.1](https://github.com/plus3it/spel/releases/tag/2023.05.1)
+
+**Released**: 2023.05.11
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.05.1/manifests>
+
+**Summary**:
+
+*   This was an early release for May 2023 to ncrease the size of the `/` LVM volume
+    from 4GB to 5GB for EL7 images in order to reduce issues with yum installs
+    when installing security services to bring systems into compliance with enterprise
+    requirements. Another release will be made towards the end of the month to
+    better capture patches released in May.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.11.19
+    - amazon-ssm-agent-3.2.923.0-1
+
 ### [2023.04.1](https://github.com/plus3it/spel/releases/tag/2023.04.1)
 
 **Released**: 2023.04.19

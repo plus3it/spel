@@ -105,9 +105,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.88.1.el7.x86_64
-kernel-tools-3.10.0-1160.88.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.88.1.el7.x86_64
+kernel-3.10.0-1160.90.1.el7.x86_64
+kernel-tools-3.10.0-1160.90.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.90.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
