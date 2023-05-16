@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux 8.7 (Ootpa)
-aws-cli/2.11.13 Python/3.11.3 Linux/4.18.0-147.81.1.el8_1.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.11.19 Python/3.11.3 Linux/4.18.0-305.88.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
 amazon-libdnf-plugin-1.0.1-1.el8.x86_64
-amazon-ssm-agent-3.2.815.0-1.x86_64
+amazon-ssm-agent-3.2.923.0-1.x86_64
 audit-3.0.7-4.el8.x86_64
 audit-libs-3.0.7-4.el8.x86_64
 authselect-1.2.5-2.el8_7.x86_64
@@ -67,7 +67,7 @@ elfutils-debuginfod-client-0.187-4.el8.x86_64
 elfutils-default-yama-scope-0.187-4.el8.noarch
 elfutils-libelf-0.187-4.el8.x86_64
 elfutils-libs-0.187-4.el8.x86_64
-epel-release-8-18.el8.noarch
+epel-release-8-19.el8.noarch
 ethtool-5.13-2.el8.x86_64
 expat-2.2.5-10.el8_7.1.x86_64
 file-5.33-21.el8.x86_64
