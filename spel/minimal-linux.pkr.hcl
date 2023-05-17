@@ -1048,7 +1048,6 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     only = [
-      "azure-arm.minimal-centos-8-image",
       "azure-arm.minimal-rhel-8-image",
     ]
     scripts = [
