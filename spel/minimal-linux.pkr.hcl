@@ -550,6 +550,21 @@ variable "amigen8_storage_layout" {
   ]
 }
 
+variable "azure_custom_managed_image_name_rhel8" {
+  description = "Name of a custom managed image to use as the base image for RHEL7 builds"
+  type        = string
+  default     = null
+}
+
+
+variable "azure_custom_managed_image_resource_group_name_rhel8" {
+  description = "Name of the resource group for the custom image in `azure_custom_managed_image_name_rhel8`"
+  type        = string
+  default     = null
+}
+
+
+
 ###
 # Variables specific to spel
 ###
@@ -652,6 +667,7 @@ source "azure-arm" "base" {
   virtual_network_subnet_name            = var.azure_virtual_network_subnet_name
   vm_size                                = var.azure_vm_size
 }
+
 
 source "openstack" "base" {
   flavor                  = var.openstack_flavor
@@ -806,6 +822,15 @@ build {
     name                                     = "minimal-rhel-7-image"
   }
 
+  source "azure-arm.base" {
+    azure_tags = {
+      Description = format(local.description, "RHEL 8 image")
+    }
+    custom_managed_image_name                = var.azure_custom_managed_image_name_rhel8
+    custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel8
+    name                                     = "minimal-rhel-8-image"
+  }
+
   source "openstack.base" {
     metadata = {
       Description = format(local.description, "CentOS 7 image")
@@ -822,6 +847,19 @@ build {
     only = [
       "azure-arm.minimal-centos-7-image",
       "azure-arm.minimal-rhel-7-image",
+    ]
+  }
+
+  # Azure EL8 provisioners
+  provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    inline = [
+      "/usr/bin/cloud-init status --wait",
+      "setenforce 0 || true",
+      "yum -y update",
+    ]
+    only = [
+      "azure-arm.minimal-rhel-8-image",
     ]
   }
 
