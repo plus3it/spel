@@ -551,7 +551,7 @@ variable "amigen8_storage_layout" {
 }
 
 variable "azure_custom_managed_image_name_rhel8" {
-  description = "Name of a custom managed image to use as the base image for RHEL7 builds"
+  description = "Name of a custom managed image to use as the base image for RHEL8 builds"
   type        = string
   default     = null
 }
