@@ -180,6 +180,7 @@ retry()
 
 # Run the builder-scripts
 function BuildChroot {
+    local STATUS_MSG
 
     # Invoke disk-partitioner
     bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
@@ -193,9 +194,27 @@ function BuildChroot {
     bash -euxo pipefail "${ELBUILD}"/$( ComposeOSpkgString ) || \
         err_exit "Failure encountered with OSpackages.sh"
 
-    # Invoke AWSutils installer
-    bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
-        err_exit "Failure encountered with AWSutils.sh"
+    # Invoke CSP-specific utilities scripts
+    case "${CLOUDPROVIDER}" in
+      # Invoke AWSutils installer
+      aws)
+        bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
+          err_exit "Failure encountered with AWSutils.sh"
+        ;;
+      azure)
+        bash -euxo pipefail "${ELBUILD}/AzureUtils.sh" || \
+          err_exit "Failure encountered with AzureUtils.sh"
+        ;;
+      *)
+        # Concat exit-message string
+        STATUS_MSG="Unsupported value [${CLOUDPROVIDER}] for CLOUDPROVIDER."
+        STATUS_MSG="${STATUS_MSG} No provider-specific utilities"
+        STATUS_MSG="${STATUS_MSG} will be installed"
+
+        # Log but do not fail-out
+        err_exit "${STATUS_MSG}" NONE
+        ;;
+    esac
 
     # Post-installation configurator
     bash -euxo pipefail "${ELBUILD}"/$( PostBuildString ) || \
