@@ -1018,6 +1018,41 @@ build {
     ]
   }
 
+  # Azure EL8 provisioners
+  provisioner "shell" {
+    environment_vars = [
+      "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
+      "SPEL_AMIGENBUILDDEV=/dev/sda",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENREPOS=${local.amigen8_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen8_repo_sources}",
+      "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
+      "SPEL_AMIGENSTORLAY=${local.amigen8_storage_layout}",
+      "SPEL_AMIGENVGNAME=VolGroup00",
+      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_BOOTLABEL=/boot",
+      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
+      "SPEL_BUILDNAME=${source.name}",
+      "SPEL_CLOUDPROVIDER=azure",
+      "SPEL_EXTRARPMS=${local.amigen8_extra_rpms}",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_HTTP_PROXY=${var.spel_http_proxy}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
+    only = [
+      "azure-arm.minimal-centos-8-image",
+      "azure-arm.minimal-rhel-8-image",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen8-build.sh",
+    ]
+  }
+
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
     inline = [
@@ -1029,6 +1064,7 @@ build {
     only = [
       "azure-arm.minimal-centos-7-image",
       "azure-arm.minimal-rhel-7-image",
+      "azure-arm.minimal-rhel-8-image",
     ]
     skip_clean = true
   }
