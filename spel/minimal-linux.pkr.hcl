@@ -869,6 +869,9 @@ build {
       "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
     ]
+    except = [
+      "azure-arm.minimal-rhel-8-image",
+    ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
     inline = [
       "/usr/bin/cloud-init status --wait",
