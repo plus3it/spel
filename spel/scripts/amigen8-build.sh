@@ -180,6 +180,7 @@ retry()
 
 # Run the builder-scripts
 function BuildChroot {
+    local STATUS_MSG
 
     # Invoke disk-partitioner
     bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
@@ -193,9 +194,27 @@ function BuildChroot {
     bash -euxo pipefail "${ELBUILD}"/$( ComposeOSpkgString ) || \
         err_exit "Failure encountered with OSpackages.sh"
 
-    # Invoke AWSutils installer
-    bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
-        err_exit "Failure encountered with AWSutils.sh"
+    # Invoke CSP-specific utilities scripts
+    case "${CLOUDPROVIDER}" in
+        # Invoke AWSutils installer
+        aws)
+            bash -euxo pipefail "${ELBUILD}"/$( ComposeAWSutilsString ) || \
+                err_exit "Failure encountered with AWSutils.sh"
+            ;;
+        azure)
+            bash -euxo pipefail "${ELBUILD}/AzureUtils.sh" || \
+                err_exit "Failure encountered with AzureUtils.sh"
+            ;;
+        *)
+            # Concat exit-message string
+            STATUS_MSG="Unsupported value [${CLOUDPROVIDER}] for CLOUDPROVIDER."
+            STATUS_MSG="${STATUS_MSG} No provider-specific utilities"
+            STATUS_MSG="${STATUS_MSG} will be installed"
+
+            # Log but do not fail-out
+            err_exit "${STATUS_MSG}" NONE
+            ;;
+    esac
 
     # Post-installation configurator
     bash -euxo pipefail "${ELBUILD}"/$( PostBuildString ) || \
@@ -212,7 +231,8 @@ function BuildChroot {
 # Create a record of the build
 function CollectManifest {
     echo "Saving the release info to the manifest"
-    grep "PRETTY_NAME=" "${AMIGENCHROOT}/etc/os-release" | cut --delimiter '"' -f2 > /tmp/manifest.txt
+    grep "PRETTY_NAME=" "${AMIGENCHROOT}/etc/os-release" | \
+        cut --delimiter '"' -f2 > /tmp/manifest.txt
 
     if [[ "${CLOUDPROVIDER}" == "aws" ]]
     then
@@ -221,7 +241,8 @@ function CollectManifest {
             echo "Saving the aws-cli-v1 version to the manifest"
             [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
             set +x
-            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws1 --version) 2>&1 | tee -a /tmp/manifest.txt
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws1 --version) 2>&1 | \
+                tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
         if [[ -n "$AWSCLIV2SOURCE" ]]
@@ -229,7 +250,8 @@ function CollectManifest {
             echo "Saving the aws-cli-v2 version to the manifest"
             [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
             set +x
-            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | tee -a /tmp/manifest.txt
+            (chroot "${AMIGENCHROOT}" /usr/local/bin/aws2 --version) 2>&1 | \
+                tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
         if [[ -n "$AWSCFNBOOTSTRAP" ]]
@@ -237,7 +259,8 @@ function CollectManifest {
             echo "Saving the cfn bootstrap version to the manifest"
             [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
             set +x
-            (chroot "${AMIGENCHROOT}" python3 -m pip list) | grep aws-cfn-bootstrap | tee -a /tmp/manifest.txt
+            (chroot "${AMIGENCHROOT}" python3 -m pip list) | \
+                grep aws-cfn-bootstrap | tee -a /tmp/manifest.txt
             eval "$XTRACE"
         fi
     elif [[ "${CLOUDPROVIDER}" == "azure" ]]
@@ -245,7 +268,8 @@ function CollectManifest {
         echo "Saving the waagent version to the manifest"
         [[ -o xtrace ]] && XTRACE='set -x' || XTRACE='set +x'
         set +x
-        (chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version) 2>&1 | tee -a /tmp/manifest.txt
+        (chroot "${AMIGENCHROOT}" /usr/sbin/waagent --version) 2>&1 | \
+            tee -a /tmp/manifest.txt
         eval "$XTRACE"
     fi
 
@@ -558,7 +582,9 @@ fi
 
 if [[ -n "${EPELRELEASE:-}" ]]
 then
-    { STDERR=$(yum -y install "$EPELRELEASE" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    {
+        STDERR=$( yum -y install "$EPELRELEASE" 2>&1 1>&$out );
+    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 fi
 
 if [[ -n "${EPELREPO:-}" ]]
@@ -570,7 +596,9 @@ echo "Installing custom repo packages in the builder box"
 IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
 for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
 do
-    { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    {
+        STDERR=$( yum -y install "$RPM" 2>&1 1>&$out );
+    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 echo "Enabling repos in the builder box"
@@ -581,7 +609,9 @@ echo "Installing specified extra packages in the builder box"
 IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
 do
-    { STDERR=$(yum -y install "$RPM" 2>&1 1>&$out); } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    {
+        STDERR=$( yum -y install "$RPM" 2>&1 1>&$out );
+    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
 # Disable strict host-key checking when doing git-over-ssh
