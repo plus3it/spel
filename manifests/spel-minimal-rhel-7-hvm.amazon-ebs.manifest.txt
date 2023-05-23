@@ -1,5 +1,5 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.11.19 Python/3.11.3 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.11.21 Python/3.11.3 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64

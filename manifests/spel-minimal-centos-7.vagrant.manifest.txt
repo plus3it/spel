@@ -19,8 +19,8 @@ coreutils-8.22-24.el7_9.2.x86_64
 cpio-2.11-28.el7.x86_64
 cracklib-2.9.0-11.el7.x86_64
 cracklib-dicts-2.9.0-11.el7.x86_64
-cronie-1.4.11-24.el7_9.x86_64
-cronie-anacron-1.4.11-24.el7_9.x86_64
+cronie-1.4.11-25.el7_9.x86_64
+cronie-anacron-1.4.11-25.el7_9.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
 curl-7.29.0-59.el7_9.1.x86_64

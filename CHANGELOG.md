@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2023.05.2](https://github.com/plus3it/spel/releases/tag/2023.05.2)
+
+**Released**: 2023.05.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.05.2/manifests>
+
+**Summary**:
+
+*   Minor release update to RedHat 8.8 and Oracle Linux 8.8
+*   Adds builder for Azure RHEL8 images
+*   Updates test config to support images where default-user has a SELinux role
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.11.21
+
 ### [2023.05.1](https://github.com/plus3it/spel/releases/tag/2023.05.1)
 
 **Released**: 2023.05.11
