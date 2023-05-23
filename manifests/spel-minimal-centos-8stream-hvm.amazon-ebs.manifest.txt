@@ -1,5 +1,5 @@
 CentOS Stream 8
-aws-cli/2.11.19 Python/3.11.3 Linux/4.18.0-489.el8.x86_64 exe/x86_64.centos.8 prompt/off
+aws-cli/2.11.21 Python/3.11.3 Linux/4.18.0-489.el8.x86_64 exe/x86_64.centos.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
@@ -88,10 +88,10 @@ geolite2-country-20180605-1.el8.noarch
 gettext-0.19.8.1-17.el8.x86_64
 gettext-libs-0.19.8.1-17.el8.x86_64
 glib2-2.56.4-161.el8.x86_64
-glibc-2.28-225.el8.x86_64
-glibc-all-langpacks-2.28-225.el8.x86_64
-glibc-common-2.28-225.el8.x86_64
-glibc-gconv-extra-2.28-225.el8.x86_64
+glibc-2.28-226.el8.x86_64
+glibc-all-langpacks-2.28-226.el8.x86_64
+glibc-common-2.28-226.el8.x86_64
+glibc-gconv-extra-2.28-226.el8.x86_64
 gmp-6.1.2-10.el8.x86_64
 gnupg2-2.2.20-3.el8.x86_64
 gnupg2-smime-2.2.20-3.el8.x86_64
@@ -130,11 +130,11 @@ json-c-0.13.1-3.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
 kbd-legacy-2.0.4-10.el8.noarch
 kbd-misc-2.0.4-10.el8.noarch
-kernel-4.18.0-490.el8.x86_64
-kernel-core-4.18.0-490.el8.x86_64
-kernel-modules-4.18.0-490.el8.x86_64
-kernel-tools-4.18.0-490.el8.x86_64
-kernel-tools-libs-4.18.0-490.el8.x86_64
+kernel-4.18.0-492.el8.x86_64
+kernel-core-4.18.0-492.el8.x86_64
+kernel-modules-4.18.0-492.el8.x86_64
+kernel-tools-4.18.0-492.el8.x86_64
+kernel-tools-libs-4.18.0-492.el8.x86_64
 kexec-tools-2.0.25-5.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.el8.x86_64
@@ -192,7 +192,7 @@ libnghttp2-1.33.0-3.el8_2.1.x86_64
 libnl3-3.7.0-1.el8.x86_64
 libnl3-cli-3.7.0-1.el8.x86_64
 libnsl2-1.2.0-2.20180605git4a062cf.el8.x86_64
-libnsl-2.28-225.el8.x86_64
+libnsl-2.28-226.el8.x86_64
 libpath_utils-0.2.1-40.el8.x86_64
 libpcap-1.9.1-5.el8.x86_64
 libpipeline-1.5.0-2.el8.x86_64
@@ -237,7 +237,7 @@ libxkbcommon-0.9.1-1.el8.x86_64
 libxml2-2.9.7-16.el8.x86_64
 libyaml-0.1.7-5.el8.x86_64
 libzstd-1.4.4-1.el8.x86_64
-linux-firmware-20230217-113.git83f1d778.el8.noarch
+linux-firmware-20230515-115.gitd1962891.el8.noarch
 lmdb-libs-0.9.24-2.el8.x86_64
 logrotate-3.14.0-6.el8.x86_64
 lshw-B.02.19.2-6.el8.x86_64
@@ -340,7 +340,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-0.9.3-26.el8.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-490.el8.x86_64
+python3-perf-4.18.0-492.el8.x86_64
 python3-pip-wheel-9.0.3-22.el8.noarch
 python3-ply-3.9-9.el8.noarch
 python3-policycoreutils-2.9-24.el8.noarch
@@ -372,8 +372,8 @@ rpm-plugin-selinux-4.14.3-26.el8.x86_64
 rpm-plugin-systemd-inhibit-4.14.3-26.el8.x86_64
 rsyslog-8.2102.0-13.el8.x86_64
 sed-4.5-5.el8.x86_64
-selinux-policy-3.14.3-119.el8.noarch
-selinux-policy-targeted-3.14.3-119.el8.noarch
+selinux-policy-3.14.3-120.el8.noarch
+selinux-policy-targeted-3.14.3-120.el8.noarch
 setup-2.12.2-9.el8.noarch
 sg3_utils-1.44-6.el8.x86_64
 sg3_utils-libs-1.44-6.el8.x86_64

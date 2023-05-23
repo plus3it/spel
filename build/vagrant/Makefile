@@ -35,7 +35,7 @@ install:
 build: export PACKER_LOG = 1
 build: export PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.build-spel-vagrant.log
 build: export PACKER_LOG_DIR = $(dir $(PACKER_LOG_PATH))
-build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://api.ipify.org)/32"]
+build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://checkip.amazonaws.com)/32"]
 build: export PKR_VAR_virtualbox_iso_url_centos7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
 
 build:

@@ -55,7 +55,7 @@ pre_build build post_build: export AWS_DEFAULT_REGION := $(or $(PKR_VAR_aws_regi
 pre_build build post_build: export AWS_REGION := $(or $(PKR_VAR_aws_region),$(AWS_REGION))
 
 # Set the source security group cidr
-pre_build build post_build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://api.ipify.org)/32"]
+pre_build build post_build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://checkip.amazonaws.com)/32"]
 
 pre_build:
 	bash ./build/pre_build.sh
