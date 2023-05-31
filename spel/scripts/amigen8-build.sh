@@ -203,9 +203,9 @@ function BuildChroot {
             ;;
         azure)
             (
-              export HTTP_PROXY
-              bash -euxo pipefail "${ELBUILD}/AzureUtils.sh" || \
-                  err_exit "Failure encountered with AzureUtils.sh"
+                export HTTP_PROXY
+                bash -euxo pipefail "${ELBUILD}/AzureUtils.sh" || \
+                    err_exit "Failure encountered with AzureUtils.sh"
             )
             ;;
         *)
