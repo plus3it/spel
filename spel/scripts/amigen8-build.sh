@@ -202,8 +202,11 @@ function BuildChroot {
                 err_exit "Failure encountered with AWSutils.sh"
             ;;
         azure)
-            bash -euxo pipefail "${ELBUILD}/AzureUtils.sh" || \
-                err_exit "Failure encountered with AzureUtils.sh"
+            (
+              export HTTP_PROXY
+              bash -euxo pipefail "${ELBUILD}/AzureUtils.sh" || \
+                  err_exit "Failure encountered with AzureUtils.sh"
+            )
             ;;
         *)
             # Concat exit-message string
