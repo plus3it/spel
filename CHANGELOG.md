@@ -1,5 +1,19 @@
 ## Changelog
 
+### [2023.06.1](https://github.com/plus3it/spel/releases/tag/2023.06.1)
+
+**Released**: 2023.06.20
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.06.1/manifests>
+
+**Summary**:
+
+*   Exports HTTP_PROXY to EL8 Azure utils script
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.12.1
+    - amazon-ssm-agent-3.2.1041.0-1
+
 ### [2023.05.2](https://github.com/plus3it/spel/releases/tag/2023.05.2)
 
 **Released**: 2023.05.23
