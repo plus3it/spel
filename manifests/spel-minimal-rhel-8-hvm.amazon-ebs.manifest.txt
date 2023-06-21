@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux 8.8 (Ootpa)
-aws-cli/2.11.21 Python/3.11.3 Linux/4.18.0-147.83.1.el8_1.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.12.1 Python/3.11.3 Linux/4.18.0-193.105.1.el8_2.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
 amazon-libdnf-plugin-1.0.1-1.el8.x86_64
-amazon-ssm-agent-3.2.923.0-1.x86_64
+amazon-ssm-agent-3.2.1041.0-1.x86_64
 audit-3.0.7-4.el8.x86_64
 audit-libs-3.0.7-4.el8.x86_64
 authselect-1.2.6-1.el8.x86_64
@@ -15,7 +15,7 @@ bind-export-libs-9.11.36-8.el8.x86_64
 brotli-1.0.6-3.el8.x86_64
 bzip2-libs-1.0.6-26.el8.x86_64
 ca-certificates-2022.2.54-80.2.el8_6.noarch
-c-ares-1.13.0-6.el8.x86_64
+c-ares-1.13.0-6.el8_8.2.x86_64
 checkpolicy-2.9-1.el8.x86_64
 chkconfig-1.19.1-1.el8.x86_64
 chrony-4.2-1.el8.x86_64
@@ -130,11 +130,11 @@ json-glib-1.4.4-1.el8.x86_64
 kbd-2.0.4-10.el8.x86_64
 kbd-legacy-2.0.4-10.el8.noarch
 kbd-misc-2.0.4-10.el8.noarch
-kernel-4.18.0-477.10.1.el8_8.x86_64
-kernel-core-4.18.0-477.10.1.el8_8.x86_64
-kernel-modules-4.18.0-477.10.1.el8_8.x86_64
-kernel-tools-4.18.0-477.10.1.el8_8.x86_64
-kernel-tools-libs-4.18.0-477.10.1.el8_8.x86_64
+kernel-4.18.0-477.13.1.el8_8.x86_64
+kernel-core-4.18.0-477.13.1.el8_8.x86_64
+kernel-modules-4.18.0-477.13.1.el8_8.x86_64
+kernel-tools-4.18.0-477.13.1.el8_8.x86_64
+kernel-tools-libs-4.18.0-477.13.1.el8_8.x86_64
 kexec-tools-2.0.25-5.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.el8.x86_64
@@ -283,7 +283,7 @@ pcre2-10.32-3.el8_6.x86_64
 pcre-8.42-6.el8.x86_64
 pigz-2.4-4.el8.x86_64
 pinentry-1.1.0-2.el8.x86_64
-platform-python-3.6.8-51.el8.x86_64
+platform-python-3.6.8-51.el8_8.1.x86_64
 platform-python-pip-9.0.3-22.el8.noarch
 platform-python-setuptools-39.2.0-7.el8.noarch
 plymouth-0.9.4-11.20200615git1e36e30.el8.x86_64
@@ -339,7 +339,7 @@ python3-jwt-1.6.1-2.el8.noarch
 python3-libcomps-0.1.18-1.el8.x86_64
 python3-libdnf-0.63.0-14.el8_8.x86_64
 python3-librepo-1.14.2-4.el8.x86_64
-python3-libs-3.6.8-51.el8.x86_64
+python3-libs-3.6.8-51.el8_8.1.x86_64
 python3-libselinux-2.9-8.el8.x86_64
 python3-libsemanage-2.9-9.el8_6.x86_64
 python3-libxml2-2.9.7-16.el8.x86_64
@@ -348,7 +348,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-0.9.3-26.el8.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-477.10.1.el8_8.x86_64
+python3-perf-4.18.0-477.13.1.el8_8.x86_64
 python3-pip-wheel-9.0.3-22.el8.noarch
 python3-ply-3.9-9.el8.noarch
 python3-policycoreutils-2.9-24.el8.noarch
@@ -374,7 +374,7 @@ python3-urllib3-1.24.2-5.el8.noarch
 readline-7.0-10.el8.x86_64
 redhat-release-8.8-0.8.el8.x86_64
 redhat-release-eula-8.8-0.8.el8.x86_64
-rh-amazon-rhui-client-4.0.6-1.el8.noarch
+rh-amazon-rhui-client-4.0.8-1.el8.noarch
 rng-tools-6.15-3.el8.x86_64
 rootfiles-8.1-22.el8.noarch
 rpm-4.14.3-26.el8.x86_64
