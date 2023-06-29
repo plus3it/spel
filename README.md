@@ -443,7 +443,7 @@ To facilitate this testing, the following runtime-variables were added to spel:
 - `amigen8_source_branch`
 - `amigen8_source_url`
 
-Were added to spel. Using these runtime-variables, allows one to point spel to
+Using these runtime-variables allows one to point spel to
 a fork/branch of AMIgen7 or AMIgen8 during a integration-test build. To test,
 update your `packer` invocation by adding elements like:
 
