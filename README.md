@@ -264,9 +264,11 @@ use `.\` preceding the path to the template. E.g.
     packer validate spel/minimal-linux.pkr.hcl
     ```
 
-    Validation _may_ fail on some newer versions of Packer. The Packer HCL file
-    shipped with this project is known to work with Packer versions up through
-    1.8.7.
+    The project-included Packer HCL files have been pre-validated. If you
+    encounter validation-errors with the included HCL files, it means that
+    you're using a newer Packer version than the project has been tested
+    agains. Please open an [issue][46] to report the problem, ensuring to
+    include the Packer version you were using when you encountered the problem.
 
 3.  Begin the build. This requires at least two variables,
     `spel_identifier` and `spel_version`. See the section [Packer Variables](#minimal-linux-packer-variables)
@@ -511,6 +513,7 @@ packer build \
 [43]: https://almalinux.org/
 [44]: https://www.suse.com/products/suse-liberty-linux/
 [45]: https://developer.hashicorp.com/packer/guides/hcl/variables#from-environment-variables
+[46]: https://github.com/plus3it/spel/issues/new
 
 [^1]: Because spel is primarily an execution-wrapper for the AMIgenN projects, the "read the source" method for determining why things have changed from one spel-release to the next may require reviewing those projects' repositories
 [^2]: The default-user is a local user (i.e., managed in `/etc/passwd`/`/etc/shadow`/`/etc/group`) that is dynamically-created at initial system-boot &ndash; using either the default-information in the `/etc/cloud/cloud.cfg` file or as overridden in a userData payload's `#cloud-config` content. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key.
