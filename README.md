@@ -13,7 +13,7 @@ The images are configured with help from the scripts and packages in the
 VMs' root filesystems are generally not live-repartitionable once launced from
 their images. As a result, if a STIG-scan is performed against most of the
 community-published images for Red Hat and related distros (CentOS/CentOS
-Stream, [Oracle Linux][41] [Rocky][42], [Alma][43] or [Liberty][44]), those
+Stream, [Oracle Linux][41], [Rocky][42], [Alma][43] or [Liberty][44]), those
 scans will note failures for each of the various "`${DIRECTORY}` is on its own
 filesystem" tests. The images produced through this project are designed to
 ensure that these particular scan-failures do not occur.
@@ -148,9 +148,9 @@ yum repos at their discretion.
 
 The default username for all spel images is `maintuser`.
 
-If you wish to change the default username at launch, you can do so via cloud-init
-with userdata something like the following. Change `<USERNAME>` to your desired
-value.
+If you wish to change the default username at launch, you can do so via
+`cloud-init` with userdata[^3] something like the following. Change `<USERNAME>` to
+your desired value.
 
 ```yaml
 #cloud-config
@@ -160,6 +160,7 @@ system_info:
     gecos: spel default user
     lock_passwd: true
 ```
+
 
 ## Default User Security-Constraints
 
@@ -195,14 +196,14 @@ system_info:
     name: <USERNAME>
     gecos: spel default user
     lock_passwd: true
-    selinu_user: unconfined_u
+    selinux_user: unconfined_u
     sudo: ["ALL=(root) NOPASSWD:ALL"]
 ```
 
 However, doing so will result in security scan-failures when the scanning-tool
-tries to ensure that all locally-managed, interactive users are properly-
-constrained users and, where appropriate, have SELinux privilege-transition
-rules defined.
+tries to ensure that all locally-managed, interactive users are
+properly-constrained users and, where appropriate, have SELinux
+privilege-transition rules defined.
 
 ## Prerequisites
 
@@ -211,7 +212,8 @@ images.
 
 1.  [Download][3] and extract `packer` for your platform. Add it to your PATH,
     if you like. On Linux, watch out for other `packer` executables with the
-    same name...
+    same name (if building from an Enterprise Linux distro, `/sbin/packer` may
+    be present due to the `cracklib-dicts` RPM).
 
 2.  If building AMIs for Amazon Web Services, ensure your [AWS credentials are
     configured][4]. You do not really need the `aws` cli utility, but it is a
@@ -262,6 +264,10 @@ use `.\` preceding the path to the template. E.g.
     packer validate spel/minimal-linux.pkr.hcl
     ```
 
+    Validation _may_ fail on some newer versions of Packer. The Packer HCL file
+    shipped with this project is known to work with Packer versions up through
+    1.8.7.
+
 3.  Begin the build. This requires at least two variables,
     `spel_identifier` and `spel_version`. See the section [Packer Variables](#minimal-linux-packer-variables)
     for more details.
@@ -291,7 +297,9 @@ The Minimal Linux template builds STIG-partitioned images with a set of
 packages that correspond to the "Minimal" install option in Anaconda. Further,
 the AWS images include a handful of additional packages that are intended to
 increase functionality in EC2 and make the images more comparable with Amazon
-Linux.
+Linux. Similarly, the Azure builder will attempt to install the `WALinuxAgent`
+RPM into the VM-template to make the template more integratable into
+Azure-based deployments.
 
 -   _Template Path_: `spel/minimal-linux.pkr.hcl`
 
@@ -310,6 +318,7 @@ The Minimal Linux `packer` template includes the following builders:
 | `amazon-ebs.minimal-rhel-7-hvm`         | amazon-ebs builder for a minimal RHEL 7 HVM AMI           |
 | `azure-arm.minimal-centos-7-image`      | azure-arm builder for a minimal CentOS 7 Image            |
 | `azure-arm.minimal-rhel-7-image`        | azure-arm builder for a minimal RHEL 7 Image              |
+| `azure-arm.minimal-rhel-8-image`        | azure-arm builder for a minimal RHEL 8 Image              |
 | `openstack.minimal-centos-7-image`      | openstack builder for a minimal CentOS 7 Image            |
 | `virtualbox-iso.minimal-centos-7-image` | virtualbox-iso builder for a minimal CentOS 7 Vagrant Box |
 
@@ -377,6 +386,15 @@ packer build \
     spel/minimal-linux.pkr.hcl
 ```
 
+When building for RHEL 8:
+
+- Change the `-only` flag to reference `azure-arm.minimal-rhel-8-image`
+- Change the `azure_image_sku` to an appropriate value. When the
+  `azure-arm.minimal-rhel-8-image` was being authored, the appropriate value
+  was `8_8`
+- Substitute the `amigen8_repo_names` variable for the `amigen7_repo_names` and
+  set an appropriate list of RHUI repositories to support RHEL 8
+
 ## Building for OpenStack
 
 To build images for an OpenStack environment, it is necessary to pass several
@@ -411,10 +429,10 @@ For expected values, see links below:
 ## Testing With AMIgen
 
 The spel automation leverages the AMIgen7 and AMIgen8 projects as a
-build-helpers for creation of EL7 and EL8 Amazon Machine Images, respectively.
-Due to the closely-coupled nature of the two projects, it's recommended that
-any changes made to AMIgen7 or AMIgen8 be tested with spel prior to merging
-changes to either project's master branch.
+build-helpers for creation of EL7 and EL8 Amazon Machine Images (Azure
+VM-templates, etc.), respectively.  Due to the closely-coupled nature of the
+two projects, it's recommended that any changes made to AMIgen7 or AMIgen8 be
+tested with spel prior to merging changes to either project's master branch.
 
 To facilitate this testing, the runtime-variables:
 
@@ -435,7 +453,7 @@ packer build \
     minimal-linux.pkr.hcl
 ```
 
-Similarly, these variable may be specified as environment variables by using `PKR_VAR_<var_name>`[45] declarations[^3] (e.g., `PKR_VAR_amigen7_source_branch`). To do so, change the above example to:
+Similarly, these variable may be specified as environment variables by using [`PKR_VAR_<var_name>`][45] declarations[^4] (e.g., `PKR_VAR_amigen7_source_branch`). To do so, change the above example to:
 
 ```bash
 export PKR_VAR_amigen7_source_branch="=https://github.com/<FORK_USER>/AMIgen7.git"
@@ -448,9 +466,6 @@ packer build \
 
 
 
-[^1]: Because spel is primarily an execution-wrapper for the AMIgenN projects, the "read the source" method for determining why things have changed from one spel-release to the next may require reviewing those projects' repositories
-[^2]: The default-user is a local (i.e., managed in `/ec/passwd`/`/etc/shadow`/`/etc/group) user that is created at initial system-boot. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key &ndash; as specified through userData launch-service's userData services.
-[^3]: Use of the `PKR_VAR_` method is recommended for setting up CI/CD frameworks for producing AMIs and other supported VM-templates
 [0]: http://iase.disa.mil/stigs/os/unix-linux/Pages/red-hat.aspx
 [1]: https://www.hashicorp.com/
 [2]: https://www.packer.io/
@@ -496,3 +511,8 @@ packer build \
 [43]: https://almalinux.org/
 [44]: https://www.suse.com/products/suse-liberty-linux/
 [45]: https://developer.hashicorp.com/packer/guides/hcl/variables#from-environment-variables
+
+[^1]: Because spel is primarily an execution-wrapper for the AMIgenN projects, the "read the source" method for determining why things have changed from one spel-release to the next may require reviewing those projects' repositories
+[^2]: The default-user is a local user (i.e., managed in `/etc/passwd`/`/etc/shadow`/`/etc/group`) that is dynamically-created at initial system-boot &ndash; using either the default-information in the `/etc/cloud/cloud.cfg` file or as overridden in a userData payload's `#cloud-config` content. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key.
+[^3]: Overriding attributes of the default-user _must_ be done within a `#cloud-config` directive-block. If your userData is currently bare BASH (etc.), it will be necessary to format your userData payload as mixed, multi-part MIME.
+[^4]: Use of the `PKR_VAR_` method is recommended for setting up CI/CD frameworks for producing AMIs and other supported VM-templates
