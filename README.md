@@ -6,29 +6,29 @@ STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
 publish Enterprise Linux images that are partitioned according to the
 [DISA STIG][0]. The resulting images also use LVM to simplify volume management.
 The images are configured with help from the scripts and packages in the
-[`AMIgen7`][31], and [`AMIgen8`][40] projects.
+[`AMIgen7`][31], and [`AMIgen8`][40] projects[^1].
 
 ## Why spel
 
-VMs' root filesystems are generally not live-repartitionable once launced from 
-their images. As a result, if a STIG-scan is performed against most of the 
-community-published images for Red Hat and related distros (CentOS/CentOS 
-Stream, [Oracle Linux][41] [Rocky][42], [Alma][43] or [Liberty][44]), those 
-scans will note failures for each of the various "`${DIRECTORY}` is on its own 
-filesystem" tests. The images produced through this project are designed to 
+VMs' root filesystems are generally not live-repartitionable once launced from
+their images. As a result, if a STIG-scan is performed against most of the
+community-published images for Red Hat and related distros (CentOS/CentOS
+Stream, [Oracle Linux][41] [Rocky][42], [Alma][43] or [Liberty][44]), those
+scans will note failures for each of the various "`${DIRECTORY}` is on its own
+filesystem" tests. The images produced through this project are designed to
 ensure that these particular scan-failures do not occur.
 
-Aside from addressing the previously-noted partitioning findings, spel does 
-applies only those STIG-related hardenings that need to be in place "from 
-birth" (i.e., when a system is first created from KickStart, VM-template, 
+Aside from addressing the previously-noted partitioning findings, spel does
+applies only those STIG-related hardenings that need to be in place "from
+birth" (i.e., when a system is first created from KickStart, VM-template,
 Amazon Machine Image, etc.). This includes things like:
 
 - Activation of SELinux
-  - Application of SELinux user-confinement to the default-user[^1]
+  - Application of SELinux user-confinement to the default-user[^2]
   - Application of SELinux role-transition rules for the default-user
 - Activation of FIPS mode
 
-The spel-produced images are expected to act as a better starting-point in a 
+The spel-produced images are expected to act as a better starting-point in a
 larger hardening process.
 
 If your organization does not already have an automated hardening process,
@@ -163,15 +163,15 @@ system_info:
 
 ## Default User Security-Constraints
 
-Due to updates to the STIGs &ndash; currently just for EL7, but it is assumed 
-that similar changes for EL8 and later distros will be added to future 
-STIG-releases &ndash; the default-user's account _may_ have additional SELinux 
-rules applied to it. These rules will typically manifest in processes that 
+Due to updates to the STIGs &ndash; currently just for EL7, but it is assumed
+that similar changes for EL8 and later distros will be added to future
+STIG-releases &ndash; the default-user's account _may_ have additional SELinux
+rules applied to it. These rules will typically manifest in processes that
 start as the default-user (i.e., processes run as the `root` user _after_
-privilege-escalation via the `sudo` subsystem) receiving `permission denied` 
-errors when attempting to access "sensitive" files.  These "sensitive" files 
-are any that have the `shadow_t` SELinux context-label applied to them. By 
-default, these will only include: 
+privilege-escalation via the `sudo` subsystem) receiving `permission denied`
+errors when attempting to access "sensitive" files.  These "sensitive" files
+are any that have the `shadow_t` SELinux context-label applied to them. By
+default, these will only include:
 
 - /etc/security/opasswd
 - /etc/shadow
@@ -180,12 +180,12 @@ default, these will only include:
 A definitive list may be gathered by executing the command:
 
 ```
-find / -context "*shadow_t*"` 
+find / -context "*shadow_t*"`
 ```
 
-If your workflows absolutely _require_ the ability to access these files after 
-a role-transition from the default-user account to `root`, it will be necessary 
-to update the userData payload's `cloud-config` content to include a block 
+If your workflows absolutely _require_ the ability to access these files after
+a role-transition from the default-user account to `root`, it will be necessary
+to update the userData payload's `cloud-config` content to include a block
 similar to:
 
 ```yaml
@@ -199,7 +199,7 @@ system_info:
     sudo: ["ALL=(root) NOPASSWD:ALL"]
 ```
 
-However, doing so will result in security scan-failures when the scanning-tool 
+However, doing so will result in security scan-failures when the scanning-tool
 tries to ensure that all locally-managed, interactive users are properly-
 constrained users and, where appropriate, have SELinux privilege-transition
 rules defined.
@@ -410,10 +410,10 @@ For expected values, see links below:
 
 ## Testing With AMIgen
 
-The spel automation leverages the AMIgen7 and AMIgen8 projects as a 
-build-helpers for creation of EL7 and EL8 Amazon Machine Images, respectively. 
-Due to the closely-coupled nature of the two projects, it's recommended that 
-any changes made to AMIgen7 or AMIgen8 be tested with spel prior to merging 
+The spel automation leverages the AMIgen7 and AMIgen8 projects as a
+build-helpers for creation of EL7 and EL8 Amazon Machine Images, respectively.
+Due to the closely-coupled nature of the two projects, it's recommended that
+any changes made to AMIgen7 or AMIgen8 be tested with spel prior to merging
 changes to either project's master branch.
 
 To facilitate this testing, the runtime-variables:
@@ -423,8 +423,8 @@ To facilitate this testing, the runtime-variables:
 - `amigen8_source_branch`
 - `amigen8_source_url`
 
-Were added to spel. Using these runtime-variables, allows one to point spel to 
-a fork/branch of AMIgen7 or AMIgen8 during a integration-test build. To test, 
+Were added to spel. Using these runtime-variables, allows one to point spel to
+a fork/branch of AMIgen7 or AMIgen8 during a integration-test build. To test,
 update your `packer` invocation by adding elements like:
 
 ```bash
@@ -435,7 +435,7 @@ packer build \
     minimal-linux.pkr.hcl
 ```
 
-Similarly, these variable may be specified as environment variables by using `PKR_VAR_<var_name>`[45] declarations[^2] (e.g., `PKR_VAR_amigen7_source_branch`). To do so, change the above example to:
+Similarly, these variable may be specified as environment variables by using `PKR_VAR_<var_name>`[45] declarations[^3] (e.g., `PKR_VAR_amigen7_source_branch`). To do so, change the above example to:
 
 ```bash
 export PKR_VAR_amigen7_source_branch="=https://github.com/<FORK_USER>/AMIgen7.git"
@@ -448,9 +448,9 @@ packer build \
 
 
 
-
-[^1]: The default-user is a local (i.e., managed in `/ec/passwd`/`/etc/shadow`/`/etc/group) user that is created at initial system-boot. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key &ndash; as specified through userData launch-service's userData services.
-[^2]: Use of the `PKR_VAR_` method
+[^1]: Because spel is primarily an execution-wrapper for the AMIgenN projects, the "read the source" method for determining why things have changed from one spel-release to the next may require reviewing those projects' repositories
+[^2]: The default-user is a local (i.e., managed in `/ec/passwd`/`/etc/shadow`/`/etc/group) user that is created at initial system-boot. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key &ndash; as specified through userData launch-service's userData services.
+[^3]: Use of the `PKR_VAR_` method is recommended for setting up CI/CD frameworks for producing AMIs and other supported VM-templates
 [0]: http://iase.disa.mil/stigs/os/unix-linux/Pages/red-hat.aspx
 [1]: https://www.hashicorp.com/
 [2]: https://www.packer.io/
