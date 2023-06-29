@@ -18,10 +18,10 @@ scans will note failures for each of the various "`${DIRECTORY}` is on its own
 filesystem" tests. The images produced through this project are designed to
 ensure that these particular scan-failures do not occur.
 
-Aside from addressing the previously-noted partitioning findings, spel does
-applies only those STIG-related hardenings that need to be in place "from
-birth" (i.e., when a system is first created from KickStart, VM-template,
-Amazon Machine Image, etc.). This includes things like:
+Aside from addressing the previously-noted partitioning findings, spel applies
+only those STIG-related hardenings that need to be in place "from birth" (i.e.,
+when a system is first created from KickStart, VM-template, Amazon Machine
+Image, etc.). This includes things like:
 
 - Activation of SELinux
   - Application of SELinux user-confinement to the default-user[^2]
