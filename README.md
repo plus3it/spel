@@ -10,16 +10,26 @@ The images are configured with help from the scripts and packages in the
 
 ## Why spel
 
-VMs' root filesystems are generally not live-repartitionable once launced from
-their images. As a result, if a STIG-scan is performed against most of the
-community-published images for Red Hat and CentOS, those scans will note
-failures for each of the various "`${DIRECTORY}` is on its own filesystem"
-tests. The images produced through this project are designed to ensure that
-these particular scan-failures do not occur.
+VMs' root filesystems are generally not live-repartitionable once launced from 
+their images. As a result, if a STIG-scan is performed against most of the 
+community-published images for Red Hat and related distros (CentOS/CentOS 
+Stream, [Oracle Linux][41] [Rocky][42], [Alma][43] or [Liberty][44]), those 
+scans will note failures for each of the various "`${DIRECTORY}` is on its own 
+filesystem" tests. The images produced through this project are designed to 
+ensure that these particular scan-failures do not occur.
 
-Aside from addressing the previously-noted partitioning findings, spel does
-_not_ apply any STIG-related hardening. The spel-produced images are expected
-to act as a better starting-point in a larger hardening process.
+Aside from addressing the previously-noted partitioning findings, spel does 
+applies only those STIG-related hardenings that need to be in place "from 
+birth" (i.e., when a system is first created from KickStart, VM-template, 
+Amazon Machine Image, etc.). This includes things like:
+
+- Activation of SELinux
+  - Application of SELinux user-confinement to the default-user[^1]
+  - Application of SELinux role-transition rules for the default-user
+- Activation of FIPS mode
+
+The spel-produced images are expected to act as a better starting-point in a 
+larger hardening process.
 
 If your organization does not already have an automated hardening process,
 please see our tool, [Watchmaker](https://github.com/plus3it/watchmaker.git).
@@ -134,7 +144,7 @@ yum repos at their discretion.
 
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
-## Default username
+## Default Username
 
 The default username for all spel images is `maintuser`.
 
@@ -149,8 +159,50 @@ system_info:
     name: <USERNAME>
     gecos: spel default user
     lock_passwd: true
+```
+
+## Default User Security-Constraints
+
+Due to updates to the STIGs &ndash; currently just for EL7, but it is assumed 
+that similar changes for EL8 and later distros will be added to future 
+STIG-releases &ndash; the default-user's account _may_ have additional SELinux 
+rules applied to it. These rules will typically manifest in processes that 
+start as the default-user (i.e., processes run as the `root` user _after_
+privilege-escalation via the `sudo` subsystem) receiving `permission denied` 
+errors when attempting to access "sensitive" files.  These "sensitive" files 
+are any that have the `shadow_t` SELinux context-label applied to them. By 
+default, these will only include: 
+
+- /etc/security/opasswd
+- /etc/shadow
+- /etc/gshadow
+
+A definitive list may be gathered by executing the command:
+
+```
+find / -context "*shadow_t*"` 
+```
+
+If your workflows absolutely _require_ the ability to access these files after 
+a role-transition from the default-user account to `root`, it will be necessary 
+to update the userData payload's `cloud-config` content to include a block 
+similar to:
+
+```yaml
+#cloud-config
+system_info:
+  default_user:
+    name: <USERNAME>
+    gecos: spel default user
+    lock_passwd: true
+    selinu_user: unconfined_u
     sudo: ["ALL=(root) NOPASSWD:ALL"]
 ```
+
+However, doing so will result in security scan-failures when the scanning-tool 
+tries to ensure that all locally-managed, interactive users are properly-
+constrained users and, where appropriate, have SELinux privilege-transition
+rules defined.
 
 ## Prerequisites
 
@@ -358,16 +410,22 @@ For expected values, see links below:
 
 ## Testing With AMIgen
 
-The spel automation leverages the AMIgen7 project as a build-helper for creation
-of Amazon Machine Images. Due to the closely-coupled nature of the two projects,
-it's recommended that any changes made to AMIgen7 be tested with spel prior to
-merging changes to the AMIgen master branch.
+The spel automation leverages the AMIgen7 and AMIgen8 projects as a 
+build-helpers for creation of EL7 and EL8 Amazon Machine Images, respectively. 
+Due to the closely-coupled nature of the two projects, it's recommended that 
+any changes made to AMIgen7 or AMIgen8 be tested with spel prior to merging 
+changes to either project's master branch.
 
-To facilitate this testing, the runtime-variable `amigen7_source_branch` was added
-to spel. Using this runtime-variable, in combination with the `amigen7_source_url`
-runtime-variable, allows one to point spel to a fork/branch of AMIgen7 during a
-integration-test build. To test, update your `packer` invocation by adding elements
-like:
+To facilitate this testing, the runtime-variables:
+
+- `amigen7_source_branch`
+- `amigen7_source_url`
+- `amigen8_source_branch`
+- `amigen8_source_url`
+
+Were added to spel. Using these runtime-variables, allows one to point spel to 
+a fork/branch of AMIgen7 or AMIgen8 during a integration-test build. To test, 
+update your `packer` invocation by adding elements like:
 
 ```bash
 packer build \
@@ -377,7 +435,22 @@ packer build \
     minimal-linux.pkr.hcl
 ```
 
+Similarly, these variable may be specified as environment variables by using `PKR_VAR_<var_name>`[45] declarations[^2] (e.g., `PKR_VAR_amigen7_source_branch`). To do so, change the above example to:
 
+```bash
+export PKR_VAR_amigen7_source_branch="=https://github.com/<FORK_USER>/AMIgen7.git"
+export PKR_VAR_amigen7_source_branch="IssueNN"
+
+packer build \
+    [...options elided...]
+    minimal-linux.pkr.hcl
+```
+
+
+
+
+[^1]: The default-user is a local (i.e., managed in `/ec/passwd`/`/etc/shadow`/`/etc/group) user that is created at initial system-boot. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key &ndash; as specified through userData launch-service's userData services.
+[^2]: Use of the `PKR_VAR_` method
 [0]: http://iase.disa.mil/stigs/os/unix-linux/Pages/red-hat.aspx
 [1]: https://www.hashicorp.com/
 [2]: https://www.packer.io/
@@ -418,3 +491,8 @@ packer build \
 [38]: https://www.packer.io/docs/builders/openstack#security_groups
 [39]: https://www.packer.io/docs/builders/openstack#source_image_name
 [40]: https://github.com/plus3it/amigen8
+[41]: https://www.oracle.com/linux/
+[42]: https://rockylinux.org/
+[43]: https://almalinux.org/
+[44]: https://www.suse.com/products/suse-liberty-linux/
+[45]: https://developer.hashicorp.com/packer/guides/hcl/variables#from-environment-variables
