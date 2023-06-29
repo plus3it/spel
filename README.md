@@ -267,7 +267,7 @@ use `.\` preceding the path to the template. E.g.
     The project-included Packer HCL files have been pre-validated. If you
     encounter validation-errors with the included HCL files, it means that
     you're using a newer Packer version than the project has been tested
-    agains. Please open an [issue][46] to report the problem, ensuring to
+    against. Please open an [issue][46] to report the problem, ensuring to
     include the Packer version you were using when you encountered the problem.
 
 3.  Begin the build. This requires at least two variables,
