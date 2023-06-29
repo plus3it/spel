@@ -436,7 +436,7 @@ VM-templates, etc.), respectively.  Due to the closely-coupled nature of the
 two projects, it's recommended that any changes made to AMIgen7 or AMIgen8 be
 tested with spel prior to merging changes to either project's master branch.
 
-To facilitate this testing, the runtime-variables:
+To facilitate this testing, the following runtime-variables were added to spel:
 
 - `amigen7_source_branch`
 - `amigen7_source_url`
