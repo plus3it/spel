@@ -408,6 +408,8 @@ variable "amigen7_extra_rpms" {
   default = [
     "python36",
     "spel-release",
+    "spel-dod-certs",
+    "spel-wcf-certs",
     "ec2-hibinit-agent",
     "ec2-net-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
@@ -485,6 +487,8 @@ variable "amigen8_extra_rpms" {
     "python39-setuptools",
     "crypto-policies-scripts",
     "spel-release",
+    "spel-dod-certs",
+    "spel-wcf-certs",
     "ec2-hibinit-agent",
     "ec2-net-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
