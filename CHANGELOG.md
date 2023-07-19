@@ -1,5 +1,21 @@
 ## Changelog
 
+### [2023.07.1](https://github.com/plus3it/spel/releases/tag/2023.07.1)
+
+**Released**: 2023.07.19
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.07.1/manifests>
+
+**Summary**:
+
+*   Installs packages `spel-dod-certs` and `spel-wcf-certs` by default
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.13.1
+    - amazon-ssm-agent-3.2.1297.0-1
+    - spel-dod-certs-5.11-1
+    - spel-wcf-certs-5.14-1
+
 ### [2023.06.1](https://github.com/plus3it/spel/releases/tag/2023.06.1)
 
 **Released**: 2023.06.20

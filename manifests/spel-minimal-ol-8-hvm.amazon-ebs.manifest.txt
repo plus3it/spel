@@ -1,9 +1,9 @@
 Oracle Linux Server 8.8
-aws-cli/2.12.1 Python/3.11.3 Linux/5.15.0-3.60.5.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
+aws-cli/2.13.1 Python/3.11.4 Linux/5.15.0-101.103.2.1.el8uek.x86_64 exe/x86_64.oracle.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.2.1041.0-1.x86_64
+amazon-ssm-agent-3.2.1297.0-1.x86_64
 audit-3.0.7-4.el8.x86_64
 audit-libs-3.0.7-4.el8.x86_64
 authselect-1.2.6-1.el8.x86_64
@@ -138,7 +138,7 @@ keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.0.2.el8.x86_64
 kmod-libs-25-19.0.2.el8.x86_64
 kpartx-0.8.4-37.el8.x86_64
-krb5-libs-1.18.2-22.0.1.el8_7.x86_64
+krb5-libs-1.18.2-25.0.1.el8_8.x86_64
 less-530-1.el8.x86_64
 libacl-2.2.53-1.el8.x86_64
 libaio-0.3.112-1.el8.x86_64
@@ -209,8 +209,8 @@ libsigsegv-2.11-5.el8.x86_64
 libsmartcols-2.32.1-42.el8_8.x86_64
 libsolv-0.7.20-4.el8_7.x86_64
 libss-1.45.6-5.el8.x86_64
-libssh-0.9.6-6.el8.x86_64
-libssh-config-0.9.6-6.el8.noarch
+libssh-0.9.6-10.el8_8.x86_64
+libssh-config-0.9.6-10.el8_8.noarch
 libsss_autofs-2.8.2-2.0.1.el8.x86_64
 libsss_certmap-2.8.2-2.0.1.el8.x86_64
 libsss_idmap-2.8.2-2.0.1.el8.x86_64
@@ -300,8 +300,8 @@ prefixdevname-0.1.0-6.el8.x86_64
 procps-ng-3.3.15-13.0.1.el8.x86_64
 psmisc-23.1-5.el8.x86_64
 publicsuffix-list-dafsa-20180723-1.el8.noarch
-python2-2.7.18-12.0.1.module+el8.8.0+20989+692249f4.x86_64
-python2-libs-2.7.18-12.0.1.module+el8.8.0+20989+692249f4.x86_64
+python2-2.7.18-13.0.1.module+el8.8.0+21096+ceeb3972.1.x86_64
+python2-libs-2.7.18-13.0.1.module+el8.8.0+21096+ceeb3972.1.x86_64
 python2-pip-9.0.3-19.module+el8.6.0+20550+a85dc526.noarch
 python2-pip-wheel-9.0.3-19.module+el8.6.0+20550+a85dc526.noarch
 python2-setuptools-39.0.1-13.module+el8.4.0+20050+79c7b4ee.noarch
@@ -388,18 +388,20 @@ shadow-utils-4.6-17.el8.x86_64
 shared-mime-info-1.9-3.el8.x86_64
 slang-2.3.2-3.el8.x86_64
 snappy-1.1.8-3.el8.x86_64
+spel-dod-certs-5.11-1.el8.noarch
 spel-release-8-3.noarch
-sqlite-libs-3.26.0-17.el8_7.x86_64
+spel-wcf-certs-5.14-1.el8.noarch
+sqlite-libs-3.26.0-18.0.1.el8_8.x86_64
 squashfs-tools-4.3-20.el8.x86_64
 sssd-client-2.8.2-2.0.1.el8.x86_64
 sssd-common-2.8.2-2.0.1.el8.x86_64
 sssd-kcm-2.8.2-2.0.1.el8.x86_64
 sssd-nfs-idmap-2.8.2-2.0.1.el8.x86_64
 sudo-1.8.29-10.el8.x86_64
-systemd-239-74.0.1.el8_8.x86_64
-systemd-libs-239-74.0.1.el8_8.x86_64
-systemd-pam-239-74.0.1.el8_8.x86_64
-systemd-udev-239-74.0.1.el8_8.x86_64
+systemd-239-74.0.3.el8_8.x86_64
+systemd-libs-239-74.0.3.el8_8.x86_64
+systemd-pam-239-74.0.3.el8_8.x86_64
+systemd-udev-239-74.0.3.el8_8.x86_64
 tar-1.30-9.el8.x86_64
 teamd-1.31-4.el8.x86_64
 timedatex-0.5-3.el8.x86_64
