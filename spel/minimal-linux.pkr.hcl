@@ -69,7 +69,7 @@ variable "aws_source_ami_filter_centos7_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS 7.* x86_64,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
+    name = "CentOS Linux 7 x86_64 *,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
