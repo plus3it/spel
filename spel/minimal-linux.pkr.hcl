@@ -74,6 +74,8 @@ variable "aws_source_ami_filter_centos7_hvm" {
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
       "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
   }
 }
@@ -90,6 +92,8 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
       "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
   }
 }
@@ -105,6 +109,7 @@ variable "aws_source_ami_filter_ol8_hvm" {
     owners = [
       "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
       "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
   }
 }
