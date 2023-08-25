@@ -6,7 +6,7 @@ env:
     PACKER_NO_COLOR: 1
   parameter-store:
     VAGRANT_CLOUD_TOKEN: /spel/vagrantcloud/token
-  git-credential-helper: yes
+  git-credential-helper: true
 
 phases:
   install:
