@@ -1,9 +1,9 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.13.1 Python/3.11.4 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.13.12 Python/3.11.4 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.1297.0-1.x86_64
+amazon-ssm-agent-3.2.1377.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -201,7 +201,7 @@ m2crypto-0.21.1-17.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.15.el7_9.x86_64
+microcode_ctl-2.1-73.16.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -226,9 +226,9 @@ ntp-4.2.6p5-29.el7_8.2.x86_64
 ntpdate-4.2.6p5-29.el7_8.2.x86_64
 numactl-libs-2.0.12-5.el7.x86_64
 openldap-2.4.44-25.el7_9.x86_64
-openssh-7.4p1-22.el7_9.x86_64
-openssh-clients-7.4p1-22.el7_9.x86_64
-openssh-server-7.4p1-22.el7_9.x86_64
+openssh-7.4p1-23.el7_9.x86_64
+openssh-clients-7.4p1-23.el7_9.x86_64
+openssh-server-7.4p1-23.el7_9.x86_64
 openssl-1.0.2k-26.el7_9.x86_64
 openssl-libs-1.0.2k-26.el7_9.x86_64
 os-prober-1.58-9.el7.x86_64
@@ -299,7 +299,7 @@ python-setuptools-0.9.8-7.el7.noarch
 python-six-1.9.0-2.el7.noarch
 python-slip-0.4.0-4.el7.noarch
 python-slip-dbus-0.4.0-4.el7.noarch
-python-syspurpose-1.24.52-1.el7_9.x86_64
+python-syspurpose-1.24.52-2.el7_9.x86_64
 python-urlgrabber-3.10-10.el7.noarch
 python-urllib3-1.10.2-7.el7.noarch
 pyxattr-0.5.1-5.el7.x86_64
@@ -309,10 +309,10 @@ rdma-core-22.4-6.el7_9.x86_64
 readline-6.2-11.el7.x86_64
 Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-eula-7.8-0.el7.noarch
-redhat-release-server-7.9-6.el7_9.x86_64
+redhat-release-server-7.9-8.el7_9.x86_64
 redhat-support-lib-python-0.13.0-0.el7_9.noarch
 redhat-support-tool-0.13.0-0.el7_9.noarch
-rh-amazon-rhui-client-4.0.9-1.el7.noarch
+rh-amazon-rhui-client-4.0.10-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -336,13 +336,13 @@ shadow-utils-4.6-5.el7.x86_64
 shared-mime-info-1.8-5.el7.x86_64
 slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
-spel-dod-certs-5.11-1.el7.noarch
+spel-dod-certs-5.12-1.el7.noarch
 spel-release-7-3.noarch
 spel-wcf-certs-5.14-1.el7.noarch
 sqlite-3.7.17-8.el7_7.1.x86_64
-subscription-manager-1.24.52-1.el7_9.x86_64
-subscription-manager-rhsm-1.24.52-1.el7_9.x86_64
-subscription-manager-rhsm-certificates-1.24.52-1.el7_9.x86_64
+subscription-manager-1.24.52-2.el7_9.x86_64
+subscription-manager-rhsm-1.24.52-2.el7_9.x86_64
+subscription-manager-rhsm-certificates-1.24.52-2.el7_9.x86_64
 sudo-1.8.23-10.el7_9.3.x86_64
 systemd-219-78.el7_9.7.x86_64
 systemd-libs-219-78.el7_9.7.x86_64
