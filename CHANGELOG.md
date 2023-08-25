@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2023.08.1](https://github.com/plus3it/spel/releases/tag/2023.08.1)
+
+**Released**: 2023.08.24
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.08.1/manifests>
+
+**Summary**:
+
+*   Updates overlay to add an additional 1G to root volume
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.13.12
+    - amazon-ssm-agent-3.2.1377.0-1
+    - spel-dod-certs-5.12-1
+
 ### [2023.07.1](https://github.com/plus3it/spel/releases/tag/2023.07.1)
 
 **Released**: 2023.07.19
