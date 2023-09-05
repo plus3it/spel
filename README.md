@@ -51,6 +51,12 @@ recent AMI of each build will be at the top when viewed in the AWS Console.
 RPM Manifests for published images are available in the [manifests](manifests)
 directory.
 
+**Please note:** the RPM-manifests published to this directory are generated
+for the AWS (CONUS) commercial regions. Due to potential deltas between the
+repositories used for the commercial and govcloud regions, there _may_ also
+exist deltas between what is found in the manifests in this project and the
+version-numbers found in the GovCloud region AMIs.
+
 | AWS Region    | Builder Name / Link                     |
 |---------------|-----------------------------------------|
 | us-east-1     | [spel-minimal-rhel-7-hvm][1000]         |
