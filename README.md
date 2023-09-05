@@ -53,7 +53,7 @@ directory.
 
 **Please note:** the RPM-manifests published to this directory are generated
 for the AWS (CONUS) commercial regions. Due to potential deltas between the
-repositositories used for the commercial and govcloud regions, there _may_ also
+repositories used for the commercial and govcloud regions, there _may_ also
 exist deltas between what is found in the manifests in this project and the
 version-numbers found in the GovCloud region AMIs.
 
