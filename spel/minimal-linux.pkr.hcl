@@ -727,6 +727,7 @@ locals {
   amigen7_repo_sources   = join(",", var.amigen7_repo_sources)
   amigen7_storage_layout = join(",", var.amigen7_storage_layout)
   amigen8_extra_rpms     = join(",", var.amigen8_extra_rpms)
+  amigen8_package_groups = join(" ", var.amigen8_package_groups) # space-delimited
   amigen8_repo_names     = join(",", var.amigen8_repo_names)
   amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
   amigen8_storage_layout = join(",", var.amigen8_storage_layout)
@@ -969,6 +970,7 @@ build {
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}",
+      "SPEL_AMIGENPKGGRP=${local.amigen8_package_groups}",
       "SPEL_AMIGENREPOS=${local.amigen8_repo_names}",
       "SPEL_AMIGENREPOSRC=${local.amigen8_repo_sources}",
       "SPEL_AMIGENROOTNM=${var.amigen8_filesystem_label}",
@@ -1036,6 +1038,7 @@ build {
       "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
       "SPEL_AMIGENBUILDDEV=/dev/sda",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENPKGGRP=${local.amigen8_package_groups}",
       "SPEL_AMIGENREPOS=${local.amigen8_repo_names}",
       "SPEL_AMIGENREPOSRC=${local.amigen8_repo_sources}",
       "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
