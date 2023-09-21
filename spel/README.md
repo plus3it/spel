@@ -77,6 +77,7 @@ No resources.
 | <a name="input_openstack_networks"></a> [openstack\_networks](#input\_openstack\_networks) | List of networks by UUID to attach to this instance | `list(string)` | `[]` | no |
 | <a name="input_openstack_security_groups"></a> [openstack\_security\_groups](#input\_openstack\_security\_groups) | List of security groups by name to add to this instance | `list(string)` | `[]` | no |
 | <a name="input_openstack_source_image_name"></a> [openstack\_source\_image\_name](#input\_openstack\_source\_image\_name) | Name of the base image to use | `string` | `null` | no |
+| <a name="input_spel_deprecation_lifetime"></a> [spel\_deprecation\_lifetime](#input\_spel\_deprecation\_lifetime) | Duration after which image will be marked deprecated. If null, image will not be marked deprecated. The accepted units are: ns, us (or µs), ms, s, m, and h. For example, one day is 24h, and one year is 8760h. | `string` | `null` | no |
 | <a name="input_spel_description_url"></a> [spel\_description\_url](#input\_spel\_description\_url) | URL included in the AMI description | `string` | `"https://github.com/plus3it/spel"` | no |
 | <a name="input_spel_http_proxy"></a> [spel\_http\_proxy](#input\_spel\_http\_proxy) | Used as the value for the git config http.proxy setting in the builder nodes | `string` | `""` | no |
 | <a name="input_spel_root_volume_size"></a> [spel\_root\_volume\_size](#input\_spel\_root\_volume\_size) | Size in GB of the root volume | `number` | `20` | no |

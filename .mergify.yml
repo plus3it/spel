@@ -28,9 +28,9 @@ pull_request_rules:
       - author~=dependabot\[bot\]|dependabot-preview\[bot\]
       - "#approved-reviews-by>=1"
       # Must pass codebuild jobs before merge
-      - status-success=codebuild/spel-ci/pr
-      - status-success=codebuild/spel-govcloud-ci/pr
-      - status-success=codebuild/spel-vagrant-ci/pr
+      - status-success=codebuild/p3-spel-ci/pr
+      - status-success=codebuild/p3-spel-govcloud-ci/pr
+      - status-success=codebuild/p3-spel-vagrant-ci/pr
     actions:
       merge:
         method: merge
