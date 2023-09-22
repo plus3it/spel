@@ -578,6 +578,12 @@ variable "azure_custom_managed_image_resource_group_name_rhel8" {
 # Variables specific to spel
 ###
 
+variable "spel_deprecation_lifetime" {
+  description = "Duration after which image will be marked deprecated. If null, image will not be marked deprecated. The accepted units are: ns, us (or µs), ms, s, m, and h. For example, one day is 24h, and one year is 8760h."
+  type        = string
+  default     = null
+}
+
 variable "spel_description_url" {
   description = "URL included in the AMI description"
   type        = string
@@ -625,6 +631,7 @@ source "amazon-ebs" "base" {
   ami_users                   = var.aws_ami_users
   associate_public_ip_address = true
   communicator                = "ssh"
+  deprecate_at                = local.aws_ami_deprecate_at
   ena_support                 = true
   force_deregister            = var.aws_force_deregister
   instance_type               = var.aws_instance_type
@@ -733,7 +740,12 @@ locals {
   amigen8_storage_layout = join(",", var.amigen8_storage_layout)
 
   # Template the description string
-  description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" %s, with updates through ${formatdate("YYYY-MM-DD", timestamp())}. Default username `maintuser`. See ${var.spel_description_url}."
+  description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" %s, with updates through ${formatdate("YYYY-MM-DD", local.timestamp)}. Default username `maintuser`. See ${var.spel_description_url}."
+
+  # Calculate AWS AMI deprecate_at timestamp
+  aws_ami_deprecate_at = var.spel_deprecation_lifetime != null ? timeadd(local.timestamp, var.spel_deprecation_lifetime) : null
+
+  timestamp = timestamp()
 }
 
 ###
