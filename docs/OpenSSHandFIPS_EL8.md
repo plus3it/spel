@@ -44,4 +44,3 @@ In the `/var/log/secure` logs.
 [^2]: 4096 or even 8192-bits preferred for future-proofing)
 [^3]: This works for both the Linux OpenSSH and PowerShell OpenSSH tooling)
 [^4]: Other regions _may_ work, but have not been tested
-* 
