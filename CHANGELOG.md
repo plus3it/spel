@@ -1,5 +1,23 @@
 ## Changelog
 
+### [2023.09.1](https://github.com/plus3it/spel/releases/tag/2023.09.1)
+
+**Released**: 2023.09.25
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.09.1/manifests>
+
+**Summary**:
+
+*   Ensure AMIGENPKGGRP gets propagated to build-script
+
+*   Adds option to specify a deprecation lifetime for builders that support it
+
+*   Deprecation lifetime for "official" images set to 1 year
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.13.20
+    - amazon-ssm-agent-3.2.1542.0-1
+
 ### [2023.08.1](https://github.com/plus3it/spel/releases/tag/2023.08.1)
 
 **Released**: 2023.08.24

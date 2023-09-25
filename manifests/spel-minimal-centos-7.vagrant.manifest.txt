@@ -179,7 +179,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.15.el7_9.x86_64
+microcode_ctl-2.1-73.16.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
