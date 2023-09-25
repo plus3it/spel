@@ -18,7 +18,7 @@ A: Currently, three EL8 distros are explicitly supported
 - CentOSS 8 _Stream_
 - Oracle Linux (OL) 8
 
-The spel AMIs have a couple of design-dependencies: 
+The spel AMIs have a couple of design-dependencies:
 
 - Our primary development-platform is CentOS, not RHEL. Automation is written for CentOS, first. It is then ported and verified to work on RHEL. Finally (with the EL8+ release), it is ported and verified to work on OL.
 - We try to make the Red Hat, CentOS and Oracle Linux images we publish as close to identical as their respective package repositories allow them to be. Until we have both the Red Hat _and_ CentOS.Org (and, now, Oracle Linux) flavors of a given release available, we don't update or extend our automation
@@ -108,14 +108,14 @@ with its use.
 
 ### Q. My application won't work under FIPS: now what?
 
-A. If you're using EL6 images, this is a non-problem. If you're using EL7,
-things are a bit more challenging. Our images are FIPS-enabled because the
-STIGs say they need to be. As such, our users ultimately need to figure out how
-to get their app to work under FIPS or get an exception from their security
-team (sorta like firewalld and SELinux - also baked in to the EL7 images).
-These images are meant as a 90% solution. If you're one of the unlucky 10%
-whose app won't work under FIPS in EL7, the best we can suggest is to let your
-provisioning framework handle the problem for you.
+A. If you're using EL7 or EL8 images, things can become a bit challenging if
+the application you wish to host on a spel image is not FIPS-compatible. Our
+images are FIPS-enabled because the STIGs say they need to be. As such, our
+users ultimately need to figure out how to get their app to work under FIPS or
+get an exception from their security team (sorta like firewalld and SELinux -
+also baked in to the EL7 images).  These images are meant as a 90% solution. If
+you're one of the unlucky 10% whose app won't work under FIPS in EL7, the best
+we can suggest is to let your provisioning framework handle the problem for you.
 
 ### Q. But I'm following your suggestion to use Watchmaker: can that help me with toggling FIPS mode?
 
@@ -132,6 +132,10 @@ A. Yes. The methods for doing so are dependent on EL version and deployment-cont
 Procedures for other deployment-contexts are not core to this project. Therefore, they have not been documented. Please feel free to experiment and [contribute](CONTRIBUTING.md)!
 
 It is generally expected that if users need to grow an _existing_ instance's root volume group that they reprovision and follow the above linked-to documents. If reprovisioning is not practical, the next best option is to add a secondary drive to the VM and expand the root volume group onto the secondary drive.
+
+### Q. My SSH keys don't work on the EL8 spel-images (but do on the EL7 spel-images)
+
+A. The version of OpenSSH server on EL8, combined with associated security-settings, is a bit pickier about SSH keys used for authentication (key-based logins). Previous EL versions only requred the use of RSAv2 keys of at least 2048-bits' length. The EL8 OpenSSH server adds the further requirement that authentication-keys' signatures be some variety of SHA2. See the [OpenSSH and FIPS on EL8](OpenSSHandFIPS_EL8.md) document for more information.
 
 
 ##### Footnotes:
