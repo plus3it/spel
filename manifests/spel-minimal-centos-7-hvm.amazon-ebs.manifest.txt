@@ -1,9 +1,9 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/2.13.12 Python/3.11.4 Linux/3.10.0-1160.95.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/2.13.20 Python/3.11.5 Linux/3.10.0-1160.95.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.1377.0-1.x86_64
+amazon-ssm-agent-3.2.1542.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -194,7 +194,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.15.el7_9.x86_64
+microcode_ctl-2.1-73.16.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
