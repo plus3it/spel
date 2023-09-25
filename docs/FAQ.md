@@ -4,23 +4,34 @@ A: The following OSes are supported via spel:
 
 - RHEL 7
 - CentOS 7
+- RHEL 8
+- CentOS 8-Stream
+- Oracle Linux 8
 
 Other ELx derivatives may work but have not been specifically tested.
 
 ### Q: Is RHEL or CentOS 8 Supported
 
-A: Currently, "no, it is not"
+A: Currently, three EL8 distros are explicitly supported
+
+- Red Hat Enterpise Linux (RHEL) 8
+- CentOSS 8 _Stream_
+- Oracle Linux (OL) 8
 
 The spel AMIs have a couple of design-dependencies: 
 
-- Our primary development-platform is CentOS, not RHEL. Automation is written for CentOS, first, then ported and verified to work on RHEL. 
-- We try to make the Red Hat and CentOS images we publish as close to identical as their respective package repositories allow them to be. Until we have both the Red Hat _and_ CentOS.Org flavors of a given release available, we don't update or extend our automation
+- Our primary development-platform is CentOS, not RHEL. Automation is written for CentOS, first. It is then ported and verified to work on RHEL. Finally (with the EL8+ release), it is ported and verified to work on OL.
+- We try to make the Red Hat, CentOS and Oracle Linux images we publish as close to identical as their respective package repositories allow them to be. Until we have both the Red Hat _and_ CentOS.Org (and, now, Oracle Linux) flavors of a given release available, we don't update or extend our automation
 - Because we try to provide a similar degree of AWS functionality to spel AMIs as is found in Amazon Linux AMIs, the spel AMIs require the ability to port the AWS utilities to RHEL and CentOS. Historically, the ability to so port has been contingent on EPEL-hosted packages.
 
-Resultant of the above, we will not attempt support for EL8 until CentOS.Org has published a "final" AMI and until Fedora has made ("final") EPEL 8 repositories available. As of today's date (2019-07-31) neither of these conditions is met. Status for both projects may be tracked at:
+Resultant of the above, we will not attempt support for EL8 until CentOS.Org has published a "final" AMI and until Fedora has made ("final") EPEL 8 repositories available. Status for both projects may be tracked at:
 
 - CentOS 8 [build-status](https://wiki.centos.org/About/Building_8)
 - EPEL 8 [support-status](https://fedoraproject.org/wiki/EPEL#What_packages_and_versions_are_available_in_EPEL.3F)
+
+Notes:
+1. EPEL dependency is AWS-only
+2. EPEL dependency may be removed in later ELx versions as baked-in packages' dependencies permit
 
 Note: Initial functionality for any given ELx build orchestrated by spel starts with an AMIgen project. Functionality for EL8 will be trackable within the [AMIgen8 project](/plus3it/AMIgen8).
 
@@ -51,8 +62,6 @@ A. As of the writing of this FAQ answer:
     -   VirtualBox image in [Vagrant Cloud](https://vagrantcloud.com/)
     -   VMware image in Vagrant Cloud<sup>1</sup>
 -   Proliferations for each of the above repositories exist for
-    -   Red Hat 6
-    -   CentOS 6
     -   Red Hat 7<sup>2</sup>
     -   CentOS 7<sup>2</sup>
 -   Images are produced monthly. This means maintaining 28 images per month for
@@ -117,10 +126,10 @@ for guidance.
 
 A. Yes. The methods for doing so are dependent on EL version and deployment-contexts. As of this writing, we have documented how to deploy a VM using a root device that is larger than the templated default:
 
-* [spel for EL6 on AWS](LargerThanDefaultRootEBS_EL6.md)
 * [spel for EL7 on AWS](LargerThanDefaultRootEBS_EL7.md)
+* spel for EL8 on AWS: see the previously-linked EL7 document &ndash; the methods are the same
 
-Procedures for other deployment-contexts have not been tested. Please feel free to experiment and [contribute](CONTRIBUTING.md)!
+Procedures for other deployment-contexts are not core to this project. Therefore, they have not been documented. Please feel free to experiment and [contribute](CONTRIBUTING.md)!
 
 It is generally expected that if users need to grow an _existing_ instance's root volume group that they reprovision and follow the above linked-to documents. If reprovisioning is not practical, the next best option is to add a secondary drive to the VM and expand the root volume group onto the secondary drive.
 
