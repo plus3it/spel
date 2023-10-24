@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2023.10.1](https://github.com/plus3it/spel/releases/tag/2023.10.1)
+
+**Released**: 2023.10.24
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.10.1/manifests>
+
+**Summary**:
+
+*   Updates README to indicate EL8 distros are explicitly supported
+
+*   Documents compatitbility requirements between EL8, OpenSSH, and FIPS
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.13.28
+    - amazon-ssm-agent-3.2.1705.0-1
+    - ec2-hibinit-agent-1.0.2-5
+
 ### [2023.09.1](https://github.com/plus3it/spel/releases/tag/2023.09.1)
 
 **Released**: 2023.09.25
