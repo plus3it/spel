@@ -11,6 +11,11 @@ then
     export EXCEPT_STEP
 fi
 
+if [[ -z "${PACKER_VERSION:-}" ]]
+then
+    unset PACKER_VERSION
+fi
+
 # update PATH
 export PATH="${HOME}/bin:${PATH}"
 

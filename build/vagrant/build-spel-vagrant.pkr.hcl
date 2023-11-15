@@ -8,6 +8,11 @@ variable "aws_temporary_security_group_source_cidrs" {
   default = ["0.0.0.0/0"]
 }
 
+variable "packer_version" {
+  type    = string
+  default = ""
+}
+
 variable "spel_ci" {
   type    = bool
   default = false
@@ -82,6 +87,7 @@ build {
   provisioner "shell" {
     environment_vars = [
       "PACKER_NO_COLOR=1",
+      "PACKER_VERSION=${var.packer_version}",
       "SPEL_CI=${var.spel_ci}",
       "SPEL_IDENTIFIER=${var.spel_identifier}",
       "SPEL_REPO_COMMIT=${var.spel_repo_commit}",
