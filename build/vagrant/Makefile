@@ -46,6 +46,7 @@ build:
 		-var spel_repo_url=$(CODEBUILD_SOURCE_REPO_URL) \
 		-var spel_repo_commit=$(CODEBUILD_SOURCE_VERSION) \
 		-var spel_version=$(SPEL_VERSION) \
+		-var packer_version=$(PACKER_VERSION) \
 		build-spel-vagrant.pkr.hcl
 	@if [[ "$(SPEL_CI)" = "true" ]]; then \
 		echo "Moving "$(PACKER_LOG_DIR)" to .spel/ci" ;\
