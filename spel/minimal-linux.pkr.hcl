@@ -99,6 +99,24 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
   }
 }
 
+variable "aws_source_ami_filter_centos9stream_hvm" {
+  description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "CentOS Stream 9 x86_64 *,spel-bootstrap-centos-9stream-hvm-*.x86_64-gp2"
+    owners = [
+      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
+      "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
 variable "aws_source_ami_filter_ol8_hvm" {
   description = "Object with source AMI filters for Oracle Linux 8 HVM builds"
   type = object({
@@ -154,8 +172,8 @@ variable "aws_source_ami_filter_rhel9_hvm" {
   default = {
     name = "RHEL-9.*_HVM-*-x86_64-*-Hourly*-GP2"
     owners = [
-      "309956199499", # Red Hat Commercial, https://access.redhat.com/solutions/15356
-      "219670996067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
+      "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
+      "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
     ]
   }
 }
