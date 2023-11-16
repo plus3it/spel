@@ -175,7 +175,7 @@ function BuildChroot {
     local STATUS_MSG
 
     # Invoke disk-partitioner
-    bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
+    bash -x "${ELBUILD}"/$( ComposeDiskSetupString ) || \
         err_exit "Failure encountered with DiskSetup.sh"
 
     # Invoke chroot-env disk-mounter
