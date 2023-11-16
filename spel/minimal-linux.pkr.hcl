@@ -903,6 +903,20 @@ build {
   }
 
   source "amazon-ebs.base" {
+    ami_description = format(local.description, "CentOS Stream 9 AMI")
+    name            = "minimal-centos-9stream-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_centos9stream_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_centos9stream_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebs.base" {
     ami_description = format(local.description, "Oracle Linux 8 AMI")
     name            = "minimal-ol-8-hvm"
     source_ami_filter {
@@ -940,6 +954,20 @@ build {
         root-device-type    = "ebs"
       }
       owners      = var.aws_source_ami_filter_rhel8_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebs.base" {
+    ami_description = format(local.description, "RHEL 9 AMI")
+    name            = "minimal-rhel-9-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_rhel9_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_rhel9_hvm.owners
       most_recent = true
     }
   }
