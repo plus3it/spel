@@ -11,6 +11,7 @@
 #   * amigen - used by both amigen7 and amigen8
 #   * amigen7 - amigen7 only
 #   * amigen8 - amigen8 only
+#   * amigen9 - amigen9 only
 #   * spel - everything else
 #
 # For variables passed to a builder argument, just apply prefix to the argument
@@ -140,6 +141,21 @@ variable "aws_source_ami_filter_rhel8_hvm" {
     owners = [
       "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
       "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
+    ]
+  }
+}
+
+variable "aws_source_ami_filter_rhel9_hvm" {
+  description = "Object with source AMI filters for RHEL 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "RHEL-9.*_HVM-*-x86_64-*-Hourly*-GP2"
+    owners = [
+      "309956199499", # Red Hat Commercial, https://access.redhat.com/solutions/15356
+      "219670996067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
     ]
   }
 }
