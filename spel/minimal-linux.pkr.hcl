@@ -604,11 +604,6 @@ variable "amigen9_extra_rpms" {
     "python3.11-pip",
     "python3.11-setuptools",
     "crypto-policies-scripts",
-    "spel-release",
-    "spel-dod-certs",
-    "spel-wcf-certs",
-    "ec2-hibinit-agent",
-    "ec2-net-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
   ]
 }
@@ -634,15 +629,14 @@ variable "amigen9_package_manifest" {
 variable "amigen9_repo_names" {
   description = "List of yum repo names to enable in the EL9 builders and EL9 images"
   type        = list(string)
-  default     = ["spel"]
+  default     = [
+  ]
 }
 
 variable "amigen9_repo_sources" {
   description = "List of yum package refs (names or urls to .rpm files) that install yum repo definitions in EL9 builders and images"
   type        = list(string)
   default = [
-    "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm",
-    "https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-9.noarch.rpm",
   ]
 }
 
