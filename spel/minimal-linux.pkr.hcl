@@ -1184,7 +1184,6 @@ build {
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
       "amazon-ebs.minimal-centos-9stream-hvm",
-      "amazon-ebs.minimal-ol-9-hvm",
       "amazon-ebs.minimal-rhel-9-hvm",
     ]
     scripts = [
