@@ -643,7 +643,7 @@ variable "amigen9_repo_sources" {
 variable "amigen9_source_branch" {
   description = "Branch that will be checked out when cloning AMIgen9"
   type        = string
-  default     = "master"
+  default     = "main"
 }
 
 variable "amigen9_source_url" {
@@ -1155,7 +1155,8 @@ build {
       "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
       "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
-      "SPEL_AMIGENBOOTSIZE=17m",
+      "SPEL_AMIGENBOOTSIZE=512",
+      "SPEL_AMIGENUEFISIZE=128",
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen9_package_manifest}",

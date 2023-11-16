@@ -7,7 +7,7 @@
 ##############################################################################
 PROGNAME="$(basename "$0")"
 AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
-AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
+AMIGENBRANCH="${SPEL_AMIGENBRANCH:-main}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
@@ -17,10 +17,11 @@ AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENREPOS="${SPEL_AMIGENREPOS}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
 AMIGENROOTNM="${SPEL_AMIGENROOTNM}"
-AMIGENSOURCE="${SPEL_AMIGEN8SOURCE:-https://github.com/plus3it/AMIgen8.git}"
+AMIGENSOURCE="${SPEL_AMIGEN9SOURCE:-https://github.com/plus3it/AMIgen9.git}"
 AMIGENSSMAGENT="${SPEL_AMIGENSSMAGENT}"
 AMIGENSTORLAY="${SPEL_AMIGENSTORLAY}"
 AMIGENTIMEZONE="${SPEL_TIMEZONE:-UTC}"
+AMIGENUEFISIZE="${SPEL_AMIGENUEFISIZE}"
 AMIGENVGNAME="${SPEL_AMIGENVGNAME}"
 AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE}"
@@ -376,13 +377,22 @@ function ComposeDiskSetupString {
 
     DISKSETUPCMD="DiskSetup.sh "
 
-    # Set the offset for the OS partition
+    # Set size of the /boot partition
     if [[ -z ${AMIGENBOOTSIZE:-} ]]
     then
-        err_exit "Using minimal offset [17m] for root volumes" NONE
-        DISKSETUPCMD+="-B 17m "
+        err_exit "Using minimal offset [512m] for /boot partition" NONE
+        DISKSETUPCMD+="-B 512 "
     else
         DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
+    fi
+
+    # Set size of the /boot/efi partition
+    if [[ -z ${AMIGENUEFISIZE:-} ]]
+    then
+        err_exit "Using minimal offset [96m] for /boot/efi partition" NONE
+        DISKSETUPCMD+="-U 96 "
+    else
+        DISKSETUPCMD+="-U ${AMIGENUEFISIZE} "
     fi
 
     # Set the filesystem-type to use for OS filesystems
@@ -476,7 +486,7 @@ function ComposeOSpkgString {
     fi
 
     # Customization for Oracle Linux
-    if [[ $BUILDER == "ol-8" ]]
+    if [[ $BUILDER == "ol-9" ]]
     then
         # Exclude Unbreakable Enterprise Kernel
         OSPACKAGESTRING+="-x kernel-uek,redhat*,*rhn*,*spacewalk*,*ulninfo* "
