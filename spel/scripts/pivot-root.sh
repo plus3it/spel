@@ -53,7 +53,8 @@ MOUNTS=$(
 echo "$MOUNTS" | while IFS= read -r MOUNT
 do
     echo "Attempting to dismount ${MOUNT}... "
-    umount "$MOUNT" || true
+    umount "$MOUNT" || \
+      echo "Dismount failed for ${MOUNT}"
 done
 
 # Restart sshd to relink it to /tmp/tmproot
