@@ -1062,6 +1062,9 @@ build {
       "systemctl daemon-reexec",
       "echo Killing processes locking /oldroot",
       "fuser -vmk /oldroot",
+      "sleep 15",
+      "echo Ensuring no processes locking /oldroot",
+      "fuser -vm /oldroot",
     ]
   }
 
