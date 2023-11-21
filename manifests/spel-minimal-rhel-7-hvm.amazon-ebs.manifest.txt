@@ -1,9 +1,9 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.13.28 Python/3.11.6 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.13.37 Python/3.11.6 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.1705.0-1.x86_64
+amazon-ssm-agent-3.2.1798.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -55,7 +55,7 @@ dracut-network-033-572.el7.x86_64
 e2fsprogs-1.42.9-19.el7.x86_64
 e2fsprogs-libs-1.42.9-19.el7.x86_64
 ebtables-2.0.10-16.el7.x86_64
-ec2-hibinit-agent-1.0.2-5.el7.noarch
+ec2-hibinit-agent-1.0.2-7.el7.noarch
 ec2-net-utils-1.7.3-1.el7.noarch
 elfutils-default-yama-scope-0.176-5.el7.noarch
 elfutils-libelf-0.176-5.el7.x86_64
@@ -201,7 +201,7 @@ m2crypto-0.21.1-17.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.19.el7_9.x86_64
+microcode_ctl-2.1-73.20.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -257,10 +257,10 @@ pygpgme-0.3-9.el7.x86_64
 pyliblzma-0.5.3-11.el7.x86_64
 pyOpenSSL-0.13.1-4.el7.x86_64
 pyserial-2.6-6.el7.noarch
-python-2.7.5-93.el7_9.x86_64
+python-2.7.5-94.el7_9.x86_64
 python2-futures-3.1.1-5.el7.noarch
-python3-3.6.8-19.el7_9.x86_64
-python3-libs-3.6.8-19.el7_9.x86_64
+python3-3.6.8-21.el7_9.x86_64
+python3-libs-3.6.8-21.el7_9.x86_64
 python3-pip-9.0.3-8.el7.noarch
 python3-setuptools-39.2.0-10.el7.noarch
 python-babel-0.9.6-8.el7.noarch
@@ -285,7 +285,7 @@ python-jinja2-2.7.2-4.el7.noarch
 python-jsonpatch-1.2-4.el7.noarch
 python-jsonpointer-1.9-2.el7.noarch
 python-kitchen-1.1.1-5.el7.noarch
-python-libs-2.7.5-93.el7_9.x86_64
+python-libs-2.7.5-94.el7_9.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
@@ -313,7 +313,7 @@ redhat-release-eula-7.8-0.el7.noarch
 redhat-release-server-7.9-8.el7_9.x86_64
 redhat-support-lib-python-0.13.0-0.el7_9.noarch
 redhat-support-tool-0.13.0-0.el7_9.noarch
-rh-amazon-rhui-client-4.0.11-1.el7.noarch
+rh-amazon-rhui-client-4.0.12-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
@@ -338,7 +338,7 @@ shared-mime-info-1.8-5.el7.x86_64
 slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 spel-dod-certs-5.12-1.el7.noarch
-spel-release-7-3.noarch
+spel-release-7-4.noarch
 spel-wcf-certs-5.14-1.el7.noarch
 sqlite-3.7.17-8.el7_7.1.x86_64
 subscription-manager-1.24.53-1.el7_9.x86_64
