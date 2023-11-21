@@ -1,5 +1,21 @@
 ## Changelog
 
+### [2023.11.1](https://github.com/plus3it/spel/releases/tag/2023.11.1)
+
+**Released**: 2023.11.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.11.1/manifests>
+
+**Summary**:
+
+*   Minor release update to RedHat 8.9 and Oracle Linux 8.9
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.13.37
+    - amazon-ssm-agent-3.2.1798.0-1
+    - ec2-hibinit-agent-1.0.2-7
+    - spel-release-8-4
+
 ### [2023.10.1](https://github.com/plus3it/spel/releases/tag/2023.10.1)
 
 **Released**: 2023.10.24

@@ -227,9 +227,9 @@ procps-ng-3.3.10-28.el7.x86_64
 pth-2.0.7-23.el7.x86_64
 pygpgme-0.3-9.el7.x86_64
 pyliblzma-0.5.3-11.el7.x86_64
-python-2.7.5-93.el7_9.x86_64
-python3-3.6.8-19.el7_9.x86_64
-python3-libs-3.6.8-19.el7_9.x86_64
+python-2.7.5-94.el7_9.x86_64
+python3-3.6.8-21.el7_9.x86_64
+python3-libs-3.6.8-21.el7_9.x86_64
 python3-pip-9.0.3-8.el7.noarch
 python3-setuptools-39.2.0-10.el7.noarch
 python-chardet-2.2.1-3.el7.noarch
@@ -238,7 +238,7 @@ python-firewall-0.6.3-13.el7_9.noarch
 python-gobject-base-3.22.0-1.el7_4.1.x86_64
 python-iniparse-0.4-9.el7.noarch
 python-kitchen-1.1.1-5.el7.noarch
-python-libs-2.7.5-93.el7_9.x86_64
+python-libs-2.7.5-94.el7_9.x86_64
 python-pycurl-7.19.0-19.el7.x86_64
 python-slip-0.4.0-4.el7.noarch
 python-slip-dbus-0.4.0-4.el7.noarch
