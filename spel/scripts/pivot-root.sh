@@ -20,7 +20,7 @@ do
   if  [[ -d ${BOOT_DIR} ]] &&
       [[ $( mountpoint "${BOOT_DIR}" ) == "${BOOT_DIR} is a mountpoint" ]]
   then
-    fuser -vmk "${BOOT_DIR}"
+    fuser -vmk "${BOOT_DIR}" || true
     umount "${BOOT_DIR}"
   fi
 done
