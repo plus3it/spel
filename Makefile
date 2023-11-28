@@ -6,6 +6,7 @@ PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.log
 CHECKPOINT_DISABLE ?= '1'
 SPEL_CI ?= false
 SPEL_BUILDERS ?= amazon-ebs.minimal-rhel-7-hvm,amazon-ebs.minimal-centos-7-hvm,amazon-ebs.minimal-rhel-8-hvm,amazon-ebs.minimal-centos-8stream-hvm,amazon-ebs.minimal-ol-8-hvm
+BUILDER_REGION = $(or $(PKR_VAR_aws_region),$(AWS_REGION))
 export PATH := $(HOME)/bin:$(PATH)
 
 export PKR_VAR_spel_deprecation_lifetime ?= 8760h
@@ -36,6 +37,11 @@ else
 $(shell mkdir -p ".spel/$(SPEL_VERSION)")
 endif
 
+ifeq ($(SPEL_CI),true)
+export PKR_VAR_aws_ami_groups = []
+export PKR_VAR_aws_ami_regions = ["$(BUILDER_REGION)"]
+endif
+
 all: build
 
 docs/lint:
@@ -53,8 +59,8 @@ install:
 # override this in codebuild. We cannot set these in the buildspec because that
 # breaks codebuild when building for GovCloud.
 pre_build build post_build: export AWS_PROFILE ?= $(SPEL_IDENTIFIER)
-pre_build build post_build: export AWS_DEFAULT_REGION := $(or $(PKR_VAR_aws_region),$(AWS_REGION))
-pre_build build post_build: export AWS_REGION := $(or $(PKR_VAR_aws_region),$(AWS_REGION))
+pre_build build post_build: export AWS_DEFAULT_REGION := $(BUILDER_REGION)
+pre_build build post_build: export AWS_REGION := $(BUILDER_REGION)
 
 # Set the source security group cidr
 pre_build build post_build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://checkip.amazonaws.com)/32"]
