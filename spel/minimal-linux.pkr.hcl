@@ -87,7 +87,7 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-hvm-*.x86_64-gp2"
+    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-hvm-*.x86_64-gp*"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
@@ -105,7 +105,7 @@ variable "aws_source_ami_filter_ol8_hvm" {
     owners = list(string)
   })
   default = {
-    name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp2"
+    name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp*"
     owners = [
       "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
       "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
@@ -121,7 +121,7 @@ variable "aws_source_ami_filter_rhel7_hvm" {
     owners = list(string)
   })
   default = {
-    name = "RHEL-7.*_HVM-*-x86_64-*-Hourly*-GP2"
+    name = "RHEL-7.*_HVM-*-x86_64-*-Hourly*-GP*"
     owners = [
       "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
       "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
@@ -136,7 +136,7 @@ variable "aws_source_ami_filter_rhel8_hvm" {
     owners = list(string)
   })
   default = {
-    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP2"
+    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP*"
     owners = [
       "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
       "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
@@ -626,7 +626,7 @@ variable "spel_version" {
 
 source "amazon-ebs" "base" {
   ami_groups                  = var.aws_ami_groups
-  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
   associate_public_ip_address = true
@@ -639,7 +639,7 @@ source "amazon-ebs" "base" {
     delete_on_termination = true
     device_name           = "/dev/sda1"
     volume_size           = var.spel_root_volume_size
-    volume_type           = "gp2"
+    volume_type           = "gp3"
   }
   max_retries                           = 20
   region                                = var.aws_region

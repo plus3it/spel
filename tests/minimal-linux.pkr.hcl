@@ -69,8 +69,8 @@ variable "spel_version" {
 }
 
 source "amazon-ebs" "base" {
-  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
-  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp2"
+  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
+  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
   associate_public_ip_address = true
   communicator                = "ssh"
   ena_support                 = true
@@ -80,7 +80,7 @@ source "amazon-ebs" "base" {
     delete_on_termination = true
     device_name           = "/dev/sda1"
     volume_size           = 21
-    volume_type           = "gp2"
+    volume_type           = "gp3"
   }
   max_retries                           = 20
   region                                = var.aws_region
