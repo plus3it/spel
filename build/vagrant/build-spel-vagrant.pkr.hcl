@@ -51,7 +51,7 @@ variable "virtualbox_iso_url_centos7" {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name                    = "builder-${var.spel_identifier}-vagrant-${var.spel_version}.x86_64-gp2"
+  ami_name                    = "builder-${var.spel_identifier}-vagrant-${var.spel_version}.x86_64-gp3"
   associate_public_ip_address = true
   communicator                = "ssh"
   force_deregister            = true
@@ -60,7 +60,7 @@ source "amazon-ebs" "ubuntu" {
     delete_on_termination = true
     device_name           = "/dev/sda1"
     volume_size           = 16
-    volume_type           = "gp2"
+    volume_type           = "gp3"
   }
   max_retries            = 20
   skip_create_ami        = true

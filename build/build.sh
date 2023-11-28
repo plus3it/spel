@@ -18,7 +18,7 @@ SUCCESS_BUILDS=()
 
 for BUILDER in ${SPEL_BUILDERS//,/ }; do
     BUILD_NAME="${BUILDER//*./}"
-    AMI_NAME="${SPEL_IDENTIFIER}-${BUILD_NAME}-${SPEL_VERSION}.x86_64-gp2"
+    AMI_NAME="${SPEL_IDENTIFIER}-${BUILD_NAME}-${SPEL_VERSION}.x86_64-gp3"
     BUILDER_ENV="${BUILDER//[.-]/_}"
     BUILDER_AMI=$(aws ec2 describe-images --filters Name=name,Values="$AMI_NAME" --query 'Images[0].ImageId' --out text)
     if [[ "$BUILDER_AMI" == "None" ]]
