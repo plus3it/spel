@@ -11,6 +11,7 @@
 #   * amigen - used by both amigen7 and amigen8
 #   * amigen7 - amigen7 only
 #   * amigen8 - amigen8 only
+#   * amigen9 - amigen9 only
 #   * spel - everything else
 #
 # For variables passed to a builder argument, just apply prefix to the argument
@@ -98,6 +99,24 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
   }
 }
 
+variable "aws_source_ami_filter_centos9stream_hvm" {
+  description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "CentOS Stream 9 x86_64 *,spel-bootstrap-centos-9stream-hvm-*.x86_64-gp2"
+    owners = [
+      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "701759196663", # SPEL Commercial, https://github.com/plus3it/spel
+      "039368651566", # SPEL GovCloud, https://github.com/plus3it/spel
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
 variable "aws_source_ami_filter_ol8_hvm" {
   description = "Object with source AMI filters for Oracle Linux 8 HVM builds"
   type = object({
@@ -137,6 +156,21 @@ variable "aws_source_ami_filter_rhel8_hvm" {
   })
   default = {
     name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP*"
+    owners = [
+      "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
+      "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
+    ]
+  }
+}
+
+variable "aws_source_ami_filter_rhel9_hvm" {
+  description = "Object with source AMI filters for RHEL 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "RHEL-9.*_HVM-*-x86_64-*-Hourly*-GP*"
     owners = [
       "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
       "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
@@ -559,6 +593,82 @@ variable "amigen8_storage_layout" {
   ]
 }
 
+###
+# Variables used by AMIgen9
+###
+variable "amigen9_extra_rpms" {
+  description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL9 builders and images"
+  type        = list(string)
+  default = [
+    "python3.11",
+    "python3.11-pip",
+    "python3.11-setuptools",
+    "crypto-policies-scripts",
+    "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+  ]
+}
+
+variable "amigen9_filesystem_label" {
+  description = "Label for the root filesystem when creating bare partitions for EL9 images"
+  type        = string
+  default     = ""
+}
+
+variable "amigen9_package_groups" {
+  description = "List of yum repo groups to install into EL9 images"
+  type        = list(string)
+  default     = ["core"]
+}
+
+variable "amigen9_package_manifest" {
+  description = "File containing a list of RPMs to use as the build manifest for EL9 images"
+  type        = string
+  default     = ""
+}
+
+variable "amigen9_repo_names" {
+  description = "List of yum repo names to enable in the EL9 builders and EL9 images"
+  type        = list(string)
+  default     = [
+  ]
+}
+
+variable "amigen9_repo_sources" {
+  description = "List of yum package refs (names or urls to .rpm files) that install yum repo definitions in EL9 builders and images"
+  type        = list(string)
+  default = [
+  ]
+}
+
+variable "amigen9_source_branch" {
+  description = "Branch that will be checked out when cloning AMIgen9"
+  type        = string
+  default     = "main"
+}
+
+variable "amigen9_source_url" {
+  description = "URL that will be used to clone AMIgen9"
+  type        = string
+  default     = "https://github.com/plus3it/AMIgen9.git"
+}
+
+variable "amigen9_storage_layout" {
+  description = "List of colon-separated tuples (mount:name:size) that describe the desired partitions for LVM-partitioned disks on EL9 images"
+  type        = list(string)
+  default = [
+    "/:rootVol:6",
+    "swap:swapVol:2",
+    "/home:homeVol:1",
+    "/var:varVol:2",
+    "/var/tmp:varTmpVol:2",
+    "/var/log:logVol:2",
+    "/var/log/audit:auditVol:100%FREE",
+  ]
+}
+
+############
+# Azure Vars
+###
 variable "azure_custom_managed_image_name_rhel8" {
   description = "Name of a custom managed image to use as the base image for RHEL8 builds"
   type        = string
@@ -738,6 +848,11 @@ locals {
   amigen8_repo_names     = join(",", var.amigen8_repo_names)
   amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
   amigen8_storage_layout = join(",", var.amigen8_storage_layout)
+  amigen9_extra_rpms     = join(",", var.amigen9_extra_rpms)
+  amigen9_package_groups = join(" ", var.amigen9_package_groups) # space-delimited
+  amigen9_repo_names     = join(",", var.amigen9_repo_names)
+  amigen9_repo_sources   = join(",", var.amigen9_repo_sources)
+  amigen9_storage_layout = join(",", var.amigen9_storage_layout)
 
   # Template the description string
   description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" %s, with updates through ${formatdate("YYYY-MM-DD", local.timestamp)}. Default username `maintuser`. See ${var.spel_description_url}."
@@ -785,6 +900,20 @@ build {
   }
 
   source "amazon-ebs.base" {
+    ami_description = format(local.description, "CentOS Stream 9 AMI")
+    name            = "bootstrap-centos-9stream-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_centos9stream_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_centos9stream_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebs.base" {
     ami_description = format(local.description, "Oracle Linux 8 AMI")
     name            = "minimal-ol-8-hvm"
     source_ami_filter {
@@ -822,6 +951,20 @@ build {
         root-device-type    = "ebs"
       }
       owners      = var.aws_source_ami_filter_rhel8_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebs.base" {
+    ami_description = format(local.description, "RHEL 9 AMI")
+    name            = "bootstrap-rhel-9-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_rhel9_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_rhel9_hvm.owners
       most_recent = true
     }
   }
@@ -1006,6 +1149,42 @@ build {
     ]
     scripts = [
       "${path.root}/scripts/amigen8-build.sh",
+    ]
+  }
+
+  # AWS EL9 provisioners
+  provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ocidomain=oracle.com",
+      "DNF_VAR_ociregion=",
+      "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
+      "SPEL_AMIGENBOOTSIZE=512",
+      "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
+      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENMANFST=${var.amigen9_package_manifest}",
+      "SPEL_AMIGENPKGGRP=${local.amigen9_package_groups}",
+      "SPEL_AMIGENREPOS=${local.amigen9_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources}",
+      "SPEL_AMIGENROOTNM=${var.amigen9_filesystem_label}",
+      "SPEL_AMIGENROOTNM=root_dev",
+      "SPEL_AMIGENUEFISIZE=128",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_CLOUDPROVIDER=aws",
+      "SPEL_EXTRARPMS=${local.amigen9_extra_rpms}",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    only = [
+      "amazon-ebs.bootstrap-centos-9stream-hvm",
+      "amazon-ebs.bootstrap-rhel-9-hvm",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen9-build.sh",
     ]
   }
 
