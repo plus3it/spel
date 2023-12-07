@@ -41,3 +41,5 @@ git clone "${AMIGEN_SOURCE}" -b "${AMIGEN_BRANCH}" /root/AMIgen
 cd /root/AMIgen
 
 bash -x DiskSetup.sh -v "${VGNAME}"
+bash -x MkChrootTree.sh -d "${CHROOTDEV}"
+bash -x OSpackages.sh
