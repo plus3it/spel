@@ -79,7 +79,7 @@ UseCurlCmd
 if [[ -z ${AWS_REGION:-} ]]
 then
   AWS_REGION="$( "${CURL_CMD[@]}/meta-data/placement/region" )"
-fi  
+fi
 
 RUN_SEC_GRP="$( CreateBuilderSg )"
 
@@ -106,7 +106,7 @@ sed -e 's#SOURCE_SUBST#https://github.com/plus3it/AMIgen9.git#' \
 LAUNCH_CMD=(
   aws ec2 run-instances
   --block-device-mappings "'DeviceName=/dev/sda1,Ebs={VolumeType=gp3}'" "'DeviceName=/dev/sdf,Ebs={VolumeType=gp2,VolumeSize=25}'"
-  --image-id ami-034cb23b05c0d2a84
+  --image-id ami-0d2fe9aeb48a17188
   --instance-type "${INSTANCE_TYPE}"
   --output text
   --query "'Instances[].InstanceId'"
