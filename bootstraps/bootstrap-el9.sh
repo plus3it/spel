@@ -65,6 +65,7 @@ function CreateBuilderSg {
   local CONTROL_VPC
   local RUN_SEC_GRP
 
+  printf "Creating dummy security-group for build-EC2... "
   # Compute build-instanc'e VPC as needed
   if [[ -n ${BUILD_VPC_ID:-} ]]
   then
@@ -79,6 +80,7 @@ function CreateBuilderSg {
       "${CURL_CMD[@]}/meta-data/network/interfaces/macs/${CONTROL_MAC}/vpc-id"
     )"
   fi
+
   RUN_SEC_GRP="$(
     aws ec2 create-security-group \
       --region "${AWS_REGION}" \
@@ -88,8 +90,14 @@ function CreateBuilderSg {
       --output text
   )"
 
-  echo "${RUN_SEC_GRP}"
-  return 1
+  if [[ -n ${RUN_SEC_GRP} ]]
+  then
+    echo "${RUN_SEC_GRP}"
+    return 0
+  else
+    echo "Failed"
+    exit 1
+  fi
 }
 
 # shellcheck disable=SC2016
@@ -134,6 +142,7 @@ function BuildCleanup {
   printf "Terminating %s... " "${BUILDER_ID}"
   aws ec2 terminate-instances \
     --query 'TerminatingInstances[].CurrentState.Name' \
+    --output text \
     --instance-ids "${BUILDER_ID}" || ( echo "FAILED!" ; exit 1 )
 
   # Clean up Storage
@@ -190,6 +199,7 @@ then
   BOOTSTRAP_AMI="$( GetBootstrapAmi )"
 fi
 
+# Create a dummy security-group to attach to the builder-EC2
 RUN_SEC_GRP="$( CreateBuilderSg )"
 
 # Compute build-subnet as necessary
@@ -279,7 +289,7 @@ do
     echo "${BUILDER_ID} has stopped"
     break
   else
-    echo "${BUILDER_ID} still has not stopped: checking again in 60 seconds"
+    echo "${BUILDER_ID} still has not finished: checking again in 60 seconds"
   fi
   sleep 60
 done
@@ -310,6 +320,8 @@ echo "Registering image from ${BUILDER_ID}... "
 aws ec2 create-image \
   --name "${AMI_IDENTIFIER}-${AMI_VERSION}.x86_64.gp3" \
   --description "${AMI_DESCRIPTION_STR}"  \
+  --query 'ImageId' \
+  --output text \
   --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
 
 # Cleanup the resources created to support the build
