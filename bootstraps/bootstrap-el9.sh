@@ -20,6 +20,7 @@ AMI_DESCRIPTION_ARR=(
 )
 AMI_DESCRIPTION_STR="${AMI_DESCRIPTION_ARR[*]}"
 AMI_IDENTIFIER="${SPEL_IDENTIFIER:-spel-minimal-rhel-9-hvm}"
+AMI_PERMISSIONS="${SPEL_AMI_PERMISSIONS:-public}"
 AMI_VERSION="${SPEL_VERSION:-0.0.0}"
 AWS_REGION="${SPEL_AWS_REGION:-}"
 BOOTSTRAP_AMI="${AMIGEN9_BOOTSTRAP_AMI:-}"
@@ -65,7 +66,6 @@ function CreateBuilderSg {
   local CONTROL_VPC
   local RUN_SEC_GRP
 
-  printf "Creating dummy security-group for build-EC2... "
   # Compute build-instanc'e VPC as needed
   if [[ -n ${BUILD_VPC_ID:-} ]]
   then
@@ -200,7 +200,9 @@ then
 fi
 
 # Create a dummy security-group to attach to the builder-EC2
+printf "Creating dummy security-group... "
 RUN_SEC_GRP="$( CreateBuilderSg )"
+echo "Done: ${RUN_SEC_GRP} created"
 
 # Compute build-subnet as necessary
 # shellcheck disable=SC2145
@@ -317,12 +319,30 @@ aws ec2 attach-volume \
 
 # Create image from EC2
 echo "Registering image from ${BUILDER_ID}... "
-aws ec2 create-image \
+NEW_IMAGE="$( aws ec2 create-image \
   --name "${AMI_IDENTIFIER}-${AMI_VERSION}.x86_64.gp3" \
   --description "${AMI_DESCRIPTION_STR}"  \
   --query 'ImageId' \
   --output text \
   --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
+)"
+
+if [[ ${NEW_IMAGE} == "ami-"* ]]
+then
+  echo "Registration-process in progress for ${NEW_IMAGE}"
+else
+  echo "Failed to create image."
+fi
 
 # Cleanup the resources created to support the build
 BuildCleanup
+
+# Set image-permissions to public if appropriate
+if [[ ${AMI_PERMISSIONS:-} == "public" ]]
+then
+  printf "Setting %s public" "${AMI_PERMISSIONS}"
+  aws ec2 modify-image-attribute \
+    --image-id "${NEW_IMAGE}" \
+    --launch-permission "Add=[{Group=all}]" || ( echo "FAILED!" ; exit 1 )
+  echo "Success"
+fi
