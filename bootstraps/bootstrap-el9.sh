@@ -47,9 +47,11 @@ function CreateBuilderSg {
   then
     CONTROL_VPC="${BUILD_VPC_ID}"
   else
+    # shellcheck disable=SC2145
     CONTROL_MAC="$(
       "${CURL_CMD[@]}/meta-data/network/interfaces/macs"
     )"
+    # shellcheck disable=SC2145
     CONTROL_VPC="$(
       "${CURL_CMD[@]}/meta-data/network/interfaces/macs/${CONTROL_MAC}/vpc-id"
     )"
@@ -78,12 +80,14 @@ UseCurlCmd
 # Set AWS_REGION as necessary
 if [[ -z ${AWS_REGION:-} ]]
 then
+  # shellcheck disable=SC2145
   AWS_REGION="$( "${CURL_CMD[@]}/meta-data/placement/region" )"
 fi
 
 RUN_SEC_GRP="$( CreateBuilderSg )"
 
 # Compute build-subnet as necessary
+# shellcheck disable=SC2145
 if [[ -z ${BUILD_SUBNET:-} ]]
 then
   CONTROLLER_MAC="$( "${CURL_CMD[@]}/meta-data/network/interfaces/macs" )"
@@ -95,11 +99,14 @@ fi
 # Create userData payload from template-file
 sed -e 's#SOURCE_SUBST#https://github.com/plus3it/AMIgen9.git#' \
     -e 's#BRANCH_SUBST#main#' \
-    -e 's#FSTYP_SUBST#xfs#' \
-    -e 's#BOOTLBL_SUBST#boot_disk#' \
-    -e 's#UEFILBL_SUBST#UEFI_DISK#' \
     -e 's#BOOTDEVSZ_SUBST#512#' \
+    -e 's#BOOTLBL_SUBST#boot_disk#' \
+    -e 's#CFNBOOTSTRAP_SUBST#https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz#' \
+    -e 's#CLIV2SOURCE_SUBST#https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip#' \
+    -e 's#FSTYP_SUBST#xfs#' \
+    -e 's#SSMAGENT_SUBST#https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm#' \
     -e 's#UEFIDEVSZ_SUBST#96#' \
+    -e 's#UEFILBL_SUBST#UEFI_DISK#' \
     -e 's#VGNAME_SUBST#RootVG#' \
    builder-userData.tpl > builder-userData.runtime
 
@@ -118,5 +125,21 @@ LAUNCH_CMD=(
 )
 
 echo "${LAUNCH_CMD[@]}"
+
+# Get volume-mappings
+# shellcheck disable=SC2006
+echo "aws ec2 describe-instances --query 'Reservations[].Instances[].BlockDeviceMappings[?DeviceName == `/dev/sda1`].Ebs.VolumeId' --output text --instance-ids <INSTANCE_ID>"
+# shellcheck disable=SC2006
+echo "aws ec2 describe-instances --query 'Reservations[].Instances[].BlockDeviceMappings[?DeviceName == `/dev/sdf`].Ebs.VolumeId' --output text --instance-ids <INSTANCE_ID>"
+
+# Detach volumes
+echo "aws ec2 detach-volume --volume-id <ROOT_EBS_VOL_ID> --instance-id <INSTANCE_ID>"
+echo "aws ec2 detach-volume --volume-id <CHROOT_EBS_VOL_ID> --instance-id <INSTANCE_ID>"
+
+# Attach chroot-disk as boot-disk
+echo "aws ec2 attach-volume --volume-id <CHROOT_EBS_VOL_ID> --device /dev/sda1 --instance-id <INSTANCE_ID>"
+
+# Create image from EC2
+echo "aws ec2 create-image --name <IMAGE_NAME> --description <DESCRIPTION_STRING>  --instance-id <INSTANCE_ID>"
 
 #aws ec2 delete-security-group --group-id "${RUN_SEC_GRP}"
