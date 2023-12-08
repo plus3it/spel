@@ -9,8 +9,20 @@
 #       improved chroot-builder for AWS (and Azure) that negates the impacts of
 #       RHEL-17421
 ################################################################################
+# shellcheck disable=SC2054,SC2207
+AMI_DESCRIPTION_ARR=(
+  STIG-partitioned [*NOT HARDENED*],
+  LVM-enabled,
+  \"minimal\" RHEL 9 AMI
+  with updates through $( date '+%Y-%m-%d' )
+  Default username 'maintuser'.
+  See https://github.com/plus3it/spel
+)
+AMI_DESCRIPTION_STR="${AMI_DESCRIPTION_ARR[*]}"
+AMI_IDENTIFIER="${SPEL_IDENTIFIER:-spel-minimal-rhel-9-hvm}"
+AMI_VERSION="${SPEL_VERSION:-0.0.0}"
 AWS_REGION="${SPEL_AWS_REGION:-}"
-BOOTSTRAP_AMI="${}"
+BOOTSTRAP_AMI="${AMIGEN9_BOOTSTRAP_AMI:-}"
 BUILD_SUBNET="${SPEL_SUBNET:-}"
 BUILD_VPC_ID="${SPEL_VPC_ID:-}"
 CURL_CMD=()
@@ -117,6 +129,46 @@ function GetBootstrapAmi {
   fi
 }
 
+function BuildCleanup {
+  # Clean up builder EC2
+  printf "Terminating %s... " "${BUILDER_ID}"
+  aws ec2 terminate-instances \
+    --query 'TerminatingInstances[].CurrentState.Name' \
+    --instance-ids "${BUILDER_ID}" || ( echo "FAILED!" ; exit 1 )
+
+  # Clean up Storage
+  for VOL_ID in "${BUILDER_ROOT}" "${BUILDER_CHROOT}"
+  do
+    printf "Deleting volume %s... " "${VOL_ID}"
+    aws ec2 delete-volume --volume-id "${VOL_ID}" || ( echo "FAILED!" ; exit 1 )
+    echo "Done"
+  done
+
+  # Wait for builder-instance to reach fully-terminated state
+  printf 'Waiting for %s to reach fully-terminated state' "${BUILDER_ID}"
+  while true
+  do
+    printf "."
+    if [[ $(
+      aws ec2 describe-instances \
+        --query 'Reservations[].Instances[].State.Name' \
+        --output text \
+        --instance-ids "${BUILDER_ID}"
+    ) ==  "terminated" ]]
+    then
+      echo " Done"
+      break
+    fi
+    sleep 5
+  done
+
+  # Clean up builder security-group
+  printf "Deleting security-group %s... " "${RUN_SEC_GRP}"
+  aws ec2 delete-security-group --group-id "${RUN_SEC_GRP}" || \
+    ( echo "FAILED!" ; exit 1 )
+  echo "Done"
+}
+
 
 ##################
 ## Main Program ##
@@ -168,7 +220,7 @@ BUILDER_ID="$(
   aws ec2 run-instances \
     --block-device-mappings \
       'DeviceName=/dev/sda1,Ebs={VolumeType=gp3}' \
-      'DeviceName=/dev/sdf,Ebs={VolumeType=gp2,VolumeSize=25}' \
+      'DeviceName=/dev/sdf,Ebs={VolumeType=gp3,VolumeSize=25}' \
     --image-id "${BOOTSTRAP_AMI}" \
     --instance-type "${INSTANCE_TYPE}" \
     --output text \
@@ -182,8 +234,12 @@ BUILDER_ID="$(
     --user-data file://builder-userData.runtime
 )"
 
+# shellcheck disable=SC2016
 if [[ -n ${BUILDER_ID} ]]
 then
+  # Announce builder launch-status
+  echo "Builder EC2 [${BUILDER_ID}] has launched... "
+
   # Get volume-mappings
   # shellcheck disable=SC2006
   BUILDER_ROOT="$(
@@ -203,19 +259,58 @@ then
       --output text \
       --instance-ids "${BUILDER_ID}"
   )"
+  echo "Checking state in 60 seconds"
+  sleep 60
 else
   echo "Does not appear builder-instance launched. Aborting..."
   exit 1
 fi
 
+# Wait for instance to stop
+while true
+do
+  if [[ $(
+    aws ec2 describe-instances \
+      --query 'Reservations[].Instances[].State.Name' \
+      --output text \
+      --instance-ids "${BUILDER_ID}"
+  ) == "stopped" ]]
+  then
+    echo "${BUILDER_ID} has stopped"
+    break
+  else
+    echo "${BUILDER_ID} still has not stopped: checking again in 60 seconds"
+  fi
+  sleep 60
+done
+
 # Detach volumes
-echo "aws ec2 detach-volume --volume-id ${BUILDER_ROOT} --instance-id ${BUILDER_ID}"
-echo "aws ec2 detach-volume --volume-id ${BUILDER_CHROOT} --instance-id ${BUILDER_ID}"
+printf "Detaching %s from %s... " "${BUILDER_ROOT}" "${BUILDER_ID}"
+aws ec2 detach-volume \
+  --volume-id "${BUILDER_ROOT}" \
+  --query 'State' \
+  --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
+
+printf "Detaching %s from %s... " "${BUILDER_CHROOT}" "${BUILDER_ID}"
+aws ec2 detach-volume \
+  --volume-id "${BUILDER_CHROOT}" \
+  --query 'State' \
+  --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
 
 # Attach chroot-disk as boot-disk
-echo "aws ec2 attach-volume --volume-id <CHROOT_EBS_VOL_ID> --device /dev/sda1 --instance-id <INSTANCE_ID>"
+printf "Attaching %s to %s... " "${BUILDER_CHROOT}" "${BUILDER_ID}"
+aws ec2 attach-volume \
+  --volume-id "${BUILDER_CHROOT}" \
+  --device /dev/sda1 \
+  --query 'State' \
+  --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
 
 # Create image from EC2
-echo "aws ec2 create-image --name <IMAGE_NAME> --description <DESCRIPTION_STRING>  --instance-id <INSTANCE_ID>"
+echo "Registering image from ${BUILDER_ID}... "
+aws ec2 create-image \
+  --name "${AMI_IDENTIFIER}-${AMI_VERSION}.x86_64.gp3" \
+  --description "${AMI_DESCRIPTION_STR}"  \
+  --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
 
-#aws ec2 delete-security-group --group-id "${RUN_SEC_GRP}"
+# Cleanup the resources created to support the build
+BuildCleanup
