@@ -1,5 +1,16 @@
 #!/bin/bash
+#
+# Script to launch a 2-disk, self-provisioning EC2. After provisioning, the
+# script then detaches both disks and re-attaches the secondary EBS as the root
+# EBS and registers it.
+#
+# Note: This script is intended as a temporary workaround: it should only be
+#       used until such time that Red Hat fixes RHEL-17421 and/or there is an
+#       improved chroot-builder for AWS (and Azure) that negates the impacts of
+#       RHEL-17421
+################################################################################
 AWS_REGION="${SPEL_AWS_REGION:-}"
+BOOTSTRAP_AMI="${}"
 BUILD_SUBNET="${SPEL_SUBNET:-}"
 BUILD_VPC_ID="${SPEL_VPC_ID:-}"
 CURL_CMD=()
@@ -69,12 +80,49 @@ function CreateBuilderSg {
   return 1
 }
 
+# shellcheck disable=SC2016
+function GetBootstrapAmi {
+  local AMI_OWNER
+  local TARGET_AMI
+
+  case "${AWS_REGION}" in
+    "us-gov-"*)
+      AMI_OWNER="219670896067"
+      ;;
+    *)
+      AMI_OWNER="amazon"
+      ;;
+  esac
+
+  TARGET_AMI="$(
+    aws \
+      --region "${AWS_REGION}" ec2 describe-images \
+      --owners "${AMI_OWNER}" \
+      --query 'sort_by(Images, &CreationDate)[?
+        ( BootMode == `uefi-preferred` || BootMode == `uefi`) &&
+        Architecture == `x86_64`].[ImageId]' \
+      --filters "Name=name,Values=RHEL-9*" \
+      --output text | \
+   tail -1
+  )"
+
+  # Return value if found
+  if [[ ${TARGET_AMI} == "ami-"* ]]
+  then
+    echo "${TARGET_AMI}"
+    return 0
+  else
+    echo "Not able to compute bootstrap-AMI ID"
+    return 1
+  fi
+}
+
 
 ##################
 ## Main Program ##
 ##################
 
-# Cobble together the curel command and base options-set
+# Cobble together the curl command and base options-set
 UseCurlCmd
 
 # Set AWS_REGION as necessary
@@ -82,6 +130,12 @@ if [[ -z ${AWS_REGION:-} ]]
 then
   # shellcheck disable=SC2145
   AWS_REGION="$( "${CURL_CMD[@]}/meta-data/placement/region" )"
+fi
+
+# Search for suitable bootstrap-AMI as necessary
+if [[ -z ${BOOTSTRAP_AMI:-} ]]
+then
+  BOOTSTRAP_AMI="$( GetBootstrapAmi )"
 fi
 
 RUN_SEC_GRP="$( CreateBuilderSg )"
@@ -110,31 +164,53 @@ sed -e 's#SOURCE_SUBST#https://github.com/plus3it/AMIgen9.git#' \
     -e 's#VGNAME_SUBST#RootVG#' \
    builder-userData.tpl > builder-userData.runtime
 
-LAUNCH_CMD=(
-  aws ec2 run-instances
-  --block-device-mappings "'DeviceName=/dev/sda1,Ebs={VolumeType=gp3}'" "'DeviceName=/dev/sdf,Ebs={VolumeType=gp2,VolumeSize=25}'"
-  --image-id ami-0d2fe9aeb48a17188
-  --instance-type "${INSTANCE_TYPE}"
-  --output text
-  --query "'Instances[].InstanceId'"
-  --region "${AWS_REGION}"
-  --security-group-ids "${RUN_SEC_GRP}"
-  --subnet-id "${BUILD_SUBNET}"
-  --tag-specifications "'ResourceType=instance,Tags=[{Key=Name,Value=Packer Chroot-build}]'"
-  --user-data file://builder-userData.runtime
-)
+BUILDER_ID="$(
+  aws ec2 run-instances \
+    --block-device-mappings \
+      'DeviceName=/dev/sda1,Ebs={VolumeType=gp3}' \
+      'DeviceName=/dev/sdf,Ebs={VolumeType=gp2,VolumeSize=25}' \
+    --image-id "${BOOTSTRAP_AMI}" \
+    --instance-type "${INSTANCE_TYPE}" \
+    --output text \
+    --query 'Instances[].InstanceId' \
+    --region "${AWS_REGION}" \
+    --security-group-ids "${RUN_SEC_GRP}" \
+    --subnet-id "${BUILD_SUBNET}" \
+    --tag-specifications 'ResourceType=instance,Tags=[
+        {Key=Name,Value=Packer Chroot-build}
+      ]' \
+    --user-data file://builder-userData.runtime
+)"
 
-echo "${LAUNCH_CMD[@]}"
-
-# Get volume-mappings
-# shellcheck disable=SC2006
-echo "aws ec2 describe-instances --query 'Reservations[].Instances[].BlockDeviceMappings[?DeviceName == `/dev/sda1`].Ebs.VolumeId' --output text --instance-ids <INSTANCE_ID>"
-# shellcheck disable=SC2006
-echo "aws ec2 describe-instances --query 'Reservations[].Instances[].BlockDeviceMappings[?DeviceName == `/dev/sdf`].Ebs.VolumeId' --output text --instance-ids <INSTANCE_ID>"
+if [[ -n ${BUILDER_ID} ]]
+then
+  # Get volume-mappings
+  # shellcheck disable=SC2006
+  BUILDER_ROOT="$(
+    aws ec2 describe-instances \
+      --query 'Reservations[].Instances[].BlockDeviceMappings[?
+          DeviceName == `/dev/sda1`
+        ].Ebs.VolumeId' \
+      --output text \
+      --instance-ids "${BUILDER_ID}"
+  )"
+  # shellcheck disable=SC2006
+  BUILDER_CHROOT="$(
+    aws ec2 describe-instances \
+      --query 'Reservations[].Instances[].BlockDeviceMappings[?
+          DeviceName == `/dev/sdf`
+        ].Ebs.VolumeId' \
+      --output text \
+      --instance-ids "${BUILDER_ID}"
+  )"
+else
+  echo "Does not appear builder-instance launched. Aborting..."
+  exit 1
+fi
 
 # Detach volumes
-echo "aws ec2 detach-volume --volume-id <ROOT_EBS_VOL_ID> --instance-id <INSTANCE_ID>"
-echo "aws ec2 detach-volume --volume-id <CHROOT_EBS_VOL_ID> --instance-id <INSTANCE_ID>"
+echo "aws ec2 detach-volume --volume-id ${BUILDER_ROOT} --instance-id ${BUILDER_ID}"
+echo "aws ec2 detach-volume --volume-id ${BUILDER_CHROOT} --instance-id ${BUILDER_ID}"
 
 # Attach chroot-disk as boot-disk
 echo "aws ec2 attach-volume --volume-id <CHROOT_EBS_VOL_ID> --device /dev/sda1 --instance-id <INSTANCE_ID>"
