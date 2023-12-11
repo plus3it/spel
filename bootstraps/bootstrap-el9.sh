@@ -29,6 +29,8 @@ BUILD_VPC_ID="${SPEL_VPC_ID:-}"
 CURL_CMD=()
 INSTANCE_TYPE="${SPEL_INSTANCE_TYPE:-t3.large}"
 METADATA_URL="http://169.254.169.254"
+PROGNAME="$( basename "${0}" )"
+PROGPATH="$( dirname "${0}" )"
 
 export METADATA_URL
 
@@ -140,10 +142,17 @@ function GetBootstrapAmi {
 function BuildCleanup {
   # Clean up builder EC2
   printf "Terminating %s... " "${BUILDER_ID}"
-  aws ec2 terminate-instances \
-    --query 'TerminatingInstances[].CurrentState.Name' \
-    --output text \
-    --instance-ids "${BUILDER_ID}" || ( echo "FAILED!" ; exit 1 )
+  if [[ $(
+      aws ec2 terminate-instances \
+        --query 'TerminatingInstances[].CurrentState.Name' \
+        --output text \
+        --instance-ids "${BUILDER_ID}" || ( echo "FAILED!" ; exit 1 )
+    ) == "terminated" ]]
+  then
+    echo "Done"
+  else
+    echo
+  fi
 
   # Clean up Storage
   for VOL_ID in "${BUILDER_ROOT}" "${BUILDER_CHROOT}"
@@ -176,6 +185,48 @@ function BuildCleanup {
   aws ec2 delete-security-group --group-id "${RUN_SEC_GRP}" || \
     ( echo "FAILED!" ; exit 1 )
   echo "Done"
+}
+
+function DetachVolumes {
+  local VOL_ID
+  local VOL_STAT
+
+  for VOL_ID in "${BUILDER_ROOT}" "${BUILDER_CHROOT}"
+  do
+    printf "Detaching %s from %s... " "${VOL_ID}" "${BUILDER_ID}"
+
+    VOL_STAT="$(
+      aws ec2 detach-volume \
+      --volume-id "${VOL_ID}" \
+      --output text \
+      --instance-id "${BUILDER_ID}"
+    )"
+
+    # In case there's a error during detach-request
+    if [[ -z "${VOL_STAT}" ]]
+    then
+      printf "Error while detaching %s. Aborting" "${VOL_ID}"
+      echo
+      exit
+    else
+      echo "Detach in progress"
+    fi
+
+    # Wait for the detach to complete
+    while true
+    do
+      if [[ $(
+          aws ec2 describe-volumes \
+            --query 'Volumes[].State' \
+            --output text \
+            --volume-ids "${VOL_ID}"
+        ) == "available" ]]
+      then
+        echo "Done"
+        break
+      fi
+    done
+  done
 }
 
 
@@ -226,7 +277,7 @@ sed -e 's#SOURCE_SUBST#https://github.com/plus3it/AMIgen9.git#' \
     -e 's#UEFIDEVSZ_SUBST#96#' \
     -e 's#UEFILBL_SUBST#UEFI_DISK#' \
     -e 's#VGNAME_SUBST#RootVG#' \
-   builder-userData.tpl > builder-userData.runtime
+   "${PROGPATH}/builder-userData.tpl" > "${PROGPATH}/builder-userData.runtime"
 
 BUILDER_ID="$(
   aws ec2 run-instances \
@@ -243,7 +294,7 @@ BUILDER_ID="$(
     --tag-specifications 'ResourceType=instance,Tags=[
         {Key=Name,Value=Packer Chroot-build}
       ]' \
-    --user-data file://builder-userData.runtime
+    --user-data "file:///${PROGPATH}/builder-userData.runtime"
 )"
 
 # shellcheck disable=SC2016
@@ -296,24 +347,15 @@ do
   sleep 60
 done
 
-# Detach volumes
-printf "Detaching %s from %s... " "${BUILDER_ROOT}" "${BUILDER_ID}"
-aws ec2 detach-volume \
-  --volume-id "${BUILDER_ROOT}" \
-  --query 'State' \
-  --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
-
-printf "Detaching %s from %s... " "${BUILDER_CHROOT}" "${BUILDER_ID}"
-aws ec2 detach-volume \
-  --volume-id "${BUILDER_CHROOT}" \
-  --query 'State' \
-  --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
+# Call funciton to detach volumes
+DetachVolumes
 
 # Attach chroot-disk as boot-disk
 printf "Attaching %s to %s... " "${BUILDER_CHROOT}" "${BUILDER_ID}"
 aws ec2 attach-volume \
   --volume-id "${BUILDER_CHROOT}" \
   --device /dev/sda1 \
+  --output text \
   --query 'State' \
   --instance-id "${BUILDER_ID}" || ( echo FAILED! ; exit 1 )
 
@@ -340,9 +382,50 @@ BuildCleanup
 # Set image-permissions to public if appropriate
 if [[ ${AMI_PERMISSIONS:-} == "public" ]]
 then
-  printf "Setting %s public" "${AMI_PERMISSIONS}"
+  echo "Setting ${NEW_IMAGE} to public... "
+
+  # Ensure AMI is ready to be made public
+  while true
+  do
+    if [[ $(
+        aws ec2 describe-images \
+          --image-ids "${NEW_IMAGE}" \
+          --query 'Images[].State' \
+          --output text
+      ) == "available" ]]
+    then
+      break
+    else
+      echo "Waiting for ${NEW_IMAGE} to become available. Pausing for 60s"
+    fi
+    sleep 60
+  done
+
   aws ec2 modify-image-attribute \
     --image-id "${NEW_IMAGE}" \
     --launch-permission "Add=[{Group=all}]" || ( echo "FAILED!" ; exit 1 )
   echo "Success"
+fi
+
+# Set deprecation for AMI
+DEPRECATE_AT="$(
+  date -d @"$(
+    date -d '+1 year 00:00:00' '+%s'
+  )"
+)"
+
+printf "Setting deprecation to %s... " "${DEPRECATE_AT}"
+DEPRECATED="$(
+  aws ec2 enable-image-deprecation \
+    --image-id "${NEW_IMAGE}" \
+    --deprecate-at "${DEPRECATE_AT}" \
+    --output text
+)"
+
+if [[ ${DEPRECATED} == "True" ]]
+then
+  echo "Done"
+else
+  echo "Failed"
+  exit 1
 fi
