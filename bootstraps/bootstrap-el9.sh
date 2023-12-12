@@ -19,6 +19,7 @@ AMI_DESCRIPTION_ARR=(
   See https://github.com/plus3it/spel
 )
 AMI_DESCRIPTION_STR="${AMI_DESCRIPTION_ARR[*]}"
+AWS_HOSTED="${SPEL_HOSTING_ENVIRONMENT:-aws}"
 AMI_IDENTIFIER="${SPEL_IDENTIFIER:-spel-minimal-rhel-9-hvm}"
 AMI_PERMISSIONS="${SPEL_AMI_PERMISSIONS:-public}"
 AMI_VERSION="${SPEL_VERSION:-0.0.0}"
@@ -233,9 +234,18 @@ function DetachVolumes {
 ##################
 ## Main Program ##
 ##################
+if [[ ${PROGPATH} == "." ]]
+then
+  PROGPATH=""
+else
+  PROGPATH="${PROGPATH}/"
+fi
 
 # Cobble together the curl command and base options-set
-UseCurlCmd
+if [[ ${AWS_HOSTED} == "aws" ]]
+then
+  UseCurlCmd
+fi
 
 # Set AWS_REGION as necessary
 if [[ -z ${AWS_REGION:-} ]]
@@ -277,7 +287,7 @@ sed -e 's#SOURCE_SUBST#https://github.com/plus3it/AMIgen9.git#' \
     -e 's#UEFIDEVSZ_SUBST#96#' \
     -e 's#UEFILBL_SUBST#UEFI_DISK#' \
     -e 's#VGNAME_SUBST#RootVG#' \
-   "${PROGPATH}/builder-userData.tpl" > "${PROGPATH}/builder-userData.runtime"
+   "${PROGPATH}builder-userData.tpl" > "${PROGPATH}builder-userData.runtime"
 
 BUILDER_ID="$(
   aws ec2 run-instances \
@@ -294,7 +304,7 @@ BUILDER_ID="$(
     --tag-specifications 'ResourceType=instance,Tags=[
         {Key=Name,Value=Packer Chroot-build}
       ]' \
-    --user-data "file:///${PROGPATH}/builder-userData.runtime"
+    --user-data "file://${PROGPATH}builder-userData.runtime"
 )"
 
 # shellcheck disable=SC2016
