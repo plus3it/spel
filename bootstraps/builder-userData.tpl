@@ -31,6 +31,7 @@ export VGNAME="RootVG"
 if [[ $( rpm --quiet -q git )$? -ne 0 ]]
 then
   dnf install -y \
+    dosfstools \
     git \
     lvm2
 fi
