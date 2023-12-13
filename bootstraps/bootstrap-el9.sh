@@ -26,12 +26,14 @@ AMI_VERSION="${SPEL_VERSION:-0.0.0}"
 AWS_REGION="${SPEL_AWS_REGION:-}"
 BOOTSTRAP_AMI="${AMIGEN9_BOOTSTRAP_AMI:-}"
 BUILD_SUBNET="${SPEL_SUBNET:-}"
+BRANCH_SUBST="${AMIGEN9_BRANCH:-main}"
 BUILD_VPC_ID="${SPEL_VPC_ID:-}"
 CURL_CMD=()
 INSTANCE_TYPE="${SPEL_INSTANCE_TYPE:-t3.large}"
 METADATA_URL="http://169.254.169.254"
 PROGNAME="$( basename "${0}" )"
 PROGPATH="$( dirname "${0}" )"
+SOURCE_SUBST="${AMIGEN9_SOURCE:-https://github.com/plus3it/AMIgen9.git}"
 
 export METADATA_URL
 
@@ -276,8 +278,8 @@ then
 fi
 
 # Create userData payload from template-file
-sed -e 's#SOURCE_SUBST#https://github.com/plus3it/AMIgen9.git#' \
-    -e 's#BRANCH_SUBST#main#' \
+sed -e 's#SOURCE_SUBST#'"${SOURCE_SUBST}"'#' \
+    -e 's#BRANCH_SUBST#'"${BRANCH_SUBST}"'#' \
     -e 's#BOOTDEVSZ_SUBST#512#' \
     -e 's#BOOTLBL_SUBST#boot_disk#' \
     -e 's#CFNBOOTSTRAP_SUBST#https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz#' \
