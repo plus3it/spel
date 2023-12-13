@@ -38,6 +38,12 @@ then
     yum-utils
 fi
 
+if [[ $( rpm -qf /etc/os-release --qf '%{name}' ) == "oraclelinux-release" ]]
+then
+  export DNF_VAR_ociregion=""
+  export DNF_VAR_ocidomain="oracle.com"
+fi
+
 # Clone AMIgen9 into sensible location
 git clone "${AMIGEN_SOURCE}" -b "${AMIGEN_BRANCH}" /root/AMIgen
 
