@@ -33,7 +33,9 @@ then
   dnf install -y \
     dosfstools \
     git \
-    lvm2
+    lvm2 \
+    unzip \
+    yum-utils
 fi
 
 # Clone AMIgen9 into sensible location
