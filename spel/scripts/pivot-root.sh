@@ -14,6 +14,18 @@ set -e
 echo "Installing psmisc RPM..."
 yum -y install psmisc
 
+# Get rid of anything that might be in the /boot hierarchy
+for BOOT_DIR in /boot{/efi,}
+do
+  if  [[ -d ${BOOT_DIR} ]] &&
+      [[ $( mountpoint "${BOOT_DIR}" ) == "${BOOT_DIR} is a mountpoint" ]]
+  then
+    fuser -vmk "${BOOT_DIR}" || true
+    umount "${BOOT_DIR}"
+  fi
+done
+
+
 # Create tmpfs mount
 echo "Creating /tmproot..."
 install -Ddm 000755 /tmp/tmproot
