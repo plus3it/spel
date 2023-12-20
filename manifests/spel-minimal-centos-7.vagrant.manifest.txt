@@ -23,7 +23,7 @@ cronie-1.4.11-25.el7_9.x86_64
 cronie-anacron-1.4.11-25.el7_9.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
-curl-7.29.0-59.el7_9.1.x86_64
+curl-7.29.0-59.el7_9.2.x86_64
 cyrus-sasl-lib-2.1.26-24.el7_9.x86_64
 dbus-1.10.24-15.el7.x86_64
 dbus-glib-0.100-7.el7.x86_64
@@ -105,9 +105,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.102.1.el7.x86_64
-kernel-tools-3.10.0-1160.102.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.102.1.el7.x86_64
+kernel-3.10.0-1160.105.1.el7.x86_64
+kernel-tools-3.10.0-1160.105.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.105.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -124,7 +124,7 @@ libcap-2.22-11.el7.x86_64
 libcap-ng-0.7.5-4.el7.x86_64
 libcom_err-1.42.9-19.el7.x86_64
 libcroco-0.6.12-6.el7_9.x86_64
-libcurl-7.29.0-59.el7_9.1.x86_64
+libcurl-7.29.0-59.el7_9.2.x86_64
 libdaemon-0.14-7.el7.x86_64
 libdb-5.3.21-25.el7.x86_64
 libdb-utils-5.3.21-25.el7.x86_64
@@ -168,7 +168,7 @@ libuuid-2.23.2-65.el7_9.1.x86_64
 libverto-0.2.5-4.el7.x86_64
 libxml2-2.9.1-6.el7_9.6.x86_64
 libxml2-python-2.9.1-6.el7_9.6.x86_64
-linux-firmware-20200421-80.git78c0348.el7_9.noarch
+linux-firmware-20200421-81.git78c0348.el7_9.noarch
 logrotate-3.8.6-19.el7.x86_64
 lshw-B.02.18-17.el7.x86_64
 lua-5.1.4-15.el7.x86_64
@@ -179,7 +179,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.16.el7_9.x86_64
+microcode_ctl-2.1-73.20.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -266,9 +266,9 @@ slang-2.2.4-11.el7.x86_64
 snappy-1.1.0-3.el7.x86_64
 sqlite-3.7.17-8.el7_7.1.x86_64
 sudo-1.8.23-10.el7_9.3.x86_64
-systemd-219-78.el7_9.7.x86_64
-systemd-libs-219-78.el7_9.7.x86_64
-systemd-sysv-219-78.el7_9.7.x86_64
+systemd-219-78.el7_9.9.x86_64
+systemd-libs-219-78.el7_9.9.x86_64
+systemd-sysv-219-78.el7_9.9.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64

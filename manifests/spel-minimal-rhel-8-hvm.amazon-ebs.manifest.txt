@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux 8.9 (Ootpa)
-aws-cli/2.13.37 Python/3.11.6 Linux/4.18.0-147.94.1.el8_1.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.15.2 Python/3.11.6 Linux/4.18.0-477.36.1.el8_8.x86_64 exe/x86_64.rhel.8 prompt/off
 aws-cfn-bootstrap 2.0
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
 amazon-libdnf-plugin-1.0.1-1.el8.x86_64
-amazon-ssm-agent-3.2.1798.0-1.x86_64
+amazon-ssm-agent-3.2.2016.0-1.x86_64
 audit-3.0.7-5.el8.x86_64
 audit-libs-3.0.7-5.el8.x86_64
 authselect-1.2.6-2.el8.x86_64
@@ -130,11 +130,11 @@ json-glib-1.4.4-1.el8.x86_64
 kbd-2.0.4-11.el8.x86_64
 kbd-legacy-2.0.4-11.el8.noarch
 kbd-misc-2.0.4-11.el8.noarch
-kernel-4.18.0-513.5.1.el8_9.x86_64
-kernel-core-4.18.0-513.5.1.el8_9.x86_64
-kernel-modules-4.18.0-513.5.1.el8_9.x86_64
-kernel-tools-4.18.0-513.5.1.el8_9.x86_64
-kernel-tools-libs-4.18.0-513.5.1.el8_9.x86_64
+kernel-4.18.0-513.9.1.el8_9.x86_64
+kernel-core-4.18.0-513.9.1.el8_9.x86_64
+kernel-modules-4.18.0-513.9.1.el8_9.x86_64
+kernel-tools-4.18.0-513.9.1.el8_9.x86_64
+kernel-tools-libs-4.18.0-513.9.1.el8_9.x86_64
 kexec-tools-2.0.26-8.el8.x86_64
 keyutils-libs-1.5.10-9.el8.x86_64
 kmod-25-19.el8.x86_64
@@ -269,8 +269,8 @@ openldap-2.4.46-18.el8.x86_64
 openssh-8.0p1-19.el8_8.x86_64
 openssh-clients-8.0p1-19.el8_8.x86_64
 openssh-server-8.0p1-19.el8_8.x86_64
-openssl-1.1.1k-9.el8_7.x86_64
-openssl-libs-1.1.1k-9.el8_7.x86_64
+openssl-1.1.1k-12.el8_9.x86_64
+openssl-libs-1.1.1k-12.el8_9.x86_64
 openssl-pkcs11-0.4.10-3.el8.x86_64
 os-prober-1.74-9.el8.x86_64
 p11-kit-0.23.22-1.el8.x86_64
@@ -346,7 +346,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-1.0.4-3.el8_9.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-513.5.1.el8_9.x86_64
+python3-perf-4.18.0-513.9.1.el8_9.x86_64
 python3-pip-wheel-9.0.3-23.el8.noarch
 python3-ply-3.9-9.el8.noarch
 python3-policycoreutils-2.9-24.el8.noarch
@@ -372,7 +372,7 @@ python3-urllib3-1.24.2-5.el8.noarch
 readline-7.0-10.el8.x86_64
 redhat-release-8.9-0.1.el8.x86_64
 redhat-release-eula-8.9-0.1.el8.x86_64
-rh-amazon-rhui-client-4.0.12-1.el8.noarch
+rh-amazon-rhui-client-4.0.13-1.el8.noarch
 rng-tools-6.16-1.el8.x86_64
 rootfiles-8.1-22.el8.noarch
 rpm-4.14.3-26.el8.x86_64
