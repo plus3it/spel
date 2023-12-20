@@ -1,5 +1,19 @@
 ## Changelog
 
+### [2023.12.1](https://github.com/plus3it/spel/releases/tag/2023.12.1)
+
+**Released**: 2023.12.20
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2023.12.1/manifests>
+
+**Summary**:
+
+*   Updates AMIs to use EBS GP3 volumes
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.2
+    - amazon-ssm-agent-3.2.2016.0-1
+
 ### [2023.11.1](https://github.com/plus3it/spel/releases/tag/2023.11.1)
 
 **Released**: 2023.11.21

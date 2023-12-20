@@ -1,9 +1,9 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/2.13.37 Python/3.11.6 Linux/3.10.0-1160.95.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/2.15.2 Python/3.11.6 Linux/3.10.0-1160.95.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.1798.0-1.x86_64
+amazon-ssm-agent-3.2.2016.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -31,7 +31,7 @@ cronie-1.4.11-25.el7_9.x86_64
 cronie-anacron-1.4.11-25.el7_9.x86_64
 crontabs-1.11-6.20121102git.el7.noarch
 cryptsetup-libs-2.0.3-6.el7.x86_64
-curl-7.29.0-59.el7_9.1.x86_64
+curl-7.29.0-59.el7_9.2.x86_64
 cyrus-sasl-lib-2.1.26-24.el7_9.x86_64
 dbus-1.10.24-15.el7.x86_64
 dbus-glib-0.100-7.el7.x86_64
@@ -117,9 +117,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.102.1.el7.x86_64
-kernel-tools-3.10.0-1160.102.1.el7.x86_64
-kernel-tools-libs-3.10.0-1160.102.1.el7.x86_64
+kernel-3.10.0-1160.105.1.el7.x86_64
+kernel-tools-3.10.0-1160.105.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.105.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -137,7 +137,7 @@ libcap-ng-0.7.5-4.el7.x86_64
 libcgroup-0.41-21.el7.x86_64
 libcom_err-1.42.9-19.el7.x86_64
 libcroco-0.6.12-6.el7_9.x86_64
-libcurl-7.29.0-59.el7_9.1.x86_64
+libcurl-7.29.0-59.el7_9.2.x86_64
 libdaemon-0.14-7.el7.x86_64
 libdb-5.3.21-25.el7.x86_64
 libdb-utils-5.3.21-25.el7.x86_64
@@ -183,7 +183,7 @@ libverto-0.2.5-4.el7.x86_64
 libxml2-2.9.1-6.el7_9.6.x86_64
 libxml2-python-2.9.1-6.el7_9.6.x86_64
 libyaml-0.1.4-11.el7_0.x86_64
-linux-firmware-20200421-80.git78c0348.el7_9.noarch
+linux-firmware-20200421-81.git78c0348.el7_9.noarch
 logrotate-3.8.6-19.el7.x86_64
 lshw-B.02.18-17.el7.x86_64
 lua-5.1.4-15.el7.x86_64
@@ -194,7 +194,7 @@ lzo-2.06-8.el7.x86_64
 make-3.82-24.el7.x86_64
 man-db-2.6.3-11.el7.x86_64
 mariadb-libs-5.5.68-1.el7.x86_64
-microcode_ctl-2.1-73.16.el7_9.x86_64
+microcode_ctl-2.1-73.20.el7_9.x86_64
 mozjs17-17.0.0-20.el7.x86_64
 ncurses-5.9-14.20130511.el7_4.x86_64
 ncurses-base-5.9-14.20130511.el7_4.noarch
@@ -269,7 +269,7 @@ python-kitchen-1.1.1-5.el7.noarch
 python-libs-2.7.5-94.el7_9.x86_64
 python-linux-procfs-0.4.11-4.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.102.1.el7.x86_64
+python-perf-3.10.0-1160.105.1.el7.x86_64
 python-prettytable-0.7.2-3.el7.noarch
 python-pycurl-7.19.0-19.el7.x86_64
 python-pyudev-0.15-9.el7.noarch
@@ -309,9 +309,9 @@ spel-release-7-4.noarch
 spel-wcf-certs-5.14-1.el7.noarch
 sqlite-3.7.17-8.el7_7.1.x86_64
 sudo-1.8.23-10.el7_9.3.x86_64
-systemd-219-78.el7_9.7.x86_64
-systemd-libs-219-78.el7_9.7.x86_64
-systemd-sysv-219-78.el7_9.7.x86_64
+systemd-219-78.el7_9.9.x86_64
+systemd-libs-219-78.el7_9.9.x86_64
+systemd-sysv-219-78.el7_9.9.x86_64
 sysvinit-tools-2.88-14.dsf.el7.x86_64
 tar-1.26-35.el7.x86_64
 tcp_wrappers-libs-7.6-77.el7.x86_64
