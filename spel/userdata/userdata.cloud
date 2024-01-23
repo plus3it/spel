@@ -3,12 +3,11 @@
 ##############################################################################
 # Set the default cloud-init user to `spel`
 ##############################################################################
-system_info:
-  default_user:
-    name: spel
-    gecos: spel admin account
-    lock_passwd: true
-    sudo: ["ALL=(root) NOPASSWD:ALL"]
+user:
+  name: spel
+  gecos: spel admin account
+  lock_passwd: true
+  sudo: "ALL=(root) NOPASSWD:ALL"
 
 runcmd:
   # use default crypto policies, if possible
