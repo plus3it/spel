@@ -1,6 +1,7 @@
 dist: focal
 
-language: minimal
+language: python
+python: "3.10"
 
 if: branch = master OR type = pull_request
 
@@ -8,7 +9,9 @@ jobs:
   include:
     - stage: lint
       name: Project Syntax Verification
-      install: make -f Makefile.tardigrade-ci lint/install
+      install:
+        - pip install -r tests/requirements.txt
+        - make -f Makefile.tardigrade-ci lint/install
       script: make -f Makefile.tardigrade-ci lint
     - stage: deploy
       if: branch = master AND type = push AND repo = plus3it/spel
