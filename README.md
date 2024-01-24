@@ -101,8 +101,16 @@ The following table lists the official owner accounts for the images.
 | AWS Partition | Account ID   | Effective Release     |
 |---------------|--------------|-----------------------|
 | aws           | 174003430611 | 2023.08.1 and later   |
-| aws           | 701759196663 | 2023.07.1 and earlier |
 | aws-us-gov    | 216406534498 | 2023.08.1 and later   |
+
+## Deprecated AWS Owner Account IDs
+
+The following table lists AWS account IDs previously used to host SPEL images.
+These accounts are now closed, and the associated images are no longer available.
+
+| AWS Partition | Account ID   | Effective Release     |
+|---------------|--------------|-----------------------|
+| aws           | 701759196663 | 2023.07.1 and earlier |
 | aws-us-gov    | 039368651566 | 2023.07.1 and earlier |
 
 ## Deprecated CentOS 8 Images
