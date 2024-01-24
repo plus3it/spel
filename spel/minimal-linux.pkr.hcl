@@ -85,7 +85,7 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-hvm-*.x86_64-gp*"
+    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-*.x86_64-gp*"
     owners = [
       "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
       "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
@@ -101,7 +101,7 @@ variable "aws_source_ami_filter_ol8_hvm" {
     owners = list(string)
   })
   default = {
-    name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp*,spel-bootstrap-ol-8-hvm-*.x86_64-gp*"
+    name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp*,spel-bootstrap-ol-8-*.x86_64-gp*"
     owners = [
       "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
       "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
@@ -134,7 +134,7 @@ variable "aws_source_ami_filter_rhel8_hvm" {
     owners = list(string)
   })
   default = {
-    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP*,spel-bootstrap-rhel-8-hvm-*.x86_64-gp*"
+    name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP*,spel-bootstrap-rhel-8-*.x86_64-gp*"
     owners = [
       "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
       "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
