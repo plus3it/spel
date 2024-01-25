@@ -31,6 +31,7 @@ BUILD_VPC_ID="${SPEL_VPC_ID:-}"
 CURL_CMD=()
 INSTANCE_TYPE="${SPEL_INSTANCE_TYPE:-t3.large}"
 METADATA_URL="http://169.254.169.254"
+PLATFORM="${SPEL_PLATFORM:-x86_64}"
 PROGNAME="$( basename "${0}" )"
 PROGPATH="$( dirname "${0}" )"
 SOURCE_SUBST="${AMIGEN9_SOURCE:-https://github.com/plus3it/AMIgen9.git}"
@@ -125,7 +126,7 @@ function GetBootstrapAmi {
       --owners "${AMI_OWNER}" \
       --query 'sort_by(Images, &CreationDate)[?
         ( BootMode == `uefi-preferred` || BootMode == `uefi`) &&
-        Architecture == `x86_64`].[ImageId]' \
+        Architecture == `'"${PLATFORM}"'`].[ImageId]' \
       --filters "Name=name,Values=RHEL-9*" \
       --output text | \
    tail -1
@@ -277,15 +278,26 @@ then
   )"
 fi
 
+# Platform-specific utility-download logic
+if [[ ${PLATFORM} == aarch64 ]] || [[ ${PLATFORM} == "arm64" ]]
+then
+  AWSCLIV2ZIP="https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip"
+  SSMAGENTRPM="https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_arm64/amazon-ssm-agent.rpm"
+else
+  AWSCLIV2ZIP="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+  SSMAGENTRPM="https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm"
+fi
+
 # Create userData payload from template-file
-sed -e 's#SOURCE_SUBST#'"${SOURCE_SUBST}"'#' \
+sed \
+    -e 's#CLIV2SOURCE_SUBST#'"${AWSCLIV2ZIP}"'#' \
+    -e 's#SOURCE_SUBST#'"${SOURCE_SUBST}"'#' \
     -e 's#BRANCH_SUBST#'"${BRANCH_SUBST}"'#' \
     -e 's#BOOTDEVSZ_SUBST#512#' \
     -e 's#BOOTLBL_SUBST#boot_disk#' \
     -e 's#CFNBOOTSTRAP_SUBST#https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz#' \
-    -e 's#CLIV2SOURCE_SUBST#https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip#' \
     -e 's#FSTYP_SUBST#xfs#' \
-    -e 's#SSMAGENT_SUBST#https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm#' \
+    -e 's#SSMAGENT_SUBST#'"${SSMAGENTRPM}"'#' \
     -e 's#UEFIDEVSZ_SUBST#96#' \
     -e 's#UEFILBL_SUBST#UEFI_DISK#' \
     -e 's#VGNAME_SUBST#RootVG#' \
@@ -374,7 +386,7 @@ aws ec2 attach-volume \
 # Create image from EC2
 echo "Registering image from ${BUILDER_ID}... "
 NEW_IMAGE="$( aws ec2 create-image \
-  --name "${AMI_IDENTIFIER}-${AMI_VERSION}.x86_64.gp3" \
+  --name "${AMI_IDENTIFIER}-${AMI_VERSION}.${PLATFORM}.gp3" \
   --description "${AMI_DESCRIPTION_STR}"  \
   --query 'ImageId' \
   --output text \
