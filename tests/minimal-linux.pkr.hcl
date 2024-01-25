@@ -124,7 +124,7 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -r unconfined_r -E /bin/sh -ex -o pipefail '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
     inline = [
       "growpart /dev/xvda 2",
       "partprobe",
@@ -132,7 +132,7 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -r unconfined_r -E /bin/sh -ex -o pipefail '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
     inline = [
       "mkdir -p /tmp/spel/tests",
       "chown -R spel:spel /tmp/spel",
@@ -151,7 +151,7 @@ build {
     environment_vars = [
       "PYPI_URL=${var.spel_pypi_url}",
     ]
-    execute_command = "{{ .Vars }} sudo -r unconfined_r -E /bin/sh -ex -o pipefail '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
     inline = [
       "PYPI_URL=$${PYPI_URL:-https://pypi.org/simple}",
       "ls -alR /tmp",
@@ -169,7 +169,7 @@ build {
       "SPEL_AMIUTILSOURCE=${var.spel_amiutilsource}",
       "SPEL_DISABLEFIPS=${var.spel_disablefips}",
     ]
-    execute_command = "{{ .Vars }} sudo -r unconfined_r -E /bin/sh -ex -o pipefail '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
     inline = [
       "PATH=/usr/local/bin:\"$PATH\"",
       "export PATH",

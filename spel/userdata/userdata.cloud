@@ -8,6 +8,7 @@ user:
   gecos: spel admin account
   lock_passwd: true
   sudo: "ALL=(root) NOPASSWD:ALL"
+  selinux_user: unconfined_u
 
 runcmd:
   # use default crypto policies, if possible
