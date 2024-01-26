@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2024.01.1](https://github.com/plus3it/spel/releases/tag/2024.01.1)
+
+**Released**: 2024.01.25
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.01.1/manifests>
+
+**Summary**:
+
+*   Documents the decommission of the AWS account previously hosting spel images.
+    The account is now closed, and the images are no longer accessible.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.14
+    - amazon-ssm-agent-3.2.2086.0-1
+
 ### [2023.12.1](https://github.com/plus3it/spel/releases/tag/2023.12.1)
 
 **Released**: 2023.12.20

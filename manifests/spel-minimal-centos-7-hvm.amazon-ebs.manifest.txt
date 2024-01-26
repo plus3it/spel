@@ -1,9 +1,9 @@
 CentOS Linux release 7.9.2009 (Core)
-aws-cli/2.15.2 Python/3.11.6 Linux/3.10.0-1160.95.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
+aws-cli/2.15.14 Python/3.11.6 Linux/3.10.0-1160.95.1.el7.x86_64 exe/x86_64.centos.7 prompt/off
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
-amazon-ssm-agent-3.2.2016.0-1.x86_64
+amazon-ssm-agent-3.2.2086.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
