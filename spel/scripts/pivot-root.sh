@@ -54,7 +54,7 @@ mount --move /oldroot/dev /dev
 mount --move /oldroot/proc /proc
 mount --move /oldroot/sys /sys
 mount --move /oldroot/run /run
-if [[ $( mountpoint /oldroot/tmp ) =~ "is a mountpoint" ]] 
+if [[ $( mountpoint /oldroot/tmp ) =~ "is a mountpoint" ]]
 then
   mount --move /oldroot/tmp /tmp
 fi
