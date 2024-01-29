@@ -916,29 +916,9 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
-    inline = [
-      "echo Restarting systemd",
-      "systemctl daemon-reexec",
-      "echo Killing processes locking /oldroot",
-      "fuser -vmk /oldroot",
-    ]
-    except = [
-      "amazon-ebs.minimal-centos-9stream-hvm",
-      "amazon-ebs.minimal-ol-9-hvm",
-      "amazon-ebs.minimal-rhel-9-hvm",
-    ]
-  }
-
-  provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     scripts = [
       "${path.root}/scripts/free-root.sh",
-    ]
-    only = [
-      "amazon-ebs.minimal-centos-9stream-hvm",
-      "amazon-ebs.minimal-ol-9-hvm",
-      "amazon-ebs.minimal-rhel-9-hvm",
     ]
   }
 
