@@ -1,7 +1,12 @@
 #!/bin/bash
+#
+# Script to more-thorougly clear out processes that may be holding the boot-
+# disk open
+#
+################################################################################
 
-# Try to capture all system output
-exec 1> >( logger -s -t "$(  basename "${0}" )" ) 2>&1
+set -x
+set -e
 
 echo "Restarting systemd"
 systemctl daemon-reexec
