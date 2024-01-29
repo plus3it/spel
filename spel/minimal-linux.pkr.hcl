@@ -931,7 +931,7 @@ build {
   }
 
   provisioner "shell" {
-    execute_command   = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     scripts = [
       "${path.root}/scripts/free-root.sh",
     ]
