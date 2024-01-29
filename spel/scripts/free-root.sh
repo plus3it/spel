@@ -13,7 +13,7 @@ echo "Kill all non-essential services"
 for SERVICE in $(
   systemctl list-units --type=service --state=running | \
   awk '/loaded active running/{ print $1 }' | \
-  grep -Ev '(sshd|user@)'
+  grep -Ev '(audit|sshd|user@)'
 )
 do
   echo "Killing ${SERVICE}"
