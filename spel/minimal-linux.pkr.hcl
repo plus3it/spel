@@ -923,6 +923,25 @@ build {
       "echo Killing processes locking /oldroot",
       "fuser -vmk /oldroot",
     ]
+    only = [
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+    ]
+  }
+
+  provisioner "shell" {
+    execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
+    scripts = [
+      "${path.root}/scripts/free-root.sh",
+    ]
+    except = [
+      "amazon-ebs.minimal-centos-7-hvm",
+      "amazon-ebs.minimal-rhel-7-hvm",
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+    ]
   }
 
   # Keep the unmount in a separate provisioner. This forces packer to disconnect

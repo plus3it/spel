@@ -54,7 +54,10 @@ mount --move /oldroot/dev /dev
 mount --move /oldroot/proc /proc
 mount --move /oldroot/sys /sys
 mount --move /oldroot/run /run
-mount --move /oldroot/tmp /tmp || true  # not every ami starts with this
+if [[ $( mountpoint /oldroot/tmp ) =~ "is a mountpoint" ]]
+then
+  mount --move /oldroot/tmp /tmp
+fi
 
 # Unmount everything we can on /oldroot
 MOUNTS=$(
@@ -62,11 +65,18 @@ MOUNTS=$(
     grep '/oldroot/' | \
     sort -ru
 )
-echo "$MOUNTS" | while IFS= read -r MOUNT
-do
+if [[ ${#MOUNTS} -ne 0 ]]
+then
+  echo "Attempting to clear stragglers found in /proc/mounts"
+
+  echo "$MOUNTS" | while IFS= read -r MOUNT
+  do
     echo "Attempting to dismount ${MOUNT}... "
     umount "$MOUNT" || true
-done
+  done
+else
+  echo "Found no stragglers in /proc/mounts"
+fi
 
 # Restart sshd to relink it to /tmp/tmproot
 if systemctl is-active --quiet firewalld ; then systemctl stop firewalld ; fi
