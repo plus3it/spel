@@ -124,10 +124,9 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
-    inline = [
-      "growpart /dev/xvda 2",
-      "partprobe",
+    execute_command = "{{ .Vars }} sudo -E /bin/bash -ex -o pipefail '{{ .Path }}'"
+    scripts = [
+      "${path.root}/scripts/grow_check.sh",
     ]
   }
 
