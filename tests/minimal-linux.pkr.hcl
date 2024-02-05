@@ -75,7 +75,7 @@ source "amazon-ebs" "base" {
   communicator                = "ssh"
   ena_support                 = true
   force_deregister            = true
-  instance_type               = "m4.large"
+  instance_type               = "t3.large"
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
