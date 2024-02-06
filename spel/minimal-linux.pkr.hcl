@@ -609,6 +609,83 @@ variable "amigen8_storage_layout" {
   ]
 }
 
+###
+# Variables used by AMIgen9
+###
+variable "amigen9_extra_rpms" {
+  description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL9 builders and images"
+  type        = list(string)
+  default = [
+    "python3.11",
+    "python3.11-pip",
+    "python3.11-setuptools",
+    "crypto-policies-scripts",
+    "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
+  ]
+}
+
+variable "amigen9_filesystem_label" {
+  description = "Label for the root filesystem when creating bare partitions for EL9 images"
+  type        = string
+  default     = ""
+}
+
+variable "amigen9_package_groups" {
+  description = "List of yum repo groups to install into EL9 images"
+  type        = list(string)
+  default     = ["core"]
+}
+
+variable "amigen9_package_manifest" {
+  description = "File containing a list of RPMs to use as the build manifest for EL9 images"
+  type        = string
+  default     = ""
+}
+
+variable "amigen9_repo_names" {
+  description = "List of yum repo names to enable in the EL9 builders and EL9 images"
+  type        = list(string)
+  default     = [
+  ]
+}
+
+variable "amigen9_repo_sources" {
+  description = "List of yum package refs (names or urls to .rpm files) that install yum repo definitions in EL9 builders and images"
+  type        = list(string)
+  default = [
+  ]
+}
+
+variable "amigen9_source_branch" {
+  description = "Branch that will be checked out when cloning AMIgen9"
+  type        = string
+  default     = "main"
+}
+
+variable "amigen9_source_url" {
+  description = "URL that will be used to clone AMIgen9"
+  type        = string
+  default     = "https://github.com/plus3it/AMIgen9.git"
+}
+
+variable "amigen9_storage_layout" {
+  description = "List of colon-separated tuples (mount:name:size) that describe the desired partitions for LVM-partitioned disks on EL9 images"
+  type        = list(string)
+  default = [
+    "/:rootVol:6",
+    "swap:swapVol:2",
+    "/home:homeVol:1",
+    "/var:varVol:2",
+    "/var/tmp:varTmpVol:2",
+    "/var/log:logVol:2",
+    "/var/log/audit:auditVol:100%FREE",
+  ]
+}
+
+
+###
+# Variables used for Azure-based builds
+###
 variable "azure_custom_managed_image_name_rhel8" {
   description = "Name of a custom managed image to use as the base image for RHEL8 builds"
   type        = string
