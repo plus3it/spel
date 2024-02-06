@@ -8,9 +8,10 @@
 #   * azure - azure-arm builder
 #   * openstack - openstack builder
 #   * virtualbox - virtualbox builder
-#   * amigen - used by both amigen7 and amigen8
+#   * amigen - used across AMIgen versions ( amigen7, amigen8 and amigen9)
 #   * amigen7 - amigen7 only
 #   * amigen8 - amigen8 only
+#   * amigen9 - amigen9 only
 #   * spel - everything else
 #
 # For variables passed to a builder argument, just apply prefix to the argument
@@ -94,6 +95,22 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
   }
 }
 
+variable "aws_source_ami_filter_centos9stream_hvm" {
+  description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "CentOS Stream 9 x86_64 *,spel-bootstrap-centos-9stream-*.x86_64-gp*"
+    owners = [
+      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
 variable "aws_source_ami_filter_ol8_hvm" {
   description = "Object with source AMI filters for Oracle Linux 8 HVM builds"
   type = object({
@@ -102,6 +119,22 @@ variable "aws_source_ami_filter_ol8_hvm" {
   })
   default = {
     name = "OL8.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-8-hvm-*.x86_64-gp*,spel-bootstrap-ol-8-*.x86_64-gp*"
+    owners = [
+      "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
+variable "aws_source_ami_filter_ol9_hvm" {
+  description = "Object with source AMI filters for Oracle Linux 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "OL9.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-9-hvm-*.x86_64-gp*,spel-bootstrap-ol-9-*.x86_64-gp*"
     owners = [
       "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
       "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
@@ -135,6 +168,23 @@ variable "aws_source_ami_filter_rhel8_hvm" {
   })
   default = {
     name = "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP*,spel-bootstrap-rhel-8-*.x86_64-gp*"
+    owners = [
+      "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
+      "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
+variable "aws_source_ami_filter_rhel9_hvm" {
+  description = "Object with source AMI filters for RHEL 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "RHEL-9.*_HVM-*-x86_64-*-Hourly*-GP*,spel-bootstrap-rhel-9-*.x86_64-gp*"
     owners = [
       "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
       "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
