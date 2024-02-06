@@ -17,14 +17,17 @@ then
     pvdisplay -S vgname="${ROOT_VOLGRP}" | \
     awk '/PV Name/{ print $3 }'
   )"
+else
+  echo "This script requires root on LVM2 volume"
+  exit 1
 fi
 
 # Separate "/"-hosting partition from base device
-if [[ ${ROOT_DSKPRT} == /dev/nvme* ]]
+if [[ ${ROOT_DSKPRT:-} == /dev/nvme* ]]
 then
   ROOT_DISK="${ROOT_DSKPRT//p*/}"
   ROOT_PART="${ROOT_DSKPRT//*p/}"
-elif [[ ${ROOT_DSKPRT} == /dev/xvd* ]]
+elif [[ ${ROOT_DSKPRT:-} == /dev/xvd* ]]
 then
   echo "Xen Virtual Disk devices not supported"
   exit 1
@@ -33,6 +36,6 @@ fi
 SEL_MODE="$( getenforce )"
 
 # Run the grow-part task
-[[ -d /sys/fs/selinux ]] && setenforce Permissive 
-growpart "${ROOT_DISK}" "${ROOT_PART}"
-[[ -d /sys/fs/selinux ]] && setenforce "${SEL_MODE}"
+[[ -d /sys/fs/selinux ]] && setenforce Permissive
+growpart "${ROOT_DISK:-}" "${ROOT_PART:-}"
+[[ -d /sys/fs/selinux ]] && setenforce "${SEL_MODE:-}"
