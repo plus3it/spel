@@ -38,7 +38,8 @@ SEL_MODE="$( getenforce )"
 # Run the grow-part task
 [[ -d /sys/fs/selinux ]] && setenforce Permissive
 printf "Attempting to grow %s... " "${ROOT_DSKPRT:-}"
-growpart "${ROOT_DISK:-}" "${ROOT_PART:-}" > /dev/null 2&>1 \
-  || ( echo "FAILED" ; exit 1) \
-  && echo "Success!"
+growpart "${ROOT_DISK:-}" "${ROOT_PART:-}" &>/dev/null || (
+  echo "FAILED" ; exit 1
+)
+echo "Success!"
 [[ -d /sys/fs/selinux ]] && setenforce "${SEL_MODE:-}"
