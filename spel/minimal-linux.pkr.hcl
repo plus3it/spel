@@ -618,6 +618,12 @@ variable "amigen9_boot_dev_size" {
   default     = 512
 }
 
+variable "amigen9_boot_dev_label" {
+  description = "Filesystem-label to apply to the '/boot' partition"
+  type        = string
+  default     = "boot_disk"
+}
+
 variable "amigen9_extra_rpms" {
   description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL9 builders and images"
   type        = list(string)
@@ -692,6 +698,12 @@ variable "amigen9_uefi_dev_size" {
   description = "Size of the partition hosting the '/boot/efi' partition"
   type        = number
   default     = 128
+}
+
+variable "amigen9_uefi_dev_label" {
+  description = "Filesystem-label to apply to the '/boot/efi' partition"
+  type        = string
+  default     = "UEFI_DISK"
 }
 
 
@@ -1220,6 +1232,7 @@ build {
       "DNF_VAR_ocidomain=oracle.com",
       "DNF_VAR_ociregion=",
       "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
+      "SPEL_AMIGENBOOTDEVLBL=${var.amigen9_boot_dev_label}",
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen9_boot_dev_size}",
       "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
@@ -1230,6 +1243,7 @@ build {
       "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources}",
       "SPEL_AMIGENROOTNM=${var.amigen9_filesystem_label}",
       "SPEL_AMIGENSTORLAY=${local.amigen9_storage_layout}",
+      "SPEL_AMIGENUEFIDEVLBL=${var.amigen9_uefi_dev_label}",
       "SPEL_AMIGENUEFIDEVSZ=${var.amigen9_uefi_dev_size}",
       "SPEL_AMIGENVGNAME=RootVG",
       "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
