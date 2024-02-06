@@ -612,6 +612,12 @@ variable "amigen8_storage_layout" {
 ###
 # Variables used by AMIgen9
 ###
+variable "amigen9_boot_dev_size" {
+  description = "Size of the partition hosting the '/boot' partition"
+  type        = number
+  default     = 512
+}
+
 variable "amigen9_extra_rpms" {
   description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL9 builders and images"
   type        = list(string)
@@ -680,6 +686,12 @@ variable "amigen9_storage_layout" {
     "/var/log:logVol:2",
     "/var/log/audit:auditVol:100%FREE",
   ]
+}
+
+variable "amigen9_uefi_dev_size" {
+  description = "Size of the partition hosting the '/boot/efi' partition"
+  type        = number
+  default     = 128
 }
 
 
@@ -1194,6 +1206,44 @@ build {
     ]
     scripts = [
       "${path.root}/scripts/amigen8-build.sh",
+    ]
+  }
+
+  # AWS EL9 provisioners
+  provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ocidomain=oracle.com",
+      "DNF_VAR_ociregion=",
+      "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
+      "SPEL_AMIGENBOOTDEVSZ=${var.amigen9_boot_dev_size}",
+      "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
+      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
+      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
+      "SPEL_AMIGENMANFST=${var.amigen9_package_manifest}",
+      "SPEL_AMIGENPKGGRP=${local.amigen9_package_groups}",
+      "SPEL_AMIGENREPOS=${local.amigen9_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources}",
+      "SPEL_AMIGENROOTNM=${var.amigen9_filesystem_label}",
+      "SPEL_AMIGENSTORLAY=${local.amigen9_storage_layout}",
+      "SPEL_AMIGENUEFIDEVSZ=${var.amigen9_uefi_dev_size}",
+      "SPEL_AMIGENVGNAME=RootVG",
+      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
+      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
+      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
+      "SPEL_CLOUDPROVIDER=aws",
+      "SPEL_EXTRARPMS=${local.amigen9_extra_rpms}",
+      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
+      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    only = [
+      "amazon-ebs.minimal-centos-9stream-hvm",
+      "amazon-ebs.minimal-ol-9-hvm",
+      "amazon-ebs.minimal-rhel-8-hvm",
+    ]
+    scripts = [
+      "${path.root}/scripts/amigen9-build.sh",
     ]
   }
 
