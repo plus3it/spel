@@ -651,7 +651,7 @@ variable "amigen9_package_manifest" {
 variable "amigen9_repo_names" {
   description = "List of yum repo names to enable in the EL9 builders and EL9 images"
   type        = list(string)
-  default     = [
+  default = [
   ]
 }
 
@@ -877,6 +877,11 @@ locals {
   amigen8_repo_names     = join(",", var.amigen8_repo_names)
   amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
   amigen8_storage_layout = join(",", var.amigen8_storage_layout)
+  amigen9_extra_rpms     = join(",", var.amigen9_extra_rpms)
+  amigen9_package_groups = join(" ", var.amigen9_package_groups) # space-delimited
+  amigen9_repo_names     = join(",", var.amigen9_repo_names)
+  amigen9_repo_sources   = join(",", var.amigen9_repo_sources)
+  amigen9_storage_layout = join(",", var.amigen9_storage_layout)
 
   # Template the description string
   description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" %s, with updates through ${formatdate("YYYY-MM-DD", local.timestamp)}. Default username `maintuser`. See ${var.spel_description_url}."
