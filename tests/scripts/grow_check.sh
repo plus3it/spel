@@ -29,13 +29,15 @@ then
   ROOT_PART="${ROOT_DSKPRT//*p/}"
 elif [[ ${ROOT_DSKPRT:-} == /dev/xvd* ]]
 then
-  echo "Xen Virtual Disk devices not supported"
-  exit 1
+  ROOT_DISK="${ROOT_DSKPRT%?}"
+  ROOT_PART="${ROOT_DSKPRT//${ROOT_DISK}/}"
 fi
 
 SEL_MODE="$( getenforce )"
 
 # Run the grow-part task
 [[ -d /sys/fs/selinux ]] && setenforce Permissive
-growpart "${ROOT_DISK:-}" "${ROOT_PART:-}"
+printf "Attempting to grow %s... " "${ROOT_DSKPRT:-}"
+growpart "${ROOT_DISK:-}" "${ROOT_PART:-}" || ( echo FAILED ; exit 1) \
+  && echo "Success!"
 [[ -d /sys/fs/selinux ]] && setenforce "${SEL_MODE:-}"
