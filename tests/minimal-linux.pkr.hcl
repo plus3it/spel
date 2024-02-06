@@ -75,7 +75,7 @@ source "amazon-ebs" "base" {
   communicator                = "ssh"
   ena_support                 = true
   force_deregister            = true
-  instance_type               = "m4.large"
+  instance_type               = "t3.large"
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
@@ -124,10 +124,9 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
-    inline = [
-      "growpart /dev/xvda 2",
-      "partprobe",
+    execute_command = "{{ .Vars }} sudo -E /bin/bash -ex -o pipefail '{{ .Path }}'"
+    scripts = [
+      "${path.root}/scripts/grow_check.sh",
     ]
   }
 
