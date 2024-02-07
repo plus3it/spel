@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2034,SC2046
 #
-# Execute AMIGen8 scripts to prepare an EC2 instance for the AMI Create Image
+# Execute AMIGen9 scripts to prepare an EC2 instance for the AMI Create Image
 # task.
 #
 ##############################################################################
@@ -77,7 +77,7 @@ function err_exit {
 # Setup per-builder values
 case $( rpm -qf /etc/os-release --qf '%{name}' ) in
     centos-linux-release | centos-stream-release )
-        BUILDER=centos-8stream
+        BUILDER=centos-9stream
 
         DEFAULTREPOS=(
             baseos
@@ -85,31 +85,22 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             extras
         )
         ;;
-    centos-release )
-        BUILDER=centos-8
-
-        DEFAULTREPOS=(
-            BaseOS
-            AppStream
-            extras
-        )
-        ;;
     redhat-release-server|redhat-release)
-        BUILDER=rhel-8
+        BUILDER=rhel-9
 
         DEFAULTREPOS=(
-            rhel-8-appstream-rhui-rpms
-            rhel-8-baseos-rhui-rpms
-            rhui-client-config-server-8
+            rhel-9-appstream-rhui-rpms
+            rhel-9-baseos-rhui-rpms
+            rhui-client-config-server-9
         )
         ;;
     oraclelinux-release)
-        BUILDER=ol-8
+        BUILDER=ol-9
 
         DEFAULTREPOS=(
-            ol8_UEKR6
-            ol8_appstream
-            ol8_baseos_latest
+            ol9_UEKR6
+            ol9_appstream
+            ol9_baseos_latest
         )
         ;;
     *)
@@ -117,7 +108,7 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
         exit 1
         ;;
 esac
-DEFAULTREPOS+=(epel epel-modular)
+DEFAULTREPOS+=()
 
 # Default to enabling default repos
 ENABLEDREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")
@@ -515,7 +506,7 @@ function ComposeOSpkgString {
     fi
 
     # Customization for Oracle Linux
-    if [[ $BUILDER == "ol-8" ]]
+    if [[ $BUILDER == "ol-9" ]]
     then
         # Exclude Unbreakable Enterprise Kernel
         OSPACKAGESTRING+="-x kernel-uek,redhat*,*rhn*,*spacewalk*,*ulninfo* "
