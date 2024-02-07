@@ -652,16 +652,6 @@ then
         err_exit "Failed dismounting /oldroot"
 fi
 
-# Null out the build-dev's VTOC
-echo "Checking ${SPEL_AMIGENBUILDDEV} for VTOC to nuke..."
-if [[ -b "${SPEL_AMIGENBUILDDEV}" ]]
-then
-    echo "${SPEL_AMIGENBUILDDEV} is a valid block device. Nuking VTOC... "
-
-    retry 5 dd if=/dev/urandom of="${SPEL_AMIGENBUILDDEV}" bs=1024 count=10240
-    echo "Cleared."
-fi
-
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
 then
