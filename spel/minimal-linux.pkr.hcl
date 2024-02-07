@@ -1259,7 +1259,7 @@ build {
     only = [
       "amazon-ebs.minimal-centos-9stream-hvm",
       "amazon-ebs.minimal-ol-9-hvm",
-      "amazon-ebs.minimal-rhel-8-hvm",
+      "amazon-ebs.minimal-rhel-9-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen9-build.sh",
