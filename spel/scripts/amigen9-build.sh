@@ -29,8 +29,6 @@ AWSCFNBOOTSTRAP="${SPEL_AWSCFNBOOTSTRAP}"
 AWSCLIV1SOURCE="${SPEL_AWSCLIV1SOURCE}"
 AWSCLIV2SOURCE="${SPEL_AWSCLIV2SOURCE:-https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip}"
 CLOUDPROVIDER="${SPEL_CLOUDPROVIDER:-aws}"
-EPELRELEASE="${SPEL_EPELRELEASE}"
-EPELREPO="${SPEL_EPELREPO}"
 EXTRARPMS="${SPEL_EXTRARPMS}"
 FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
@@ -575,6 +573,27 @@ function DisableStrictHostCheck {
     err_exit "Failed disabling SSH's strict hostkey checking"
 }
 
+function ServiceReStopper {
+
+  echo "Killing auditd"
+  service auditd stop
+
+  echo "Kill all non-essential services"
+  for SERVICE in $(
+    systemctl list-units --type=service --state=running | \
+    awk '/loaded active running/{ print $1 }' | \
+    grep -Ev '(audit|sshd|user@)'
+  )
+  do
+    echo "Killing ${SERVICE}"
+    systemctl stop "${SERVICE}"
+  done
+
+  echo "Sleeping to allow everything to stop"
+  sleep 10
+
+}
+
 
 
 ##########################
@@ -589,7 +608,7 @@ set -o pipefail
 if [[ ${#BUILDDEPS[@]} -gt 0 ]]
 then
     err_exit "Installing build-host dependencies" NONE
-    yum -y install "${BUILDDEPS[@]}" || \
+    dnf -y install "${BUILDDEPS[@]}" || \
         err_exit "Failed installing build-host dependencies"
 
     err_exit "Verifying build-host dependencies" NONE
@@ -604,13 +623,6 @@ then
     echo "Set git config to use proxy"
 fi
 
-if [[ -n "${EPELRELEASE:-}" ]]
-then
-    {
-        STDERR=$( yum -y install "$EPELRELEASE" 2>&1 1>&$out );
-    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
-fi
-
 if [[ -n "${EPELREPO:-}" ]]
 then
     yum-config-manager --enable "$EPELREPO" > /dev/null
@@ -621,7 +633,7 @@ IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
 for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
 do
     {
-        STDERR=$( yum -y install "$RPM" 2>&1 1>&$out );
+        STDERR=$( dnf -y install "$RPM" 2>&1 1>&$out );
     } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
@@ -634,7 +646,7 @@ IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
 for RPM in "${BUILDER_EXTRARPMS[@]}"
 do
     {
-        STDERR=$( yum -y install "$RPM" 2>&1 1>&$out );
+        STDERR=$( dnf -y install "$RPM" 2>&1 1>&$out );
     } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
@@ -662,6 +674,10 @@ fi
 
 # Pull build-tools from git clone-source
 git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
+
+# Make sure the `dnf install` of EXTRARPMS-list into the builder-root hasn't
+# reactivated anything and rendered to boot-disk busy
+ServiceReStopper
 
 # Execute build-tools
 BuildChroot
