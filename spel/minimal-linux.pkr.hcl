@@ -69,9 +69,9 @@ variable "aws_source_ami_filter_centos7_hvm" {
     owners = list(string)
   })
   default = {
-    name = "CentOS 7.* x86_64,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
+    name = "CentOS Linux 7 x86_64 *,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
     owners = [
-      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "125523088429", # CentOS Commercial, hhttps://www.centos.org/download/aws-images/
       "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
       "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
@@ -87,7 +87,7 @@ variable "aws_source_ami_filter_centos8stream_hvm" {
   default = {
     name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-*.x86_64-gp*"
     owners = [
-      "125523088429", # CentOS Commercial, https://wiki.centos.org/Cloud/AWS
+      "125523088429", # CentOS Commercial, https://www.centos.org/download/aws-images/
       "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
       "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
