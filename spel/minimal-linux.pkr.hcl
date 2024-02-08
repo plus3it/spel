@@ -1105,6 +1105,11 @@ build {
     environment_vars = [
       "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
+      "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
+      "SPEL_AMIGENREPOS=${local.amigen9_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources}",
+      "SPEL_EXTRARPMS=${local.amigen9_extra_rpms}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     scripts = [
