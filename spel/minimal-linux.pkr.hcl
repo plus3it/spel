@@ -1100,6 +1100,25 @@ build {
     ]
   }
 
+  # Want to try to run this pre-step early on EL9
+  provisioner "shell" {
+    environment_vars = [
+      "DNF_VAR_ociregion=",
+      "DNF_VAR_ocidomain=oracle.com",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
+    scripts = [
+      "${path.root}/scripts/builder-prep-9.sh",
+    ]
+    start_retry_timeout = "15m"
+    only = [
+      "amazon-ebs.minimal-centos-9stream-hvm",
+      "amazon-ebs.minimal-ol-9-hvm",
+      "amazon-ebs.minimal-rhel-9-hvm",
+    ]
+  }
+
+
   provisioner "shell" {
     environment_vars = [
       "DNF_VAR_ociregion=",

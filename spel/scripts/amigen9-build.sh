@@ -573,28 +573,6 @@ function DisableStrictHostCheck {
     err_exit "Failed disabling SSH's strict hostkey checking"
 }
 
-function ServiceReStopper {
-
-  echo "Killing auditd"
-  service auditd stop
-
-  echo "Kill all non-essential services"
-  for SERVICE in $(
-    systemctl list-units --type=service --state=running | \
-    awk '/loaded active running/{ print $1 }' | \
-    grep -Ev '(audit|sshd|user@)'
-  )
-  do
-    echo "Killing ${SERVICE}"
-    systemctl stop "${SERVICE}"
-  done
-
-  echo "Sleeping to allow everything to stop"
-  sleep 10
-
-}
-
-
 
 ##########################
 ## Main program section ##
@@ -603,58 +581,6 @@ function ServiceReStopper {
 set -x
 set -e
 set -o pipefail
-
-# Install supplementary tooling
-if [[ ${#BUILDDEPS[@]} -gt 0 ]]
-then
-    err_exit "Installing build-host dependencies" NONE
-    dnf -y install "${BUILDDEPS[@]}" || \
-        err_exit "Failed installing build-host dependencies"
-
-    err_exit "Verifying build-host dependencies" NONE
-    rpm -q "${BUILDDEPS[@]}" || \
-        err_exit "Verification failed"
-fi
-
-if [[ -n "${HTTP_PROXY:-}" ]]
-then
-    echo "Setting Git Config Proxy"
-    git config --global http.proxy "${HTTP_PROXY}"
-    echo "Set git config to use proxy"
-fi
-
-if [[ -n "${EPELREPO:-}" ]]
-then
-    yum-config-manager --enable "$EPELREPO" > /dev/null
-fi
-
-echo "Installing custom repo packages in the builder box"
-IFS="," read -r -a BUILDER_AMIGENREPOSRC <<< "$AMIGENREPOSRC"
-for RPM in "${BUILDER_AMIGENREPOSRC[@]}"
-do
-    {
-        STDERR=$( dnf -y install "$RPM" 2>&1 1>&$out );
-    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
-done
-
-echo "Enabling repos in the builder box"
-yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
-
-echo "Installing specified extra packages in the builder box"
-IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
-for RPM in "${BUILDER_EXTRARPMS[@]}"
-do
-    {
-        STDERR=$( dnf -y install "$RPM" 2>&1 1>&$out );
-    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
-done
-
-# Disable strict host-key checking when doing git-over-ssh
-if [[ ${AMIGENSOURCE} =~ "@" ]]
-then
-    DisableStrictHostCheck "${AMIGENSOURCE}"
-fi
 
 # Dismount /oldroot as needed
 if [[ $( mountpoint /oldroot ) =~ "is a mountpoint" ]]
@@ -674,10 +600,6 @@ fi
 
 # Pull build-tools from git clone-source
 git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
-
-# Make sure the `dnf install` of EXTRARPMS-list into the builder-root hasn't
-# reactivated anything and rendered to boot-disk busy
-ServiceReStopper
 
 # Execute build-tools
 BuildChroot
