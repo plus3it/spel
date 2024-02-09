@@ -25,7 +25,27 @@ The fruits of this automation-effort are openly provided on an "as-is" basis. In
 
 ## Testing
 
-To be written...
+In progress...
+
+Currently, this project links to a couple of services. When submitting a PR:
+* Basic lints will be performed against any shell script
+* Basic lints will be performed against any Packer templates
+* Offered content will be tested by a CodeCommit pipeline that ensures that modifications continue to produce functional AMIs
+* Documentation will be tested for recency.
+    Note: if the associated Travis CI job fails with a message like:
+    ~~~
+    Error: spel/README.md is out of date
+    make: *** [/home/travis/build/plus3it/spel/tardigrade-ci/Makefile:463: docs/lint/spel/README.md] Error 1
+    The command "make -f Makefile.tardigrade-ci lint" exited with 2.
+    ~~~
+    It will be necesary to execute:
+    ~~~
+    make -f Makefile.tardigrade-ci docs/generate
+    ~~~
+    In your branch's project-root (and then commit any changes) in order to clear it.
+
+
+
 
 ## Submitting Changes
 
