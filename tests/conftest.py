@@ -12,7 +12,7 @@ FIPS_DISABLED = set(["true", "TRUE", "1", "on"])
 
 # Markers
 VIRTUALIZATION_MARKERS = set(["hvm", "paravirtual"])
-PLAT_MARKERS = set(["el7", "el8"])
+PLAT_MARKERS = set(["el7", "el8", "el9"])
 FIPS_MARKERS = set(["fips_enabled", "fips_disabled"])
 AMIUTILS_MARKERS = set(["amiutils_enabled", "amiutils_disabled"])
 
@@ -38,6 +38,7 @@ def pytest_configure(config):
     """Configure pytest."""
     config.addinivalue_line("markers", "el7: mark test to run only on el7 platforms")
     config.addinivalue_line("markers", "el8: mark test to run only on el8 platforms")
+    config.addinivalue_line("markers", "el9: mark test to run only on el9 platforms")
     config.addinivalue_line("markers", "hvm: mark test to run only on hvm instances")
     config.addinivalue_line(
         "markers", "paravirtual: mark test to run only on paravirtual instances"

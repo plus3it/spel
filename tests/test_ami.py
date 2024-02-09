@@ -182,6 +182,8 @@ def test_systemd_services(host, service):  # noqa: D103
     assert chk_service.is_enabled
 
 
+@pytest.mark.el7
+@pytest.mark.el8
 @pytest.mark.parametrize(
     "name",
     [
