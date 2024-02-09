@@ -28,6 +28,11 @@ variable "aws_source_ami_rhel8_hvm" {
   default = env("amazon_ebs_minimal_rhel_8_hvm")
 }
 
+variable "aws_source_ami_rhel9_hvm" {
+  type    = string
+  default = env("amazon_ebs_minimal_rhel_9_hvm")
+}
+
 variable "aws_ssh_interface" {
   type    = string
   default = "public_dns"
@@ -121,6 +126,11 @@ build {
   source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_rhel8_hvm
     name       = "minimal-rhel-8-hvm"
+  }
+
+  source "amazon-ebs.base" {
+    source_ami = var.aws_source_ami_rhel9_hvm
+    name       = "minimal-rhel-9-hvm"
   }
 
   provisioner "shell" {
