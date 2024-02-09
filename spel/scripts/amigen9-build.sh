@@ -410,7 +410,7 @@ function ComposeDiskSetupString {
         err_exit "Setting /boot/efi fs-label to 'UEFI_DISK'." NONE
         DISKSETUPCMD+="-L UEFI_DISK "
     else
-        DISKSETUPCMD+="-l ${AMIGENUEFILABL} "
+        DISKSETUPCMD+="-L ${AMIGENUEFILABL} "
     fi
 
     # Set the filesystem-type to use for OS filesystems
