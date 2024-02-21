@@ -36,7 +36,7 @@ HTTP_PROXY="${SPEL_HTTP_PROXY}"
 USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
 
 
-read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git}"
+read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git dosfstools python3-pip}"
 
 ELBUILD="/tmp/el-build"
 
@@ -96,7 +96,7 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
         BUILDER=ol-9
 
         DEFAULTREPOS=(
-            ol9_UEKR6
+            ol9_UEKR7
             ol9_appstream
             ol9_baseos_latest
         )
