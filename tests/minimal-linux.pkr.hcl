@@ -18,6 +18,11 @@ variable "aws_source_ami_ol_8_hvm" {
   default = env("amazon_ebs_minimal_ol_8_hvm")
 }
 
+variable "aws_source_ami_ol_9_hvm" {
+  type    = string
+  default = env("amazon_ebs_minimal_ol_9_hvm")
+}
+
 variable "aws_source_ami_rhel7_hvm" {
   type    = string
   default = env("amazon_ebs_minimal_rhel_7_hvm")
@@ -116,6 +121,11 @@ build {
   source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_ol_8_hvm
     name       = "minimal-ol-8-hvm"
+  }
+
+  source "amazon-ebs.base" {
+    source_ami = var.aws_source_ami_ol_9_hvm
+    name       = "minimal-ol-9-hvm"
   }
 
   source "amazon-ebs.base" {
