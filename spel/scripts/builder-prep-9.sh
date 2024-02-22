@@ -58,7 +58,7 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
         DEFAULTREPOS=(
             baseos
             appstream
-            extras
+            extras-common
         )
         ;;
     redhat-release-server|redhat-release)

@@ -13,6 +13,11 @@ variable "aws_source_ami_centos8stream_hvm" {
   default = env("amazon_ebs_minimal_centos_8stream_hvm")
 }
 
+variable "aws_source_ami_centos9stream_hvm" {
+  type    = string
+  default = env("amazon_ebs_minimal_centos_9stream_hvm")
+}
+
 variable "aws_source_ami_ol_8_hvm" {
   type    = string
   default = env("amazon_ebs_minimal_ol_8_hvm")
@@ -116,6 +121,11 @@ build {
   source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_centos8stream_hvm
     name       = "minimal-centos-8stream-hvm"
+  }
+
+  source "amazon-ebs.base" {
+    source_ami = var.aws_source_ami_centos9stream_hvm
+    name       = "minimal-centos-9stream-hvm"
   }
 
   source "amazon-ebs.base" {
