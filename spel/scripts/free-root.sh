@@ -34,5 +34,12 @@ done
 echo "Sleeping to allow everything to stop"
 sleep 10
 
-echo Killing processes locking /oldroot
-fuser -vmk /oldroot
+if [[ $( mountpoint -q /oldroot )$? -eq 0 ]]
+then
+  echo "Killing processes locking /oldroot"
+  fuser -vmk /oldroot
+else
+  echo "NO-OP: /oldroot is not a mount"
+fi
+
+
