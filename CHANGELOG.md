@@ -1,5 +1,25 @@
 ## Changelog
 
+### [2024.02.1](https://github.com/plus3it/spel/releases/tag/2024.02.1)
+
+**Released**: 2024.02.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.02.1/manifests>
+
+**Summary**:
+
+*   Begins adding builders in support of future EL9 releases
+*   Supports building EL8 images that work with both EFI and BIOS boot modes. If
+    both the builder instance boots in EFI mode, and the source image is marked
+    `uefi-preferred`, then the resulting image will inherit `uefi-preferred` and
+    will support both EFI and BIOS boot modes. As of this release, only RHEL8 SPEL
+    images are marked as `uefi-preferred`. Further work is in-progress for other
+    EL8 flavors to build `uefi-preferred` images.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.21
+    - amazon-ssm-agent-3.2.2222.0-1
+
 ### [2024.01.1](https://github.com/plus3it/spel/releases/tag/2024.01.1)
 
 **Released**: 2024.01.25
