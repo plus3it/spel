@@ -44,9 +44,42 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
 
 4. Ensure to clone the following Git Repositories into the `root` user's `${HOME}`:
 
-    - https://github.com/plus3it/spel
     - https://github.com/plus3it/AMIgen8
     - https://github.com/plus3it/AMIgen9
 
     The above assumes that your EC2 has clone access to GitHub-hosted resources. If this is not the case, it will be necessary to have mirrors of the above repos that _are_ `git`-reachable from your EC2.
-5.
+6. Execute the AMIgen scripts, using the secondary EBS as the build target. Generically, this will look like:
+
+    ~~~bash
+    AMIgen8/DiskSetup.sh \
+      -d /dev/xvdx \
+      -f xfs \
+      -B 17m \
+      -b 512 \
+      -l boot_dev \
+      -U 64 \
+      -L UEFI_DEV \
+      -r root_dev \
+      -X && \
+    AMIgen8/MkChrootTree.sh \
+      -d /dev/xvdx \
+      -f xfs \
+      --no-lvm \
+      --rootlabel root_dev \
+      --with-uefi && \
+    AMIgen9/OSpackages.sh \
+      -X \
+      -a <REPO1>,<REPO2>,...,<REPOn>\
+      -r /root/RPM/<DISTRO>/<CRITICAL_RPM_1>,/root/RPM/<DISTRO>/<CRITICAL_RPM_2>,...,/root/RPM/<DISTRO>/<CRITICAL_RPM_n> \
+      -e <CRITICAL_RPM_1>,<CRITICAL_RPM_2>,...,<CRITICAL_RPM_n> \
+      -x subscription-manager && \
+    AMIgen8/AWSutils.sh \
+      -c https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
+      -n https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz \
+      -s https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm \
+      -t amazon-ssm-agent && \
+    AMIgen9/PostBuild.sh \
+      -f xfs \
+      -X && \
+    echo SUCCESS
+    ~~~
