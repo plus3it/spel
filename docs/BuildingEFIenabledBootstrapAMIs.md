@@ -33,6 +33,7 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
 
 2. Launch a _pre_-Nitro instance type from the desired AMI. A `t2` or `m4` of size `large` or larger is recommended. The EC2 should have a secondary EBS of 8GiB (or larger) size attached at the `/dev/sdx` attachment-point.
 3. Ensure the newly-launched EC2 has the following RPMs present:
+
     - zip
     - unzip
     - lvm2
@@ -40,7 +41,12 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
     - dosfstools
     - yum-utils
     - python3-pip
+
 4. Ensure to clone the following Git Repositories into the `root` user's `${HOME}`:
+
     - https://github.com/plus3it/spel
     - https://github.com/plus3it/AMIgen8
     - https://github.com/plus3it/AMIgen9
+
+    The above assumes that your EC2 has clone access to GitHub-hosted resources. If this is not the case, it will be necessary to have mirrors of the above repos that _are_ `git`-reachable from your EC2.
+5.
