@@ -48,16 +48,26 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
     - https://github.com/plus3it/AMIgen9
 
     The above assumes that your EC2 has clone access to GitHub-hosted resources. If this is not the case, it will be necessary to have mirrors of the above repos that _are_ `git`-reachable from your EC2.
-6. Execute the AMIgen scripts, using the secondary EBS as the build target. Generically, this will look like:
+5. Install the cross-distro RPM signing/verification keys and `yum` repository definitions using the `Xdistro.sh` script. This will generally look like:
+
+    ~~~bash
+    XdistroSetup.sh -d <DISTRO_NAME> \
+      -k <URL_FOR_RPM_CONTAINING_RPM_VALIDATION_GPG_KEYS> \
+      -r <URL_FOR_RPM_CONTAINING_RPM_VALIDATION_GPG_KEYS>,<URL_FOR_RPM_CONTAINING_YUM_REPO_DEFS>,<ETC> 
+    ~~~
+
+    This will download the above RPMs to the `${HOME}/RPM/<DISTRO_NAME>` directory.
+6. Install the `${HOME}/RPM/<DISTRO_NAME>/<VALIDATION_GPG_KEYS>` RPM
+   Note: Because the `<YUM_REPO_DEFS>` RPM for Oracle Linux has a naming-collision with the one published by Red Hat, it will be necessary to use `rpm2cpio`/`cpio` to unpack the RPM and then manually copy the unpacked GPG files to `/etc/pki/rpm-gpg` directory
+7. Install the `${HOME}/RPM/<DISTRO_NAME>/<YUM_REPO_DEFS>` RPM
+8. Use the `yum-config-manager` utility to `--disable` the `yum` repository-definitions installed by the prior step
+9. Execute the AMIgen scripts, using the secondary EBS as the build target. Generically, this will look like:
 
     ~~~bash
     AMIgen8/DiskSetup.sh \
       -d /dev/xvdx \
       -f xfs \
-      -B 17m \
-      -b 512 \
       -l boot_dev \
-      -U 64 \
       -L UEFI_DEV \
       -r root_dev \
       -X && \
@@ -83,3 +93,12 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
       -X && \
     echo SUCCESS
     ~~~
+
+    The above will partition the secondary EBS (seen by the OS as `/dev/xvdx`) into four partitions:
+    
+    - a 17MiB partion (#1) to hold the boot-block record
+    - a 100 MiB partition (#2) to host the FAT-formatted `/boot/efi` filesystem: this filesystem will have the label `UEFI_DEV`
+    - a 400 MiB partition (#3) to host the XFS-formatted `/boot` filesystem: this filesystem will have the label `boot_dev`
+    - a partition allocating the rest of the EBS's free space to host the XFS-formatted `/` filesystem: this filesystem will have the label `root_dev`
+
+    The partitioned secondary EBS will then be mounted under the `/mnt/ec2-root` filesystem-hierarchy. Once mounted the `@core` RPM-group will be installed, plus AWS tooling (AWS CLIv2, Amazon SSM agent and the CloudFormation "bootstrap" service).
