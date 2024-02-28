@@ -104,6 +104,9 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
     echo SUCCESS
     ~~~
 
+    - CentOS Stream 8 [example-invocation](buildIt-co8.txt)
+    - Oracle Linux 8 [example-invocation](buildIt-ol8.txt)
+
     Note: The references to `AMIgen9` are currently correct. Due to some inconsistencies in the `AMIgen8` project &ndash; due to its authoring _long_ before EFI-support was available for RHEL 8.x &ndash; use of the `AMIgen8` scripts will cause launch-errors in the stage-1 bootstrap-AMIs. Use of the noted `AMIgen9` scripts will avoid these launch-errors.
 
     The above will partition the secondary EBS (seen by the OS as `/dev/xvdx`) into four partitions:
@@ -146,3 +149,199 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
 
 
 ## Stage 2
+
+
+1. Launch a Nitro-based instance type from the newly-created, stage-1 bootstrap-AMI. A `t3`, `m5`, `m6i` or `m7i` of size `large` or larger is recommended. Do **not** attach any secondary EBSes and do not alter the size of the boot EBS.
+2. Ensure the newly-launched EC2 has the following RPMs present:
+
+    - zip
+    - unzip
+    - lvm2
+    - git
+    - dosfstools
+    - yum-utils
+    - python3-pip
+
+    Most of these will already be baked into the stage-1 bootstrap AMIs.
+
+3. Ensure to clone the following Git Repositories into the `root` user's `${HOME}`:
+
+    - https://github.com/plus3it/spel
+    - https://github.com/plus3it/AMIgen8
+
+4. Execute the "pivot-root" step
+
+   1. SSH to the just-launched EC2
+   2. Escallate privileges to `root`.
+
+       Note: because the `AMIgen` scripts create an SELinux-enabled operating system with pre-defined SELinux role-transitions configured into `sudo`'s configurations, it may be necessary to add the `-r unconfined_r` and `-t unconfined_t` flag-options to any use of `sudo`
+
+   3. Execute `bash <PATH_TO_SPEL_GIT_REPO>/spel/scripts/pivot-root.sh`. If this runs successfully, you will be logged out.
+
+       Note: If you observe any `permission denied` types of errors during this script's running, it is most likely because you were running under an overly-strict SELinux user-confinement. See prior note about baked-in SELinux role-transitions. Reboot the host and retry your privilege-escallation step
+
+4. Log back in to the EC2
+5. Escallate privileges to `root` (as per the "pivot-root" step
+6. Execute `bash <PATH_TO_SPEL_GIT_REPO>/spel/scripts/free-root.sh`.
+7. Execute `umount /oldroot`
+8. Null the boot-disk:
+
+    1. Use the `parted` command to identify the device-name of the boot-disk. This _should_ be `/dev/nvme0n1`
+    2. Use the following scriptlet to erase all of the partitions from the boot-disk:
+
+        ~~~bash
+        for P in {4..1}
+        do
+          parted /dev/nvme0n1 rm $P
+        done
+        ~~~
+
+        This should execute with no errors. If any errors like:
+
+        ~~~bash
+        Error: Partition(s) 4 on /dev/nvme0n1 have been written, but we have been unable to inform the kernel of the change, probably because it/they are in use.  As a result, the old partition(s) will remain in use.  You should reboot now before making further changes.
+        ~~~
+
+        Something is holding the boot-disk open and the system is _not_ in a state suitable for further provisioning
+
+    3. Zero-out the de-partitioned boot-disk. Something like `dd if=/dev/zero of=/dev/nvme0n1 bs=1024 count=$(( 1024 * 200 ))` should suffice
+    4. Force kernel to reread the disk geometry with `partprobe /dev/nvme0n1`
+
+8. Because the stage-1 bootstrap AMIs will have already been configured with the necessary GPG keys, DNF variables, etc., it should be possible to run the AMIgen8 scripts with a minimal number of arguments. The following should be sufficient to rebuild the boot-disk the necessary contents:
+
+    1. Setup the root-disk with basic partitioning:
+
+        ~~~bash
+        AMIgen8/DiskSetup.sh \
+          -d /dev/nvme0n1 \
+          -f xfs \
+          -B 17m \
+          -b 512 \
+          -l boot_disk \
+          -U 64 \
+          -L UEFI_DISK \
+          -r root_disk
+        ~~~
+
+    2. Mount the setup root-disk:
+
+        ~~~bash
+        AMIgen8/MkChrootTree.sh \
+          -d /dev/nvme0n1 \
+          -f xfs \
+          --no-lvm
+        ~~~
+
+    3. Install the target-OS to the mounted root-disk:
+
+        ~~~bash
+        AMIgen9/OSpackages.sh
+        ~~~
+
+    4. Install the AWS-enablement tools to the mounted root-disk:
+
+        ~~~bash
+        AMIgen8/AWSutils.sh \
+          -c https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
+          -n https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz \
+          -s https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm \
+          -t amazon-ssm-agent
+        ~~~
+
+    5. Apply SELinux labels, clean out log files, etc.
+
+        ~~~bash
+        AMIgen9/PostBuild.sh \
+          -f xfs \
+          -X
+        ~~~
+
+9. Power off the EC2
+10. Create an AMI from the powered-off EC2 using the `create-image` subcommand. This will be done similar to the following:
+
+        ~~~bash
+        aws ec2 create-image \
+          --instance-id <INSTANCE_ID_OF_POWERED_OFF_EC2> \
+          --name <NAME_OF_BOOTSTRAP_AMI> \
+          --description '"bootstrap" image for <OS_NAME> 8 (current through YYYY-MM-DD)'
+        ~~~
+
+## Validation
+
+Perform the following setps to ensure that the newly-created AMI(s) are properly configured:
+
+1. Verify desired AMI-attributes:
+
+    ~~~bash
+    aws ec2 describe-images \
+      --query 'Images[].{
+          ID:ImageId,RHUI_Access:UsageOperation,Networking_ENA:EnaSupport,Networking_SRIOV:SriovNetSupport,EFI_Support:BootMode
+        }' \
+      --output table \
+      --image-ids ami-NNNNNNNNNNNNNNNNN
+    ---------------------------------------------------------------------------------------------------
+    |                                         DescribeImages                                          |
+    +----------------+-------------------------+-----------------+-------------------+----------------+
+    |   EFI_Support  |           ID            | Networking_ENA  | Networking_SRIOV  |  RHUI_Access   |
+    +----------------+-------------------------+-----------------+-------------------+----------------+
+    |  uefi-preferred|  ami-NNNNNNNNNNNNNNNNN  |  True           |  simple           |  RunInstances  |
+    +----------------+-------------------------+-----------------+-------------------+----------------+
+    ~~~
+
+    Note: If the `RHUI_Access` value is `RunInstances:0010`, something went wrong in your build workflow. As a result, EC2s launched from the AMI will accrue undesired OS-licensing costs.
+
+2. Perform test-launches of the AMI using both a `t2.medium` and `t3.medium` instance-types and verify that each fully boots up.
+3. Use the CLI to do a quick audit of the instances:
+
+    - Verify correct console-logging setup:
+
+        ~~~bash
+        aws ec2 get-console-output --query 'Output' --output text --instance-id <EC2_ID>
+        ~~~
+
+        Output should be non-null
+
+    - Verify expected attributes:
+
+        ~~~bash
+        aws ec2 describe-instances \
+          --query 'Reservations[].Instances[].{
+              ENA_enabled:EnaSupport,BOOT_Enablement:BootMode,BootMode:CurrentInstanceBootMode
+            }' \
+          --output table \
+          --instance-ids <EC2_IDs>
+        ~~~
+
+        Output should be similar to:
+
+        ~~~bash
+        ----------------------------------------------------------------------
+        |                            DescribeInstances                       |
+        +------------------+---------------+--------------+------------------+
+        |  BOOT_Enablement | BootMode      | ENA_enabled  |    InstanceId    |
+        +------------------+---------------+--------------+------------------+
+        |  uefi-preferred  |  legacy-bios  |  True        | <INSTANCE_1_ID>  |
+        |  uefi-preferred  |  uefi         |  True        | <INSTANCE_2_ID>  |
+        +------------------+---------------+--------------+------------------+
+        ~~~
+
+4. Login to the EC2s and perform a quick audit of the two EC2s. Recommended tests include:
+
+    - Verify OS-release: `sed -n '/^PRETTY_NAME=/p' /etc/os-release`
+    - Verify mount-configuration: `cat /etc/fstab`
+    - Verify disk-layout: `df -PH`
+    - Verify boot-mode: `test -d /sys/firmware/efi && echo "Boot-Mode: EFI" || echo "Boot-Mode: BIOS"`
+    - Verify expected boot-options: `cat /proc/cmdline`
+    - Verify (null) `billingProducts` setting and instance-type:
+
+        ~~~bash
+        curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | \
+        grep -E '(billingProducts|instanceType)'`
+        ~~~
+
+        The `billingProducts` attribute should be `null` while the `instanceType` should match the launched-as value
+
+    - Verify ability to install arbitrary vendor-RPMs: `dnf install -y git`
+    - Verify desired SELinux enforcement-mode: `getenforce`
+    - Verify desired FIPS-mode setting: `fips-mode-setup --check`
+
