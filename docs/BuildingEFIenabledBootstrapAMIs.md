@@ -63,7 +63,8 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
 
     For distro-specific examples.
 6. Install the `${HOME}/RPM/<DISTRO_NAME>/<VALIDATION_GPG_KEYS>` RPM
-   Note: Because the `<YUM_REPO_DEFS>` RPM for Oracle Linux has a naming-collision with the one published by Red Hat, it will be necessary to use `rpm2cpio`/`cpio` to unpack the RPM and then manually copy the unpacked GPG files to `/etc/pki/rpm-gpg` directory
+
+   Note: Because the `<YUM_REPO_DEFS>` RPM for Oracle Linux has a naming-collision with the one published by Red Hat, it will be necessary to use `rpm2cpio`/`cpio` to unpack the RPM and then manually copy the unpacked GPG files to the `/etc/pki/rpm-gpg` directory
 7. Install the `${HOME}/RPM/<DISTRO_NAME>/<YUM_REPO_DEFS>` RPM
 8. Use the `yum-config-manager` utility to `--disable` the `yum` repository-definitions installed by the prior step
 9. Execute the AMIgen scripts, using the secondary EBS as the build target. Generically, this will look like:
