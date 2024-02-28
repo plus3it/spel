@@ -107,4 +107,34 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
     - a 400 MiB partition (#3) to host the XFS-formatted `/boot` filesystem: this filesystem will have the label `boot_dev`
     - a partition allocating the rest of the EBS's free space to host the XFS-formatted `/` filesystem: this filesystem will have the label `root_dev`
 
-    The partitioned secondary EBS will then be mounted under the `/mnt/ec2-root` filesystem-hierarchy. Once mounted the `@core` RPM-group will be installed, plus AWS tooling (AWS CLIv2, Amazon SSM agent and the CloudFormation "bootstrap" service).
+    The partitioned secondary EBS will then be mounted under the `/mnt/ec2-root` filesystem-hierarchy. Once mounted the `@core` RPM-group will be installed, plus AWS tooling (AWS CLIv2, Amazon SSM agent and the CloudFormation "bootstrap" service). Assuming all goes well, the message `SUCCESS` will be printed.
+
+10. Cleanup steps:
+
+    - It may be necessary to correct the `/mnt/ec2-root/etc/fstab` file: when run as above, the entry for the `/boot/efi` partition typically has two lines of error-output before the line starting `UEFI_DEV`. Correct the file so that the `/boot/efi` filesystem's entry looks like:
+
+        ~~~bash
+        LABEL=UEFI_DEV  /boot/efi       vfat    defaults,rw     0 0
+        ~~~
+
+        Note: the white-space between the `LABEL=UEFI_DEV` and the `/boot/efi` tokens _should_ be at `<TAB>`. Ensuring that it is a `<TAB>` should cause the `/boot/efi` column to better align with the prior mount-entries' mountpoint column-entries.
+
+    - (Oracle only) Ensure that necessary `/mnt/ec2-root/etc/dnf/vars/` files are present. A null-content file named `ociregion` and a file named `ocidomain` containing `oracle.com` should be present. If absent, correct this gap
+
+11. Cleanly unmount all of the `/mnt/ec2-root` filesystems by executing `Umount.sh`
+12. Create an EBS-snapshot of the secondary EBS (attached at `/dev/sdx` if prior instructions were adhered to)
+13. When the EBS-snapshot reaches a `Completed` state, use the AWS CLI's `register-image` sub-command to create the stage-1 bootstrap image. This will typically look something like:
+
+    ~~~bash
+    aws ec2 register-image \
+      --name <AMI_NAME> \
+      --architecture x86_64 \
+      --description 'Stage 1 "bootstrap" image for <DISTRO_NAME> (current through <BUILD_DATE>)' \
+      --ena-support \
+      --sriov-net-support simple \
+      --root-device-name /dev/sda1 \
+      --boot-mode uefi-preferred \
+      --root-device-name /dev/sda1 \
+      --block-device-mappings 'DeviceName=/dev/sda1,Ebs={SnapshotId=<SNAPSHOT_ID>}'
+    ~~~
+
