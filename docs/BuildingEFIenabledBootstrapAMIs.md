@@ -56,7 +56,12 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
       -r <URL_FOR_RPM_CONTAINING_RPM_VALIDATION_GPG_KEYS>,<URL_FOR_RPM_CONTAINING_YUM_REPO_DEFS>,<ETC> 
     ~~~
 
-    This will download the above RPMs to the `${HOME}/RPM/<DISTRO_NAME>` directory.
+    This will download the above RPMs to the `${HOME}/RPM/<DISTRO_NAME>` directory. See:
+
+    - [Oracle Linux 8](Xdistro-OL8.md)
+    - [CentOS Stream 8](Xdistro-CO8.md)
+
+    For distro-specific examples.
 6. Install the `${HOME}/RPM/<DISTRO_NAME>/<VALIDATION_GPG_KEYS>` RPM
    Note: Because the `<YUM_REPO_DEFS>` RPM for Oracle Linux has a naming-collision with the one published by Red Hat, it will be necessary to use `rpm2cpio`/`cpio` to unpack the RPM and then manually copy the unpacked GPG files to `/etc/pki/rpm-gpg` directory
 7. Install the `${HOME}/RPM/<DISTRO_NAME>/<YUM_REPO_DEFS>` RPM
