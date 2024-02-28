@@ -1,4 +1,8 @@
+# Background
+
 Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publish EFI-enabled AMIs. Other AMI-publishers &ndash; CentOS.Org  and Oracle are both known to not do so &ndash; publish AMIs that are _not_ EFI-enabled. It is assumed that, if publishing more than one distro's AMI in a distro-family, that consistent EFI-support will be desired in resultant AMIs. The general process is a two-stage workflow to create EFI-enabled AMIs for an arbitrary collection of distro-family's AMIs. The basic process is:
+
+## Stage 1
 
 1. Look for the latest-available, efi-enabled AMI from Red Hat. This can be done with a query like:
 
@@ -140,3 +144,5 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
       --block-device-mappings 'DeviceName=/dev/sda1,Ebs={SnapshotId=<SNAPSHOT_ID>}'
     ~~~
 
+
+## Stage 2
