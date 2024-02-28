@@ -100,6 +100,8 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
     echo SUCCESS
     ~~~
 
+    Note: The references to `AMIgen9` are currently correct. Due to some inconsistencies in the `AMIgen8` project &ndash; due to its authoring _long_ before EFI-support was available for RHEL 8.x &ndash; use of the `AMIgen8` scripts will cause launch-errors in the stage-1 bootstrap-AMIs. Use of the noted `AMIgen9` scripts will avoid these launch-errors.
+
     The above will partition the secondary EBS (seen by the OS as `/dev/xvdx`) into four partitions:
     
     - a 17MiB partion (#1) to hold the boot-block record
