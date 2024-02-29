@@ -68,7 +68,7 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
     For distro-specific examples.
 6. Install the `${HOME}/RPM/<DISTRO_NAME>/<VALIDATION_GPG_KEYS>` RPM
 
-   Note: Because the `<YUM_REPO_DEFS>` RPM for Oracle Linux has a naming-collision with the one published by Red Hat, it will be necessary to use `rpm2cpio`/`cpio` to unpack the RPM and then manually copy the unpacked GPG files to the `/etc/pki/rpm-gpg` directory
+    Note: Because the `<YUM_REPO_DEFS>` RPM for Oracle Linux has a naming-collision with the one published by Red Hat, it will be necessary to use `rpm2cpio`/`cpio` to unpack the RPM and then manually copy the unpacked GPG files to the `/etc/pki/rpm-gpg` directory
 7. Install the `${HOME}/RPM/<DISTRO_NAME>/<YUM_REPO_DEFS>` RPM
 8. Use the `yum-config-manager` utility to `--disable` the `yum` repository-definitions installed by the prior step
 9. Execute the AMIgen scripts, using the secondary EBS as the build target. Generically, this will look like:
@@ -171,14 +171,14 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
 
 4. Execute the "pivot-root" step
 
-   1. SSH to the just-launched EC2
-   2. Escallate privileges to `root`.
+    1. SSH to the just-launched EC2
+    2. Escallate privileges to `root`.
 
-       Note: because the `AMIgen` scripts create an SELinux-enabled operating system with pre-defined SELinux role-transitions configured into `sudo`'s configurations, it may be necessary to add the `-r unconfined_r` and `-t unconfined_t` flag-options to any use of `sudo`
+        Note: because the `AMIgen` scripts create an SELinux-enabled operating system with pre-defined SELinux role-transitions configured into `sudo`'s configurations, it may be necessary to add the `-r unconfined_r` and `-t unconfined_t` flag-options to any use of `sudo`
 
-   3. Execute `bash <PATH_TO_SPEL_GIT_REPO>/spel/scripts/pivot-root.sh`. If this runs successfully, you will be logged out.
+    3. Execute `bash <PATH_TO_SPEL_GIT_REPO>/spel/scripts/pivot-root.sh`. If this runs successfully, you will be logged out.
 
-       Note: If you observe any `permission denied` types of errors during this script's running, it is most likely because you were running under an overly-strict SELinux user-confinement. See prior note about baked-in SELinux role-transitions. Reboot the host and retry your privilege-escallation step
+        Note: If you observe any `permission denied` types of errors during this script's running, it is most likely because you were running under an overly-strict SELinux user-confinement. See prior note about baked-in SELinux role-transitions. Reboot the host and retry your privilege-escallation step
 
 4. Log back in to the EC2
 5. Escallate privileges to `root` (as per the "pivot-root" step
