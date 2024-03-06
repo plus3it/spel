@@ -11,8 +11,8 @@ To download/stage these RPMs, execute:
 
 ~~~bash
 XdistroSetup.sh -d CentOS \
-  -k http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-6.el8.noarch.rpm \
-  -r http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-6.el8.noarch.rpm,http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-stream-repos-8-6.el8.noarch.rpm,http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-stream-release-8.6-1.el8.noarch.rpm
+  -k <centos-gpg-keys_RPM_URL> \
+  -r <centos-gpg-keys_RPM_URL>,<centos-stream-repos_RPM_URL>,<centos-stream-release_RPM_URL>
 ~~~
 
 If successful, this should create a `${HOME}/RPM/CentOS` directory with contents similar to the following:
@@ -22,3 +22,9 @@ If successful, this should create a `${HOME}/RPM/CentOS` directory with contents
 -rw-r--r-- 1 ec2-user ec2-user 22744 Sep 14  2021 centos-stream-release-8.6-1.el8.noarch.rpm
 -rw-r--r-- 1 ec2-user ec2-user 20588 Mar 28  2022 centos-stream-repos-8-6.el8.noarch.rpm
 ~~~
+
+It will then be necessary to install the `centos-gpg-keys` and `centos-stream-repos` to the build-host. Use `dnf` to do so. Once these two RPMs have been installed, it will be necessary to use `yum-config-manager` to disable the repos installed by the `centos-stream-repos` RPM.
+
+Note: if installing into networks with no access to internet-hosted repositoris, it will be necessary to have create private-network RPMS equivalent to the above. It will then be necessary to install both the ones published by CentOS.Org and your organization's equivalent RPMs.
+
+To see an example of the whole sequence for CO8, see the [CO8 text document](buildIt-co8.txt).
