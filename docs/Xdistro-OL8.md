@@ -24,8 +24,6 @@ Once these packages are unpacked, it will be necessary to install the file-conte
 
 Note: if installing into networks with no access to internet-hosted repositoris, it will be necessary to have created private-network RPMS equivalent to the above. It will then be necessary to install both the ones published by CentOS.Org and your organization's equivalent RPMs.
 
-To see an example of the whole sequence for OL8, see the [OL8 text document](buildIt-ol8.txt).
-
 ## Install `oraclelinux-release-el8` RPM
 
 Execute a step similar to the following for whichever `oraclelinux-release-el8` version is correct when following this document's guidance.

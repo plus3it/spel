@@ -26,5 +26,3 @@ If successful, this should create a `${HOME}/RPM/CentOS` directory with contents
 It will then be necessary to install the `centos-gpg-keys` and `centos-stream-repos` to the build-host. Use `dnf` to do so. Once these two RPMs have been installed, it will be necessary to use `yum-config-manager` to disable the repos installed by the `centos-stream-repos` RPM.
 
 Note: if installing into networks with no access to internet-hosted repositoris, it will be necessary to have create private-network RPMS equivalent to the above. It will then be necessary to install both the ones published by CentOS.Org and your organization's equivalent RPMs.
-
-To see an example of the whole sequence for CO8, see the [CO8 text document](buildIt-co8.txt).
