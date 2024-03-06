@@ -1,3 +1,9 @@
+AMIgen8/Xdistro.sh
+-k http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-6.el8.noarch.rpm)
+-r http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-stream-repos-8-6.el8.noarch.rpm,http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-stream-release-8.6-1.el8.noarch.rpm,http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-6.el8.noarch.rpm
+
+( cd ${HOME}/RPM/CentOS && dnf install centos-gpg-keys-8-6.el8.noarch.rpm centos-stream-repos )
+
 AMIgen8/DiskSetup.sh \
   -d /dev/xvdx \
   -f xfs \

@@ -1,3 +1,18 @@
+AMIgen8/XdistroSetup.sh -d Oracle \
+  -k https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/oraclelinux-release-8.9-1.0.8.el8.x86_64.rpm
+  -r https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/oraclelinux-release-8.9-1.0.8.el8.x86_64.rpm,https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/oraclelinux-release-el8-1.0-35.el8.x86_64.rpm,https://yum.oracle.com/repo/OracleLinux/OL8/baseos/latest/x86_64/getPackage/yum-utils-4.0.21-23.0.1.el8.noarch.rpm
+
+dnf install ${HOME}/RPM/Oracle/oraclelinux-release-el8-1.0-35.el8.x86_64.rpm
+
+(
+  cd /tmp ;
+  mkdir unpack ;
+  cd unpack ;
+  rpm2cpio ${HOME}/RPM/Oracle/oraclelinux-release-8.9-1.0.8.el8.x86_64.rpm | \
+    cpio -idv
+  cp -i etc/pki/rpm-gpg/* /etc/pki/rpm-gpg/
+)
+
 AMIgen8/DiskSetup.sh \
   -d /dev/xvdx \
   -f xfs \
