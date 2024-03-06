@@ -202,7 +202,7 @@ Some AMI-publishers &ndash; Red Hat and Amazon are known to do so &ndash; publis
         Error: Partition(s) 4 on /dev/nvme0n1 have been written, but we have been unable to inform the kernel of the change, probably because it/they are in use.  As a result, the old partition(s) will remain in use.  You should reboot now before making further changes.
         ~~~
 
-        Something is holding the boot-disk open and the system is _not_ in a state suitable for further provisioning
+        Something is holding the boot-disk open and the system is _not_ in a state suitable for further provisioning. It will be necessary to investigate what process is holding the disk open and terminate it. Once the disk is freed, this step should then work.
 
     3. Zero-out the de-partitioned boot-disk. Something like `dd if=/dev/zero of=/dev/nvme0n1 bs=1024 count=$(( 1024 * 200 ))` should suffice
     4. Force kernel to reread the disk geometry with `partprobe /dev/nvme0n1`
@@ -328,9 +328,35 @@ Perform the following setps to ensure that the newly-created AMI(s) are properly
 4. Login to the EC2s and perform a quick audit of the two EC2s. Recommended tests include:
 
     - Verify OS-release: `sed -n '/^PRETTY_NAME=/p' /etc/os-release`
-    - Verify mount-configuration: `cat /etc/fstab`
-    - Verify disk-layout: `df -PH`
-    - Verify boot-mode: `test -d /sys/firmware/efi && echo "Boot-Mode: EFI" || echo "Boot-Mode: BIOS"`
+    - Verify mount-configuration (`cat /etc/fstab`). This should look similar to:
+
+        ~~~bash
+        LABEL=root_disk /           xfs     defaults      0 0
+        LABEL=boot_disk /boot       xfs     defaults,rw   0 0
+        LABEL=UEFI_DISK /boot/efi   vfat    defaults,rw   0 0
+        ~~~
+
+        The `LABEL=` values should match whatever you specified when creating this image.
+
+    - Verify disk-layout, if using `df -PH`, output should loo similar to:
+
+        ~~~bash
+        $ df -PH
+        Filesystem      Size  Used Avail Use% Mounted on
+        devtmpfs        4.0G     0  4.0G   0% /dev
+        tmpfs           4.0G     0  4.0G   0% /dev/shm
+        tmpfs           4.0G  459k  4.0G   1% /run
+        tmpfs           4.0G     0  4.0G   0% /sys/fs/cgroup
+        /dev/nvme0n1p4  8.1G  2.7G  5.4G  34% /
+        tmpfs           4.0G     0  4.0G   0% /tmp
+        /dev/nvme0n1p3  507M  309M  198M  61% /boot
+        /dev/nvme0n1p2   64M  7.6M   57M  12% /boot/efi
+        tmpfs           795M     0  795M   0% /run/user/1000
+        ~~~
+
+        Most critical in the above are the presence of `/`, `/boot` and `/boot/efi` partitions. If either of the `/boot` or `/boot/efi` mounts are missing, this image will not be suitable for bootstrapping purposes
+
+    - Verify boot-mode with a commnd-string like `test -d /sys/firmware/efi && echo "Boot-Mode: EFI" || echo "Boot-Mode: BIOS"`. If properly set up, this _should_ return `Boot-Mode: EFI`
     - Verify expected boot-options: `cat /proc/cmdline`
     - Verify (null) `billingProducts` setting and instance-type:
 
@@ -342,6 +368,6 @@ Perform the following setps to ensure that the newly-created AMI(s) are properly
         The `billingProducts` attribute should be `null` while the `instanceType` should match the launched-as value
 
     - Verify ability to install arbitrary vendor-RPMs: `dnf install -y git`
-    - Verify desired SELinux enforcement-mode: `getenforce`
-    - Verify desired FIPS-mode setting: `fips-mode-setup --check`
+    - Verify desired SELinux enforcement-mode with `getenforce`. Typically, the preferred result is `Enforcing`
+    - Verify desired FIPS-mode setting by executing `fips-mode-setup --check`. This _should_ return `FIPS mode is enabled.`
 
