@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2024.03.1](https://github.com/plus3it/spel/releases/tag/2024.03.1)
+
+**Released**: 2024.03.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.03.1/manifests>
+
+**Summary**:
+
+*   Amazon packages rebuilt for the `spel-packages` repo are now based on Amazon
+    Linux 2023, instead of Amazon Linux 2. Please see the repo listing for the
+    packages available for each platform, <https://spel-packages.cloudarmor.io/list.html>.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.31
+    - amazon-ssm-agent-3.3.131.0-1
+    - ec2-hibinit-agent-1.0.8-0
+
 ### [2024.02.1](https://github.com/plus3it/spel/releases/tag/2024.02.1)
 
 **Released**: 2024.02.21
