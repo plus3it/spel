@@ -7,6 +7,7 @@
 ##############################################################################
 PROGNAME="$(basename "$0")"
 AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
+AMIGENBOOTDEVSZ="${SPEL_AMIGENBOOTDEVSZ:-448}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
@@ -392,6 +393,15 @@ function ComposeDiskSetupString {
         DISKSETUPCMD+="-B 17m "
     else
         DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
+    fi
+
+    # Set the size of the /boot filesystem
+    if  [[ -f /etc/oracle-release ]] ||
+        [[ $( rpm --quiet -q oraclelinux-release )$? -eq 0 ]]
+    then
+        DISKSETUPCMD+="-b $(( AMIGENBOOTDEVSZ * 2 )) "
+    else
+        DISKSETUPCMD+="-b ${AMIGENBOOTDEVSZ} "
     fi
 
     # Set the filesystem-type to use for OS filesystems
