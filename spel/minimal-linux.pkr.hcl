@@ -540,7 +540,7 @@ variable "amigen8_bootdev_mult" {
 }
 
 variable "amigen8_bootdev_size" {
-  description = "Size, in MiB, to make the /boot partition (this will be doubled for Oracle Linux images)"
+  description = "Size, in MiB, to make the /boot partition (this will be multiplied by the 'amigen8_bootdev_mult' value for Oracle Linux images)"
   type        = string
   default     = "448"
 }
