@@ -403,12 +403,10 @@ function ComposeDiskSetupString {
         export AMIGENBOOTDEVSZ
         export AMIGENBOOTDEVMULT
         OL_BOOT_SIZE="$(
-          printf '%.0f\n' "$(
-            python3 -c "import os ; env_size = float(os.getenv('AMIGENBOOTDEVSZ')) ; mult_factor = float(os.getenv('AMIGENBOOTDEVMULT')) ; print( env_size * mult_factor ) "
-          )"
+          python3 -c "import os ; boot_size = float(os.getenv('AMIGENBOOTDEVSZ')) ; mult_factor = float(os.getenv('AMIGENBOOTDEVMULT')) ; print( boot_size * mult_factor ) "
         )"
 
-        DISKSETUPCMD+="-b ${OL_BOOT_SIZE} "
+        DISKSETUPCMD+="-b ${OL_BOOT_SIZE//.*/} "
     else
         DISKSETUPCMD+="-b ${AMIGENBOOTDEVSZ} "
     fi
