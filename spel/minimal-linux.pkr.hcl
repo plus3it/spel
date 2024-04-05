@@ -533,6 +533,12 @@ variable "amigen7_storage_layout" {
 # Variables used by AMIgen8
 ###
 
+variable "amigen8_bootdev_size" {
+  description = "Size, in MiB, to make the /boot partition (this will be doubled for Oracle Linux images)"
+  type = string
+  default = "448"
+}
+
 variable "amigen8_extra_rpms" {
   description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL8 builders and images"
   type        = list(string)
@@ -1216,10 +1222,12 @@ build {
   # AWS EL8 provisioners
   provisioner "shell" {
     environment_vars = [
-      "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
-      "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
+      "DNF_VAR_ociregion=",
+      "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
+      "SPEL_AMIGENBOOTDEVSZ=${var.amigen8_bootdev_size}",
       "SPEL_AMIGENBOOTSIZE=17m",
+      "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}",
@@ -1227,7 +1235,6 @@ build {
       "SPEL_AMIGENREPOS=${local.amigen8_repo_names}",
       "SPEL_AMIGENREPOSRC=${local.amigen8_repo_sources}",
       "SPEL_AMIGENROOTNM=${var.amigen8_filesystem_label}",
-      "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
       "SPEL_AMIGENSTORLAY=${local.amigen8_storage_layout}",
       "SPEL_AMIGENVGNAME=RootVG",
       "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
