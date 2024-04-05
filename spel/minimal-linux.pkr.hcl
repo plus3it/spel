@@ -533,10 +533,16 @@ variable "amigen7_storage_layout" {
 # Variables used by AMIgen8
 ###
 
+variable "amigen8_bootdev_mult" {
+  description = "Factor by which to increase /boot's size on \"special\" distros (like OL8)"
+  type        = string
+  default     = "2.2"
+}
+
 variable "amigen8_bootdev_size" {
   description = "Size, in MiB, to make the /boot partition (this will be doubled for Oracle Linux images)"
-  type = string
-  default = "448"
+  type        = string
+  default     = "448"
 }
 
 variable "amigen8_extra_rpms" {
@@ -1225,6 +1231,7 @@ build {
       "DNF_VAR_ocidomain=oracle.com",
       "DNF_VAR_ociregion=",
       "SPEL_AMIGEN8SOURCE=${var.amigen8_source_url}",
+      "SPEL_AMIGENBOOTDEVMULT=${var.amigen8_bootdev_mult}",
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen8_bootdev_size}",
       "SPEL_AMIGENBOOTSIZE=17m",
       "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",

@@ -6,8 +6,9 @@
 #
 ##############################################################################
 PROGNAME="$(basename "$0")"
-AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
+AMIGENBOOTDEVMULT="${SPEL_AMIGENBOOTDEVMULT:-2.2}"
 AMIGENBOOTDEVSZ="${SPEL_AMIGENBOOTDEVSZ:-448}"
+AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
@@ -399,7 +400,15 @@ function ComposeDiskSetupString {
     if  [[ -f /etc/oracle-release ]] ||
         [[ $( rpm --quiet -q oraclelinux-release )$? -eq 0 ]]
     then
-        DISKSETUPCMD+="-b $(( AMIGENBOOTDEVSZ * 2 )) "
+        export AMIGENBOOTDEVSZ
+        export AMIGENBOOTDEVMULT
+        OL_BOOT_SIZE="$(
+          printf '%.0f\n' "$(
+            python3 -c "import os ; env_size = float(os.getenv('AMIGENBOOTDEVSZ')) ; mult_factor = float(os.getenv('AMIGENBOOTDEVMULT')) ; print( env_size * mult_factor ) "
+          )"
+        )"
+
+        DISKSETUPCMD+="-b ${OL_BOOT_SIZE} "
     else
         DISKSETUPCMD+="-b ${AMIGENBOOTDEVSZ} "
     fi
