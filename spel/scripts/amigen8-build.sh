@@ -397,8 +397,7 @@ function ComposeDiskSetupString {
     fi
 
     # Set the size of the /boot filesystem
-    if  [[ -f /etc/oracle-release ]] ||
-        [[ $( rpm --quiet -q oraclelinux-release )$? -eq 0 ]]
+    if [[ ${BUILDER} == "ol-8" ]]
     then
         export AMIGENBOOTDEVSZ
         export AMIGENBOOTDEVMULT
