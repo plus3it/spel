@@ -6,6 +6,8 @@
 #
 ##############################################################################
 PROGNAME="$(basename "$0")"
+AMIGENBOOTDEVMULT="${SPEL_AMIGENBOOTDEVMULT:-2.2}"
+AMIGENBOOTDEVSZ="${SPEL_AMIGENBOOTDEVSZ:-448}"
 AMIGENBOOTSIZE="${SPEL_AMIGENBOOTSIZE}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-master}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/xvda}"
@@ -392,6 +394,20 @@ function ComposeDiskSetupString {
         DISKSETUPCMD+="-B 17m "
     else
         DISKSETUPCMD+="-B ${AMIGENBOOTSIZE} "
+    fi
+
+    # Set the size of the /boot filesystem
+    if [[ ${BUILDER} == "ol-8" ]]
+    then
+        export AMIGENBOOTDEVSZ
+        export AMIGENBOOTDEVMULT
+        OL_BOOT_SIZE="$(
+          python3 -c "import os ; boot_size = float(os.getenv('AMIGENBOOTDEVSZ')) ; mult_factor = float(os.getenv('AMIGENBOOTDEVMULT')) ; print( boot_size * mult_factor ) "
+        )"
+
+        DISKSETUPCMD+="-b ${OL_BOOT_SIZE//.*/} "
+    else
+        DISKSETUPCMD+="-b ${AMIGENBOOTDEVSZ} "
     fi
 
     # Set the filesystem-type to use for OS filesystems
