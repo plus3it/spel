@@ -10,24 +10,24 @@ The images are configured with help from the scripts and packages in the
 
 Notes on Lifecycle:
 
-1. Images are released on a monthly cadence. This cadence ensures that, if a
-   user launches a brand new instance from the most-recently published AMI,
-   that there will be less than a month's worth of system-patches to apply as
-   part of the system-owner's system-provisioning processes.
-1. "Free" Enterprise Linux distributions are configured to use the public
-   repositories offered by the distribution-owner. If running EC2s inside of a
-   VPC with no access to the internet at large, it will not be possible to
-   install additional RPMs or patch systems without the use of either a proxy or
-   standing up a private yum mirror
-1. Red Hat images are configured to use a given cloud service provider's (CSP)
-   [Red Hat Update Infrastructure](https://access.redhat.com/products/red-hat-update-infrastructure)
-   (a.k.a., "RHUI") repositories. These repositories are managed by Red Hat
-   engineers and provide local RPM update-service within each CSP-partner's
-   networks. Unlike RPM-access via RHN or Satellite, RHUI access is tied to and
-   paid for via your CSP's billing-mechanisms. RHUI access also entitles
-   cloud-VMs' owners to limited operating system support through the respective
-   CSP's support channels.
-1. AWS Specific notes:
+1.  Images are released on a monthly cadence. This cadence ensures that, if a
+    user launches a brand new instance from the most-recently published AMI,
+    that there will be less than a month's worth of system-patches to apply as
+    part of the system-owner's system-provisioning processes.
+1.  "Free" Enterprise Linux distributions are configured to use the public
+    repositories offered by the distribution-owner. If running EC2s inside of a
+    VPC with no access to the internet at large, it will not be possible to
+    install additional RPMs or patch systems without the use of either a proxy
+    or standing up a private yum mirror
+1.  Red Hat images are configured to use a given cloud service provider's (CSP) 
+    [Red Hat Update Infrastructure](https://access.redhat.com/products/red-hat-update-infrastructure)
+    (a.k.a., "RHUI") repositories. These repositories are managed by Red 
+    Hat engineers and provide local RPM update-service within each 
+    CSP-partner's networks. Unlike RPM-access via RHN or Satellite, RHUI access 
+    is tied to and paid for via your CSP's billing-mechanisms. RHUI access also 
+    entitles cloud-VMs' owners to limited operating system support through the 
+    respective CSP's support channels.
+1.  AWS Specific notes:
     * Access to the RHUI repositories is gated, in part, by an attribute
       attached to EC2s. This attribute is inherited from their corresponding
       AMIs. To view this attribute external to the EC2, execute:
