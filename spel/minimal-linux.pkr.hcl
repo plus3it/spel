@@ -812,6 +812,14 @@ source "amazon-ebs" "base" {
   ssh_pty                               = true
   ssh_timeout                           = "60m"
   ssh_username                          = var.spel_ssh_username
+  ssh_key_exchange_algorithms           = [
+                                            "ecdh-sha2-nistp521",
+                                            "ecdh-sha2-nistp256",
+                                            "ecdh-sha2-nistp384",
+                                            "ecdh-sha2-nistp521",
+                                            "diffie-hellman-group14-sha1",
+                                            "diffie-hellman-group1-sha1"
+                                          ]
   subnet_id                             = var.aws_subnet_id
   tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
   temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
