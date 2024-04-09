@@ -6,7 +6,59 @@ STIG-Partitioned Enterprise Linux (_spel_) is a project that helps create and
 publish Enterprise Linux images that are partitioned according to the
 [DISA STIG][0]. The resulting images also use LVM to simplify volume management.
 The images are configured with help from the scripts and packages in the
-[`AMIgen7`][31], and [`AMIgen8`][40] projects[^1].
+[`AMIgen7`][31], [`AMIgen8`][40], and  [`AMIgen9`][47] projects[^1].
+
+Notes on Lifecycle:
+
+1.  Images are released on a monthly cadence. This cadence ensures that, if a
+    user launches a brand new instance from the most-recently published AMI,
+    that there will be less than a month's worth of system-patches to apply as
+    part of the system-owner's system-provisioning processes.
+1.  "Free" Enterprise Linux distributions are configured to use the public
+    repositories offered by the distribution-owner. If running EC2s inside of a
+    VPC with no access to the internet at large, it will not be possible to
+    install additional RPMs or patch systems without the use of either a proxy
+    or standing up a private yum mirror
+1.  Red Hat images are configured to use a given cloud service provider's (CSP) 
+    [Red Hat Update Infrastructure](https://access.redhat.com/products/red-hat-update-infrastructure)
+    (a.k.a., "RHUI") repositories. These repositories are managed by Red 
+    Hat engineers and provide local RPM update-service within each 
+    CSP-partner's networks. Unlike RPM-access via RHN or Satellite, RHUI access 
+    is tied to and paid for via your CSP's billing-mechanisms. RHUI access also 
+    entitles cloud-VMs' owners to limited operating system support through the 
+    respective CSP's support channels.
+1.  AWS Specific notes:
+    * Access to the RHUI repositories is gated, in part, by an attribute
+      attached to EC2s. This attribute is inherited from their corresponding
+      AMIs. To view this attribute external to the EC2, execute:
+
+        ~~~
+        aws ec2 describe-instances --query 'Reservations[].Instances[].UsageOperation' --instance-ids
+        ~~~
+
+      This _should_ return a value of `RunInstances:0010`. If the value is just
+      `RunInstances` the necessary attribute is missing from the EC2.
+
+      The attribute may also be viewed internal to the EC2 by executing:
+
+        ~~~
+        curl http://169.254.169.254/latest/dynamic/instance-identity/document | \
+        grep "billingProducts"
+        ~~~
+
+      This _should_ return a value of `"billingProducts" : [ "bp-6fa54006" ]`.
+      If not, the necessary attribute is missing from the EC2.
+
+      In either case, lack of the requisite attribute will mean that attempts to
+      install or update RPMs from RHUI will fail.
+    * If patch-updates should come from RHN, Satellite or other private
+      repository, do not use the AMIs published by the maintainers of this
+      project. Because the previously-mentioned EC2-attribute is attached to
+      such AMIs, you will be billed for the RHUI access even if you never use
+      it. Feel free to use this project's code to generate your own,
+      unencumbered AMIs.
+    * Further information about AWS polices for Red Hat EC2s may be found in
+      AWS's [RHEL FAQ](https://aws.amazon.com/partners/redhat/faqs/)
 
 ## Why spel
 
@@ -27,6 +79,8 @@ Image, etc.). This includes things like:
   - Application of SELinux user-confinement to the default-user[^2]
   - Application of SELinux role-transition rules for the default-user
 - Activation of FIPS mode
+- Support for BIOS- and/or EFI-boot modes (the latter being a requisite for use
+  of [SecureBoot](https://access.redhat.com/articles/5254641))
 
 The spel-produced images are expected to act as a better starting-point in a
 larger hardening process.
@@ -539,6 +593,7 @@ packer build \
 [44]: https://www.suse.com/products/suse-liberty-linux/
 [45]: https://developer.hashicorp.com/packer/guides/hcl/variables#from-environment-variables
 [46]: https://github.com/plus3it/spel/issues/new
+[47]: https://github.com/plus3it/amigen9
 
 [^1]: Because spel is primarily an execution-wrapper for the AMIgenN projects, the "read the source" method for determining why things have changed from one spel-release to the next may require reviewing those projects' repositories
 [^2]: The default-user is a local user (i.e., managed in `/etc/passwd`/`/etc/shadow`/`/etc/group`) that is dynamically-created at initial system-boot &ndash; using either the default-information in the `/etc/cloud/cloud.cfg` file or as overridden in a userData payload's `#cloud-config` content. Typically this user's `${HOME}/.ssh/authorized_keys` file is prepopulated with a provisioner's public SSH key.
