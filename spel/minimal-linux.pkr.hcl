@@ -495,7 +495,7 @@ variable "amigen7_package_manifest" {
 variable "amigen7_repo_names" {
   description = "List of yum repo names to enable in the EL7 builders and images"
   type        = list(string)
-  default = ["spel"]
+  default     = ["spel"]
 }
 
 variable "amigen7_repo_sources" {
