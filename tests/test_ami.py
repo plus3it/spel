@@ -68,7 +68,6 @@ def test_repo_access(host):  # noqa: D103
     assert "Errno" not in repos.stderr
 
 
-@pytest.mark.el7
 def test_boot_is_mounted(host):  # noqa: D103
     boot = host.mount_point("/boot")
     assert boot.exists
