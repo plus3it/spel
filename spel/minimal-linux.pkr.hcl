@@ -646,9 +646,6 @@ variable "amigen9_extra_rpms" {
   description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL9 builders and images"
   type        = list(string)
   default = [
-    "python3.11",
-    "python3.11-pip",
-    "python3.11-setuptools",
     "crypto-policies-scripts",
     "spel-release",
     "spel-dod-certs",
