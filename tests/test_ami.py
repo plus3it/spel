@@ -184,10 +184,13 @@ def test_systemd_services(host, service):  # noqa: D103
 
 @pytest.mark.el7
 @pytest.mark.el8
+@pytest.mark.el9
 @pytest.mark.parametrize(
     "name",
     [
         ("spel-release"),
+        ("spel-dod-certs"),
+        ("spel-wcf-certs"),
         ("amazon-ssm-agent"),
         ("ec2-hibinit-agent"),
         ("ec2-net-utils"),
