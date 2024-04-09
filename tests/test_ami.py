@@ -191,8 +191,11 @@ def test_systemd_services(host, service):  # noqa: D103
         ("spel-dod-certs"),
         ("spel-wcf-certs"),
         ("amazon-ssm-agent"),
+        ("amazon-ec2-net-utils"),
         ("ec2-hibinit-agent"),
-        ("ec2-net-utils"),
+        ("ec2-instance-connect"),
+        ("ec2-instance-connect-selinux"),
+        ("ec2-utils"),
     ],
 )
 def test_spel_packages(host, name):  # noqa: D103

@@ -605,13 +605,12 @@ echo "(Re-)Stopping remaining services"
 for SERVICE in $(
   systemctl list-units --type=service --state=running | \
   awk '/loaded active running/{ print $1 }' | \
-  grep -Ev '(audit|sshd|user@)'
+  grep -Ev '(audit|sshd|systemd-networkd|systemd-resolved|user@)'
 )
 do
   echo "Killing ${SERVICE}"
   systemctl stop "${SERVICE}"
 done
-
 
 echo "Sleeping for 15s to let everything settle..."
 sleep 15

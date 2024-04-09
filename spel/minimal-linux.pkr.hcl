@@ -465,8 +465,11 @@ variable "amigen7_extra_rpms" {
     "spel-release",
     "spel-dod-certs",
     "spel-wcf-certs",
+    "amazon-ec2-net-utils",
     "ec2-hibinit-agent",
-    "ec2-net-utils",
+    "ec2-instance-connect",
+    "ec2-instance-connect-selinux",
+    "ec2-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
   ]
 }
@@ -492,7 +495,7 @@ variable "amigen7_package_manifest" {
 variable "amigen7_repo_names" {
   description = "List of yum repo names to enable in the EL7 builders and images"
   type        = list(string)
-  default     = ["spel"]
+  default = ["spel"]
 }
 
 variable "amigen7_repo_sources" {
@@ -556,8 +559,11 @@ variable "amigen8_extra_rpms" {
     "spel-release",
     "spel-dod-certs",
     "spel-wcf-certs",
+    "amazon-ec2-net-utils",
     "ec2-hibinit-agent",
-    "ec2-net-utils",
+    "ec2-instance-connect",
+    "ec2-instance-connect-selinux",
+    "ec2-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
   ]
 }
@@ -647,8 +653,11 @@ variable "amigen9_extra_rpms" {
     "spel-release",
     "spel-dod-certs",
     "spel-wcf-certs",
+    "amazon-ec2-net-utils",
     "ec2-hibinit-agent",
-    "ec2-net-utils",
+    "ec2-instance-connect",
+    "ec2-instance-connect-selinux",
+    "ec2-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
   ]
 }
@@ -674,7 +683,10 @@ variable "amigen9_package_manifest" {
 variable "amigen9_repo_names" {
   description = "List of yum repo names to enable in the EL9 builders and EL9 images"
   type        = list(string)
-  default     = ["spel"]
+  default = [
+    "epel",
+    "spel",
+  ]
 }
 
 variable "amigen9_repo_sources" {
@@ -1199,6 +1211,8 @@ build {
     inline = [
       "echo Unmounting /oldroot",
       "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
+      "echo Restarting networkd/resolved for DNS resolution",
+      "systemctl restart systemd-networkd systemd-resolved",
     ]
   }
 
