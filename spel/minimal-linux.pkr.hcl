@@ -804,22 +804,22 @@ source "amazon-ebs" "base" {
     volume_size           = var.spel_root_volume_size
     volume_type           = "gp3"
   }
-  max_retries                           = 20
-  region                                = var.aws_region
-  sriov_support                         = true
-  ssh_interface                         = var.aws_ssh_interface
-  ssh_port                              = 22
-  ssh_pty                               = true
-  ssh_timeout                           = "60m"
-  ssh_username                          = var.spel_ssh_username
-  ssh_key_exchange_algorithms           = [
-                                            "ecdh-sha2-nistp521",
-                                            "ecdh-sha2-nistp256",
-                                            "ecdh-sha2-nistp384",
-                                            "ecdh-sha2-nistp521",
-                                            "diffie-hellman-group14-sha1",
-                                            "diffie-hellman-group1-sha1"
-                                          ]
+  max_retries   = 20
+  region        = var.aws_region
+  sriov_support = true
+  ssh_interface = var.aws_ssh_interface
+  ssh_port      = 22
+  ssh_pty       = true
+  ssh_timeout   = "60m"
+  ssh_username  = var.spel_ssh_username
+  ssh_key_exchange_algorithms = [
+    "ecdh-sha2-nistp521",
+    "ecdh-sha2-nistp256",
+    "ecdh-sha2-nistp384",
+    "ecdh-sha2-nistp521",
+    "diffie-hellman-group14-sha1",
+    "diffie-hellman-group1-sha1"
+  ]
   subnet_id                             = var.aws_subnet_id
   tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
   temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
