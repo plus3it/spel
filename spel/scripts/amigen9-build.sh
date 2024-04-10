@@ -590,6 +590,9 @@ then
         err_exit "Failed dismounting /oldroot"
 fi
 
+echo "Restarting networkd/resolved for DNS resolution"
+systemctl restart systemd-networkd systemd-resolved
+
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
 then

@@ -1208,8 +1208,6 @@ build {
     inline = [
       "echo Unmounting /oldroot",
       "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
-      "echo Restarting networkd/resolved for DNS resolution",
-      "systemctl restart systemd-networkd systemd-resolved",
     ]
   }
 
