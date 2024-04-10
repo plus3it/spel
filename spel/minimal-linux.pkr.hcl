@@ -651,8 +651,6 @@ variable "amigen9_extra_rpms" {
     "spel-wcf-certs",
     "amazon-ec2-net-utils",
     "ec2-hibinit-agent",
-    "ec2-instance-connect",
-    "ec2-instance-connect-selinux",
     "ec2-utils",
     "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
   ]
