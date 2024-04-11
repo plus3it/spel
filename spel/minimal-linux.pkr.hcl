@@ -536,13 +536,13 @@ variable "amigen7_storage_layout" {
 variable "amigen8_bootdev_mult" {
   description = "Factor by which to increase /boot's size on \"special\" distros (like OL8)"
   type        = string
-  default     = "2.2"
+  default     = "1.2"
 }
 
 variable "amigen8_bootdev_size" {
   description = "Size, in MiB, to make the /boot partition (this will be multiplied by the 'amigen8_bootdev_mult' value for Oracle Linux images)"
   type        = string
-  default     = "448"
+  default     = "1024"
 }
 
 variable "amigen8_extra_rpms" {
