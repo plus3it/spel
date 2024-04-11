@@ -68,7 +68,6 @@ def test_repo_access(host):  # noqa: D103
     assert "Errno" not in repos.stderr
 
 
-@pytest.mark.el7
 def test_boot_is_mounted(host):  # noqa: D103
     boot = host.mount_point("/boot")
     assert boot.exists
@@ -183,17 +182,66 @@ def test_systemd_services(host, service):  # noqa: D103
 
 
 @pytest.mark.el7
+@pytest.mark.parametrize(
+    "name",
+    [
+        ("spel-release"),
+        ("spel-dod-certs"),
+        ("spel-wcf-certs"),
+        ("amazon-ssm-agent"),
+        ("amazon-ec2-net-utils"),
+        ("ec2-hibinit-agent"),
+        ("ec2-instance-connect"),
+        ("ec2-instance-connect-selinux"),
+    ],
+)
+def test_spel_packages_el7(host, name):  # noqa: D103
+    pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            "%s", {"pkg": pkg.name, "version": pkg.version, "release": pkg.release}
+        )
+    assert pkg.is_installed
+
+
 @pytest.mark.el8
 @pytest.mark.parametrize(
     "name",
     [
         ("spel-release"),
+        ("spel-dod-certs"),
+        ("spel-wcf-certs"),
         ("amazon-ssm-agent"),
+        ("amazon-ec2-net-utils"),
         ("ec2-hibinit-agent"),
-        ("ec2-net-utils"),
+        ("ec2-instance-connect"),
+        ("ec2-instance-connect-selinux"),
+        ("ec2-utils"),
     ],
 )
-def test_spel_packages(host, name):  # noqa: D103
+def test_spel_packages_el8(host, name):  # noqa: D103
+    pkg = host.package(name)
+    if pkg.is_installed:
+        log.info(
+            "%s", {"pkg": pkg.name, "version": pkg.version, "release": pkg.release}
+        )
+    assert pkg.is_installed
+
+
+@pytest.mark.el9
+@pytest.mark.parametrize(
+    "name",
+    [
+        ("spel-release"),
+        ("spel-dod-certs"),
+        ("spel-wcf-certs"),
+        ("amazon-ssm-agent"),
+        ("amazon-ec2-net-utils"),
+        ("ec2-hibinit-agent"),
+        ("ec2-utils"),
+    ],
+)
+def test_spel_packages_el9(host, name):  # noqa: D103
     pkg = host.package(name)
     if pkg.is_installed:
         log.info(

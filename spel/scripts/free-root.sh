@@ -41,5 +41,3 @@ then
 else
   echo "NO-OP: /oldroot is not a mount"
 fi
-
-

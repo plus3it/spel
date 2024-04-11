@@ -13,6 +13,8 @@ ROOT_DEV="$( grep ' / ' /proc/mounts | cut -d " " -f 1 )"
 if [[ ${ROOT_DEV} == /dev/mapper/* ]]
 then
   ROOT_VOLGRP="$( sed -e 's#/dev/mapper/##' -e 's/-.*$//' <<< "${ROOT_DEV}" )"
+  echo "Printing pvdisplay output in case it is needed for troubleshooting..."
+  pvdisplay -S vgname="${ROOT_VOLGRP}"
   ROOT_DSKPRT="$(
     pvdisplay -S vgname="${ROOT_VOLGRP}" | \
     awk '/PV Name/{ print $3 }'
@@ -23,23 +25,24 @@ else
 fi
 
 # Separate "/"-hosting partition from base device
-if [[ ${ROOT_DSKPRT:-} == /dev/nvme* ]]
+if [[ ${ROOT_DSKPRT} == /dev/nvme* ]]
 then
   ROOT_DISK="${ROOT_DSKPRT//p*/}"
   ROOT_PART="${ROOT_DSKPRT//*p/}"
-elif [[ ${ROOT_DSKPRT:-} == /dev/xvd* ]]
+elif [[ ${ROOT_DSKPRT} =~ ^/dev/(sda)|(xvd) ]]
 then
   ROOT_DISK="${ROOT_DSKPRT%?}"
   ROOT_PART="${ROOT_DSKPRT//${ROOT_DISK}/}"
+else
+  echo "This script supports nvme, xvd, and sda device naming. Could not determine root partitioning from physical volume: ${ROOT_DSKPRT}" >&2
+  exit 1
 fi
 
 SEL_MODE="$( getenforce )"
 
 # Run the grow-part task
-[[ -d /sys/fs/selinux ]] && setenforce Permissive
-printf "Attempting to grow %s... " "${ROOT_DSKPRT:-}"
-growpart "${ROOT_DISK:-}" "${ROOT_PART:-}" &>/dev/null || (
-  echo "FAILED" ; exit 1
-)
+if [[ -d /sys/fs/selinux ]] ; then setenforce Permissive ; fi
+printf "Attempting to grow %s... " "${ROOT_DSKPRT}"
+growpart "${ROOT_DISK}" "${ROOT_PART}"
 echo "Success!"
-[[ -d /sys/fs/selinux ]] && setenforce "${SEL_MODE:-}"
+if [[ -d /sys/fs/selinux ]] ; then setenforce "${SEL_MODE}" ; fi

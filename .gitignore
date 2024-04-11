@@ -65,3 +65,4 @@ terraform.tfstate*
 go.*
 tardigrade-ci
 .tardigrade-ci
+*.pem
