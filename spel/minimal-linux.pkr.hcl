@@ -12,8 +12,16 @@ packer {
       source  = "github.com/hashicorp/azure"
       version = "~> 1"
     }
+    openstack = {
+      source  = "github.com/hashicorp/openstack"
+      version = "~> 1"
+    }
     vagrant = {
       source  = "github.com/hashicorp/vagrant"
+      version = "~> 1"
+    }
+    virtualbox = {
+      source  = "github.com/hashicorp/virtualbox"
       version = "~> 1"
     }
   }
