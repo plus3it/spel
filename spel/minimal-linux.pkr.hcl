@@ -1,3 +1,24 @@
+###
+# Packer Plugins
+###
+
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+    azure = {
+      source  = "github.com/hashicorp/azure"
+      version = "~> 1"
+    }
+    vagrant = {
+      source  = "github.com/hashicorp/vagrant"
+      version = "~> 1"
+    }
+  }
+}
+
 # Guidance on naming and organizing variables
 #
 # Variable names are prefixed by builder, or by amigen project. Any variables
