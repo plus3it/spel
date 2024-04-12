@@ -632,7 +632,13 @@ variable "amigen8_storage_layout" {
 variable "amigen9_boot_dev_size" {
   description = "Size of the partition hosting the '/boot' partition"
   type        = number
-  default     = 512
+  default     = 768
+}
+
+variable "amigen9_boot_dev_size_mult" {
+  description = "Factor by which to increase /boot's size on \"special\" distros (like OL9)"
+  type        = number
+  default     = "1.1"
 }
 
 variable "amigen9_boot_dev_label" {
@@ -1292,6 +1298,7 @@ build {
       "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
       "SPEL_AMIGENBOOTDEVLBL=${var.amigen9_boot_dev_label}",
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen9_boot_dev_size}",
+      "SPEL_AMIGENBOOTDEVSZMLT=${var.amigen9_boot_dev_size_mult}",
       "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
       "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
