@@ -6,7 +6,7 @@
 #
 ##############################################################################
 PROGNAME="$(basename "$0")"
-AMIGENBOOTSIZE="${SPEL_AMIGENBOOTDEVSZ:-512}"
+AMIGENBOOTSIZE="${SPEL_AMIGENBOOTDEVSZ:-768}"
 AMIGENBOOTLABL="${SPEL_AMIGENBOOTDEVLBL:-boot_disk}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-main}"
 AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
