@@ -40,13 +40,15 @@ if [[ -n "${SPEL_REPO_COMMIT:-}" ]] ; then
     git checkout "$SPEL_REPO_COMMIT"
 fi
 
-#install packer
+# install packer
 make -f Makefile.tardigrade-ci packer/install
 
 # build vagrant box
 mkdir -p "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/"
 export PACKER_LOG=1
 export PACKER_LOG_PATH="${CLONE_DIR}/.spel/${SPEL_VERSION:?}/packer.log"
+
+packer init spel/minimal-linux.pkr.hcl
 
 packer build \
     -var "virtualbox_iso_url_centos7=${VIRTUALBOX_ISO_URL_CENTOS7:?}" \

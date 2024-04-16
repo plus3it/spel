@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "aws_instance_type" {
   type    = string
   default = "c5n.metal"

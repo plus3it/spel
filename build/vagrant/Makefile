@@ -40,6 +40,7 @@ build: export PKR_VAR_virtualbox_iso_url_centos7 ?= $(ISO_URL_CENTOS7_BASE)/$(sh
 
 build:
 	mkdir -p "$(PACKER_LOG_DIR)"
+	packer init build-spel-vagrant.pkr.hcl
 	packer build \
 		-var spel_ci=$(SPEL_CI) \
 		-var spel_identifier=$(SPEL_IDENTIFIER) \
