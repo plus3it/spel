@@ -2,6 +2,8 @@
 version: 0.2
 
 env:
+  parameter-store:
+    PACKER_GITHUB_API_TOKEN: /spel/codebuild/github-access-token
   variables:
     PACKER_NO_COLOR: 1
 

@@ -5,6 +5,7 @@ env:
   variables:
     PACKER_NO_COLOR: 1
   parameter-store:
+    PACKER_GITHUB_API_TOKEN: /spel/codebuild/github-access-token
     VAGRANT_CLOUD_TOKEN: /spel/vagrantcloud/token
   git-credential-helper: true
 

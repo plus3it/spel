@@ -2,6 +2,10 @@
 set -eu -o pipefail
 
 echo "==========STARTING PRE_BUILD=========="
+echo "Installing required plugins in packer template, spel/minimal-linux.pkr.hcl"
+
+packer init spel/minimal-linux.pkr.hcl
+
 echo "Validating packer template, spel/minimal-linux.pkr.hcl"
 
 packer validate \
