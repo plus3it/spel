@@ -1,5 +1,19 @@
 ## Changelog
 
+### [2024.03.2](https://github.com/plus3it/spel/releases/tag/2024.03.2)
+
+**Released**: 2024.03.11
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.03.2/manifests>
+
+**Summary**:
+
+*   EL8-only release. Increases /boot partition size so there is enough space to
+    update kernel packages without error.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.37
+
 ### [2024.03.1](https://github.com/plus3it/spel/releases/tag/2024.03.1)
 
 **Released**: 2024.03.21
