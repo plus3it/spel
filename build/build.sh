@@ -35,7 +35,7 @@ then
     SUCCESS_BUILDERS=$(IFS=, ; echo "${SUCCESS_BUILDS[*]}")
     echo "Successful builds being tested: ${SUCCESS_BUILDERS}"
     packer build \
-        -only "$SUCCESS_BUILDERS" \
+        -only "${SUCCESS_BUILDERS//amazon-ebssurrogate./amazon-ebs.}" \
         -var "spel_identifier=${SPEL_IDENTIFIER:?}" \
         -var "spel_version=${SPEL_VERSION:?}" \
         tests/minimal-linux.pkr.hcl

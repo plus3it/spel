@@ -9,7 +9,7 @@ PROGNAME="$(basename "$0")"
 AMIGENBOOTSIZE="${SPEL_AMIGENBOOTDEVSZ:-768}"
 AMIGENBOOTLABL="${SPEL_AMIGENBOOTDEVLBL:-boot_disk}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-main}"
-AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
+AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme1n1}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL}"
@@ -582,14 +582,6 @@ set -x
 set -e
 set -o pipefail
 
-# Dismount /oldroot as needed
-if [[ $( mountpoint /oldroot ) =~ "is a mountpoint" ]]
-then
-    err_exit "Dismounting /oldroot..." NONE
-    umount /oldroot || \
-        err_exit "Failed dismounting /oldroot"
-fi
-
 echo "Restarting networkd/resolved for DNS resolution"
 systemctl restart systemd-networkd systemd-resolved
 
@@ -601,22 +593,19 @@ then
         err_exit "Failed creating build-tools directory"
 fi
 
+err_exit "Checking ${AMIGENBUILDDEV} has a GPT label..." NONE
+if ! blkid "$AMIGENBUILDDEV"
+then
+    err_exit "No label detected. Creating GPT label on ${AMIGENBUILDDEV}..." NONE
+    parted -s "$AMIGENBUILDDEV" -- mklabel gpt
+    blkid "$AMIGENBUILDDEV"
+    err_exit "Created empty GPT configuration on ${AMIGENBUILDDEV}" NONE
+else
+    err_exit "GPT label detected on ${AMIGENBUILDDEV}" NONE
+fi
+
 # Pull build-tools from git clone-source
 git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
-
-echo "(Re-)Stopping remaining services"
-for SERVICE in $(
-  systemctl list-units --type=service --state=running | \
-  awk '/loaded active running/{ print $1 }' | \
-  grep -Ev '(audit|sshd|systemd-networkd|systemd-resolved|user@)'
-)
-do
-  echo "Killing ${SERVICE}"
-  systemctl stop "${SERVICE}"
-done
-
-echo "Sleeping for 15s to let everything settle..."
-sleep 15
 
 # Execute build-tools
 BuildChroot

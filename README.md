@@ -390,18 +390,18 @@ For all inputs to the template, see [spel/README.md](spel/README.md)
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                            | Description                                               |
-|-----------------------------------------|-----------------------------------------------------------|
-| `amazon-ebs.minimal-centos-8stream-hvm` | amazon-ebs builder for a minimal CentOS Stream 8 HVM AMI  |
-| `amazon-ebs.minimal-ol-8-hvm`           | amazon-ebs builder for a minimal Oracle Linux 8 HVM AMI   |
-| `amazon-ebs.minimal-rhel-8-hvm`         | amazon-ebs builder for a minimal RHEL 8 HVM AMI           |
-| `amazon-ebs.minimal-centos-7-hvm`       | amazon-ebs builder for a minimal CentOS 7 HVM AMI         |
-| `amazon-ebs.minimal-rhel-7-hvm`         | amazon-ebs builder for a minimal RHEL 7 HVM AMI           |
-| `azure-arm.minimal-centos-7-image`      | azure-arm builder for a minimal CentOS 7 Image            |
-| `azure-arm.minimal-rhel-7-image`        | azure-arm builder for a minimal RHEL 7 Image              |
-| `azure-arm.minimal-rhel-8-image`        | azure-arm builder for a minimal RHEL 8 Image              |
-| `openstack.minimal-centos-7-image`      | openstack builder for a minimal CentOS 7 Image            |
-| `virtualbox-iso.minimal-centos-7-image` | virtualbox-iso builder for a minimal CentOS 7 Vagrant Box |
+| Builder Name                                     | Description                                               |
+|--------------------------------------------------|-----------------------------------------------------------|
+| `amazon-ebssurrogate.minimal-centos-8stream-hvm` | amazon-ebs builder for a minimal CentOS Stream 8 HVM AMI  |
+| `amazon-ebssurrogate.minimal-ol-8-hvm`           | amazon-ebs builder for a minimal Oracle Linux 8 HVM AMI   |
+| `amazon-ebssurrogate.minimal-rhel-8-hvm`         | amazon-ebs builder for a minimal RHEL 8 HVM AMI           |
+| `amazon-ebssurrogate.minimal-centos-7-hvm`       | amazon-ebs builder for a minimal CentOS 7 HVM AMI         |
+| `amazon-ebssurrogate.minimal-rhel-7-hvm`         | amazon-ebs builder for a minimal RHEL 7 HVM AMI           |
+| `azure-arm.minimal-centos-7-image`               | azure-arm builder for a minimal CentOS 7 Image            |
+| `azure-arm.minimal-rhel-7-image`                 | azure-arm builder for a minimal RHEL 7 Image              |
+| `azure-arm.minimal-rhel-8-image`                 | azure-arm builder for a minimal RHEL 8 Image              |
+| `openstack.minimal-centos-7-image`               | openstack builder for a minimal CentOS 7 Image            |
+| `virtualbox-iso.minimal-centos-7-image`          | virtualbox-iso builder for a minimal CentOS 7 Vagrant Box |
 
 ### Minimal Linux Packer Post-Provisioners
 
