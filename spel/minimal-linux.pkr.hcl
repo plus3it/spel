@@ -434,12 +434,6 @@ variable "virtualbox_vagrantcloud_username" {
 # Variables used by all AMIGEN platforms
 ###
 
-variable "amigen_build_device" {
-  description = "Path of the build device that will be partitioned to create the image"
-  type        = string
-  default     = "/dev/nvme1n1"
-}
-
 variable "amigen_amiutils_source_url" {
   description = "URL of the AMI Utils repo to be cloned using git, containing AWS utility rpms that will be installed to the AMIs"
   type        = string
@@ -1250,7 +1244,6 @@ build {
   provisioner "shell" {
     environment_vars = [
       "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
-      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
       "SPEL_AMIGENPKGGRP=${local.amigen7_package_groups}",
@@ -1272,6 +1265,7 @@ build {
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+      "SPEL_USEROOTDEVICE=false",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
@@ -1293,7 +1287,6 @@ build {
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen8_bootdev_size}",
       "SPEL_AMIGENBOOTSIZE=17m",
       "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
-      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}",
       "SPEL_AMIGENPKGGRP=${local.amigen8_package_groups}",
@@ -1310,6 +1303,7 @@ build {
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+      "SPEL_USEROOTDEVICE=false",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
@@ -1332,7 +1326,6 @@ build {
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen9_boot_dev_size}",
       "SPEL_AMIGENBOOTDEVSZMLT=${var.amigen9_boot_dev_size_mult}",
       "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
-      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen9_package_manifest}",
       "SPEL_AMIGENPKGGRP=${local.amigen9_package_groups}",
@@ -1351,6 +1344,7 @@ build {
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+      "SPEL_USEROOTDEVICE=false",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
