@@ -36,8 +36,6 @@ HTTP_PROXY="${SPEL_HTTP_PROXY}"
 USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
 
 
-read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git dosfstools python3-pip}"
-
 ELBUILD="/tmp/el-build"
 
 # Make interactive-execution more-verbose unless explicitly told not to
@@ -551,28 +549,6 @@ function PostBuildString {
     # Return command-string for OS-script
     echo "${POSTBUILDCMD}"
 }
-
-# Disable strict hostkey checking
-function DisableStrictHostCheck {
-    local HOSTVAL
-
-    if [[ ${1:-} == '' ]]
-    then
-        err_exit "No connect-string passed to function [${0}]"
-    else
-        HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
-    fi
-
-    # Git host-target parameters
-    err_exit "Disabling SSH's strict hostkey checking for ${HOSTVAL}" NONE
-    (
-        printf "Host %s\n" "${HOSTVAL}"
-        printf "  Hostname %s\n" "${HOSTVAL}"
-        printf "  StrictHostKeyChecking off\n"
-    ) >> "${HOME}/.ssh/config" || \
-    err_exit "Failed disabling SSH's strict hostkey checking"
-}
-
 
 ##########################
 ## Main program section ##
