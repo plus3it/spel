@@ -1,8 +1,35 @@
 ## Changelog
 
+### [2024.04.1](https://github.com/plus3it/spel/releases/tag/2024.04.1)
+
+**Released**: 2024.04.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.04.1/manifests>
+
+**Summary**:
+
+*   EL9 images released for first time, including RHEL9, Centos Stream 9, and Oracle
+    Linux 9.
+*   Updated amazon builders to use new ebssurrogate feature that will build to
+    a secondary volume and then swap the root volume for the secondary volume.
+    This eliminates the need to pivot-root to inherit options associated to the
+    source image, such as the Red Hat license (for the RHEL images). It also significantly
+    reduces transient errors and race conditions in the build process.
+*   Uses the new amazon packages from the spel repo, rebased on Amazon Linux 2023.
+    This also adds several new amazon packages to EL7/EL8/EL9 images, if they are
+    installed by default in AL2023.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.40
+    - amazon-ec2-net-utils-2.4.1-1
+    - amazon-ssm-agent-3.3.337.0-1
+    - (EL7/EL8) ec2-instance-connect-1.1-19
+    - (EL7/EL8) ec2-instance-connect-selinux-1.1-19
+    - (EL8/EL9) ec2-utils-2.2.0-1
+
 ### [2024.03.2](https://github.com/plus3it/spel/releases/tag/2024.03.2)
 
-**Released**: 2024.03.11
+**Released**: 2024.04.11
 
 **Manifests**: <https://github.com/plus3it/spel/blob/2024.03.2/manifests>
 
