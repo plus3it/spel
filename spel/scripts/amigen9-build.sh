@@ -9,7 +9,6 @@ PROGNAME="$(basename "$0")"
 AMIGENBOOTSIZE="${SPEL_AMIGENBOOTDEVSZ:-768}"
 AMIGENBOOTLABL="${SPEL_AMIGENBOOTDEVLBL:-boot_disk}"
 AMIGENBRANCH="${SPEL_AMIGENBRANCH:-main}"
-AMIGENBUILDDEV="${SPEL_AMIGENBUILDDEV:-/dev/nvme0n1}"
 AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL}"
@@ -34,9 +33,8 @@ FIPSDISABLE="${SPEL_FIPSDISABLE}"
 GRUBTMOUT="${SPEL_GRUBTMOUT:-5}"
 HTTP_PROXY="${SPEL_HTTP_PROXY}"
 USEDEFAULTREPOS="${SPEL_USEDEFAULTREPOS:-true}"
+USEROOTDEVICE="${SPEL_USEROOTDEVICE:-true}"
 
-
-read -r -a BUILDDEPS <<< "${SPEL_BUILDDEPS:-lvm2 yum-utils unzip git dosfstools python3-pip}"
 
 ELBUILD="/tmp/el-build"
 
@@ -173,6 +171,9 @@ retry()
 # Run the builder-scripts
 function BuildChroot {
     local STATUS_MSG
+
+    # Prepare the build device
+    PrepBuildDevice
 
     # Invoke disk-partitioner
     bash -euxo pipefail "${ELBUILD}"/$( ComposeDiskSetupString ) || \
@@ -552,27 +553,45 @@ function PostBuildString {
     echo "${POSTBUILDCMD}"
 }
 
-# Disable strict hostkey checking
-function DisableStrictHostCheck {
-    local HOSTVAL
+function PrepBuildDevice {
+    local ROOT_DEV
+    local ROOT_DISK
+    local DISKS
 
-    if [[ ${1:-} == '' ]]
+    # Select the disk to use for the build
+    err_exit "Detecting the root device..." NONE
+    ROOT_DEV="$( grep ' / ' /proc/mounts | cut -d " " -f 1 )"
+    if [[ ${ROOT_DEV} == /dev/nvme* ]]
     then
-        err_exit "No connect-string passed to function [${0}]"
+      ROOT_DISK="${ROOT_DEV//p*/}"
+      IFS=" " read -r -a DISKS <<< "$(echo /dev/nvme*n1)"
     else
-        HOSTVAL="$( sed -e 's/^.*@//' -e 's/:.*$//' <<< "${1}" )"
+      err_exit "ERROR: This script supports nvme device naming. Could not determine root disk from device name: ${ROOT_DEV}"
     fi
 
-    # Git host-target parameters
-    err_exit "Disabling SSH's strict hostkey checking for ${HOSTVAL}" NONE
-    (
-        printf "Host %s\n" "${HOSTVAL}"
-        printf "  Hostname %s\n" "${HOSTVAL}"
-        printf "  StrictHostKeyChecking off\n"
-    ) >> "${HOME}/.ssh/config" || \
-    err_exit "Failed disabling SSH's strict hostkey checking"
-}
+    if [[ "$USEROOTDEVICE" = "true" ]]
+    then
+      AMIGENBUILDDEV="${ROOT_DISK}"
+    elif [[ ${#DISKS[@]} -gt 2 ]]
+    then
+      err_exit "ERROR: This script supports at most 2 attached disks. Detected ${#DISKS[*]} disks"
+    else
+      AMIGENBUILDDEV="$(echo "${DISKS[@]/$ROOT_DISK}" | tr -d '[:space:]')"
+    fi
+    err_exit "Using ${AMIGENBUILDDEV} as the build device." NONE
 
+    # Make sure the disk has a GPT label
+    err_exit "Checking ${AMIGENBUILDDEV} for a GPT label..." NONE
+    if ! blkid "$AMIGENBUILDDEV"
+    then
+        err_exit "No label detected. Creating GPT label on ${AMIGENBUILDDEV}..." NONE
+        parted -s "$AMIGENBUILDDEV" -- mklabel gpt
+        blkid "$AMIGENBUILDDEV"
+        err_exit "Created empty GPT configuration on ${AMIGENBUILDDEV}" NONE
+    else
+        err_exit "GPT label detected on ${AMIGENBUILDDEV}" NONE
+    fi
+}
 
 ##########################
 ## Main program section ##
@@ -581,14 +600,6 @@ function DisableStrictHostCheck {
 set -x
 set -e
 set -o pipefail
-
-# Dismount /oldroot as needed
-if [[ $( mountpoint /oldroot ) =~ "is a mountpoint" ]]
-then
-    err_exit "Dismounting /oldroot..." NONE
-    umount /oldroot || \
-        err_exit "Failed dismounting /oldroot"
-fi
 
 echo "Restarting networkd/resolved for DNS resolution"
 systemctl restart systemd-networkd systemd-resolved
@@ -603,20 +614,6 @@ fi
 
 # Pull build-tools from git clone-source
 git clone --branch "${AMIGENBRANCH}" "${AMIGENSOURCE}" "${ELBUILD}"
-
-echo "(Re-)Stopping remaining services"
-for SERVICE in $(
-  systemctl list-units --type=service --state=running | \
-  awk '/loaded active running/{ print $1 }' | \
-  grep -Ev '(audit|sshd|systemd-networkd|systemd-resolved|user@)'
-)
-do
-  echo "Killing ${SERVICE}"
-  systemctl stop "${SERVICE}"
-done
-
-echo "Sleeping for 15s to let everything settle..."
-sleep 15
 
 # Execute build-tools
 BuildChroot

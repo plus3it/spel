@@ -6,7 +6,7 @@ packer {
   required_plugins {
     amazon = {
       source  = "github.com/hashicorp/amazon"
-      version = "~> 1"
+      version = ">= 1.3.1"
     }
     azure = {
       source  = "github.com/hashicorp/azure"
@@ -434,12 +434,6 @@ variable "virtualbox_vagrantcloud_username" {
 # Variables used by all AMIGEN platforms
 ###
 
-variable "amigen_build_device" {
-  description = "Path of the build device that will be partitioned to create the image"
-  type        = string
-  default     = "/dev/nvme0n1"
-}
-
 variable "amigen_amiutils_source_url" {
   description = "URL of the AMI Utils repo to be cloned using git, containing AWS utility rpms that will be installed to the AMIs"
   type        = string
@@ -834,20 +828,36 @@ variable "spel_version" {
 # Start of source blocks
 ###
 
-source "amazon-ebs" "base" {
+source "amazon-ebssurrogate" "base" {
+  ami_root_device {
+    source_device_name    = "/dev/xvdf"
+    delete_on_termination = true
+    device_name           = "/dev/sda1"
+    volume_size           = var.spel_root_volume_size
+    volume_type           = "gp3"
+  }
   ami_groups                  = var.aws_ami_groups
   ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
+  ami_virtualization_type     = "hvm"
   associate_public_ip_address = true
   communicator                = "ssh"
-  deprecate_at                = local.aws_ami_deprecate_at
-  ena_support                 = true
-  force_deregister            = var.aws_force_deregister
-  instance_type               = var.aws_instance_type
+  # Not yet supported for ebssurrogate builder, see:
+  #   * https://github.com/hashicorp/packer-plugin-amazon/issues/478
+  # deprecate_at                = local.aws_ami_deprecate_at
+  ena_support      = true
+  force_deregister = var.aws_force_deregister
+  instance_type    = var.aws_instance_type
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
+    volume_size           = var.spel_root_volume_size
+    volume_type           = "gp3"
+  }
+  launch_block_device_mappings {
+    delete_on_termination = true
+    device_name           = "/dev/xvdf"
     volume_size           = var.spel_root_volume_size
     volume_type           = "gp3"
   }
@@ -870,6 +880,7 @@ source "amazon-ebs" "base" {
   subnet_id                             = var.aws_subnet_id
   tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
   temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
+  use_create_image                      = true
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
 
@@ -901,7 +912,6 @@ source "azure-arm" "base" {
   virtual_network_subnet_name            = var.azure_virtual_network_subnet_name
   vm_size                                = var.azure_vm_size
 }
-
 
 source "openstack" "base" {
   flavor                  = var.openstack_flavor
@@ -979,7 +989,7 @@ locals {
 
 # AMIgen builds
 build {
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "CentOS 7 AMI")
     name            = "minimal-centos-7-hvm"
     source_ami_filter {
@@ -993,7 +1003,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "CentOS Stream 8 AMI")
     name            = "minimal-centos-8stream-hvm"
     source_ami_filter {
@@ -1007,7 +1017,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "CentOS Stream 9 AMI")
     name            = "minimal-centos-9stream-hvm"
     source_ami_filter {
@@ -1021,7 +1031,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "Oracle Linux 8 AMI")
     name            = "minimal-ol-8-hvm"
     source_ami_filter {
@@ -1035,7 +1045,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "Oracle Linux 9 AMI")
     name            = "minimal-ol-9-hvm"
     source_ami_filter {
@@ -1049,7 +1059,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "RHEL 7 AMI")
     name            = "minimal-rhel-7-hvm"
     source_ami_filter {
@@ -1063,7 +1073,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "RHEL 8 AMI")
     name            = "minimal-rhel-8-hvm"
     source_ami_filter {
@@ -1077,7 +1087,7 @@ build {
     }
   }
 
-  source "amazon-ebs.base" {
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "RHEL 9 AMI")
     name            = "minimal-rhel-9-hvm"
     source_ami_filter {
@@ -1127,7 +1137,7 @@ build {
 
   # Azure EL7 provisioners
   provisioner "shell" {
-    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
     inline = [
       "yum update -y --disablerepo='*' --enablerepo='*microsoft*'",
     ]
@@ -1137,27 +1147,11 @@ build {
     ]
   }
 
-  # Azure EL8 provisioners
-  provisioner "shell" {
-    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
-    inline = [
-      "/usr/bin/cloud-init status --wait",
-      "setenforce 0 || true",
-      "yum -y update",
-    ]
-    only = [
-      "azure-arm.minimal-rhel-8-image",
-    ]
-  }
-
   # Common provisioners
   provisioner "shell" {
     environment_vars = [
       "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
-    ]
-    except = [
-      "azure-arm.minimal-rhel-8-image",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
     inline = [
@@ -1182,14 +1176,12 @@ build {
     scripts = [
       "${path.root}/scripts/builder-prep-9.sh",
     ]
-    start_retry_timeout = "15m"
     only = [
-      "amazon-ebs.minimal-centos-9stream-hvm",
-      "amazon-ebs.minimal-ol-9-hvm",
-      "amazon-ebs.minimal-rhel-9-hvm",
+      "amazon-ebssurrogate.minimal-centos-9stream-hvm",
+      "amazon-ebssurrogate.minimal-ol-9-hvm",
+      "amazon-ebssurrogate.minimal-rhel-9-hvm",
     ]
   }
-
 
   provisioner "shell" {
     environment_vars = [
@@ -1202,6 +1194,11 @@ build {
       "${path.root}/scripts/pivot-root.sh",
     ]
     start_retry_timeout = "15m"
+    only = [
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+      "azure-arm.minimal-rhel-8-image",
+    ]
   }
 
   provisioner "shell" {
@@ -1213,8 +1210,6 @@ build {
       "fuser -vmk /oldroot",
     ]
     only = [
-      "amazon-ebs.minimal-centos-7-hvm",
-      "amazon-ebs.minimal-rhel-7-hvm",
       "azure-arm.minimal-centos-7-image",
       "azure-arm.minimal-rhel-7-image",
     ]
@@ -1225,11 +1220,8 @@ build {
     scripts = [
       "${path.root}/scripts/free-root.sh",
     ]
-    except = [
-      "amazon-ebs.minimal-centos-7-hvm",
-      "amazon-ebs.minimal-rhel-7-hvm",
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
+    only = [
+      "azure-arm.minimal-rhel-8-image",
     ]
   }
 
@@ -1241,13 +1233,17 @@ build {
       "echo Unmounting /oldroot",
       "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
     ]
+    only = [
+      "azure-arm.minimal-centos-7-image",
+      "azure-arm.minimal-rhel-7-image",
+      "azure-arm.minimal-rhel-8-image",
+    ]
   }
 
   # AWS EL7 provisioners
   provisioner "shell" {
     environment_vars = [
       "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
-      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
       "SPEL_AMIGENPKGGRP=${local.amigen7_package_groups}",
@@ -1269,11 +1265,12 @@ build {
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+      "SPEL_USEROOTDEVICE=false",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "amazon-ebs.minimal-centos-7-hvm",
-      "amazon-ebs.minimal-rhel-7-hvm",
+      "amazon-ebssurrogate.minimal-centos-7-hvm",
+      "amazon-ebssurrogate.minimal-rhel-7-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen7-build.sh",
@@ -1290,7 +1287,6 @@ build {
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen8_bootdev_size}",
       "SPEL_AMIGENBOOTSIZE=17m",
       "SPEL_AMIGENBRANCH=${var.amigen8_source_branch}",
-      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen8_package_manifest}",
       "SPEL_AMIGENPKGGRP=${local.amigen8_package_groups}",
@@ -1307,12 +1303,13 @@ build {
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+      "SPEL_USEROOTDEVICE=false",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "amazon-ebs.minimal-centos-8stream-hvm",
-      "amazon-ebs.minimal-ol-8-hvm",
-      "amazon-ebs.minimal-rhel-8-hvm",
+      "amazon-ebssurrogate.minimal-centos-8stream-hvm",
+      "amazon-ebssurrogate.minimal-ol-8-hvm",
+      "amazon-ebssurrogate.minimal-rhel-8-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen8-build.sh",
@@ -1329,7 +1326,6 @@ build {
       "SPEL_AMIGENBOOTDEVSZ=${var.amigen9_boot_dev_size}",
       "SPEL_AMIGENBOOTDEVSZMLT=${var.amigen9_boot_dev_size_mult}",
       "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
-      "SPEL_AMIGENBUILDDEV=${var.amigen_build_device}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
       "SPEL_AMIGENMANFST=${var.amigen9_package_manifest}",
       "SPEL_AMIGENPKGGRP=${local.amigen9_package_groups}",
@@ -1348,12 +1344,13 @@ build {
       "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
       "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+      "SPEL_USEROOTDEVICE=false",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "amazon-ebs.minimal-centos-9stream-hvm",
-      "amazon-ebs.minimal-ol-9-hvm",
-      "amazon-ebs.minimal-rhel-9-hvm",
+      "amazon-ebssurrogate.minimal-centos-9stream-hvm",
+      "amazon-ebssurrogate.minimal-ol-9-hvm",
+      "amazon-ebssurrogate.minimal-rhel-9-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen9-build.sh",

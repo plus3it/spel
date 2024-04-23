@@ -5,42 +5,42 @@ variable "aws_region" {
 
 variable "aws_source_ami_centos7_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_centos_7_hvm")
+  default = env("amazon_ebssurrogate_minimal_centos_7_hvm")
 }
 
 variable "aws_source_ami_centos8stream_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_centos_8stream_hvm")
+  default = env("amazon_ebssurrogate_minimal_centos_8stream_hvm")
 }
 
 variable "aws_source_ami_centos9stream_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_centos_9stream_hvm")
+  default = env("amazon_ebssurrogate_minimal_centos_9stream_hvm")
 }
 
 variable "aws_source_ami_ol_8_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_ol_8_hvm")
+  default = env("amazon_ebssurrogate_minimal_ol_8_hvm")
 }
 
 variable "aws_source_ami_ol_9_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_ol_9_hvm")
+  default = env("amazon_ebssurrogate_minimal_ol_9_hvm")
 }
 
 variable "aws_source_ami_rhel7_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_rhel_7_hvm")
+  default = env("amazon_ebssurrogate_minimal_rhel_7_hvm")
 }
 
 variable "aws_source_ami_rhel8_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_rhel_8_hvm")
+  default = env("amazon_ebssurrogate_minimal_rhel_8_hvm")
 }
 
 variable "aws_source_ami_rhel9_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_rhel_9_hvm")
+  default = env("amazon_ebssurrogate_minimal_rhel_9_hvm")
 }
 
 variable "aws_ssh_interface" {
