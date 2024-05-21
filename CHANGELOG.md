@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2024.05.1](https://github.com/plus3it/spel/releases/tag/2024.05.1)
+
+**Released**: 2024.05.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.05.1/manifests>
+
+**Summary**:
+
+
+*   Minor release update to RedHat 9.4 and Oracle Linux 9.4
+*   Documents process to build EFI-enabled bootstrap AMIs and provides additional
+    guidance on creating cross-distro AMIs.
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.15.54
+    - amazon-ssm-agent-3.3.418.0-1
+
 ### [2024.04.1](https://github.com/plus3it/spel/releases/tag/2024.04.1)
 
 **Released**: 2024.04.23

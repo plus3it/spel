@@ -1,11 +1,11 @@
 Red Hat Enterprise Linux 8.9 (Ootpa)
-aws-cli/2.15.40 Python/3.11.8 Linux/4.18.0-513.24.1.el8_9.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.15.54 Python/3.11.8 Linux/4.18.0-513.24.1.el8_9.x86_64 exe/x86_64.rhel.8
 aws-cfn-bootstrap (2.0)
 acl-2.2.53-1.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
 amazon-ec2-net-utils-2.4.1-1.el8.0.1.x86_64
 amazon-libdnf-plugin-1.0.1-1.el8.x86_64
-amazon-ssm-agent-3.3.337.0-1.x86_64
+amazon-ssm-agent-3.3.418.0-1.x86_64
 audit-3.0.7-5.el8.x86_64
 audit-libs-3.0.7-5.el8.x86_64
 authselect-1.2.6-2.el8.x86_64
@@ -96,10 +96,10 @@ geolite2-country-20180605-1.el8.noarch
 gettext-0.19.8.1-17.el8.x86_64
 gettext-libs-0.19.8.1-17.el8.x86_64
 glib2-2.56.4-161.el8.x86_64
-glibc-2.28-236.el8_9.12.x86_64
-glibc-all-langpacks-2.28-236.el8_9.12.x86_64
-glibc-common-2.28-236.el8_9.12.x86_64
-glibc-gconv-extra-2.28-236.el8_9.12.x86_64
+glibc-2.28-236.el8_9.13.x86_64
+glibc-all-langpacks-2.28-236.el8_9.13.x86_64
+glibc-common-2.28-236.el8_9.13.x86_64
+glibc-gconv-extra-2.28-236.el8_9.13.x86_64
 gmp-6.1.2-10.el8.x86_64
 gnupg2-2.2.20-3.el8_6.x86_64
 gnupg2-smime-2.2.20-3.el8_6.x86_64
@@ -220,7 +220,7 @@ libnghttp2-1.33.0-5.el8_9.x86_64
 libnl3-3.7.0-1.el8.x86_64
 libnl3-cli-3.7.0-1.el8.x86_64
 libnsl2-1.2.0-2.20180605git4a062cf.el8.x86_64
-libnsl-2.28-236.el8_9.12.x86_64
+libnsl-2.28-236.el8_9.13.x86_64
 libpath_utils-0.2.1-40.el8.x86_64
 libpcap-1.9.1-5.el8.x86_64
 libpipeline-1.5.0-2.el8.x86_64
@@ -410,7 +410,7 @@ python3-urllib3-1.24.2-5.el8_9.2.noarch
 readline-7.0-10.el8.x86_64
 redhat-release-8.9-0.1.el8.x86_64
 redhat-release-eula-8.9-0.1.el8.x86_64
-rh-amazon-rhui-client-4.0.15-1.el8.noarch
+rh-amazon-rhui-client-4.0.16-1.el8.noarch
 rng-tools-6.16-1.el8.x86_64
 rootfiles-8.1-22.el8.noarch
 rpm-4.14.3-28.el8_9.x86_64
