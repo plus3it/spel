@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.15.40 Python/3.11.8 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7 prompt/off
+aws-cli/2.15.54 Python/3.11.8 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 amazon-ec2-net-utils-2.4.1-1.el7.0.1.x86_64
-amazon-ssm-agent-3.3.337.0-1.x86_64
+amazon-ssm-agent-3.3.418.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -93,13 +93,13 @@ gpg-pubkey-e96e3db7-6196a254
 gpg-pubkey-fd431d51-4ae0493b
 grep-2.20-3.el7.x86_64
 groff-base-1.22.2-8.el7.x86_64
-grub2-2.02-0.87.el7_9.11.x86_64
-grub2-common-2.02-0.87.el7_9.11.noarch
-grub2-pc-2.02-0.87.el7_9.11.x86_64
-grub2-pc-modules-2.02-0.87.el7_9.11.noarch
-grub2-tools-2.02-0.87.el7_9.11.x86_64
-grub2-tools-extra-2.02-0.87.el7_9.11.x86_64
-grub2-tools-minimal-2.02-0.87.el7_9.11.x86_64
+grub2-2.02-0.87.el7_9.14.x86_64
+grub2-common-2.02-0.87.el7_9.14.noarch
+grub2-pc-2.02-0.87.el7_9.14.x86_64
+grub2-pc-modules-2.02-0.87.el7_9.14.noarch
+grub2-tools-2.02-0.87.el7_9.14.x86_64
+grub2-tools-extra-2.02-0.87.el7_9.14.x86_64
+grub2-tools-minimal-2.02-0.87.el7_9.14.x86_64
 grubby-8.28-26.el7.x86_64
 gzip-1.5-11.el7_9.x86_64
 hardlink-1.0-19.el7.x86_64
@@ -121,9 +121,9 @@ json-c-0.11-4.el7_0.x86_64
 kbd-1.15.5-16.el7_9.x86_64
 kbd-legacy-1.15.5-16.el7_9.noarch
 kbd-misc-1.15.5-16.el7_9.noarch
-kernel-3.10.0-1160.114.2.el7.x86_64
-kernel-tools-3.10.0-1160.114.2.el7.x86_64
-kernel-tools-libs-3.10.0-1160.114.2.el7.x86_64
+kernel-3.10.0-1160.118.1.el7.x86_64
+kernel-tools-3.10.0-1160.118.1.el7.x86_64
+kernel-tools-libs-3.10.0-1160.118.1.el7.x86_64
 kexec-tools-2.0.15-51.el7_9.3.x86_64
 keyutils-libs-1.5.8-3.el7.x86_64
 kmod-20-28.el7.x86_64
@@ -297,7 +297,7 @@ python-linux-procfs-0.4.11-4.el7.noarch
 python-lxml-3.2.1-4.el7.x86_64
 python-magic-5.11-37.el7.noarch
 python-markupsafe-0.11-10.el7.x86_64
-python-perf-3.10.0-1160.114.2.el7.x86_64
+python-perf-3.10.0-1160.118.1.el7.x86_64
 python-ply-3.4-11.el7.noarch
 python-prettytable-0.7.2-3.el7.noarch
 python-pycparser-2.14-1.el7.noarch
@@ -322,7 +322,7 @@ redhat-release-eula-7.8-0.el7.noarch
 redhat-release-server-7.9-10.el7_9.x86_64
 redhat-support-lib-python-0.14.0-1.el7_9.noarch
 redhat-support-tool-0.14.0-1.el7_9.noarch
-rh-amazon-rhui-client-4.0.15-1.el7.noarch
+rh-amazon-rhui-client-4.0.16-1.el7.noarch
 rhn-check-2.0.2-24.el7.x86_64
 rhn-client-tools-2.0.2-24.el7.x86_64
 rhnlib-2.5.65-8.el7.noarch
