@@ -45,13 +45,13 @@ endif
 all: build
 
 docs/lint:
-	$(MAKE) -f Makefile.spel docs/lint
+	$(MAKE) -f Makefile docs/lint
 
 docs/generate:
-	$(MAKE) -f Makefile.spel docs/generate
+	$(MAKE) -f Makefile docs/generate
 
 install:
-	$(MAKE) -f Makefile.spel packer/install
+	$(MAKE) -f Makefile packer/install
 	bash -eo pipefail ./build/install.sh
 
 # The profile and region envs are used only by the `pre_build`, `build`, and `post_build`

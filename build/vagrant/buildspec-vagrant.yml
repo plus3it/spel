@@ -12,10 +12,10 @@ env:
 phases:
   install:
     commands:
-      - make -C -f Makefile.spel build/vagrant install
+      - make -C -f Makefile build/vagrant install
   build:
     commands:
-      - make -C -f Makefile.spel build/vagrant build
+      - make -C -f Makefile build/vagrant build
   post_build:
     commands:
       - find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
