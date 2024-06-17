@@ -41,7 +41,7 @@ if [[ -n "${SPEL_REPO_COMMIT:-}" ]] ; then
 fi
 
 # install packer
-make -f Makefile packer/install
+make  packer/install
 
 # build vagrant box
 mkdir -p "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/"
