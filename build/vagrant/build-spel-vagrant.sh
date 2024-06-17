@@ -41,7 +41,7 @@ if [[ -n "${SPEL_REPO_COMMIT:-}" ]] ; then
 fi
 
 # install packer
-make -f Makefile.tardigrade-ci packer/install
+make -f Makefile.spel packer/install
 
 # build vagrant box
 mkdir -p "${CLONE_DIR}/.spel/${SPEL_VERSION:?}/"

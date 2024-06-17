@@ -30,7 +30,7 @@ $(info SPEL_VERSION=$(SPEL_VERSION))
 all: build
 
 install:
-	$(MAKE) -f ../../Makefile.tardigrade-ci packer/install
+	$(MAKE) -f ../../Makefile.spel packer/install
 
 build: export PACKER_LOG = 1
 build: export PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.build-spel-vagrant.log
