@@ -10,7 +10,7 @@ echo "installing virtualbox guest addition dependencies"
 VBOX_GUEST_DEPS=(kernel-devel kernel-headers gcc perl)
 test "$(rpm --quiet -q bzip2)$?" -eq 0 || VBOX_GUEST_DEPS+=(bzip2)
 bash /tmp/retry.sh 5 yum -y install "${VBOX_GUEST_DEPS[@]}"
-bash /tmp/retry.sh 5 yum -y install dkms make
+bash /tmp/retry.sh 5 yum -y install dkms make -f Makefile.spel
 KERN_DIR=/lib/modules/$(uname -r)/build
 export KERN_DIR
 
