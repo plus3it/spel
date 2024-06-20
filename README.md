@@ -194,25 +194,25 @@ The images remain public until the image deprecation period expires, typically
 | us-gov-west-1 | [spel-minimal-centos-8stream-hvm][1043] |
 | us-gov-east-1 | [spel-minimal-centos-8stream-hvm][1044] |
 
-[1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.05.1>
-[1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.05.1>
-[1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.05.1>
-[1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.05.1>
-[1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.05.1>
-[1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.05.1>
-[1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.05.1>
-[1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.05.1>
-[1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-7-hvm-2024.05.1>
-[1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-7-hvm-2024.05.1>
-[1025]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-7-hvm-2024.05.1>
-[1026]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-7-hvm-2024.05.1>
+[1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.06.1>
+[1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.06.1>
+[1005]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.06.1>
+[1007]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.06.1>
+[1010]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.06.1>
+[1012]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.06.1>
+[1015]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.06.1>
+[1017]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.06.1>
+[1020]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-7-hvm-2024.06.1>
+[1022]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-7-hvm-2024.06.1>
+[1025]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-7-hvm-2024.06.1>
+[1026]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-7-hvm-2024.06.1>
 
-[1027]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.05.1>
-[1029]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.05.1>
-[1031]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.05.1>
-[1033]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.05.1>
-[1035]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-8-hvm-2024.05.1>
-[1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-8-hvm-2024.05.1>
+[1027]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.06.1>
+[1029]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.06.1>
+[1031]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.06.1>
+[1033]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-8-hvm-2024.06.1>
+[1035]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-8-hvm-2024.06.1>
+[1037]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-8-hvm-2024.06.1>
 
 [1039]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-8stream-hvm>
 [1040]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-8stream-hvm>
@@ -221,33 +221,33 @@ The images remain public until the image deprecation period expires, typically
 [1043]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-8stream-hvm>
 [1044]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-8stream-hvm>
 
-[1045]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.05.1>
-[1046]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.05.1>
-[1047]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.05.1>
-[1048]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.05.1>
-[1049]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-8-hvm-2024.05.1>
-[1050]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-8-hvm-2024.05.1>
+[1045]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.06.1>
+[1046]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.06.1>
+[1047]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.06.1>
+[1048]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-8-hvm-2024.06.1>
+[1049]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-8-hvm-2024.06.1>
+[1050]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-8-hvm-2024.06.1>
 
-[1051]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.05.1>
-[1052]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.05.1>
-[1053]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.05.1>
-[1054]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.05.1>
-[1055]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-9-hvm-2024.05.1>
-[1056]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-9-hvm-2024.05.1>
+[1051]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.06.1>
+[1052]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.06.1>
+[1053]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.06.1>
+[1054]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-9-hvm-2024.06.1>
+[1055]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-9-hvm-2024.06.1>
+[1056]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-rhel-9-hvm-2024.06.1>
 
-[1057]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.05.1>
-[1058]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.05.1>
-[1059]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.05.1>
-[1060]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.05.1>
-[1061]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-9stream-hvm-2024.05.1>
-[1062]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-9stream-hvm-2024.05.1>
+[1057]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.06.1>
+[1058]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.06.1>
+[1059]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.06.1>
+[1060]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-9stream-hvm-2024.06.1>
+[1061]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-9stream-hvm-2024.06.1>
+[1062]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-centos-9stream-hvm-2024.06.1>
 
-[1063]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.05.1>
-[1064]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.05.1>
-[1065]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.05.1>
-[1066]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.05.1>
-[1067]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-9-hvm-2024.05.1>
-[1068]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-9-hvm-2024.05.1>
+[1063]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.06.1>
+[1064]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.06.1>
+[1065]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.06.1>
+[1066]: <https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-ol-9-hvm-2024.06.1>
+[1067]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-west-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-9-hvm-2024.06.1>
+[1068]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-9-hvm-2024.06.1>
 
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
 
