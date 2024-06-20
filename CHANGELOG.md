@@ -1,5 +1,21 @@
 ## Changelog
 
+### [2024.06.1](https://github.com/plus3it/spel/releases/tag/2024.06.1)
+
+**Released**: 2024.06.20
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.06.1/manifests>
+
+**Summary**:
+
+
+*   Adds links for EL9 builds to README
+*   Removes centos-8stream due to end-of-life deprecations
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.16.12
+    - amazon-ssm-agent-3.3.484.0-1
+
 ### [2024.05.1](https://github.com/plus3it/spel/releases/tag/2024.05.1)
 
 **Released**: 2024.05.21
@@ -7,7 +23,6 @@
 **Manifests**: <https://github.com/plus3it/spel/blob/2024.05.1/manifests>
 
 **Summary**:
-
 
 *   Minor release update to RedHat 9.4 and Oracle Linux 9.4
 *   Documents process to build EFI-enabled bootstrap AMIs and provides additional
