@@ -108,22 +108,6 @@ variable "aws_source_ami_filter_centos7_hvm" {
   }
 }
 
-variable "aws_source_ami_filter_centos8stream_hvm" {
-  description = "Object with source AMI filters for CentOS Stream 8 HVM builds"
-  type = object({
-    name   = string
-    owners = list(string)
-  })
-  default = {
-    name = "CentOS Stream 8 x86_64 *,spel-bootstrap-centos-8stream-*.x86_64-gp*"
-    owners = [
-      "125523088429", # CentOS Commercial, https://www.centos.org/download/aws-images/
-      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
-      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
-    ]
-  }
-}
-
 variable "aws_source_ami_filter_centos9stream_hvm" {
   description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
   type = object({
@@ -416,12 +400,6 @@ variable "virtualbox_iso_url_centos7" {
   description = "URL to the CentOS7 .iso to use for Virtualbox builds"
   type        = string
   default     = "http://mirror.facebook.net/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso"
-}
-
-variable "virtualbox_iso_url_centos8" {
-  description = "URL to the CentOS8 .iso to use for Virtualbox builds"
-  type        = string
-  default     = "http://mirror.facebook.net/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-latest-dvd1.iso"
 }
 
 variable "virtualbox_vagrantcloud_username" {
@@ -1004,20 +982,6 @@ build {
   }
 
   source "amazon-ebssurrogate.base" {
-    ami_description = format(local.description, "CentOS Stream 8 AMI")
-    name            = "minimal-centos-8stream-hvm"
-    source_ami_filter {
-      filters = {
-        virtualization-type = "hvm"
-        name                = var.aws_source_ami_filter_centos8stream_hvm.name
-        root-device-type    = "ebs"
-      }
-      owners      = var.aws_source_ami_filter_centos8stream_hvm.owners
-      most_recent = true
-    }
-  }
-
-  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "CentOS Stream 9 AMI")
     name            = "minimal-centos-9stream-hvm"
     source_ami_filter {
@@ -1307,7 +1271,6 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
     only = [
-      "amazon-ebssurrogate.minimal-centos-8stream-hvm",
       "amazon-ebssurrogate.minimal-ol-8-hvm",
       "amazon-ebssurrogate.minimal-rhel-8-hvm",
     ]
