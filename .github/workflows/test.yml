@@ -1,0 +1,11 @@
+name: Run test jobs
+on:
+  pull_request:
+
+concurrency:
+  group: test-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: plus3it/actions-workflows/.github/workflows/test.yml@821d7899f1cf32b97306ef06ca1de31ae3274b7f

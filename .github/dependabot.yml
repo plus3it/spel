@@ -1,7 +1,15 @@
 version: 2
 updates:
-  - package-ecosystem: docker
-    directory: "/"
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: daily
-    open-pull-requests-limit: 10
+      interval: weekly
+    ignore:
+      - dependency-name: "actions/checkout"
+        update-types: ["version-update:semver-major"]
+  # Maintain dependencies for dockerfiles
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
