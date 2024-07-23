@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2024.07.1](https://github.com/plus3it/spel/releases/tag/2024.07.1)
+
+**Released**: 2024.07.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.07.1/manifests>
+
+**Summary**:
+
+
+*   Final release of EL7 images
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.17.15
+    - amazon-ssm-agent-3.3.551.0-1
+
 ### [2024.06.1](https://github.com/plus3it/spel/releases/tag/2024.06.1)
 
 **Released**: 2024.06.20
