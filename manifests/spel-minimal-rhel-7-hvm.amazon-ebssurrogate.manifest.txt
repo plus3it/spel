@@ -1,10 +1,10 @@
 Red Hat Enterprise Linux Server release 7.9 (Maipo)
-aws-cli/2.16.12 Python/3.11.8 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7
+aws-cli/2.17.15 Python/3.11.9 Linux/3.10.0-1160.80.1.el7.x86_64 exe/x86_64.rhel.7
 aws-cfn-bootstrap (2.0)
 acl-2.2.51-15.el7.x86_64
 acpid-2.0.19-9.el7.x86_64
 amazon-ec2-net-utils-2.4.1-1.el7.0.1.x86_64
-amazon-ssm-agent-3.3.484.0-1.x86_64
+amazon-ssm-agent-3.3.551.0-1.x86_64
 audit-2.8.5-4.el7.x86_64
 audit-libs-2.8.5-4.el7.x86_64
 audit-libs-python-2.8.5-4.el7.x86_64
@@ -319,7 +319,7 @@ rdma-core-22.4-6.el7_9.x86_64
 readline-6.2-11.el7.x86_64
 Red_Hat_Enterprise_Linux-Release_Notes-7-en-US-7-2.el7.noarch
 redhat-release-eula-7.8-0.el7.noarch
-redhat-release-server-7.9-11.el7_9.x86_64
+redhat-release-server-7.9-12.el7_9.x86_64
 redhat-support-lib-python-0.14.0-1.el7_9.noarch
 redhat-support-tool-0.14.0-1.el7_9.noarch
 rh-amazon-rhui-client-4.0.19-1.el7.noarch
