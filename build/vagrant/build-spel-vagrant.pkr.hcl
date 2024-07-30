@@ -104,7 +104,7 @@ build {
       "SPEL_VERSION=${var.spel_version}",
       "VAGRANT_CLOUD_TOKEN=${var.vagrant_cloud_token}",
       "VAGRANT_CLOUD_USER=${var.vagrant_cloud_user}",
-      "VIRTUALBOX_ISO_URL_CENTOS7=${var.virtualbox_iso_url_centos7}",
+      "VIRTUALBOX_ISO_URL_CENTOS9STREAM=${var.virtualbox_iso_url_centos9stream}",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     scripts = [

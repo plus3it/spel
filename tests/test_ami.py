@@ -1,4 +1,5 @@
 """Test spel aws ami builds."""
+
 # pylint: disable=missing-function-docstring
 import logging
 
@@ -17,33 +18,6 @@ def test_root_volume_is_resized(host):  # noqa: D103
 @pytest.mark.amiutils_enabled
 @pytest.mark.parametrize("name", [])
 def test_common_amiutils_pkgs(host, name):  # noqa: D103
-    pkg = host.package(name)
-    if pkg.is_installed:
-        log.info(
-            "%s", {"pkg": pkg.name, "version": pkg.version, "release": pkg.release}
-        )
-    assert pkg.is_installed
-
-
-@pytest.mark.amiutils_enabled
-@pytest.mark.el7
-@pytest.mark.parametrize(
-    "name",
-    [
-        ("aws-amitools-ec2"),
-        ("aws-apitools-as"),
-        ("aws-apitools-cfn"),
-        ("aws-apitools-common"),
-        ("aws-apitools-ec2"),
-        ("aws-apitools-elb"),
-        ("aws-apitools-iam"),
-        ("aws-apitools-mon"),
-        ("aws-apitools-rds"),
-        ("aws-cfn-bootstrap"),
-        ("aws-scripts-ses"),
-    ],
-)
-def test_el7_amiutils_pkgs(host, name):  # noqa: D103
     pkg = host.package(name)
     if pkg.is_installed:
         log.info(
@@ -80,7 +54,7 @@ def test_tmp_mount_properties(host):  # noqa: D103
     assert tmp.filesystem == "tmpfs"
 
 
-def test_el7_selinux_enforcing(host):  # noqa: D103
+def test_selinux_enforcing(host):  # noqa: D103
     cmd = "test $(getenforce) = 'Enforcing'"
     selinux_permissive = host.run(cmd)
     assert selinux_permissive.exit_status == 0
@@ -179,29 +153,6 @@ def test_var_run_symlink(host):  # noqa: D103
 def test_systemd_services(host, service):  # noqa: D103
     chk_service = host.service(service)
     assert chk_service.is_enabled
-
-
-@pytest.mark.el7
-@pytest.mark.parametrize(
-    "name",
-    [
-        ("spel-release"),
-        ("spel-dod-certs"),
-        ("spel-wcf-certs"),
-        ("amazon-ssm-agent"),
-        ("amazon-ec2-net-utils"),
-        ("ec2-hibinit-agent"),
-        ("ec2-instance-connect"),
-        ("ec2-instance-connect-selinux"),
-    ],
-)
-def test_spel_packages_el7(host, name):  # noqa: D103
-    pkg = host.package(name)
-    if pkg.is_installed:
-        log.info(
-            "%s", {"pkg": pkg.name, "version": pkg.version, "release": pkg.release}
-        )
-    assert pkg.is_installed
 
 
 @pytest.mark.el8

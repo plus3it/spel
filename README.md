@@ -113,52 +113,40 @@ version-numbers found in the GovCloud region AMIs.
 
 | AWS Region    | Builder Name / Link                     |
 |---------------|-----------------------------------------|
-| us-east-1     | [spel-minimal-rhel-7-hvm][1000]         |
-|               | [spel-minimal-centos-7-hvm][1002]       |
-|               | [spel-minimal-rhel-8-hvm][1027]         |
+| us-east-1     | [spel-minimal-rhel-8-hvm][1027]         |
 |               | [spel-minimal-ol-8-hvm][1045]           |
 |               | [spel-minimal-rhel-9-hvm][1051]         |
 |               | [spel-minimal-ol-9-hvm][1063]           |
 |               | [spel-minimal-centos-9stream-hvm][1057] |
-| us-east-2     | [spel-minimal-rhel-7-hvm][1005]         |
-|               | [spel-minimal-centos-7-hvm][1007]       |
-|               | [spel-minimal-rhel-8-hvm][1029]         |
+| us-east-2     | [spel-minimal-rhel-8-hvm][1029]         |
 |               | [spel-minimal-ol-8-hvm][1046]           |
 |               | [spel-minimal-rhel-9-hvm][1052]         |
 |               | [spel-minimal-ol-9-hvm][1064]           |
 |               | [spel-minimal-centos-9stream-hvm][1058] |
-| us-west-1     | [spel-minimal-rhel-7-hvm][1010]         |
-|               | [spel-minimal-centos-7-hvm][1012]       |
-|               | [spel-minimal-rhel-8-hvm][1031]         |
+| us-west-1     | [spel-minimal-rhel-8-hvm][1031]         |
 |               | [spel-minimal-ol-8-hvm][1047]           |
 |               | [spel-minimal-rhel-9-hvm][1053]         |
 |               | [spel-minimal-ol-9-hvm][1065]           |
 |               | [spel-minimal-centos-9stream-hvm][1059] |
-| us-west-2     | [spel-minimal-rhel-7-hvm][1015]         |
-|               | [spel-minimal-centos-7-hvm][1017]       |
-|               | [spel-minimal-rhel-8-hvm][1033]         |
+| us-west-2     | [spel-minimal-rhel-8-hvm][1033]         |
 |               | [spel-minimal-ol-8-hvm][1048]           |
 |               | [spel-minimal-rhel-9-hvm][1054]         |
 |               | [spel-minimal-ol-9-hvm][1066]           |
 |               | [spel-minimal-centos-9stream-hvm][1060] |
-| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]         |
-|               | [spel-minimal-centos-7-hvm][1022]       |
-|               | [spel-minimal-rhel-8-hvm][1035]         |
+| us-gov-west-1 | [spel-minimal-rhel-8-hvm][1035]         |
 |               | [spel-minimal-ol-8-hvm][1049]           |
 |               | [spel-minimal-rhel-9-hvm][1055]         |
 |               | [spel-minimal-ol-9-hvm][1067]           |
 |               | [spel-minimal-centos-9stream-hvm][1061] |
-| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]         |
-|               | [spel-minimal-centos-7-hvm][1026]       |
-|               | [spel-minimal-rhel-8-hvm][1037]         |
+| us-gov-east-1 | [spel-minimal-rhel-8-hvm][1037]         |
 |               | [spel-minimal-ol-8-hvm][1050]           |
 |               | [spel-minimal-rhel-9-hvm][1056]         |
 |               | [spel-minimal-ol-9-hvm][1068]           |
 |               | [spel-minimal-centos-9stream-hvm][1062] |
 
-| Vagrant Cloud Name                    | Vagrant Provider |
-|---------------------------------------|------------------|
-| [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
+| Vagrant Cloud Name                          | Vagrant Provider |
+|---------------------------------------------|------------------|
+| [plus3it/spel-minimal-centos-9stream][2001] | virtualbox       |
 
 ## Official AWS Owner Account IDs for Images
 
@@ -187,12 +175,28 @@ The images remain public until the image deprecation period expires, typically
 
 | AWS Region    | Builder Name / Link                     |
 |---------------|-----------------------------------------|
-| us-east-1     | [spel-minimal-centos-8stream-hvm][1039] |
-| us-east-2     | [spel-minimal-centos-8stream-hvm][1040] |
-| us-west-1     | [spel-minimal-centos-8stream-hvm][1041] |
-| us-west-2     | [spel-minimal-centos-8stream-hvm][1042] |
-| us-gov-west-1 | [spel-minimal-centos-8stream-hvm][1043] |
-| us-gov-east-1 | [spel-minimal-centos-8stream-hvm][1044] |
+| us-east-1     | [spel-minimal-rhel-7-hvm][1000]         |
+|               | [spel-minimal-centos-7-hvm][1002]       |
+|               | [spel-minimal-centos-8stream-hvm][1039] |
+| us-east-2     | [spel-minimal-rhel-7-hvm][1005]         |
+|               | [spel-minimal-centos-7-hvm][1007]       |
+|               | [spel-minimal-centos-8stream-hvm][1040] |
+| us-west-1     | [spel-minimal-rhel-7-hvm][1010]         |
+|               | [spel-minimal-centos-7-hvm][1012]       |
+|               | [spel-minimal-centos-8stream-hvm][1041] |
+| us-west-2     | [spel-minimal-rhel-7-hvm][1015]         |
+|               | [spel-minimal-centos-7-hvm][1017]       |
+|               | [spel-minimal-centos-8stream-hvm][1042] |
+| us-gov-west-1 | [spel-minimal-rhel-7-hvm][1020]         |
+|               | [spel-minimal-centos-7-hvm][1022]       |
+|               | [spel-minimal-centos-8stream-hvm][1043] |
+| us-gov-east-1 | [spel-minimal-rhel-7-hvm][1025]         |
+|               | [spel-minimal-centos-7-hvm][1026]       |
+|               | [spel-minimal-centos-8stream-hvm][1044] |
+
+| Vagrant Cloud Name                    | Vagrant Provider |
+|---------------------------------------|------------------|
+| [plus3it/spel-minimal-centos-7][2001] | virtualbox       |
 
 [1000]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-rhel-7-hvm-2024.07.1>
 [1002]: <https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;owner=174003430611;imageName=spel-minimal-centos-7-hvm-2024.07.1>
@@ -250,6 +254,7 @@ The images remain public until the image deprecation period expires, typically
 [1068]: <https://console.amazonaws-us-gov.com/ec2/v2/home?region=us-gov-east-1#Images:visibility=public-images;owner=216406534498;imageName=spel-minimal-ol-9-hvm-2024.07.1>
 
 [2001]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-7>
+[2002]: <https://app.vagrantup.com/plus3it/boxes/spel-minimal-centos-9stream>
 
 ## Default Username
 
@@ -418,20 +423,14 @@ For all inputs to the template, see [spel/README.md](spel/README.md)
 
 The Minimal Linux `packer` template includes the following builders:
 
-| Builder Name                                     | Description                                               |
-|--------------------------------------------------|-----------------------------------------------------------|
-| `amazon-ebssurrogate.minimal-centos-9stream-hvm` | amazon-ebs builder for a minimal CentOS Stream 9 HVM AMI  |
-| `amazon-ebssurrogate.minimal-ol-9-hvm`           | amazon-ebs builder for a minimal Oracle Linux 9 HVM AMI   |
-| `amazon-ebssurrogate.minimal-rhel-9-hvm`         | amazon-ebs builder for a minimal RHEL 9 HVM AMI           |
-| `amazon-ebssurrogate.minimal-ol-8-hvm`           | amazon-ebs builder for a minimal Oracle Linux 8 HVM AMI   |
-| `amazon-ebssurrogate.minimal-rhel-8-hvm`         | amazon-ebs builder for a minimal RHEL 8 HVM AMI           |
-| `amazon-ebssurrogate.minimal-centos-7-hvm`       | amazon-ebs builder for a minimal CentOS 7 HVM AMI         |
-| `amazon-ebssurrogate.minimal-rhel-7-hvm`         | amazon-ebs builder for a minimal RHEL 7 HVM AMI           |
-| `azure-arm.minimal-centos-7-image`               | azure-arm builder for a minimal CentOS 7 Image            |
-| `azure-arm.minimal-rhel-7-image`                 | azure-arm builder for a minimal RHEL 7 Image              |
-| `azure-arm.minimal-rhel-8-image`                 | azure-arm builder for a minimal RHEL 8 Image              |
-| `openstack.minimal-centos-7-image`               | openstack builder for a minimal CentOS 7 Image            |
-| `virtualbox-iso.minimal-centos-7-image`          | virtualbox-iso builder for a minimal CentOS 7 Vagrant Box |
+| Builder Name                                     | Description                                                      |
+|--------------------------------------------------|------------------------------------------------------------------|
+| `amazon-ebssurrogate.minimal-centos-9stream-hvm` | amazon-ebs builder for a minimal CentOS Stream 9 HVM AMI         |
+| `amazon-ebssurrogate.minimal-ol-9-hvm`           | amazon-ebs builder for a minimal Oracle Linux 9 HVM AMI          |
+| `amazon-ebssurrogate.minimal-rhel-9-hvm`         | amazon-ebs builder for a minimal RHEL 9 HVM AMI                  |
+| `amazon-ebssurrogate.minimal-ol-8-hvm`           | amazon-ebs builder for a minimal Oracle Linux 8 HVM AMI          |
+| `amazon-ebssurrogate.minimal-rhel-8-hvm`         | amazon-ebs builder for a minimal RHEL 8 HVM AMI                  |
+| `virtualbox-iso.minimal-centos-9stream-image`    | virtualbox-iso builder for a minimal CentOS Stream 9 Vagrant Box |
 
 ### Minimal Linux Packer Post-Provisioners
 
@@ -456,8 +455,6 @@ packer build \
     -var 'spel_identifier=unique-project-id' \
     -var 'spel_version=dev001' \
     -var 'aws_region=us-gov-west-1' \
-    -var 'aws_source_ami_filter_centos7_hvm={name = "*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA", owners = ["216406534498"]}' \
-    -var 'aws_source_ami_filter_centos8stream_hvm={name = "spel-bootstrap-centos-8stream-hvm-*.x86_64-gp*", owners = ["216406534498"]}' \
     -exclude 'virtualbox-iso.*' \
     spel/minimal-linux.pkr.hcl
 ```
@@ -488,29 +485,20 @@ packer build \
     -var 'spel_version=0.0.1' \
     -var 'amigen_extra_rpms=["WALinuxAgent"]' \
     -var 'amigen_fips_disable=true' \
-    -var 'amigen7_repo_names=["rhui-microsoft-azure-rhel7"]' \
+    -var 'amigen8_repo_names=["rhui-microsoft-azure-rhel8"]' \
     -var 'azure_image_offer=rhel-raw' \
     -var 'azure_image_publisher=RedHat' \
-    -var 'azure_image_sku=7-raw' \
+    -var 'azure_image_sku=8_8' \
     -var 'azure_managed_image_resource_group_name=<resource group short name>' \
-    -only 'azure-arm.minimal-rhel-7-image' \
+    -only 'azure-arm.minimal-rhel-8-image' \
     spel/minimal-linux.pkr.hcl
 ```
-
-When building for RHEL 8:
-
-- Change the `-only` flag to reference `azure-arm.minimal-rhel-8-image`
-- Change the `azure_image_sku` to an appropriate value. When the
-  `azure-arm.minimal-rhel-8-image` was being authored, the appropriate value
-  was `8_8`
-- Substitute the `amigen8_repo_names` variable for the `amigen7_repo_names` and
-  set an appropriate list of RHUI repositories to support RHEL 8
 
 ## Building for OpenStack
 
 To build images for an OpenStack environment, it is necessary to pass several
 variables that are specific to the environment. The
-[CentOS 7 Generic Cloud image][33] has been tested to work with the _spel_
+[CentOS Stream 9 Cloud image][33] has been tested to work with the _spel_
 template(s). Also, the builders should be restricted so as _not_ to build the
 Vagrant images.
 
@@ -539,36 +527,38 @@ For expected values, see links below:
 
 ## Testing With AMIgen
 
-The spel automation leverages the AMIgen7 and AMIgen8 projects as a
-build-helpers for creation of EL7 and EL8 Amazon Machine Images (Azure
+The spel automation leverages the AMIgen8 and AMIgen9 projects as a
+build-helpers for creation of EL8 and EL9 Amazon Machine Images (Azure
 VM-templates, etc.), respectively.  Due to the closely-coupled nature of the
-two projects, it's recommended that any changes made to AMIgen7 or AMIgen8 be
+two projects, it's recommended that any changes made to AMIgen8 or AMIgen9 be
 tested with spel prior to merging changes to either project's master branch.
 
 To facilitate this testing, the following runtime-variables were added to spel:
 
-- `amigen7_source_branch`
-- `amigen7_source_url`
 - `amigen8_source_branch`
 - `amigen8_source_url`
+- `amigen9_source_branch`
+- `amigen9_source_url`
 
 Using these runtime-variables allows one to point spel to
-a fork/branch of AMIgen7 or AMIgen8 during a integration-test build. To test,
+a fork/branch of AMIgen8 or AMIgen9 during a integration-test build. To test,
 update your `packer` invocation by adding elements like:
 
 ```bash
 packer build \
-    -var 'amigen7_source_url=https://github.com/<FORK_USER>/AMIgen7.git' \
-    -var 'amigen7_source_branch=IssueNN' \
+    -var 'amigen8_source_url=https://github.com/<FORK_USER>/AMIgen8.git' \
+    -var 'amigen8_source_branch=IssueNN' \
     ...
     minimal-linux.pkr.hcl
 ```
 
-Similarly, these variable may be specified as environment variables by using [`PKR_VAR_<var_name>`][45] declarations[^4] (e.g., `PKR_VAR_amigen7_source_branch`). To do so, change the above example to:
+Similarly, these variable may be specified as environment variables by using [`PKR_VAR_<var_name>`][45]
+declarations[^4] (e.g., `PKR_VAR_amigen8_source_branch`). To do so, change the
+above example to:
 
 ```bash
-export PKR_VAR_amigen7_source_branch="=https://github.com/<FORK_USER>/AMIgen7.git"
-export PKR_VAR_amigen7_source_branch="IssueNN"
+export PKR_VAR_amigen8_source_branch="=https://github.com/<FORK_USER>/AMIgen8.git"
+export PKR_VAR_amigen8_source_branch="IssueNN"
 
 packer build \
     [...options elided...]

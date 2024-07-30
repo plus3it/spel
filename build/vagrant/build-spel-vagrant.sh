@@ -51,11 +51,11 @@ export PACKER_LOG_PATH="${CLONE_DIR}/.spel/${SPEL_VERSION:?}/packer.log"
 packer init spel/minimal-linux.pkr.hcl
 
 packer build \
-    -var "virtualbox_iso_url_centos7=${VIRTUALBOX_ISO_URL_CENTOS7:?}" \
+    -var "virtualbox_iso_url_centos9stream=${VIRTUALBOX_ISO_URL_CENTOS9STREAM:?}" \
     -var "virtualbox_vagrantcloud_username=${VAGRANT_CLOUD_USER:?}" \
     -var "spel_identifier=${SPEL_IDENTIFIER:?}" \
     -var "spel_version=${SPEL_VERSION:?}" \
-    -only "virtualbox-iso.minimal-centos-7" \
+    -only "virtualbox-iso.minimal-centos-9stream" \
     -except "${EXCEPT_STEP:-}" \
     spel/minimal-linux.pkr.hcl
 

@@ -3,11 +3,6 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-variable "aws_source_ami_centos7_hvm" {
-  type    = string
-  default = env("amazon_ebssurrogate_minimal_centos_7_hvm")
-}
-
 variable "aws_source_ami_centos8stream_hvm" {
   type    = string
   default = env("amazon_ebssurrogate_minimal_centos_8stream_hvm")
@@ -26,11 +21,6 @@ variable "aws_source_ami_ol_8_hvm" {
 variable "aws_source_ami_ol_9_hvm" {
   type    = string
   default = env("amazon_ebssurrogate_minimal_ol_9_hvm")
-}
-
-variable "aws_source_ami_rhel7_hvm" {
-  type    = string
-  default = env("amazon_ebssurrogate_minimal_rhel_7_hvm")
 }
 
 variable "aws_source_ami_rhel8_hvm" {
@@ -114,11 +104,6 @@ source "amazon-ebs" "base" {
 
 build {
   source "amazon-ebs.base" {
-    source_ami = var.aws_source_ami_centos7_hvm
-    name       = "minimal-centos-7-hvm"
-  }
-
-  source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_centos8stream_hvm
     name       = "minimal-centos-8stream-hvm"
   }
@@ -136,11 +121,6 @@ build {
   source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_ol_9_hvm
     name       = "minimal-ol-9-hvm"
-  }
-
-  source "amazon-ebs.base" {
-    source_ami = var.aws_source_ami_rhel7_hvm
-    name       = "minimal-rhel-7-hvm"
   }
 
   source "amazon-ebs.base" {
