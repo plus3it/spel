@@ -552,7 +552,7 @@ packer build \
     minimal-linux.pkr.hcl
 ```
 
-Similarly, these variable may be specified as environment variables by using [`PKR_VAR_<var_name>`][45]
+Similarly, these variables may be specified as environment variables by using [`PKR_VAR_<var_name>`][45]
 declarations[^4] (e.g., `PKR_VAR_amigen8_source_branch`). To do so, change the
 above example to:
 
