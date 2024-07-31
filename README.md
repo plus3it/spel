@@ -496,11 +496,9 @@ packer build \
 
 ## Building for OpenStack
 
-To build images for an OpenStack environment, it is necessary to pass several
-variables that are specific to the environment. The
-[CentOS Stream 9 Cloud image][33] has been tested to work with the _spel_
-template(s). Also, the builders should be restricted so as _not_ to build the
-Vagrant images.
+To build images for an OpenStack environment, it is necessary to pass several variables
+that are specific to the environment. Also, the builders should be restricted so
+as _not_ to build the Vagrant images.
 
 ```bash
 source your_openstack_credentials_file.sh
