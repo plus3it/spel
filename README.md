@@ -146,7 +146,7 @@ version-numbers found in the GovCloud region AMIs.
 
 | Vagrant Cloud Name                          | Vagrant Provider |
 |---------------------------------------------|------------------|
-| [plus3it/spel-minimal-centos-9stream][2001] | virtualbox       |
+| [plus3it/spel-minimal-centos-9stream][2002] | virtualbox       |
 
 ## Official AWS Owner Account IDs for Images
 
