@@ -37,8 +37,7 @@ packer {
 #   * azure - azure-arm builder
 #   * openstack - openstack builder
 #   * virtualbox - virtualbox builder
-#   * amigen - used across AMIgen versions ( amigen7, amigen8 and amigen9)
-#   * amigen7 - amigen7 only
+#   * amigen - used across AMIgen versions ( amigen8 and amigen9)
 #   * amigen8 - amigen8 only
 #   * amigen9 - amigen9 only
 #   * spel - everything else
@@ -92,22 +91,6 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "aws_source_ami_filter_centos7_hvm" {
-  description = "Object with source AMI filters for CentOS 7 HVM builds"
-  type = object({
-    name   = string
-    owners = list(string)
-  })
-  default = {
-    name = "CentOS Linux 7 x86_64 *,*-Recovery (No-LVM)-ACB-CentOS7-HVM-SRIOV_ENA"
-    owners = [
-      "125523088429", # CentOS Commercial, hhttps://www.centos.org/download/aws-images/
-      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
-      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
-    ]
-  }
-}
-
 variable "aws_source_ami_filter_centos9stream_hvm" {
   description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
   type = object({
@@ -150,23 +133,6 @@ variable "aws_source_ami_filter_ol9_hvm" {
     name = "OL9.*-x86_64-HVM-*,spel-bootstrap-oraclelinux-9-hvm-*.x86_64-gp*,spel-bootstrap-ol-9-*.x86_64-gp*"
     owners = [
       "131827586825", # Oracle Commercial, https://blogs.oracle.com/linux/post/running-oracle-linux-in-public-clouds
-      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
-      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
-    ]
-  }
-}
-
-variable "aws_source_ami_filter_rhel7_hvm" {
-  description = "Object with source AMI filters for RHEL 7 HVM builds"
-  type = object({
-    name   = string
-    owners = list(string)
-  })
-  default = {
-    name = "RHEL-7.*_HVM-*-x86_64-*-Hourly*-GP*"
-    owners = [
-      "309956199498", # Red Hat Commercial, https://access.redhat.com/solutions/15356
-      "219670896067", # Red Hat GovCloud, https://access.redhat.com/solutions/15356
       "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
       "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
     ]
@@ -256,30 +222,6 @@ variable "azure_cloud_environment_name" {
   description = "One of Public, China, Germany, or USGovernment. Defaults to Public. Long forms such as USGovernmentCloud and AzureUSGovernmentCloud are also supported"
   type        = string
   default     = "Public"
-}
-
-variable "azure_custom_managed_image_name_centos7" {
-  description = "Name of a custom managed image to use as the base image for CentOS7 builds"
-  type        = string
-  default     = null
-}
-
-variable "azure_custom_managed_image_resource_group_name_centos7" {
-  description = "Name of the resource group for the custom image in `azure_custom_managed_image_name_centos7`"
-  type        = string
-  default     = null
-}
-
-variable "azure_custom_managed_image_name_rhel7" {
-  description = "Name of a custom managed image to use as the base image for RHEL7 builds"
-  type        = string
-  default     = null
-}
-
-variable "azure_custom_managed_image_resource_group_name_rhel7" {
-  description = "Name of the resource group for the custom image in `azure_custom_managed_image_name_rhel7`"
-  type        = string
-  default     = null
 }
 
 variable "azure_image_offer" {
@@ -396,10 +338,10 @@ variable "openstack_source_image_name" {
 # Variables for Virtualbox/Vagrant builds
 ###
 
-variable "virtualbox_iso_url_centos7" {
-  description = "URL to the CentOS7 .iso to use for Virtualbox builds"
+variable "virtualbox_iso_url_centos9stream" {
+  description = "URL to the CentOS Stream 9 .iso to use for Virtualbox builds"
   type        = string
-  default     = "http://mirror.facebook.net/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso"
+  default     = "http://mirror.facebook.net/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-boot.iso"
 }
 
 variable "virtualbox_vagrantcloud_username" {
@@ -452,84 +394,6 @@ variable "amigen_use_default_repos" {
   description = "Modifies the behavior of `amigen_repo_names`. When true, `amigen_repo_names` are appended to the enabled repos. When false, `amigen_repo_names` are used exclusively"
   type        = bool
   default     = true
-}
-
-###
-# Variables used by AMIgen7
-###
-
-variable "amigen7_extra_rpms" {
-  description = "List of package specs (rpm names or URLs to .rpm files) to install to the EL7 builders and images"
-  type        = list(string)
-  default = [
-    "python36",
-    "spel-release",
-    "spel-dod-certs",
-    "spel-wcf-certs",
-    "amazon-ec2-net-utils",
-    "ec2-hibinit-agent",
-    "ec2-instance-connect",
-    "ec2-instance-connect-selinux",
-    "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm",
-  ]
-}
-
-variable "amigen7_filesystem_label" {
-  description = "Label for the root filesystem when creating bare partitions for EL7 images"
-  type        = string
-  default     = ""
-}
-
-variable "amigen7_package_groups" {
-  description = "List of yum repo groups to install into EL7 images"
-  type        = list(string)
-  default     = ["core"]
-}
-
-variable "amigen7_package_manifest" {
-  description = "File containing a list of RPMs to use as the build manifest for EL7 images"
-  type        = string
-  default     = ""
-}
-
-variable "amigen7_repo_names" {
-  description = "List of yum repo names to enable in the EL7 builders and images"
-  type        = list(string)
-  default     = ["spel"]
-}
-
-variable "amigen7_repo_sources" {
-  description = "List of yum package refs (names or urls to .rpm files) that install yum repo definitions in EL7 builders and images"
-  type        = list(string)
-  default = [
-    "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
-    "https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-7.noarch.rpm",
-  ]
-}
-
-variable "amigen7_source_branch" {
-  description = "Branch that will be checked out when cloning AMIgen7"
-  type        = string
-  default     = "master"
-}
-
-variable "amigen7_source_url" {
-  description = "URL that will be used to clone AMIgen7"
-  type        = string
-  default     = "https://github.com/plus3it/AMIgen7.git"
-}
-
-variable "amigen7_storage_layout" {
-  description = "List of colon-separated tuples (mount:name:size) that describe the desired partitions for LVM-partitioned disks on EL7 images"
-  type        = list(string)
-  default = [
-    "/:rootVol:6",
-    "swap:swapVol:2",
-    "/home:homeVol:1",
-    "/var:varVol:2",
-    "/var/log:logVol:2",
-    "/var/log/audit:auditVol:100%FREE",
-  ]
 }
 
 ###
@@ -934,11 +798,6 @@ locals {
   # Join lists to create strings appropriate for environment variables and AMIgen
   # expectations. AMIgen expects some vars to be comma-delimited, and others to
   # be space-delimited.
-  amigen7_extra_rpms     = join(",", var.amigen7_extra_rpms)
-  amigen7_package_groups = join(" ", var.amigen7_package_groups) # space-delimited
-  amigen7_repo_names     = join(",", var.amigen7_repo_names)
-  amigen7_repo_sources   = join(",", var.amigen7_repo_sources)
-  amigen7_storage_layout = join(",", var.amigen7_storage_layout)
   amigen8_extra_rpms     = join(",", var.amigen8_extra_rpms)
   amigen8_package_groups = join(" ", var.amigen8_package_groups) # space-delimited
   amigen8_repo_names     = join(",", var.amigen8_repo_names)
@@ -967,20 +826,6 @@ locals {
 
 # AMIgen builds
 build {
-  source "amazon-ebssurrogate.base" {
-    ami_description = format(local.description, "CentOS 7 AMI")
-    name            = "minimal-centos-7-hvm"
-    source_ami_filter {
-      filters = {
-        virtualization-type = "hvm"
-        name                = var.aws_source_ami_filter_centos7_hvm.name
-        root-device-type    = "ebs"
-      }
-      owners      = var.aws_source_ami_filter_centos7_hvm.owners
-      most_recent = true
-    }
-  }
-
   source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "CentOS Stream 9 AMI")
     name            = "minimal-centos-9stream-hvm"
@@ -1024,20 +869,6 @@ build {
   }
 
   source "amazon-ebssurrogate.base" {
-    ami_description = format(local.description, "RHEL 7 AMI")
-    name            = "minimal-rhel-7-hvm"
-    source_ami_filter {
-      filters = {
-        virtualization-type = "hvm"
-        name                = var.aws_source_ami_filter_rhel7_hvm.name
-        root-device-type    = "ebs"
-      }
-      owners      = var.aws_source_ami_filter_rhel7_hvm.owners
-      most_recent = true
-    }
-  }
-
-  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "RHEL 8 AMI")
     name            = "minimal-rhel-8-hvm"
     source_ami_filter {
@@ -1067,48 +898,11 @@ build {
 
   source "azure-arm.base" {
     azure_tags = {
-      Description = format(local.description, "CentOS 7 image")
-    }
-    custom_managed_image_name                = var.azure_custom_managed_image_name_centos7
-    custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_centos7
-    name                                     = "minimal-centos-7-image"
-  }
-
-  source "azure-arm.base" {
-    azure_tags = {
-      Description = format(local.description, "RHEL 7 image")
-    }
-    custom_managed_image_name                = var.azure_custom_managed_image_name_rhel7
-    custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel7
-    name                                     = "minimal-rhel-7-image"
-  }
-
-  source "azure-arm.base" {
-    azure_tags = {
       Description = format(local.description, "RHEL 8 image")
     }
     custom_managed_image_name                = var.azure_custom_managed_image_name_rhel8
     custom_managed_image_resource_group_name = var.azure_custom_managed_image_resource_group_name_rhel8
     name                                     = "minimal-rhel-8-image"
-  }
-
-  source "openstack.base" {
-    metadata = {
-      Description = format(local.description, "CentOS 7 image")
-    }
-    name = "minimal-centos-7-image"
-  }
-
-  # Azure EL7 provisioners
-  provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
-    inline = [
-      "yum update -y --disablerepo='*' --enablerepo='*microsoft*'",
-    ]
-    only = [
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
-    ]
   }
 
   # Common provisioners
@@ -1159,23 +953,7 @@ build {
     ]
     start_retry_timeout = "15m"
     only = [
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
       "azure-arm.minimal-rhel-8-image",
-    ]
-  }
-
-  provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
-    inline = [
-      "echo Restarting systemd",
-      "systemctl daemon-reexec",
-      "echo Killing processes locking /oldroot",
-      "fuser -vmk /oldroot",
-    ]
-    only = [
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
     ]
   }
 
@@ -1198,46 +976,7 @@ build {
       "test $( grep -c /oldroot /proc/mounts ) -eq 0 || umount /oldroot",
     ]
     only = [
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
       "azure-arm.minimal-rhel-8-image",
-    ]
-  }
-
-  # AWS EL7 provisioners
-  provisioner "shell" {
-    environment_vars = [
-      "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
-      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
-      "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
-      "SPEL_AMIGENPKGGRP=${local.amigen7_package_groups}",
-      "SPEL_AMIGENREPOS=${local.amigen7_repo_names}",
-      "SPEL_AMIGENREPOSRC=${local.amigen7_repo_sources}",
-      "SPEL_AMIGENROOTNM=${var.amigen7_filesystem_label}",
-      "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
-      "SPEL_AMIGENSTORLAY=${local.amigen7_storage_layout}",
-      "SPEL_AMIGENVGNAME=VolGroup00",
-      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
-      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
-      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
-      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
-      "SPEL_BOOTLABEL=/boot",
-      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-      "SPEL_BUILDNAME=${source.name}",
-      "SPEL_CLOUDPROVIDER=aws",
-      "SPEL_EXTRARPMS=${local.amigen7_extra_rpms}",
-      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
-      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
-      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
-      "SPEL_USEROOTDEVICE=false",
-    ]
-    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only = [
-      "amazon-ebssurrogate.minimal-centos-7-hvm",
-      "amazon-ebssurrogate.minimal-rhel-7-hvm",
-    ]
-    scripts = [
-      "${path.root}/scripts/amigen7-build.sh",
     ]
   }
 
@@ -1320,41 +1059,6 @@ build {
     ]
   }
 
-  # Azure EL7 provisioners
-  provisioner "shell" {
-    environment_vars = [
-      "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
-      "SPEL_AMIGENBUILDDEV=/dev/sda",
-      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
-      "SPEL_AMIGENREPOS=${local.amigen7_repo_names}",
-      "SPEL_AMIGENREPOSRC=${local.amigen7_repo_sources}",
-      "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
-      "SPEL_AMIGENSTORLAY=${local.amigen7_storage_layout}",
-      "SPEL_AMIGENVGNAME=VolGroup00",
-      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
-      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
-      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
-      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
-      "SPEL_BOOTLABEL=/boot",
-      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-      "SPEL_BUILDNAME=${source.name}",
-      "SPEL_CLOUDPROVIDER=azure",
-      "SPEL_EXTRARPMS=${local.amigen7_extra_rpms}",
-      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
-      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
-      "SPEL_HTTP_PROXY=${var.spel_http_proxy}",
-      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
-    ]
-    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only = [
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
-    ]
-    scripts = [
-      "${path.root}/scripts/amigen7-build.sh",
-    ]
-  }
-
   # Azure EL8 provisioners
   provisioner "shell" {
     environment_vars = [
@@ -1399,46 +1103,9 @@ build {
       "sync",
     ]
     only = [
-      "azure-arm.minimal-centos-7-image",
-      "azure-arm.minimal-rhel-7-image",
       "azure-arm.minimal-rhel-8-image",
     ]
     skip_clean = true
-  }
-
-  # Openstack EL7 provisioners
-  provisioner "shell" {
-    environment_vars = [
-      "SPEL_AMIGENBRANCH=${var.amigen7_source_branch}",
-      "SPEL_AMIGENBUILDDEV=/dev/vda",
-      "SPEL_AMIGENCHROOT=/mnt/ec2-root",
-      "SPEL_AMIGENMANFST=${var.amigen7_package_manifest}",
-      "SPEL_AMIGENPKGGRP=${local.amigen7_package_groups}",
-      "SPEL_AMIGENREPOS=${local.amigen7_repo_names}",
-      "SPEL_AMIGENREPOSRC=${local.amigen7_repo_sources}",
-      "SPEL_AMIGENSOURCE=${var.amigen7_source_url}",
-      "SPEL_AMIGENSTORLAY=${local.amigen7_storage_layout}",
-      "SPEL_AMIGENVGNAME=VolGroup00",
-      "SPEL_AMIUTILSSOURCE=${var.amigen_amiutils_source_url}",
-      "SPEL_AWSCFNBOOTSTRAP=${var.amigen_aws_cfnbootstrap}",
-      "SPEL_AWSCLIV1SOURCE=${var.amigen_aws_cliv1_source}",
-      "SPEL_AWSCLIV2SOURCE=${var.amigen_aws_cliv2_source}",
-      "SPEL_BOOTLABEL=/boot",
-      "SPEL_BUILDDEPS=lvm2 parted yum-utils unzip git",
-      "SPEL_BUILDNAME=${source.name}",
-      "SPEL_CLOUDPROVIDER=openstack",
-      "SPEL_EXTRARPMS=${local.amigen7_extra_rpms}",
-      "SPEL_FIPSDISABLE=${var.amigen_fips_disable}",
-      "SPEL_GRUBTMOUT=${var.amigen_grub_timeout}",
-      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
-    ]
-    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
-    only = [
-      "openstack.minimal-centos-7-image",
-    ]
-    scripts = [
-      "${path.root}/scripts/amigen7-build.sh",
-    ]
   }
 
   # Common post-processors
@@ -1462,10 +1129,10 @@ build {
 # Virtualbox builds
 build {
   source "virtualbox-iso.base" {
-    boot_command = ["<esc><wait>", "linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.centos7.minimal.cfg VAGRANT", "<enter><wait>"]
-    name         = "minimal-centos-7"
-    iso_checksum = "file:http://mirror.facebook.net/centos/7/isos/x86_64/sha256sum.txt"
-    iso_url      = var.virtualbox_iso_url_centos7
+    boot_command = ["<esc><wait>", "linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.centos9stream.minimal.cfg VAGRANT", "<enter><wait>"]
+    name         = "minimal-centos-9stream"
+    iso_checksum = "file:http://mirror.facebook.net/centos-stream/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-boot.iso.SHA256SUM"
+    iso_url      = var.virtualbox_iso_url_centos9stream
   }
 
   provisioner "file" {
@@ -1513,7 +1180,7 @@ build {
       version_description = format(
         local.description,
         {
-          "minimal-centos-7" = "CentOS 7 image"
+          "minimal-centos-9stream" = "CentOS Stream 9 image"
         }[source.name]
       )
     }

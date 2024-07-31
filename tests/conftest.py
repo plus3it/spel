@@ -1,4 +1,5 @@
 """Configuration for pytest."""
+
 import os
 import urllib.error
 import urllib.request
@@ -36,7 +37,6 @@ except urllib.error.URLError:
 
 def pytest_configure(config):
     """Configure pytest."""
-    config.addinivalue_line("markers", "el7: mark test to run only on el7 platforms")
     config.addinivalue_line("markers", "el8: mark test to run only on el8 platforms")
     config.addinivalue_line("markers", "el9: mark test to run only on el9 platforms")
     config.addinivalue_line("markers", "hvm: mark test to run only on hvm instances")

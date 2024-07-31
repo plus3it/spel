@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
-ISO_URL_CENTOS7_BASE ?= http://mirror.facebook.net/centos/7/isos/x86_64
-ISO_URL_CENTOS7_FILTER ?= grep -Po '(?<=href=")CentOS-7-x86_64-Minimal-.*\.iso(?=")' | sort -r | head -1
+ISO_URL_CENTOS9STREAM_BASE ?= http://mirror.facebook.net/centos-stream/9-stream/BaseOS/x86_64/iso
+ISO_URL_CENTOS9STREAM_FILTER ?= grep -Po '(?<=href=")CentOS-Stream-9-latest-x86_64-boot.iso(?=")' | sort -r | head -1
 
 CODEBUILD_SOURCE_REPO_URL ?= https://github.com/plus3it/spel.git
 CODEBUILD_SOURCE_VERSION  ?= master
@@ -36,7 +36,7 @@ build: export PACKER_LOG = 1
 build: export PACKER_LOG_PATH = .spel/$(SPEL_VERSION)/packer.build-spel-vagrant.log
 build: export PACKER_LOG_DIR = $(dir $(PACKER_LOG_PATH))
 build: export PKR_VAR_aws_temporary_security_group_source_cidrs = ["$(shell curl -sSL https://checkip.amazonaws.com)/32"]
-build: export PKR_VAR_virtualbox_iso_url_centos7 ?= $(ISO_URL_CENTOS7_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS7_BASE) | $(ISO_URL_CENTOS7_FILTER))
+build: export PKR_VAR_virtualbox_iso_url_centos9stream ?= $(ISO_URL_CENTOS9STREAM_BASE)/$(shell curl -sSL $(ISO_URL_CENTOS9STREAM_BASE) | $(ISO_URL_CENTOS9STREAM_FILTER))
 
 build:
 	mkdir -p "$(PACKER_LOG_DIR)"
