@@ -55,7 +55,7 @@ variable "vagrant_cloud_user" {
   default = "plus3it"
 }
 
-variable "virtualbox_iso_url_centos7" {
+variable "virtualbox_iso_url_centos9stream" {
   type = string
 }
 
