@@ -1,8 +1,4 @@
 <!-- BEGIN TFDOCS -->
-### Resources
-
-No resources.
-
 ### Inputs
 
 | Name | Description | Type | Default | Required |

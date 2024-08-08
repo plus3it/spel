@@ -1,0 +1,23 @@
+formatter: markdown table  # required
+
+sections:
+  hide:
+    - data-sources
+    - modules
+    - outputs
+    - providers
+    - resources
+    - requirements
+
+settings:
+  indent: 3
+
+sort:
+  by: required
+
+output:
+  template: |-
+    <!-- BEGIN TFDOCS -->
+    {{ .Content }}
+
+    <!-- END TFDOCS -->
