@@ -77,7 +77,7 @@ source "amazon-ebs" "ubuntu" {
   source_ami_filter {
     filters = {
       architecture        = "x86_64"
-      name                = "ubuntu/images/hvm-ssd/ubuntu-*-20.04-amd64-server-*"
+      name                = "ubuntu/images/hvm-ssd/ubuntu-*-22.04-amd64-server-*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
