@@ -55,7 +55,7 @@ variable "vagrant_cloud_user" {
   default = "plus3it"
 }
 
-variable "virtualbox_iso_url_centos7" {
+variable "virtualbox_iso_url_centos9stream" {
   type = string
 }
 
@@ -77,7 +77,7 @@ source "amazon-ebs" "ubuntu" {
   source_ami_filter {
     filters = {
       architecture        = "x86_64"
-      name                = "ubuntu/images/hvm-ssd/ubuntu-*-20.04-amd64-server-*"
+      name                = "ubuntu/images/hvm-ssd/ubuntu-*-22.04-amd64-server-*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
