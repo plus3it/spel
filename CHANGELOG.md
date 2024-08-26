@@ -1,5 +1,23 @@
 ## Changelog
 
+### [2024.08.1](https://github.com/plus3it/spel/releases/tag/2024.08.1)
+
+**Released**: 2024.08.20
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.08.1/manifests>
+
+**Summary**:
+
+*   Updates EL9 images to process grub2 kernel options properly. This resolves
+    an issue with network interface device names, as well as console output displaying
+    in AWS. See: https://github.com/plus3it/amigen9/issues/26
+*   Removed manifests of EL7 images
+*   Removed `insights-client` from Red Hat 9 images, due to dependency leakage
+    to CentOS Stream and unavailability of the package
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.17.33
+
 ### [2024.07.1](https://github.com/plus3it/spel/releases/tag/2024.07.1)
 
 **Released**: 2024.07.23
@@ -7,7 +25,6 @@
 **Manifests**: <https://github.com/plus3it/spel/blob/2024.07.1/manifests>
 
 **Summary**:
-
 
 *   Final release of EL7 images
 
@@ -22,7 +39,6 @@
 **Manifests**: <https://github.com/plus3it/spel/blob/2024.06.1/manifests>
 
 **Summary**:
-
 
 *   Adds links for EL9 builds to README
 *   Removes centos-8stream due to end-of-life deprecations
