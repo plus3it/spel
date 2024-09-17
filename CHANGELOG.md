@@ -1,5 +1,18 @@
 ## Changelog
 
+### [2024.09.1](https://github.com/plus3it/spel/releases/tag/2024.09.1)
+
+**Released**: 2024.09.17
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.09.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.17.52
+    - amazon-ec2-net-utils-2.5.1-1
+    - amazon-ssm-agent-3.3.859.0-1
+
 ### [2024.08.1](https://github.com/plus3it/spel/releases/tag/2024.08.1)
 
 **Released**: 2024.08.20

@@ -1,5 +1,5 @@
 Oracle Linux Server 8.10
-aws-cli/2.17.33 Python/3.11.9 Linux/5.15.0-204.147.6.2.el8uek.x86_64 exe/x86_64.oracle.8
+aws-cli/2.17.52 Python/3.12.6 Linux/5.15.0-204.147.6.2.el8uek.x86_64 exe/x86_64.oracle.8
 aws-cfn-bootstrap (2.0)
 NetworkManager-1.40.16-15.0.1.el8_9.x86_64
 NetworkManager-libnm-1.40.16-15.0.1.el8_9.x86_64
@@ -7,10 +7,10 @@ NetworkManager-team-1.40.16-15.0.1.el8_9.x86_64
 NetworkManager-tui-1.40.16-15.0.1.el8_9.x86_64
 acl-2.2.53-3.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ec2-net-utils-2.4.1-1.el8.0.1.x86_64
-amazon-ssm-agent-3.3.551.0-1.x86_64
-audit-3.1.2-1.el8.x86_64
-audit-libs-3.1.2-1.el8.x86_64
+amazon-ec2-net-utils-2.5.1-1.el8.0.1.x86_64
+amazon-ssm-agent-3.3.859.0-1.x86_64
+audit-3.1.2-1.0.1.el8.x86_64
+audit-libs-3.1.2-1.0.1.el8.x86_64
 authselect-1.2.6-2.el8.x86_64
 authselect-libs-1.2.6-2.el8.x86_64
 basesystem-11-5.el8.noarch
@@ -19,10 +19,10 @@ bcache-tools-1.0.8-3.101.0.3.el8.x86_64
 bind-export-libs-9.11.36-16.el8_10.2.x86_64
 brotli-1.0.6-3.el8.x86_64
 btrfs-progs-5.15.1-1.el8.x86_64
-bubblewrap-0.4.0-1.el8.x86_64
+bubblewrap-0.4.0-2.el8_10.x86_64
 bzip2-libs-1.0.6-26.el8.x86_64
 c-ares-1.13.0-11.el8_10.x86_64
-ca-certificates-2023.2.60_v7.0.306-80.0.el8_8.noarch
+ca-certificates-2024.2.69_v8.0.303-80.0.el8_10.noarch
 checkpolicy-2.9-1.el8.x86_64
 chkconfig-1.19.2-1.0.2.el8.x86_64
 chrony-4.5-1.0.2.el8.x86_64
@@ -39,7 +39,7 @@ crontabs-1.11-17.20190603git.el8.noarch
 crypto-policies-20230731-1.git3177e06.el8.noarch
 crypto-policies-scripts-20230731-1.git3177e06.el8.noarch
 cryptsetup-libs-2.3.7-7.el8.x86_64
-curl-7.61.1-34.el8.x86_64
+curl-7.61.1-34.el8_10.2.x86_64
 cyrus-sasl-lib-2.1.27-6.el8_5.x86_64
 dbus-1.12.8-26.0.1.el8.x86_64
 dbus-common-1.12.8-26.0.1.el8.noarch
@@ -81,7 +81,7 @@ elfutils-debuginfod-client-0.190-2.el8.x86_64
 elfutils-default-yama-scope-0.190-2.el8.noarch
 elfutils-libelf-0.190-2.el8.x86_64
 elfutils-libs-0.190-2.el8.x86_64
-epel-release-8-20.el8.noarch
+epel-release-8-21.el8.noarch
 ethtool-5.13-2.el8.x86_64
 expat-2.2.5-13.0.1.el8_10.x86_64
 file-5.33-26.el8.x86_64
@@ -102,10 +102,10 @@ geolite2-country-20180605-1.el8.noarch
 gettext-0.19.8.1-17.el8.x86_64
 gettext-libs-0.19.8.1-17.el8.x86_64
 glib2-2.56.4-162.el8.x86_64
-glibc-2.28-251.0.2.el8_10.2.x86_64
-glibc-all-langpacks-2.28-251.0.2.el8_10.2.x86_64
-glibc-common-2.28-251.0.2.el8_10.2.x86_64
-glibc-gconv-extra-2.28-251.0.2.el8_10.2.x86_64
+glibc-2.28-251.0.2.el8_10.4.x86_64
+glibc-all-langpacks-2.28-251.0.2.el8_10.4.x86_64
+glibc-common-2.28-251.0.2.el8_10.4.x86_64
+glibc-gconv-extra-2.28-251.0.2.el8_10.4.x86_64
 gmp-6.1.2-11.el8.x86_64
 gnupg2-2.2.20-3.el8_6.x86_64
 gnupg2-smime-2.2.20-3.el8_6.x86_64
@@ -134,7 +134,7 @@ hostname-3.20-6.el8.x86_64
 hwdata-0.314-8.22.el8.noarch
 ima-evm-utils-1.3.2-12.el8.x86_64
 info-6.5-7.el8.x86_64
-initscripts-10.00.18-1.0.1.el8.x86_64
+initscripts-10.00.18-1.0.2.el8.x86_64
 ipcalc-0.2.4-4.el8.x86_64
 iproute-6.2.0-6.el8_10.x86_64
 ipset-7.1-1.el8.x86_64
@@ -186,7 +186,7 @@ libcollection-0.7.0-40.el8.x86_64
 libcom_err-1.45.6-5.el8.x86_64
 libcomps-0.1.18-1.el8.x86_64
 libcroco-0.6.12-4.el8_2.1.x86_64
-libcurl-7.61.1-34.el8.x86_64
+libcurl-7.61.1-34.el8_10.2.x86_64
 libdaemon-0.14-15.el8.x86_64
 libdb-5.3.28-42.0.1.el8_4.x86_64
 libdb-utils-5.3.28-42.0.1.el8_4.x86_64
@@ -224,7 +224,7 @@ libnftnl-1.2.2-3.el8.x86_64
 libnghttp2-1.33.0-6.el8_10.1.x86_64
 libnl3-3.7.0-1.el8.x86_64
 libnl3-cli-3.7.0-1.el8.x86_64
-libnsl-2.28-251.0.2.el8_10.2.x86_64
+libnsl-2.28-251.0.2.el8_10.4.x86_64
 libnsl2-1.2.0-2.20180605git4a062cf.el8.x86_64
 libpath_utils-0.2.1-40.el8.x86_64
 libpcap-1.9.1-5.el8.x86_64
@@ -286,7 +286,7 @@ lvm2-libs-2.03.14-14.0.1.el8.x86_64
 lz4-libs-1.8.3-3.el8_4.x86_64
 lzo-2.08-14.el8.x86_64
 man-db-2.7.6.1-18.el8.x86_64
-mdadm-4.2-14.0.2.el8_10.x86_64
+mdadm-4.2-14.0.4.el8_10.x86_64
 memstrack-0.2.5-2.el8.x86_64
 microcode_ctl-20231114-0.1.el8.x86_64
 mokutil-0.6.0-1.0.1.el8.x86_64
@@ -344,7 +344,7 @@ prefixdevname-0.1.0-6.el8.x86_64
 procps-ng-3.3.15-14.0.1.el8.x86_64
 psmisc-23.1-5.el8.x86_64
 publicsuffix-list-dafsa-20180723-1.el8.noarch
-python3-audit-3.1.2-1.el8.x86_64
+python3-audit-3.1.2-1.0.1.el8.x86_64
 python3-babel-2.5.1-7.el8.noarch
 python3-cffi-1.11.5-6.el8.x86_64
 python3-chardet-3.0.4-7.el8.noarch
@@ -403,12 +403,12 @@ python3-unbound-1.16.2-5.el8_9.6.x86_64
 python3-urllib3-1.24.2-8.el8_10.noarch
 python3-urwid-1.3.1-4.el8.x86_64
 python36-3.6.8-39.module+el8.10.0+90274+07ba55de.x86_64
-python39-3.9.19-1.module+el8.10.0+90341+71ca88f4.x86_64
-python39-libs-3.9.19-1.module+el8.10.0+90341+71ca88f4.x86_64
+python39-3.9.19-7.module+el8.10.0+90395+b6c4aad1.x86_64
+python39-libs-3.9.19-7.module+el8.10.0+90395+b6c4aad1.x86_64
 python39-pip-20.2.4-9.module+el8.10.0+90269+2fa22b99.noarch
 python39-pip-wheel-20.2.4-9.module+el8.10.0+90269+2fa22b99.noarch
-python39-setuptools-50.3.2-5.module+el8.10.0+90269+2fa22b99.noarch
-python39-setuptools-wheel-50.3.2-5.module+el8.10.0+90269+2fa22b99.noarch
+python39-setuptools-50.3.2-6.module+el8.10.0+90395+b6c4aad1.noarch
+python39-setuptools-wheel-50.3.2-6.module+el8.10.0+90395+b6c4aad1.noarch
 readline-7.0-10.el8.x86_64
 redhat-release-8.10-0.2.0.1.el8.x86_64
 rng-tools-6.16-1.el8.x86_64
