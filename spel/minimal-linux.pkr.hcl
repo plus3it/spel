@@ -21,10 +21,8 @@ packer {
       version = "~> 1"
     }
     virtualbox = {
-      # Pinned to 1.0.0 to workaround https://github.com/hashicorp/packer-plugin-virtualbox/issues/139
-      # When virtualbox 7.0 is available in ubuntu repositories, we can revisit
       source  = "github.com/hashicorp/virtualbox"
-      version = "~> 1.0.0"
+      version = ">= 1.1.1"
     }
   }
 }
