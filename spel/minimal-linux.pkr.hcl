@@ -6,7 +6,7 @@ packer {
   required_plugins {
     amazon = {
       source  = "github.com/hashicorp/amazon"
-      version = ">= 1.3.1"
+      version = ">= 1.3.3"
     }
     azure = {
       source  = "github.com/hashicorp/azure"
@@ -21,10 +21,8 @@ packer {
       version = "~> 1"
     }
     virtualbox = {
-      # Pinned to 1.0.0 to workaround https://github.com/hashicorp/packer-plugin-virtualbox/issues/139
-      # When virtualbox 7.0 is available in ubuntu repositories, we can revisit
       source  = "github.com/hashicorp/virtualbox"
-      version = "~> 1.0.0"
+      version = ">= 1.1.1"
     }
   }
 }
@@ -687,12 +685,10 @@ source "amazon-ebssurrogate" "base" {
   ami_virtualization_type     = "hvm"
   associate_public_ip_address = true
   communicator                = "ssh"
-  # Not yet supported for ebssurrogate builder, see:
-  #   * https://github.com/hashicorp/packer-plugin-amazon/issues/478
-  # deprecate_at                = local.aws_ami_deprecate_at
-  ena_support      = true
-  force_deregister = var.aws_force_deregister
-  instance_type    = var.aws_instance_type
+  deprecate_at                = local.aws_ami_deprecate_at
+  ena_support                 = true
+  force_deregister            = var.aws_force_deregister
+  instance_type               = var.aws_instance_type
   launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "/dev/sda1"
