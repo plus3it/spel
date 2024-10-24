@@ -1,5 +1,24 @@
 ## Changelog
 
+### [2024.10.1](https://github.com/plus3it/spel/releases/tag/2024.10.1)
+
+**Released**: 2024.10.24
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.10.1/manifests>
+
+**Summary**:
+
+*   Restores AMI deprecation attribute, defaulting to 1 year of public visibility
+*   Updates EL9 images to eliminate log messages of the form:
+
+        ```
+        [  944.388690] systemd-rc-local-generator[43024]: /etc/rc.d/rc.local is not marked executable, skipping.
+        ```
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.18.13
+    - amazon-ssm-agent-3.3.987.0-1
+
 ### [2024.09.1](https://github.com/plus3it/spel/releases/tag/2024.09.1)
 
 **Released**: 2024.09.17
