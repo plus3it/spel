@@ -23,13 +23,12 @@ jobs:
           export PRIOR_VERSION RELEASE_VERSION RELEASE_BODY
       script: skip
       before_deploy:
+        # Per https://travis-ci.community/t/deployments-are-failing-due-to-uri-dependency/14375
+        - yes | gem update --system --force
+        - gem install bundler
+        - gem install uri
+        - gem install logger
         - |
-          set -euo pipefail
-          # Per https://travis-ci.community/t/deployments-are-failing-due-to-uri-dependency/14375
-          yes | gem update --system --force
-          gem install bundler
-          gem install uri
-          gem install logger
           (set -x; git tag -a $RELEASE_VERSION -m $RELEASE_VERSION)
       deploy:
         provider: releases
