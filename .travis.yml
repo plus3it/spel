@@ -26,6 +26,8 @@ jobs:
         # Per https://travis-ci.community/t/deployments-are-failing-due-to-uri-dependency/14375
         - yes | gem update --system --force
         - gem install bundler
+        # Travis-CI is so broken, https://travis-ci.community/t/cannot-load-such-file-faraday-net-http-loaderror/14455
+        - gem install faraday-net_http -v '3.3.0'  # Fix faraday version
         - gem install uri
         - gem install logger
         - |
