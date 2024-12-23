@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2024.12.1](https://github.com/plus3it/spel/releases/tag/2024.12.1)
+
+**Released**: 2024.12.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2024.12.1/manifests>
+
+**Summary**:
+
+*   Oracle Linux Server 9.5
+*   Red Hat Enterprise Linux 9.5
+*   "Extra" packages updated in this release:
+    - aws-cli/2.22.23
+    - amazon-ssm-agent-3.3.1345.0-1
+    - spel-dod-certs-5.13-1
+    - spel-wcf-certs-5.15-1
+
+
 ### [2024.10.1](https://github.com/plus3it/spel/releases/tag/2024.10.1)
 
 **Released**: 2024.10.24
