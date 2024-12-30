@@ -16,13 +16,13 @@ phases:
           SPEL_VERSION=$(date +%Y.%m.dev%s)
           export SPEL_VERSION
         fi
-      - make install
+      - make -f Makefile.spel install
   build:
     commands:
-      - make build
+      - make -f Makefile.spel build
   post_build:
     commands:
-      - make post_build
+      - make -f Makefile.spel post_build
       - find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
 
 artifacts:

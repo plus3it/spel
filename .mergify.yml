@@ -2,7 +2,6 @@ pull_request_rules:
   - name: approve dependabot pull requests
     conditions:
       - author=dependabot[bot]
-      - status-success=Travis CI - Pull Request
     actions:
       review:
         type: APPROVE
