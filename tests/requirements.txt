@@ -1,4 +1,4 @@
 distro==1.9.0
-pytest==6.2.5
-pytest-logger==0.5.1
-pytest-testinfra==6.5.0
+pytest==8.3.4
+pytest-logger==1.1.1
+pytest-testinfra==10.1.1

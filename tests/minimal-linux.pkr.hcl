@@ -156,6 +156,20 @@ build {
     source       = "tests/"
   }
 
+  provisioner "file" {
+    destination  = "/tmp/spel/Makefile"
+    direction    = "upload"
+    pause_before = "5s"
+    source       = "Makefile"
+  }
+
+  provisioner "file" {
+    destination  = "/tmp/spel/Dockerfile"
+    direction    = "upload"
+    pause_before = "5s"
+    source       = "Dockerfile"
+  }
+
   provisioner "shell" {
     environment_vars = [
       "PYPI_URL=${var.spel_pypi_url}",
@@ -164,9 +178,18 @@ build {
     inline = [
       "PYPI_URL=$${PYPI_URL:-https://pypi.org/simple}",
       "ls -alR /tmp",
-      "python3 -m ensurepip",
-      "python3 -m pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
-      "python3 -m pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
+      "dnf -y install make git gcc make patch zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel",
+      "export PYENV_ROOT=$${HOME}/.pyenv",
+      "export PATH=$${PYENV_ROOT}/shims:$${PYENV_ROOT}/bin:$${HOME}/.local/bin:$${HOME}/bin:$${PATH}",
+      "make -C /tmp/spel pyenv/install",
+      "make -C /tmp/spel python312/install",
+      "pyenv global system $(pyenv versions | grep 3.12)",
+      "python --version",
+      "python3 --version",
+      "python3.12 --version",
+      "pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
+      "pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
+      "ls -al $${PYENV_ROOT}/shims",
       "for DEV in $(lsblk -ln | awk '/ part /{ print $1}'); do pvresize /dev/$${DEV} || true; done",
     ]
     pause_before = "5s"
@@ -180,9 +203,9 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/sh -ex -o pipefail '{{ .Path }}'"
     inline = [
-      "PATH=/usr/local/bin:\"$PATH\"",
-      "export PATH",
-      "pytest --strict-markers -s -v --color=no /tmp/spel | tee /tmp/pytest.log",
+      "export PYENV_ROOT=$${HOME}/.pyenv",
+      "export PATH=$${PYENV_ROOT}/shims:$${PYENV_ROOT}/bin:$${HOME}/.local/bin:$${HOME}/bin:$${PATH}",
+      "pytest --strict-markers -s -v --color=no /tmp/spel/tests | tee /tmp/pytest.log",
     ]
     pause_before = "5s"
   }
