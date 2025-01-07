@@ -1,4 +1,7 @@
 distro==1.9.0
-pytest==6.2.5
-pytest-logger==0.5.1
-pytest-testinfra==6.5.0
+pytest==7.0.1;python_version<="3.6"
+pytest==8.3.4;python_version>="3.7"
+pytest-logger==1.0.0;python_version<="3.6"
+pytest-logger==1.1.1;python_version>="3.7"
+pytest-testinfra==6.8.0;python_version<="3.6"
+pytest-testinfra==10.1.1;python_version>="3.7"
