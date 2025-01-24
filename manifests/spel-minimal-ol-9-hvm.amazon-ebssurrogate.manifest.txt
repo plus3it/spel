@@ -1,10 +1,10 @@
 Oracle Linux Server 9.5
-aws-cli/2.22.23 Python/3.12.6 Linux/5.14.0-362.24.1.0.1.el9_3.x86_64 exe/x86_64.oracle.9
+aws-cli/2.23.5 Python/3.12.6 Linux/5.14.0-362.24.1.0.1.el9_3.x86_64 exe/x86_64.oracle.9
 aws-cfn-bootstrap 2.0
-NetworkManager-1.48.10-3.0.1.el9_5.x86_64
-NetworkManager-libnm-1.48.10-3.0.1.el9_5.x86_64
-NetworkManager-team-1.48.10-3.0.1.el9_5.x86_64
-NetworkManager-tui-1.48.10-3.0.1.el9_5.x86_64
+NetworkManager-1.48.10-5.0.1.el9_5.x86_64
+NetworkManager-libnm-1.48.10-5.0.1.el9_5.x86_64
+NetworkManager-team-1.48.10-5.0.1.el9_5.x86_64
+NetworkManager-tui-1.48.10-5.0.1.el9_5.x86_64
 acl-2.3.1-4.el9.x86_64
 acpid-2.0.32-7.el9.x86_64
 alternatives-1.24-1.0.2.el9_5.1.x86_64
@@ -26,7 +26,7 @@ c-ares-1.19.1-2.el9_4.x86_64
 ca-certificates-2024.2.69_v8.0.303-91.4.el9_4.noarch
 checkpolicy-3.6-1.el9.x86_64
 chrony-4.5-3.0.1.el9.x86_64
-cloud-init-23.4-19.0.2.el9.noarch
+cloud-init-23.4-19.0.2.el9_5.4.noarch
 cloud-utils-growpart-0.33-1.el9.x86_64
 coreutils-8.32-36.0.1.el9.x86_64
 coreutils-common-8.32-36.0.1.el9.x86_64
@@ -66,7 +66,7 @@ dracut-squash-057-70.git20240819.0.1.el9.x86_64
 e2fsprogs-1.46.5-5.el9.x86_64
 e2fsprogs-libs-1.46.5-5.el9.x86_64
 ec2-hibinit-agent-1.0.8-0.el9.x86_64
-ec2-utils-2.2.0-1.el9.0.1.x86_64
+ec2-utils-2.2.0-1.el9.0.2.x86_64
 efi-filesystem-6-2.0.1.el9_0.noarch
 efibootmgr-16-12.0.1.el9.x86_64
 efivar-libs-38-3.el9.x86_64
@@ -144,13 +144,13 @@ json-glib-1.6.6-1.el9.x86_64
 kbd-2.4.0-10.el9.x86_64
 kbd-legacy-2.4.0-10.el9.noarch
 kbd-misc-2.4.0-10.el9.noarch
-kernel-5.14.0-503.16.1.el9_5.x86_64
-kernel-core-5.14.0-503.16.1.el9_5.x86_64
-kernel-modules-5.14.0-503.16.1.el9_5.x86_64
-kernel-modules-core-5.14.0-503.16.1.el9_5.x86_64
-kernel-tools-5.14.0-503.16.1.el9_5.x86_64
-kernel-tools-libs-5.14.0-503.16.1.el9_5.x86_64
-kexec-tools-2.0.28-1.0.9.el9.x86_64
+kernel-5.14.0-503.22.1.el9_5.x86_64
+kernel-core-5.14.0-503.22.1.el9_5.x86_64
+kernel-modules-5.14.0-503.22.1.el9_5.x86_64
+kernel-modules-core-5.14.0-503.22.1.el9_5.x86_64
+kernel-tools-5.14.0-503.22.1.el9_5.x86_64
+kernel-tools-libs-5.14.0-503.22.1.el9_5.x86_64
+kexec-tools-2.0.28-1.0.10.el9_5.x86_64
 keyutils-1.6.3-1.el9.x86_64
 keyutils-libs-1.6.3-1.el9.x86_64
 kmod-28-10.0.1.el9.x86_64
@@ -175,7 +175,7 @@ libblockdev-part-2.28-10.0.1.el9.x86_64
 libblockdev-swap-2.28-10.0.1.el9.x86_64
 libblockdev-utils-2.28-10.0.1.el9.x86_64
 libbpf-1.4.0-1.el9.x86_64
-libbrotli-1.0.9-6.el9.x86_64
+libbrotli-1.0.9-7.el9_5.x86_64
 libbytesize-2.5-3.el9.x86_64
 libcap-2.48-9.el9_2.x86_64
 libcap-ng-0.8.2-7.el9.x86_64
@@ -234,7 +234,7 @@ libseccomp-2.5.2-2.el9.x86_64
 libsecret-0.20.4-4.el9.x86_64
 libselinux-3.6-1.el9.x86_64
 libselinux-utils-3.6-1.el9.x86_64
-libsemanage-3.6-1.el9.x86_64
+libsemanage-3.6-2.1.el9_5.x86_64
 libsepol-3.6-1.el9.x86_64
 libsigsegv-2.13-4.el9.x86_64
 libsmartcols-2.37.4-20.0.1.el9.x86_64
@@ -242,10 +242,10 @@ libsolv-0.7.24-3.el9.x86_64
 libss-1.46.5-5.el9.x86_64
 libssh-0.10.4-13.el9.x86_64
 libssh-config-0.10.4-13.el9.noarch
-libsss_certmap-2.9.5-4.0.1.el9_5.1.x86_64
-libsss_idmap-2.9.5-4.0.1.el9_5.1.x86_64
-libsss_nss_idmap-2.9.5-4.0.1.el9_5.1.x86_64
-libsss_sudo-2.9.5-4.0.1.el9_5.1.x86_64
+libsss_certmap-2.9.5-4.0.1.el9_5.4.x86_64
+libsss_idmap-2.9.5-4.0.1.el9_5.4.x86_64
+libsss_nss_idmap-2.9.5-4.0.1.el9_5.4.x86_64
+libsss_sudo-2.9.5-4.0.1.el9_5.4.x86_64
 libstdc++-11.5.0-2.0.1.el9.x86_64
 libsysfs-2.1.1-10.el9.x86_64
 libtalloc-2.4.2-1.el9.x86_64
@@ -253,7 +253,7 @@ libtasn1-4.16.0-8.el9_1.x86_64
 libtdb-1.4.10-1.el9.x86_64
 libteam-1.31-16.el9_1.x86_64
 libtevent-0.16.1-1.el9.x86_64
-libudisks2-2.9.4-11.el9.x86_64
+libudisks2-2.9.4-11.0.1.el9.x86_64
 libunistring-0.9.10-15.el9.x86_64
 libusbx-1.0.26-1.el9.x86_64
 libuser-0.63-15.el9.x86_64
@@ -266,9 +266,9 @@ libxml2-2.9.13-6.el9_4.x86_64
 libxmlb-0.3.10-1.el9.x86_64
 libyaml-0.2.5-7.el9.x86_64
 libzstd-1.5.1-2.el9.x86_64
-linux-firmware-20241003-999.35.git95bfe086.el9.noarch
-linux-firmware-core-20241003-999.35.git95bfe086.el9.noarch
-linux-firmware-whence-20241003-999.35.git95bfe086.el9.noarch
+linux-firmware-20241213-999.36.git2cdfe09e.el9.noarch
+linux-firmware-core-20241213-999.36.git2cdfe09e.el9.noarch
+linux-firmware-whence-20241213-999.36.git2cdfe09e.el9.noarch
 lmdb-libs-0.9.29-3.el9.x86_64
 logrotate-3.18.0-8.el9.x86_64
 lshw-B.02.19.2-10.el9.x86_64
@@ -359,7 +359,7 @@ python3-libcomps-0.1.18-1.el9.x86_64
 python3-libdnf-0.69.0-12.0.1.el9.x86_64
 python3-libs-3.9.21-1.el9_5.x86_64
 python3-libselinux-3.6-1.el9.x86_64
-python3-libsemanage-3.6-1.el9.x86_64
+python3-libsemanage-3.6-2.1.el9_5.x86_64
 python3-markupsafe-1.1.1-12.el9.x86_64
 python3-netifaces-0.10.6-15.el9.x86_64
 python3-nftables-1.0.9-3.el9.x86_64
@@ -412,22 +412,22 @@ spel-release-9-4.noarch
 spel-wcf-certs-5.15-1.el9.noarch
 sqlite-libs-3.34.1-7.el9_3.x86_64
 squashfs-tools-4.4-10.git1.el9.x86_64
-sssd-client-2.9.5-4.0.1.el9_5.1.x86_64
-sssd-common-2.9.5-4.0.1.el9_5.1.x86_64
-sssd-kcm-2.9.5-4.0.1.el9_5.1.x86_64
+sssd-client-2.9.5-4.0.1.el9_5.4.x86_64
+sssd-common-2.9.5-4.0.1.el9_5.4.x86_64
+sssd-kcm-2.9.5-4.0.1.el9_5.4.x86_64
 sudo-1.9.5p2-10.el9_3.x86_64
-systemd-252-46.0.2.el9_5.2.x86_64
-systemd-libs-252-46.0.2.el9_5.2.x86_64
+systemd-252-46.0.3.el9_5.2.x86_64
+systemd-libs-252-46.0.3.el9_5.2.x86_64
 systemd-networkd-253.4-1.el9.x86_64
-systemd-pam-252-46.0.2.el9_5.2.x86_64
-systemd-resolved-252-46.0.2.el9_5.2.x86_64
-systemd-rpm-macros-252-46.0.2.el9_5.2.noarch
-systemd-udev-252-46.0.2.el9_5.2.x86_64
+systemd-pam-252-46.0.3.el9_5.2.x86_64
+systemd-resolved-252-46.0.3.el9_5.2.x86_64
+systemd-rpm-macros-252-46.0.3.el9_5.2.noarch
+systemd-udev-252-46.0.3.el9_5.2.x86_64
 tar-1.34-7.el9.x86_64
 teamd-1.31-16.el9_1.x86_64
 tpm2-tss-3.2.3-1.el9.x86_64
 tzdata-2024b-2.el9.noarch
-udisks2-2.9.4-11.el9.x86_64
+udisks2-2.9.4-11.0.1.el9.x86_64
 unzip-6.0-57.0.1.el9.x86_64
 userspace-rcu-0.12.1-6.el9.x86_64
 util-linux-2.37.4-20.0.1.el9.x86_64
