@@ -1,5 +1,18 @@
 ## Changelog
 
+### [2025.01.1](https://github.com/plus3it/spel/releases/tag/2025.01.1)
+
+**Released**: 2025.01.24
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.01.1/manifests>
+
+**Summary**:
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.23.5
+    - ec2-utils-2.2.0-1.0.2
+
+
 ### [2024.12.1](https://github.com/plus3it/spel/releases/tag/2024.12.1)
 
 **Released**: 2024.12.23
