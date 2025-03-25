@@ -1,5 +1,17 @@
 ## Changelog
 
+### [2025.03.1](https://github.com/plus3it/spel/releases/tag/2025.03.1)
+
+**Released**: 2025.03.25
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.03.1/manifests>
+
+**Summary**:
+*   "Extra" packages updated in this release:
+    - aws-cli/2.25.3
+    - amazon-ec2-net-utils-2.5.4-1
+    - amazon-ssm-agent-3.3.1957.0-1
+
 ### [2025.02.1](https://github.com/plus3it/spel/releases/tag/2025.02.1)
 
 **Released**: 2025.02.21
