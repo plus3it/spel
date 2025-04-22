@@ -75,14 +75,12 @@ def test_fips_disabled(host):  # noqa: D103
 @pytest.mark.parametrize(
     "names",
     [
-        (
-            [
-                "python3",
-                "python36",
-                "python38",
-                "python39",
-            ]
-        )
+        [
+            "python3",
+            "python36",
+            "python38",
+            "python39",
+        ]
     ],
 )
 def test_python3_installed(host, names):  # noqa: D103
@@ -115,7 +113,7 @@ def test_python3_symlink(host, realpaths, link):  # noqa: D103
     assert python3_symlink in realpaths
 
 
-@pytest.mark.parametrize("versions", [(["3.6", "3.8", "3.9"])])
+@pytest.mark.parametrize("versions", [["3.6", "3.8", "3.9"]])
 def test_python3_version(host, versions):  # noqa: D103
     cmd = "python3 --version"
     python3_version = host.run(cmd)
