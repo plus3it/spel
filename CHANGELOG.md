@@ -1,5 +1,16 @@
 ## Changelog
 
+### [2025.04.1](https://github.com/plus3it/spel/releases/tag/2025.04.1)
+
+**Released**: 2025.04.22
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.04.1/manifests>
+
+**Summary**:
+*   "Extra" packages updated in this release:
+    - aws-cli/2.26.6
+    - amazon-ssm-agent-3.3.2299.0-1
+
 ### [2025.03.1](https://github.com/plus3it/spel/releases/tag/2025.03.1)
 
 **Released**: 2025.03.25
