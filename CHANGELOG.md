@@ -1,5 +1,17 @@
 ## Changelog
 
+### [2025.05.1](https://github.com/plus3it/spel/releases/tag/2025.05.1)
+
+**Released**: 2025.05.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.05.1/manifests>
+
+**Summary**:
+*   Oracle Linux Server 9.6
+*   Red Hat Enterprise Linux 9.6
+*   "Extra" packages updated in this release:
+    - aws-cli/2.27.21
+
 ### [2025.04.1](https://github.com/plus3it/spel/releases/tag/2025.04.1)
 
 **Released**: 2025.04.22
