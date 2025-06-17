@@ -1,0 +1,49 @@
+name: Build images
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    if: contains(github.event.review.body, '/build')
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+    steps:
+      - name: Set spel version
+        id: version
+        run: |
+          SPEL_VERSION=$(date +%Y.%m.dev%s)
+          echo "value=${SPEL_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "SPEL_VERSION=${SPEL_VERSION}"
+
+  build:
+    runs-on: codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
+    needs: trigger
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - spel-commercial
+          - spel-govcloud
+        builder:
+          - amazon-ebssurrogate.minimal-rhel-8-hvm
+          - amazon-ebssurrogate.minimal-ol-8-hvm
+          - amazon-ebssurrogate.minimal-ol-9-hvm
+          - amazon-ebssurrogate.minimal-centos-9stream-hvm
+          - amazon-ebssurrogate.minimal-rhel-9-hvm
+    env:
+      PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SPEL_CI: true
+      SPEL_VERSION: ${{ needs.trigger.outputs.version }}
+      SPEL_BUILDERS: ${{ matrix.builder }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - run: make -f Makefile.spel install
+
+      - run: make -f Makefile.spel build
