@@ -47,3 +47,10 @@ jobs:
       - run: make -f Makefile.spel install
 
       - run: make -f Makefile.spel build
+
+      # Cleanup steps
+      - run: make -f Makefile.spel post_build
+        if: always()
+
+      - run: find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
+        if: always()
