@@ -21,7 +21,9 @@ jobs:
           echo "SPEL_VERSION=${SPEL_VERSION}"
 
   build:
-    runs-on: codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on:
+      - codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
+        instance-size:small
     needs: trigger
     strategy:
       fail-fast: false
