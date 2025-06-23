@@ -14,7 +14,7 @@ on:
 
 jobs:
   release:
-    uses: plus3it/actions-workflows/.github/workflows/release.yml@8f8c209f4baa89f8b624937368ed36646313e987
+    uses: plus3it/actions-workflows/.github/workflows/release.yml@8dbdaec548e7ccadb978c6a2fbc05e5c64625935
     secrets:
       release-token: ${{ secrets.GH_RELEASES_TOKEN }}
     with:
