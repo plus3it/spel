@@ -909,7 +909,7 @@ build {
       "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
     ]
-    execute_command = "{{ .Vars }} sudo -E /bin/sh -ex '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/bash -ex '{{ .Path }}'"
     inline = [
       "/usr/bin/cloud-init status --wait",
       "setenforce 0",
@@ -1006,7 +1006,7 @@ build {
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
       "SPEL_USEROOTDEVICE=false",
     ]
-    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     only = [
       "amazon-ebssurrogate.minimal-ol-8-hvm",
       "amazon-ebssurrogate.minimal-rhel-8-hvm",
@@ -1046,7 +1046,7 @@ build {
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
       "SPEL_USEROOTDEVICE=false",
     ]
-    execute_command = "{{ .Vars }} sudo -E /bin/sh '{{ .Path }}'"
+    execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     only = [
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
@@ -1093,7 +1093,7 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E bash -ex '{{ .Path }}'"
     inline = [
       "chkconfig waagent on",
       "/usr/sbin/waagent -force -deprovision",
@@ -1139,7 +1139,7 @@ build {
   }
 
   provisioner "shell" {
-    execute_command = "echo 'vagrant'|sudo -S -E /bin/sh -ex '{{ .Path }}'"
+    execute_command = "echo 'vagrant'|sudo -S -E /bin/bash -ex '{{ .Path }}'"
     scripts = [
       "${path.root}/scripts/base.sh",
       "${path.root}/scripts/virtualbox.sh",
