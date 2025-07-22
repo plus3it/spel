@@ -228,13 +228,13 @@ function BuildChroot {
     bash -euxo pipefail "${ELBUILD}"/$( PostBuildString ) || \
         err_exit "Failure encountered with PostBuild.sh"
 
-    if [[ "${CLOUDPROVIDER}" == "aws" ]]
-    then
-        install -Dm 000644 <(
-          echo "[Service]"
-          echo "ExecStartPost=/bin/bash -c \"if journalctl -b | grep \\\"Failed with result 'protocol'\\\"; then logger \\\"Bypassing emergency mode: system will reboot\\\"; sleep 2; reboot -f; fi\""
-        ) "${AMIGENCHROOT}/etc/systemd/system/emergency.service.d/override.conf"
-    fi
+    # Workaround for systemd race condition that enters emergency mode
+    err_exit "Creating emergency.service override for systemd race condition..." NONE
+    install -Dm 000644 <(
+        echo "[Service]"
+        echo "ExecStartPost=/bin/bash -c \"if journalctl -b | grep \\\"Failed with result 'protocol'\\\"; then logger \\\"Bypassing emergency mode: system will reboot\\\"; sleep 2; reboot -f; fi\""
+    ) "${AMIGENCHROOT}/etc/systemd/system/emergency.service.d/override.conf" || err_exit "Failed"
+    err_exit "Success" NONE
 
     # Collect insallation-manifest
     CollectManifest
