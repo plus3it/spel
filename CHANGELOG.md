@@ -1,8 +1,22 @@
 ## Changelog
 
+### [2025.07.1](https://github.com/plus3it/spel/releases/tag/2025.07.1)
+
+**Released**: 2025.07.22
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.06.1/manifests>
+
+**Summary**:
+*   EL8: Adds automatic reboot to workaround systemd race condition that drops
+    system to emergency mode
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.27.56
+    - amazon-ssm-agent-3.3.2656.0-1
+
 ### [2025.06.1](https://github.com/plus3it/spel/releases/tag/2025.06.1)
 
-**Released**: 2025.05.23
+**Released**: 2025.06.18
 
 **Manifests**: <https://github.com/plus3it/spel/blob/2025.06.1/manifests>
 
