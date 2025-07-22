@@ -154,6 +154,14 @@ def test_systemd_services(host, service):  # noqa: D103
 
 
 @pytest.mark.el8
+def test_emergency_service_override(host):  # noqa: D103
+    emergency_service_override = host.file(
+        "/etc/systemd/system/emergency.service.d/override.conf"
+    )
+    assert emergency_service_override.exists
+
+
+@pytest.mark.el8
 @pytest.mark.parametrize(
     "name",
     [
