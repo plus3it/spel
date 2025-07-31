@@ -569,12 +569,26 @@ variable "amigen9_repo_names" {
   ]
 }
 
+variable "amigen9_repo_names_al2023" {
+  description = "List of yum repo names to enable in the AL2023 builders and AL2023 images"
+  type        = list(string)
+  default = [
+  ]
+}
+
 variable "amigen9_repo_sources" {
   description = "List of yum package refs (names or urls to .rpm files) that install yum repo definitions in EL9 builders and images"
   type        = list(string)
   default = [
     "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm",
     "https://spel-packages.cloudarmor.io/spel-packages/repo/spel-release-latest-9.noarch.rpm",
+  ]
+}
+
+variable "amigen9_repo_sources_al2023" {
+  description = "List of yum package refs (names or urls to .rpm files) that install yum repo definitions in AL2023 builders and images"
+  type        = list(string)
+  default = [
   ]
 }
 
@@ -819,7 +833,9 @@ locals {
   amigen9_extra_rpms     = join(",", var.amigen9_extra_rpms)
   amigen9_package_groups = join(" ", var.amigen9_package_groups) # space-delimited
   amigen9_repo_names     = join(",", var.amigen9_repo_names)
+  amigen9_repo_names_al2023 = join(",", var.amigen9_repo_names_al2023)
   amigen9_repo_sources   = join(",", var.amigen9_repo_sources)
+  amigen9_repo_sources_al2023 = join(",", var.amigen9_repo_sources_al2023)
   amigen9_storage_layout = join(",", var.amigen9_storage_layout)
 
   # Template the description string
@@ -972,8 +988,8 @@ build {
   provisioner "shell" {
     environment_vars = [
       "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
-      "SPEL_AMIGENREPOS=${local.amigen9_repo_names}",
-      "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources}",
+      "SPEL_AMIGENREPOS=${local.amigen9_repo_names_al2023}",
+      "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources_al2023}",
       "SPEL_BUILDDEPS=dnf-utils dosfstools git lvm2 parted python3-pip unzip",
       "SPEL_EXTRARPMS=${local.amigen9_extra_rpms}",
       "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
