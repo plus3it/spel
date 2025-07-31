@@ -79,6 +79,14 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             ol9_baseos_latest
         )
         ;;
+    system-release) # Amazon should be shot for this
+        BUILDER=amzn-2023
+
+        BASEREPOS=(
+            amazonlinux
+            kernel-livepatch
+        )
+        ;;
     *)
         echo "Unknown OS. Aborting" >&2
         exit 1
