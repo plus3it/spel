@@ -219,18 +219,22 @@ do
     } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
-echo "Enabling repos in the builder box"
-yum-config-manager --disable "*" > /dev/null
-yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
+# Enable any extra repos that have been specified
+if [[ -n ${ENABLEDREPOS} ]]
+then
+    echo "Enabling repos in the builder box"
+    yum-config-manager --disable "*" > /dev/null
+    yum-config-manager --enable "$ENABLEDREPOS" > /dev/null
 
-echo "Installing specified extra packages in the builder box"
-IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
-for RPM in "${BUILDER_EXTRARPMS[@]}"
-do
-    {
-        STDERR=$( yum -y install "$RPM" 2>&1 1>&$out );
-    } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
-done
+    echo "Installing specified extra packages in the builder box"
+    IFS="," read -r -a BUILDER_EXTRARPMS <<< "$EXTRARPMS"
+    for RPM in "${BUILDER_EXTRARPMS[@]}"
+    do
+        {
+            STDERR=$( yum -y install "$RPM" 2>&1 1>&$out );
+        } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
+    done
+fi
 
 # Disable strict host-key checking when doing git-over-ssh
 if [[ ${AMIGENSOURCE} =~ "@" ]]
