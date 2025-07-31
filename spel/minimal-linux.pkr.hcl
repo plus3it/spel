@@ -91,6 +91,21 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_source_ami_filter_al2023_hvm" {
+  description = "Object with source AMI filters for Amazon Linux 2023 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "al2023-ami-minimal-*-x86_64"
+    owners = [
+      "137112412989", # Amazon Linux 2023 Commercial
+      "045324592363", # Amazon Linux 2023 GovCloud
+    ]
+  }
+}
+
 variable "aws_source_ami_filter_centos9stream_hvm" {
   description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
   type = object({
@@ -825,6 +840,20 @@ locals {
 # AMIgen builds
 build {
   source "amazon-ebssurrogate.base" {
+    ami_description = format(local.description, "Amazon Linux 2023 AMI")
+    name            = "minimal-al2023-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_al2023_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_al2023_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "CentOS Stream 9 AMI")
     name            = "minimal-centos-9stream-hvm"
     source_ami_filter {
@@ -933,6 +962,7 @@ build {
       "${path.root}/scripts/builder-prep-9.sh",
     ]
     only = [
+      "amazon-ebssurrogate.minimal-al2023-hvm",
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
       "amazon-ebssurrogate.minimal-rhel-9-hvm",
@@ -1048,6 +1078,7 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     only = [
+      "amazon-ebssurrogate.minimal-al2023-hvm",
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
       "amazon-ebssurrogate.minimal-rhel-9-hvm",
