@@ -962,10 +962,28 @@ build {
       "${path.root}/scripts/builder-prep-9.sh",
     ]
     only = [
-      "amazon-ebssurrogate.minimal-al2023-hvm",
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
       "amazon-ebssurrogate.minimal-rhel-9-hvm",
+    ]
+  }
+
+  # Want to try to run this pre-step early on AL2023
+  provisioner "shell" {
+    environment_vars = [
+      "SPEL_AMIGEN9SOURCE=${var.amigen9_source_url}",
+      "SPEL_AMIGENREPOS=${local.amigen9_repo_names}",
+      "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources}",
+      "SPEL_BUILDDEPS=dnf-utils dosfstools git lvm2 parted python3-pip unzip",
+      "SPEL_EXTRARPMS=${local.amigen9_extra_rpms}",
+      "SPEL_USEDEFAULTREPOS=${var.amigen_use_default_repos}",
+    ]
+    execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
+    scripts = [
+      "${path.root}/scripts/builder-prep-9.sh",
+    ]
+    only = [
+      "amazon-ebssurrogate.minimal-al2023-hvm",
     ]
   }
 
