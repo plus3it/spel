@@ -493,7 +493,7 @@ function ComposeOSpkgString {
     then
         err_exit "Installing no custom manifest" NONE
     else
-        OSPACKAGESTRING+="-M ${AMIGENREPOSRC} "
+        OSPACKAGESTRING+="-M ${AMIGENMANFST} "
     fi
 
     # Add custom pkg group
