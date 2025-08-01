@@ -753,6 +753,60 @@ source "amazon-ebssurrogate" "base" {
   user_data_file                        = "${path.root}/userdata/userdata.cloud"
 }
 
+source "amazon-ebssurrogate" "xvd" {
+  ami_root_device {
+    source_device_name    = "/dev/xvdf"
+    delete_on_termination = true
+    device_name           = "/dev/sda1"
+    volume_size           = var.spel_root_volume_size
+    volume_type           = "gp3"
+  }
+  ami_groups                  = var.aws_ami_groups
+  ami_name                    = "${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
+  ami_regions                 = var.aws_ami_regions
+  ami_users                   = var.aws_ami_users
+  ami_virtualization_type     = "hvm"
+  associate_public_ip_address = true
+  communicator                = "ssh"
+  deprecate_at                = local.aws_ami_deprecate_at
+  ena_support                 = true
+  force_deregister            = var.aws_force_deregister
+  instance_type               = var.aws_instance_type
+  launch_block_device_mappings {
+    delete_on_termination = true
+    device_name           = "/dev/xvda"
+    volume_size           = var.spel_root_volume_size
+    volume_type           = "gp3"
+  }
+  launch_block_device_mappings {
+    delete_on_termination = true
+    device_name           = "/dev/xvdf"
+    volume_size           = var.spel_root_volume_size
+    volume_type           = "gp3"
+  }
+  max_retries   = 20
+  region        = var.aws_region
+  sriov_support = true
+  ssh_interface = var.aws_ssh_interface
+  ssh_port      = 22
+  ssh_pty       = true
+  ssh_timeout   = "60m"
+  ssh_username  = var.spel_ssh_username
+  ssh_key_exchange_algorithms = [
+    "ecdh-sha2-nistp521",
+    "ecdh-sha2-nistp256",
+    "ecdh-sha2-nistp384",
+    "ecdh-sha2-nistp521",
+    "diffie-hellman-group14-sha1",
+    "diffie-hellman-group1-sha1"
+  ]
+  subnet_id                             = var.aws_subnet_id
+  tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
+  temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
+  use_create_image                      = true
+  user_data_file                        = "${path.root}/userdata/userdata.cloud"
+}
+
 source "azure-arm" "base" {
   build_resource_group_name              = var.azure_build_resource_group_name
   client_id                              = var.azure_client_id
@@ -855,7 +909,7 @@ locals {
 
 # AMIgen builds
 build {
-  source "amazon-ebssurrogate.base" {
+  source "amazon-ebssurrogate.xvd" {
     ami_description = format(local.description, "Amazon Linux 2023 AMI")
     name            = "minimal-al2023-hvm"
     source_ami_filter {
