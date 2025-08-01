@@ -575,7 +575,7 @@ variable "amigen9_package_manifest" {
 variable "amigen9_package_manifest_al2023" {
   description = "File containing a list of RPMs to use as the build manifest for AL2023 images"
   type        = string
-  default     = ""
+  default     = "/tmp/el-build/install-manifests/al2023-minimal.txt"
 }
 
 variable "amigen9_repo_names" {
