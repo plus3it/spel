@@ -572,6 +572,12 @@ variable "amigen9_package_manifest" {
   default     = ""
 }
 
+variable "amigen9_package_manifest_al2023" {
+  description = "File containing a list of RPMs to use as the build manifest for AL2023 images"
+  type        = string
+  default     = ""
+}
+
 variable "amigen9_repo_names" {
   description = "List of yum repo names to enable in the EL9 builders and EL9 images"
   type        = list(string)
@@ -1119,7 +1125,7 @@ build {
       "SPEL_AMIGENBOOTDEVSZMLT=${var.amigen9_boot_dev_size_mult}",
       "SPEL_AMIGENBRANCH=${var.amigen9_source_branch}",
       "SPEL_AMIGENCHROOT=/mnt/ec2-root",
-      "SPEL_AMIGENMANFST=${var.amigen9_package_manifest}",
+      "SPEL_AMIGENMANFST=${var.amigen9_package_manifest_al2023}",
       "SPEL_AMIGENPKGGRP=${local.amigen9_package_groups}",
       "SPEL_AMIGENREPOS=${local.amigen9_repo_names_al2023}",
       "SPEL_AMIGENREPOSRC=${local.amigen9_repo_sources_al2023}",
