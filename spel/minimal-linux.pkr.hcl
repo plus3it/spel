@@ -931,7 +931,7 @@ locals {
 build {
   source "amazon-ebssurrogate.xvd" {
     ami_description = format(local.description, "Amazon Linux 2023 AMI")
-    name            = "minimal-al2023-hvm"
+    name            = "minimal-amzn-2023-hvm"
     source_ami_filter {
       filters = {
         virtualization-type = "hvm"
@@ -1073,7 +1073,7 @@ build {
       "${path.root}/scripts/builder-prep-9.sh",
     ]
     only = [
-      "amazon-ebssurrogate.minimal-al2023-hvm",
+      "amazon-ebssurrogate.minimal-amzn-2023-hvm",
     ]
   }
 
@@ -1146,7 +1146,7 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     only = [
-      "amazon-ebssurrogate.minimal-al2023-hvm",
+      "amazon-ebssurrogate.minimal-amzn-2023-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen9-build.sh",
