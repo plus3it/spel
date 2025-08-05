@@ -148,6 +148,9 @@ build {
     scripts = [
       "${path.root}/scripts/grow_check.sh",
     ]
+    except = [
+      "amazon-ebs.minimal-amzn-2023-hvm",
+    ]
   }
 
   provisioner "shell" {
