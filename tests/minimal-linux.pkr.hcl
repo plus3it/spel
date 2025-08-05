@@ -3,6 +3,11 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+variable "aws_source_ami_amzn2023_hvm" {
+  type    = string
+  default = env("amazon_ebssurrogate_minimal_amzn_2023_hvm")
+}
+
 variable "aws_source_ami_centos8stream_hvm" {
   type    = string
   default = env("amazon_ebssurrogate_minimal_centos_8stream_hvm")
@@ -103,6 +108,11 @@ source "amazon-ebs" "base" {
 }
 
 build {
+  source "amazon-ebs.base" {
+    source_ami = var.aws_source_ami_amzn2023_hvm
+    name       = "minimal-amzn-2023-hvm"
+  }
+
   source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_centos8stream_hvm
     name       = "minimal-centos-8stream-hvm"
