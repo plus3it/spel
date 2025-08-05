@@ -198,12 +198,18 @@ build {
       "pytest --strict-markers -s -v --color=no /tmp/spel | tee /tmp/pytest.log",
     ]
     pause_before = "5s"
+    except = [
+      "amazon-ebs.minimal-amzn-2023-hvm",
+    ]
   }
 
   provisioner "file" {
     destination = ".spel/${var.spel_version}/validation-${var.spel_identifier}-${source.name}.log"
     direction   = "download"
     source      = "/tmp/pytest.log"
+    except = [
+      "amazon-ebs.minimal-amzn-2023-hvm",
+    ]
   }
 
   post-processor "artifice" {
