@@ -102,7 +102,7 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
     system-release) # Amazon should be shot for this
         BUILDER=amzn-2023
 
-        BASEREPOS=(
+        DEFAULTREPOS=(
             amazonlinux
             kernel-livepatch
         )
