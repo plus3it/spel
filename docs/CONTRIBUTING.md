@@ -57,6 +57,8 @@ Please ensure that the commits bundled in the PR are performed with clear and co
     > 
     > A paragraph describing what changed and its impact."
 
+Also: even if the PR doesn't otherwise include documentation-updates, ensure that the project's documentation adequately up to date. Run `make docs/generate` in the project-root. Typically, this will only update the top-level README.
+
 ## Coding conventions
 
 To be written...
