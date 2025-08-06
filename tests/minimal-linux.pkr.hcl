@@ -178,7 +178,6 @@ build {
       "PYPI_URL=$${PYPI_URL:-https://pypi.org/simple}",
       "ls -alR /tmp",
       "python3 -m ensurepip",
-      "python3 -m pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
       "python3 -m pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
       "for DEV in $(lsblk -ln | awk '/ part /{ print $1}'); do pvresize /dev/$${DEV} || true; done",
     ]
