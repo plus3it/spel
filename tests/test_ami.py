@@ -8,8 +8,7 @@ import pytest
 log = logging.getLogger("spel_validation")
 log.setLevel(logging.INFO)
 
-@pytest.mark.el9
-@pytest.mark.el8
+
 def test_root_volume_is_resized(host):  # noqa: D103
     cmd = "test $(vgs --noheadings -o pv_free | sed 's/ //g') != 0"
     pv_free = host.run(cmd)
