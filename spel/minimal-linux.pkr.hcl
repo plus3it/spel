@@ -898,19 +898,19 @@ locals {
   # Join lists to create strings appropriate for environment variables and AMIgen
   # expectations. AMIgen expects some vars to be comma-delimited, and others to
   # be space-delimited.
-  amigen8_extra_rpms     = join(",", var.amigen8_extra_rpms)
-  amigen8_package_groups = join(" ", var.amigen8_package_groups) # space-delimited
-  amigen8_repo_names     = join(",", var.amigen8_repo_names)
-  amigen8_repo_sources   = join(",", var.amigen8_repo_sources)
-  amigen8_storage_layout = join(",", var.amigen8_storage_layout)
-  amigen9_extra_rpms     = join(",", var.amigen9_extra_rpms)
-  amigen9_extra_rpms_al2023     = join(",", var.amigen9_extra_rpms_al2023)
-  amigen9_package_groups = join(" ", var.amigen9_package_groups) # space-delimited
-  amigen9_repo_names     = join(",", var.amigen9_repo_names)
-  amigen9_repo_names_al2023 = join(",", var.amigen9_repo_names_al2023)
-  amigen9_repo_sources   = join(",", var.amigen9_repo_sources)
+  amigen8_extra_rpms          = join(",", var.amigen8_extra_rpms)
+  amigen8_package_groups      = join(" ", var.amigen8_package_groups) # space-delimited
+  amigen8_repo_names          = join(",", var.amigen8_repo_names)
+  amigen8_repo_sources        = join(",", var.amigen8_repo_sources)
+  amigen8_storage_layout      = join(",", var.amigen8_storage_layout)
+  amigen9_extra_rpms          = join(",", var.amigen9_extra_rpms)
+  amigen9_extra_rpms_al2023   = join(",", var.amigen9_extra_rpms_al2023)
+  amigen9_package_groups      = join(" ", var.amigen9_package_groups) # space-delimited
+  amigen9_repo_names          = join(",", var.amigen9_repo_names)
+  amigen9_repo_names_al2023   = join(",", var.amigen9_repo_names_al2023)
+  amigen9_repo_sources        = join(",", var.amigen9_repo_sources)
   amigen9_repo_sources_al2023 = join(",", var.amigen9_repo_sources_al2023)
-  amigen9_storage_layout = join(",", var.amigen9_storage_layout)
+  amigen9_storage_layout      = join(",", var.amigen9_storage_layout)
 
   # Template the description string
   description = "STIG-partitioned [*NOT HARDENED*], LVM-enabled, \"minimal\" %s, with updates through ${formatdate("YYYY-MM-DD", local.timestamp)}. Default username `maintuser`. See ${var.spel_description_url}."
