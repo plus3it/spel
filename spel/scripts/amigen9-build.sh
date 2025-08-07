@@ -81,6 +81,15 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             extras-common
         )
         ;;
+    oraclelinux-release)
+        BUILDER=ol-9
+
+        DEFAULTREPOS=(
+            ol9_UEKR7
+            ol9_appstream
+            ol9_baseos_latest
+        )
+        ;;
     redhat-release-server|redhat-release)
         BUILDER=rhel-9
 
@@ -90,13 +99,12 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             rhui-client-config-server-9
         )
         ;;
-    oraclelinux-release)
-        BUILDER=ol-9
+    system-release) # Amazon should be shot for this
+        BUILDER=amzn-2023
 
         DEFAULTREPOS=(
-            ol9_UEKR7
-            ol9_appstream
-            ol9_baseos_latest
+            amazonlinux
+            kernel-livepatch
         )
         ;;
     *)
@@ -485,7 +493,7 @@ function ComposeOSpkgString {
     then
         err_exit "Installing no custom manifest" NONE
     else
-        OSPACKAGESTRING+="-M ${AMIGENREPOSRC} "
+        OSPACKAGESTRING+="-M ${AMIGENMANFST} "
     fi
 
     # Add custom pkg group
@@ -603,6 +611,16 @@ set -o pipefail
 
 echo "Restarting networkd/resolved for DNS resolution"
 systemctl restart systemd-networkd systemd-resolved
+
+# Resolver-restart may not result in immediate availability of DNS lookup
+# services
+printf 'Pausing for DNS service to fully restart'
+for WAIT in {0..9}
+do
+    printf '.'
+    sleep 1
+done
+echo " Done"
 
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]

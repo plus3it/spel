@@ -79,6 +79,14 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             ol9_baseos_latest
         )
         ;;
+    system-release) # Amazon should be shot for this
+        BUILDER=amzn-2023
+
+        DEFAULTREPOS=(
+            amazonlinux
+            kernel-livepatch
+        )
+        ;;
     *)
         echo "Unknown OS. Aborting" >&2
         exit 1
@@ -211,6 +219,7 @@ do
     } {out}>&1 || echo "$STDERR" | grep "Error: Nothing to do"
 done
 
+# Enable any extra repos that have been specified
 echo "Enabling repos in the builder box"
 yum-config-manager --disable "*" > /dev/null
 yum-config-manager --enable "$ENABLEDREPOS" > /dev/null

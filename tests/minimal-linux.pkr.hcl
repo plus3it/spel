@@ -3,6 +3,11 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+variable "aws_source_ami_amzn2023_hvm" {
+  type    = string
+  default = env("amazon_ebssurrogate_minimal_amzn_2023_hvm")
+}
+
 variable "aws_source_ami_centos8stream_hvm" {
   type    = string
   default = env("amazon_ebssurrogate_minimal_centos_8stream_hvm")
@@ -102,7 +107,41 @@ source "amazon-ebs" "base" {
   user_data_file                        = "${path.root}/userdata/validation.cloud"
 }
 
+source "amazon-ebs" "base-al2023" {
+  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
+  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
+  associate_public_ip_address = true
+  communicator                = "ssh"
+  ena_support                 = true
+  force_deregister            = true
+  instance_type               = "t3.large"
+  launch_block_device_mappings {
+    delete_on_termination = true
+    device_name           = "/dev/xvda"
+    volume_size           = 21
+    volume_type           = "gp3"
+  }
+  max_retries                           = 20
+  region                                = var.aws_region
+  skip_create_ami                       = true
+  skip_save_build_region                = true
+  sriov_support                         = true
+  ssh_interface                         = var.aws_ssh_interface
+  ssh_port                              = 22
+  ssh_pty                               = true
+  ssh_username                          = "spel"
+  subnet_id                             = var.aws_subnet_id
+  tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
+  temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
+  user_data_file                        = "${path.root}/userdata/validation.cloud"
+}
+
 build {
+  source "amazon-ebs.base-al2023" {
+    source_ami = var.aws_source_ami_amzn2023_hvm
+    name       = "minimal-amzn-2023-hvm"
+  }
+
   source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_centos8stream_hvm
     name       = "minimal-centos-8stream-hvm"
@@ -165,7 +204,6 @@ build {
       "PYPI_URL=$${PYPI_URL:-https://pypi.org/simple}",
       "ls -alR /tmp",
       "python3 -m ensurepip",
-      "python3 -m pip install --index-url=\"$PYPI_URL\" --upgrade pip setuptools",
       "python3 -m pip install --index-url=\"$PYPI_URL\" -r /tmp/spel/tests/requirements.txt",
       "for DEV in $(lsblk -ln | awk '/ part /{ print $1}'); do pvresize /dev/$${DEV} || true; done",
     ]
