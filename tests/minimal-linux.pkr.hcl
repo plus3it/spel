@@ -88,7 +88,7 @@ source "amazon-ebs" "base" {
   instance_type               = "t3.large"
   launch_block_device_mappings {
     delete_on_termination = true
-    device_name           = "/dev/sda1"
+    device_name           = source.name == "minimal-amzn-2023-hvm" ? "/dev/xvda" : "/dev/sda1"
     volume_size           = 21
     volume_type           = "gp3"
   }
@@ -102,42 +102,12 @@ source "amazon-ebs" "base" {
   ssh_pty                               = true
   ssh_username                          = "spel"
   subnet_id                             = var.aws_subnet_id
-  tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
-  temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
-  user_data_file                        = "${path.root}/userdata/validation.cloud"
-}
-
-source "amazon-ebs" "base-al2023" {
-  ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
-  ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
-  associate_public_ip_address = true
-  communicator                = "ssh"
-  ena_support                 = true
-  force_deregister            = true
-  instance_type               = "t3.large"
-  launch_block_device_mappings {
-    delete_on_termination = true
-    device_name           = "/dev/xvda"
-    volume_size           = 21
-    volume_type           = "gp3"
-  }
-  max_retries                           = 20
-  region                                = var.aws_region
-  skip_create_ami                       = true
-  skip_save_build_region                = true
-  sriov_support                         = true
-  ssh_interface                         = var.aws_ssh_interface
-  ssh_port                              = 22
-  ssh_pty                               = true
-  ssh_username                          = "spel"
-  subnet_id                             = var.aws_subnet_id
-  tags                                  = { Name = "" } # Empty name tag avoids inheriting "Packer Builder"
   temporary_security_group_source_cidrs = var.aws_temporary_security_group_source_cidrs
   user_data_file                        = "${path.root}/userdata/validation.cloud"
 }
 
 build {
-  source "amazon-ebs.base-al2023" {
+  source "amazon-ebs.base" {
     source_ami = var.aws_source_ami_amzn2023_hvm
     name       = "minimal-amzn-2023-hvm"
   }

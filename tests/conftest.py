@@ -18,7 +18,8 @@ FIPS_MARKERS = set(["fips_enabled", "fips_disabled"])
 AMIUTILS_MARKERS = set(["amiutils_enabled", "amiutils_disabled"])
 
 # Platform-specific globals
-PLAT = "el" + distro.major_version()
+PLAT = "el9" if distro.major_version() == "2023" else "el" + distro.major_version()
+
 FIPS = (
     "fips_disabled"
     if os.environ.get("SPEL_DISABLEFIPS") in FIPS_DISABLED
