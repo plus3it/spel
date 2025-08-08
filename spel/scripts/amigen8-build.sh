@@ -116,7 +116,7 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
         exit 1
         ;;
 esac
-DEFAULTREPOS+=(epel epel-modular)
+DEFAULTREPOS+=()
 
 # Default to enabling default repos
 ENABLEDREPOS=$(IFS=,; echo "${DEFAULTREPOS[*]}")

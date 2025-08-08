@@ -13,6 +13,7 @@ AMIGENCHROOT="${SPEL_AMIGENCHROOT:-/mnt/ec2-root}"
 AMIGENFSTYPE="${SPEL_AMIGENFSTYPE:-xfs}"
 AMIGENICNCTURL="${SPEL_AMIGENICNCTURL}"
 AMIGENMANFST="${SPEL_AMIGENMANFST}"
+AMIGENMANFSTAL2023="${SPEL_AMIGENMANFSTAL2023}"
 AMIGENPKGGRP="${SPEL_AMIGENPKGGRP:-core}"
 AMIGENREPOS="${SPEL_AMIGENREPOS}"
 AMIGENREPOSRC="${SPEL_AMIGENREPOSRC}"
@@ -489,11 +490,15 @@ function ComposeOSpkgString {
     fi
 
     # Add custom manifest file
-    if [[ -z ${AMIGENMANFST:-} ]]
+    if [[ "$BUILDER" == "amzn-2023" ]] && [[ -n ${AMIGENMANFSTAL2023:-} ]]
     then
-        err_exit "Installing no custom manifest" NONE
-    else
+        # Use custom manifest env for Amazon Linux 2023
+        OSPACKAGESTRING+="-M ${AMIGENMANFSTAL2023} "
+    elif [[ -n ${AMIGENMANFST:-} ]]
+    then
         OSPACKAGESTRING+="-M ${AMIGENMANFST} "
+    else
+        err_exit "Installing no custom manifest" NONE
     fi
 
     # Add custom pkg group
@@ -608,19 +613,6 @@ function PrepBuildDevice {
 set -x
 set -e
 set -o pipefail
-
-echo "Restarting networkd/resolved for DNS resolution"
-systemctl restart systemd-networkd systemd-resolved
-
-# Resolver-restart may not result in immediate availability of DNS lookup
-# services
-printf 'Pausing for DNS service to fully restart'
-for WAIT in {0..9}
-do
-    printf '.'
-    sleep 1
-done
-echo " Done"
 
 # Ensure build-tools directory exists
 if [[ ! -d ${ELBUILD} ]]
