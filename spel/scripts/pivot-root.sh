@@ -15,7 +15,7 @@ echo "Installing psmisc RPM..."
 yum -y install psmisc
 
 # Get rid of anything that might be in the /boot hierarchy
-for BOOT_DIR in /boot{/efi,}
+for BOOT_DIR in /boot{/efi,} /efi
 do
   if  [[ -d ${BOOT_DIR} ]] &&
       [[ $( mountpoint "${BOOT_DIR}" ) == "${BOOT_DIR} is a mountpoint" ]]
