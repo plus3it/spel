@@ -1,10 +1,26 @@
 ## Changelog
 
+### [2025.08.1](https://github.com/plus3it/spel/releases/tag/2025.08.1)
+
+**Released**: 2025.08.29
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.08.1/manifests>
+
+**Summary**:
+*   First release of SPEL images for Amazon Linux 2023
+*   Removes `amazon-ec2-net-utils` package from SPEL images
+*   Removes `epel-release` package and `epel` yum repo definition from SPEL images
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.28.20
+    - amazon-ssm-agent-3.3.2746.0-1
+    - spel-release-9-6
+
 ### [2025.07.1](https://github.com/plus3it/spel/releases/tag/2025.07.1)
 
 **Released**: 2025.07.22
 
-**Manifests**: <https://github.com/plus3it/spel/blob/2025.06.1/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.07.1/manifests>
 
 **Summary**:
 *   EL8: Adds automatic reboot to workaround systemd race condition that drops
