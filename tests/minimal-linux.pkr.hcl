@@ -40,7 +40,7 @@ variable "aws_source_ami_rhel9_hvm" {
 
 variable "aws_source_ami_rl9_hvm" {
   type    = string
-  default = env("amazon_ebs_minimal_rl9_hvm")
+  default = env("amazon_ebssurrogate_minimal_rl_9_hvm")
 }
 
 variable "aws_ssh_interface" {
