@@ -100,6 +100,16 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             rhui-client-config-server-9
         )
         ;;
+    rocky-release)
+        BUILDER=rl-9
+
+        DEFAULTREPOS=(
+            baseos
+            appstream
+            extras
+         )
+        ;;
+
     system-release) # Amazon should be shot for this
         BUILDER=amzn-2023
 
