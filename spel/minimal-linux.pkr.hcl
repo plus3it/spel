@@ -187,6 +187,22 @@ variable "aws_source_ami_filter_rhel9_hvm" {
   }
 }
 
+variable "aws_source_ami_filter_rl9_hvm" {
+  description = "Object with source AMI filters for Rocky Linux 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "Rocky-9-EC2-Base-9.*-*.x86_64,spel-bootstrap-rl-9-*.x86_64-gp*"
+    owners = [
+      "792107900819", # Rocky Linux, https://rockylinux.org/download (search for "AWS" tag and click)
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
 variable "aws_ssh_interface" {
   description = "Specifies method used to select the value for the host in the SSH connection"
   type        = string
@@ -922,6 +938,20 @@ build {
     }
   }
 
+  source "amazon-ebssurrogate.base" {
+    ami_description = format(local.description, "Rocky Linux 9 AMI")
+    name            = "minimal-rl-9-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_rl9_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_rl9_hvm.owners
+      most_recent = true
+    }
+  }
+
   source "azure-arm.base" {
     azure_tags = {
       Description = format(local.description, "RHEL 8 image")
@@ -965,6 +995,7 @@ build {
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
       "amazon-ebssurrogate.minimal-rhel-9-hvm",
+      "amazon-ebssurrogate.minimal-rl-9-hvm",
     ]
   }
 
@@ -1101,6 +1132,7 @@ build {
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
       "amazon-ebssurrogate.minimal-rhel-9-hvm",
+      "amazon-ebssurrogate.minimal-rl-9-hvm",
     ]
     scripts = [
       "${path.root}/scripts/amigen9-build.sh",

@@ -61,6 +61,15 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             extras-common
         )
         ;;
+    oraclelinux-release)
+        BUILDER=ol-9
+
+        DEFAULTREPOS=(
+            ol9_UEKR7
+            ol9_appstream
+            ol9_baseos_latest
+        )
+        ;;
     redhat-release-server|redhat-release)
         BUILDER=rhel-9
 
@@ -70,13 +79,12 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             rhui-client-config-server-9
         )
         ;;
-    oraclelinux-release)
-        BUILDER=ol-9
-
+    rocky-release)
+        BUILDER=rl-9
         DEFAULTREPOS=(
-            ol9_UEKR7
-            ol9_appstream
-            ol9_baseos_latest
+            baseos
+            appstream
+            extras
         )
         ;;
     system-release) # Amazon should be shot for this
