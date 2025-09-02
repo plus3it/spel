@@ -107,7 +107,7 @@ case $( rpm -qf /etc/os-release --qf '%{name}' ) in
             baseos
             appstream
             extras
-         )
+        )
         ;;
 
     system-release) # Amazon should be shot for this
