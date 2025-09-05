@@ -105,6 +105,22 @@ variable "aws_source_ami_filter_al2023_hvm" {
   }
 }
 
+variable "aws_source_ami_filter_alma9_hvm" {
+  description = "Object with source AMI filters for Alma Linux 9 HVM builds"
+  type = object({
+    name   = string
+    owners = list(string)
+  })
+  default = {
+    name = "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9*.x86_64-gp*"
+    owners = [
+      "679593333241", # Alma Commercial, https://wiki.almalinux.org/cloud/AWS.html#aws-marketplace
+      "174003430611", # SPEL Commercial, https://github.com/plus3it/spel
+      "216406534498", # SPEL GovCloud, https://github.com/plus3it/spel
+    ]
+  }
+}
+
 variable "aws_source_ami_filter_centos9stream_hvm" {
   description = "Object with source AMI filters for CentOS Stream 9 HVM builds"
   type = object({
@@ -855,6 +871,20 @@ locals {
 # AMIgen builds
 build {
   source "amazon-ebssurrogate.base" {
+    ami_description = format(local.description, "Alma Linux 9 AMI")
+    name            = "minimal-alma-9-hvm"
+    source_ami_filter {
+      filters = {
+        virtualization-type = "hvm"
+        name                = var.aws_source_ami_filter_alma9_hvm.name
+        root-device-type    = "ebs"
+      }
+      owners      = var.aws_source_ami_filter_alma9_hvm.owners
+      most_recent = true
+    }
+  }
+
+  source "amazon-ebssurrogate.base" {
     ami_description = format(local.description, "Amazon Linux 2023 AMI")
     name            = "minimal-amzn-2023-hvm"
     source_ami_filter {
@@ -992,6 +1022,7 @@ build {
       "${path.root}/scripts/builder-prep-9.sh",
     ]
     only = [
+      "amazon-ebssurrogate.minimal-alma-9-hvm",
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",
       "amazon-ebssurrogate.minimal-rhel-9-hvm",
@@ -1128,6 +1159,7 @@ build {
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}'"
     only = [
+      "amazon-ebssurrogate.minimal-alma-9-hvm",
       "amazon-ebssurrogate.minimal-amzn-2023-hvm",
       "amazon-ebssurrogate.minimal-centos-9stream-hvm",
       "amazon-ebssurrogate.minimal-ol-9-hvm",

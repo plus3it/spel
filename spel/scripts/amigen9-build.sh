@@ -73,6 +73,14 @@ function err_exit {
 
 # Setup per-builder values
 case $( rpm -qf /etc/os-release --qf '%{name}' ) in
+    almalinux-release)
+        BUILDER=alma-9
+        DEFAULTREPOS=(
+            baseos
+            appstream
+            extras
+        )
+        ;;
     centos-linux-release | centos-stream-release )
         BUILDER=centos-9stream
 
