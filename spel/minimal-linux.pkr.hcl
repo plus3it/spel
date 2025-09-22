@@ -991,11 +991,27 @@ build {
     name                                     = "minimal-rhel-8-image"
   }
 
+  # Azure Enterprise Linux provisioners
+  provisioner "shell" {
+    execute_command = "{{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    inline = [
+      "/usr/bin/cloud-init status --wait",
+      "setenforce 0",
+      "yum update -y --disablerepo='*' --enablerepo='*microsoft*'",
+    ]
+    only = [
+      "azure-arm.minimal-rhel-8-image",
+    ]
+  }
+
   # Common provisioners
   provisioner "shell" {
     environment_vars = [
       "DNF_VAR_ociregion=",
       "DNF_VAR_ocidomain=oracle.com",
+    ]
+    except = [
+      "azure-arm.minimal-rhel-8-image",
     ]
     execute_command = "{{ .Vars }} sudo -E /bin/bash -ex '{{ .Path }}'"
     inline = [
