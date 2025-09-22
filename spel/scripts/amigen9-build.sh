@@ -585,19 +585,35 @@ function PostBuildString {
 }
 
 function PrepBuildDevice {
-    local ROOT_DEV
-    local ROOT_DISK
-    local DISKS
+    local -a DISKS
+    local    ROOT_DEV
+    local    ROOT_DISK
 
     # Select the disk to use for the build
     err_exit "Detecting the root device..." NONE
     ROOT_DEV="$( grep ' / ' /proc/mounts | cut -d " " -f 1 )"
+
+    # Use alternate method to find ROOT_DEV (mostly for Azure)
+    if [[ ${ROOT_DEV} == "none" ]]
+    then
+      ROOT_DEV="$(
+        blkid | grep "$(
+          awk '/\s\s*\/\s\s*/{ print $1 }' /etc/fstab | cut -d '=' -f 2
+        )" | sed -e 's/:.*$//'
+      )"
+    fi
+
+    # Check if root-dev type is supported
     if [[ ${ROOT_DEV} == /dev/nvme* ]]
     then
       ROOT_DISK="${ROOT_DEV//p*/}"
-      IFS=" " read -r -a DISKS <<< "$(echo /dev/nvme*n1)"
+      mapfile -t DISKS < <( echo /dev/nvme*n1 )
+    elif [[ ${ROOT_DEV} == /dev/sd* ]]
+    then
+      ROOT_DISK="${ROOT_DEV%?}"
+      mapfile -t DISKS < <( echo /dev/sd[a-z] )
     else
-      err_exit "ERROR: This script supports nvme device naming. Could not determine root disk from device name: ${ROOT_DEV}"
+      err_exit "ERROR: This script supports sd or nvme device naming, only. Could not determine root disk from device name: ${ROOT_DEV}"
     fi
 
     if [[ "$USEROOTDEVICE" = "true" ]]
