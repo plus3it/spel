@@ -991,6 +991,17 @@ build {
     name                                     = "minimal-rhel-8-image"
   }
 
+  # Update the rhui-azure RPM before the broader-scope `yum udate`
+  provisioner "shell" {
+    execute_command = "{{ .Vars }} sudo -E sh -ex '{{ .Path }}'"
+    inline = [
+      "dnf update -y --disablerepo='*' --enablerepo='*microsoft*'",
+    ]
+    only = [
+      "azure-arm.minimal-rhel-8-image",
+    ]
+  }
+
   # Common provisioners
   provisioner "shell" {
     environment_vars = [
