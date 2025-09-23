@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2025.09.1](https://github.com/plus3it/spel/releases/tag/2025.09.1)
+
+**Released**: 2025.09.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.09.1/manifests>
+
+**Summary**:
+*   First release of SPEL images for Alma Linux 9 and Rocky Linux 9
+*   AL2023 images are pinned to `2023.8.20250818`, due to discovered incompatibility
+    with `2023.8.20250908`
+
+*   "Extra" packages updated in this release:
+    - aws-cli/2.30.7
+    - amazon-ssm-agent-3.3.3050.0-1
+
 ### [2025.08.1](https://github.com/plus3it/spel/releases/tag/2025.08.1)
 
 **Released**: 2025.08.29

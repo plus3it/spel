@@ -1,5 +1,5 @@
 Oracle Linux Server 8.10
-aws-cli/2.28.20 Python/3.13.7 Linux/5.15.0-204.147.6.2.el8uek.x86_64 exe/x86_64.oracle.8
+aws-cli/2.30.7 Python/3.13.7 Linux/5.15.0-204.147.6.2.el8uek.x86_64 exe/x86_64.oracle.8
 aws-cfn-bootstrap (2.0)
 NetworkManager-1.40.16-20.0.1.el8_10.x86_64
 NetworkManager-libnm-1.40.16-20.0.1.el8_10.x86_64
@@ -7,7 +7,7 @@ NetworkManager-team-1.40.16-20.0.1.el8_10.x86_64
 NetworkManager-tui-1.40.16-20.0.1.el8_10.x86_64
 acl-2.2.53-3.el8.x86_64
 acpid-2.0.30-2.el8.x86_64
-amazon-ssm-agent-3.3.2746.0-1.x86_64
+amazon-ssm-agent-3.3.3050.0-1.x86_64
 audit-3.1.2-1.0.1.el8_10.1.x86_64
 audit-libs-3.1.2-1.0.1.el8_10.1.x86_64
 authselect-1.2.6-2.el8.x86_64
@@ -147,11 +147,11 @@ json-glib-1.4.4-1.el8.x86_64
 kbd-2.0.4-11.el8.x86_64
 kbd-legacy-2.0.4-11.el8.noarch
 kbd-misc-2.0.4-11.el8.noarch
-kernel-4.18.0-553.71.1.el8_10.x86_64
-kernel-core-4.18.0-553.71.1.el8_10.x86_64
-kernel-modules-4.18.0-553.71.1.el8_10.x86_64
-kernel-tools-4.18.0-553.71.1.el8_10.x86_64
-kernel-tools-libs-4.18.0-553.71.1.el8_10.x86_64
+kernel-4.18.0-553.76.1.el8_10.x86_64
+kernel-core-4.18.0-553.76.1.el8_10.x86_64
+kernel-modules-4.18.0-553.76.1.el8_10.x86_64
+kernel-tools-4.18.0-553.76.1.el8_10.x86_64
+kernel-tools-libs-4.18.0-553.76.1.el8_10.x86_64
 kexec-tools-2.0.28-1.0.9.el8_10.x86_64
 keyutils-libs-1.5.10-9.0.1.el8.x86_64
 kmod-25-20.0.1.el8.x86_64
@@ -258,7 +258,7 @@ libtdb-1.4.9-0.el8.x86_64
 libteam-1.31-4.el8.x86_64
 libtevent-0.16.0-0.el8.x86_64
 libtirpc-1.1.4-12.el8_10.x86_64
-libudisks2-2.9.0-16.el8.x86_64
+libudisks2-2.9.0-16.el8_10.1.x86_64
 libunistring-0.9.9-3.el8.x86_64
 libusbx-1.0.23-4.el8.x86_64
 libuser-0.62-26.el8_10.x86_64
@@ -271,8 +271,8 @@ libxml2-2.9.7-21.el8_10.3.x86_64
 libxmlb-0.1.15-1.el8.x86_64
 libyaml-0.1.7-5.el8.x86_64
 libzstd-1.4.4-1.0.1.el8.x86_64
-linux-firmware-20250611-999.41.git356f06bf.el8.noarch
-linux-firmware-core-20250611-999.41.git356f06bf.el8.noarch
+linux-firmware-20250909-999.44.git260ff424.el8.noarch
+linux-firmware-core-20250909-999.44.git260ff424.el8.noarch
 lmdb-libs-0.9.24-2.el8.x86_64
 logrotate-3.14.0-6.el8.x86_64
 lshw-B.02.19.2-6.el8.x86_64
@@ -285,7 +285,7 @@ lzo-2.08-14.el8.x86_64
 man-db-2.7.6.1-18.el8.x86_64
 mdadm-4.2-16.0.3.el8_10.x86_64
 memstrack-0.2.5-2.el8.x86_64
-microcode_ctl-20250211-1.0.1.el8_10.x86_64
+microcode_ctl-20250512-1.0.1.el8_10.x86_64
 mokutil-0.6.0-1.0.2.el8.x86_64
 mozjs60-60.9.0-4.0.2.el8.x86_64
 mpfr-3.1.6-1.el8.x86_64
@@ -296,12 +296,12 @@ nettle-3.4.1-7.el8.x86_64
 newt-0.52.20-11.el8.x86_64
 nftables-1.0.4-7.el8_10.x86_64
 npth-1.5-4.el8.x86_64
-nspr-4.35.0-1.el8_8.x86_64
-nss-3.101.0-11.el8_8.x86_64
-nss-softokn-3.101.0-11.el8_8.x86_64
-nss-softokn-freebl-3.101.0-11.el8_8.x86_64
-nss-sysinit-3.101.0-11.el8_8.x86_64
-nss-util-3.101.0-11.el8_8.x86_64
+nspr-4.36.0-2.el8_10.x86_64
+nss-3.112.0-4.el8_10.x86_64
+nss-softokn-3.112.0-4.el8_10.x86_64
+nss-softokn-freebl-3.112.0-4.el8_10.x86_64
+nss-sysinit-3.112.0-4.el8_10.x86_64
+nss-util-3.112.0-4.el8_10.x86_64
 numactl-libs-2.0.16-4.el8.x86_64
 nvme-cli-1.16-9.el8.x86_64
 nvmetcli-0.7-5.0.1.el8.noarch
@@ -374,7 +374,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-1.0.4-7.el8_10.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-553.71.1.el8_10.x86_64
+python3-perf-4.18.0-553.76.1.el8_10.x86_64
 python3-pip-9.0.3-24.el8.noarch
 python3-pip-wheel-9.0.3-24.el8.noarch
 python3-ply-3.9-9.el8.noarch
@@ -400,12 +400,12 @@ python3-unbound-1.16.2-5.9.el8_10.x86_64
 python3-urllib3-1.24.2-8.el8_10.noarch
 python3-urwid-1.3.1-4.el8.x86_64
 python36-3.6.8-39.module+el8.10.0+90473+c30184f9.x86_64
-python39-3.9.20-1.module+el8.10.0+90419+54594e05.x86_64
-python39-libs-3.9.20-1.module+el8.10.0+90419+54594e05.x86_64
+python39-3.9.20-2.module+el8.10.0+90647+49247197.x86_64
+python39-libs-3.9.20-2.module+el8.10.0+90647+49247197.x86_64
 python39-pip-20.2.4-9.module+el8.10.0+90269+2fa22b99.noarch
 python39-pip-wheel-20.2.4-9.module+el8.10.0+90269+2fa22b99.noarch
-python39-setuptools-50.3.2-6.module+el8.10.0+90395+b6c4aad1.noarch
-python39-setuptools-wheel-50.3.2-6.module+el8.10.0+90395+b6c4aad1.noarch
+python39-setuptools-50.3.2-7.module+el8.10.0+90647+49247197.noarch
+python39-setuptools-wheel-50.3.2-7.module+el8.10.0+90647+49247197.noarch
 readline-7.0-10.el8.x86_64
 redhat-release-8.10-0.2.0.1.el8.x86_64
 rng-tools-6.16-1.el8.x86_64
@@ -417,8 +417,8 @@ rpm-plugin-selinux-4.14.3-32.0.1.el8_10.x86_64
 rpm-plugin-systemd-inhibit-4.14.3-32.0.1.el8_10.x86_64
 rsyslog-8.2102.0-15.0.1.el8_10.1.x86_64
 sed-4.5-5.el8.x86_64
-selinux-policy-3.14.3-139.0.1.el8_10.1.noarch
-selinux-policy-targeted-3.14.3-139.0.1.el8_10.1.noarch
+selinux-policy-3.14.3-139.0.2.el8_10.1.noarch
+selinux-policy-targeted-3.14.3-139.0.2.el8_10.1.noarch
 setup-2.12.2-9.el8.noarch
 sg3_utils-1.44-6.el8.x86_64
 sg3_utils-libs-1.44-6.el8.x86_64
@@ -449,7 +449,7 @@ trousers-0.3.15-2.el8.x86_64
 trousers-lib-0.3.15-2.el8.x86_64
 tuned-2.22.1-6.0.1.el8_10.noarch
 tzdata-2025b-1.0.1.el8.noarch
-udisks2-2.9.0-16.el8.x86_64
+udisks2-2.9.0-16.el8_10.1.x86_64
 unbound-libs-1.16.2-5.9.el8_10.x86_64
 unzip-6.0-48.0.1.el8_10.x86_64
 userspace-rcu-0.10.1-4.el8.x86_64

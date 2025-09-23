@@ -1,5 +1,5 @@
 Amazon Linux 2023.8.20250818
-aws-cli/2.28.20 Python/3.13.7 Linux/6.1.147-172.266.amzn2023.x86_64 exe/x86_64.amzn.2023
+aws-cli/2.30.7 Python/3.13.7 Linux/6.1.147-172.266.amzn2023.x86_64 exe/x86_64.amzn.2023
 aws-cfn-bootstrap    2.0
 acpid-2.0.32-4.amzn2023.0.2.x86_64
 alternatives-1.15-2.amzn2023.0.2.x86_64
@@ -7,7 +7,7 @@ amazon-chrony-config-4.3-1.amzn2023.0.5.noarch
 amazon-ec2-net-utils-2.7.0-1.amzn2023.0.1.noarch
 amazon-linux-repo-s3-2023.8.20250818-0.amzn2023.noarch
 amazon-linux-sb-keys-2023.1-1.amzn2023.0.5.noarch
-amazon-ssm-agent-3.3.2746.0-1.x86_64
+amazon-ssm-agent-3.3.3050.0-1.x86_64
 amd-ucode-firmware-20210208-117.amzn2023.0.6.noarch
 audit-3.0.6-1.amzn2023.0.2.x86_64
 audit-libs-3.0.6-1.amzn2023.0.2.x86_64
