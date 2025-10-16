@@ -2,6 +2,19 @@ name: Build images
 on:
   pull_request_review:
     types: [submitted]
+  schedule:
+    - cron: '15 12 21 10 *'  # 21 October 2025
+    - cron: '15 12 18 11 *'  # 18 November 2025
+    - cron: '15 12 23 12 *'  # 23 December 2025
+    - cron: '15 12 20 01 *'  # 20 January 2026
+    - cron: '15 12 17 02 *'  # 17 February 2026
+    - cron: '15 12 24 03 *'  # 24 March 2026
+    - cron: '15 12 21 04 *'  # 21 April 2026
+    - cron: '15 12 19 05 *'  # 19 May 2026
+    - cron: '15 12 23 06 *'  # 23 June 2026
+    - cron: '15 12 21 07 *'  # 21 July 2026
+    - cron: '15 12 18 08 *'  # 18 August 2026
+    - cron: '15 12 22 09 *'  # 22 September 2026
   workflow_dispatch:
     inputs:
       # Currently limited to only 10 inputs. Workaround is to use JSON as the input and parse it in a job.
@@ -16,6 +29,10 @@ on:
         options:
           - 'true'
           - 'false'
+      SPEL_RELEASE:
+        description: 'Whether to create a PR for the release after the build (true), or not (false)'
+        type: boolean
+        default: false
       SPEL_BUILDERS:
         description: 'JSON-encoded list of Packer builds to run (e.g. ["amazon-ebssurrogate.minimal-alma-9-hvm", "amazon-ebssurrogate.minimal-amzn-2023-hvm"])'
         type: string
@@ -44,9 +61,9 @@ permissions:
 jobs:
   trigger:
     runs-on: ubuntu-latest
-    if: contains(github.event.review.body, '/build') || github.event_name == 'workflow_dispatch'
+    if: contains(github.event.review.body, '/build') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     env:
-      SPEL_CI: 'true'
+      SPEL_CI: ${{ github.event_name == 'schedule' && 'false' || 'true' }}
       SPEL_BUILDERS: >-
         [
           "amazon-ebssurrogate.minimal-alma-9-hvm",
@@ -116,7 +133,7 @@ jobs:
           builders='${{ inputs.SPEL_BUILDERS }}'
           ci='${{ inputs.SPEL_CI }}'
           projects='${{ inputs.SPEL_PROJECTS }}'
-          version="${SPEL_VERSION:-$(date +%Y.%m.dev%s)}"
+          version="${SPEL_VERSION:-${{ github.event_name == 'schedule' && '$(date +%Y.%m.1)' || '$(date +%Y.%m.dev%s)' }}}"
 
           ami_groups='${{ inputs.AMI_GROUPS }}'
           ami_regions='${{ inputs.AMI_REGIONS }}'
@@ -212,3 +229,62 @@ jobs:
 
       - run: find . -type f \( -name '*.box' -o -name '*.ova' \) -print0 | xargs -0 rm -f
         if: always()
+
+  manifests:
+    runs-on: ubuntu-latest
+    needs:
+      - trigger
+      - build
+    steps:
+      - name: Retrieve all manifests
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: manifest-spel-commercial-*
+          path: .spel
+          merge-multiple: true
+
+      - name: Upload all manifests
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: manifests-${{ needs.trigger.outputs.version}}
+          path: |
+            .spel/*/*.manifest.txt
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 7
+
+  release-pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || inputs.SPEL_RELEASE
+    needs:
+      - trigger
+      - manifests
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+
+      - name: Retrieve all manifests
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: manifests-${{ needs.trigger.outputs.version}}
+          path: .spel/
+
+      - name: Move manifests
+        run: mv -f .spel/*/*.manifest.txt manifests/
+
+      - name: Install Bumpversion
+        run: pip install bump2version
+
+      - name: Bump version
+        run: bump2version --no-commit --allow-dirty ${{ endsWith(github.event.schedule, '01 *') && 'major' || 'minor' }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e
+        with:
+          branch: 'release/${{ needs.trigger.outputs.version }}'
+          title: 'Releases ${{ needs.trigger.outputs.version }}'
+          commit-message: 'Releases ${{ needs.trigger.outputs.version }}'
+          sign-commits: true
