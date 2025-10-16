@@ -2,6 +2,41 @@ name: Build images
 on:
   pull_request_review:
     types: [submitted]
+  workflow_dispatch:
+    inputs:
+      # Currently limited to only 10 inputs. Workaround is to use JSON as the input and parse it in a job.
+      # See issue: https://github.com/orgs/community/discussions/8774
+      SPEL_VERSION:
+        description: 'Version to build'
+        type: string
+      SPEL_CI:
+        description: 'Toggles whether to keep the image (false), or delete it after running tests (true)'
+        type: choice
+        default: 'true'
+        options:
+          - 'true'
+          - 'false'
+      SPEL_BUILDERS:
+        description: 'JSON-encoded list of Packer builds to run (e.g. ["amazon-ebssurrogate.minimal-alma-9-hvm", "amazon-ebssurrogate.minimal-amzn-2023-hvm"])'
+        type: string
+      SPEL_PROJECTS:
+        description: 'JSON-encoded list of Codebuild Projects to run (e.g. ["spel-commercial", "spel-govcloud"])'
+        type: string
+      AMI_GROUPS:
+        description: 'JSON-encoded list of AMI groups to copy AMIs to (e.g. ["all"])'
+        type: string
+      AMI_REGIONS:
+        description: 'JSON-encoded map of projects and regions to copy the AMI to (e.g. {"spel-commercial": ["us-east-1", "us-east-2", "us-west-1", "us-west-2"], "spel-govcloud": ["us-gov-west-1", "us-gov-east-1"]})'
+        type: string
+      AMIGEN8_SOURCE:
+        description: 'JSON-encoded map of Amigen8 url and/or branch (e.g. {"url": "https://github.com/plus3it/amigen8.git", "branch": "master"})'
+        type: string
+      AMIGEN9_SOURCE:
+        description: 'JSON-encoded map of Amigen9 url and/or branch (e.g. {"url": "https://github.com/plus3it/amigen9.git", "branch": "main"})'
+        type: string
+      AWS_SOURCE_AMI_FILTERS:
+        description: 'JSON-encoded map of source AMI filters to use for each builder (e.g. {"alma9": {"name": "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9-hvm-*.x86_64-gp*", "owners": ["679593333241", "216406534498"]}, "amzn2023": {"name": "al2023-ami-minimal-2023.*-kernel-6.1-x86_64", "owners": ["amazon"]}})'
+        type: string
 
 permissions:
   contents: read
@@ -9,16 +44,119 @@ permissions:
 jobs:
   trigger:
     runs-on: ubuntu-latest
-    if: contains(github.event.review.body, '/build')
+    if: contains(github.event.review.body, '/build') || github.event_name == 'workflow_dispatch'
+    env:
+      SPEL_CI: 'true'
+      SPEL_BUILDERS: >-
+        [
+          "amazon-ebssurrogate.minimal-alma-9-hvm",
+          "amazon-ebssurrogate.minimal-amzn-2023-hvm",
+          "amazon-ebssurrogate.minimal-centos-9stream-hvm",
+          "amazon-ebssurrogate.minimal-ol-8-hvm",
+          "amazon-ebssurrogate.minimal-ol-9-hvm",
+          "amazon-ebssurrogate.minimal-rhel-8-hvm",
+          "amazon-ebssurrogate.minimal-rhel-9-hvm",
+          "amazon-ebssurrogate.minimal-rl-9-hvm"
+        ]
+      SPEL_PROJECTS: >-
+        [
+          "spel-commercial",
+          "spel-govcloud"
+        ]
+      SPEL_VERSION: ${{ inputs.SPEL_VERSION }}
+      AMI_GROUPS: '["all"]'
+      AMI_REGIONS: >-
+        {
+          "spel-commercial": [
+            "us-east-1",
+            "us-east-2",
+            "us-west-1",
+            "us-west-2"
+          ],
+          "spel-govcloud": [
+            "us-gov-west-1",
+            "us-gov-east-1"
+          ]
+        }
+      AMIGEN8_SOURCE_URL: "https://github.com/plus3it/amigen8.git"
+      AMIGEN8_SOURCE_BRANCH: "master"
+      AMIGEN9_SOURCE_URL: "https://github.com/plus3it/amigen9.git"
+      AMIGEN9_SOURCE_BRANCH: "main"
+      AWS_SOURCE_AMI_FILTER_ALMA9_HVM: '{"name": "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9-hvm-*.x86_64-gp*", "owners": ["679593333241", "216406534498"]}'
+      AWS_SOURCE_AMI_FILTER_AMZN2023_HVM: '{"name": "al2023-ami-minimal-2023.*-kernel-6.1-x86_64", "owners": ["amazon"]}'
+      AWS_SOURCE_AMI_FILTER_CENTOS9STREAM_HVM: '{"name": "spel-bootstrap-centos-9stream-hvm-*.x86_64-gp*", "owners": ["174003430611", "216406534498"]}'
+      AWS_SOURCE_AMI_FILTER_OL8_HVM: '{"name": "spel-bootstrap-ol-8-hvm-*.x86_64-gp*", "owners": ["174003430611", "216406534498"]}'
+      AWS_SOURCE_AMI_FILTER_OL9_HVM: '{"name": "spel-bootstrap-ol-9-hvm-*.x86_64-gp*", "owners": ["174003430611", "216406534498"]}'
+      AWS_SOURCE_AMI_FILTER_RHEL8_HVM: '{"name": "RHEL-8.*_HVM-*-x86_64-*-Hourly*-GP*", "owners": ["309956199498", "219670896067"]}'
+      AWS_SOURCE_AMI_FILTER_RHEL9_HVM: '{"name": "RHEL-9.*_HVM-*-x86_64-*-Hourly*-GP*", "owners": ["309956199498", "219670896067"]}'
+      AWS_SOURCE_AMI_FILTER_RL9_HVM: '{"name": "Rocky-9-EC2-Base-9.*-*.x86_64,spel-bootstrap-rl-9-hvm-*.x86_64-gp*", "owners": ["792107900819", "216406534498"]}'
     outputs:
-      version: ${{ steps.version.outputs.value }}
+      builders: ${{ steps.variables.outputs.builders }}
+      ci: ${{ steps.variables.outputs.ci }}
+      projects: ${{ steps.variables.outputs.projects }}
+      version: ${{ steps.variables.outputs.version }}
+      ami_groups: ${{ steps.variables.outputs.ami_groups }}
+      ami_regions: ${{ steps.variables.outputs.ami_regions }}
+      amigen8_source_url: ${{ steps.variables.outputs.amigen8_source_url }}
+      amigen8_source_branch: ${{ steps.variables.outputs.amigen8_source_branch }}
+      amigen9_source_url: ${{ steps.variables.outputs.amigen9_source_url }}
+      amigen9_source_branch: ${{ steps.variables.outputs.amigen9_source_branch }}
+      aws_source_ami_filter_alma9_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_alma9_hvm }}
+      aws_source_ami_filter_amzn2023_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_amzn2023_hvm }}
+      aws_source_ami_filter_centos9stream_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_centos9stream_hvm }}
+      aws_source_ami_filter_ol8_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_ol8_hvm }}
+      aws_source_ami_filter_ol9_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_ol9_hvm }}
+      aws_source_ami_filter_rhel8_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_rhel8_hvm }}
+      aws_source_ami_filter_rhel9_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_rhel9_hvm }}
+      aws_source_ami_filter_rl9_hvm: ${{ steps.variables.outputs.aws_source_ami_filter_rl9_hvm }}
     steps:
-      - name: Set spel version
-        id: version
+      - name: Set spel inputs
+        id: variables
         run: |
-          SPEL_VERSION=$(date +%Y.%m.dev%s)
-          echo "value=${SPEL_VERSION}" >> "$GITHUB_OUTPUT"
-          echo "SPEL_VERSION=${SPEL_VERSION}"
+          builders='${{ inputs.SPEL_BUILDERS }}'
+          ci='${{ inputs.SPEL_CI }}'
+          projects='${{ inputs.SPEL_PROJECTS }}'
+          version="${SPEL_VERSION:-$(date +%Y.%m.dev%s)}"
+
+          ami_groups='${{ inputs.AMI_GROUPS }}'
+          ami_regions='${{ inputs.AMI_REGIONS }}'
+
+          amigen8_source_url="$(jq -r .url <<< '${{ inputs.AMIGEN8_SOURCE }}')"
+          amigen8_source_branch="$(jq -r .branch <<< '${{ inputs.AMIGEN8_SOURCE }}')"
+          amigen9_source_url="$(jq -r .url <<< '${{ inputs.AMIGEN9_SOURCE }}')"
+          amigen9_source_branch="$(jq -r .branch <<< '${{ inputs.AMIGEN9_SOURCE }}')"
+
+          aws_source_ami_filter_alma9_hvm="$(jq -c .alma9 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_amzn2023_hvm="$(jq -c .amzn2023 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_centos9stream_hvm="$(jq -c .centos9stream <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_ol8_hvm="$(jq -c .ol8 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_ol9_hvm="$(jq -c .ol9 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_rhel8_hvm="$(jq -c .rhel8 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_rhel9_hvm="$(jq -c .rhel9 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+          aws_source_ami_filter_rl9_hvm="$(jq -c .rl9 <<< '${{ inputs.AWS_SOURCE_AMI_FILTERS }}')"
+
+          {
+            echo "builders=${builders:-$(jq -c <<< '${{ env.SPEL_BUILDERS }}')}"
+            echo "ci=${ci:-$(jq -c <<< '${{ env.SPEL_CI }}')}"
+            echo "projects=${projects:-$(jq -c <<< '${{ env.SPEL_PROJECTS }}')}"
+            echo "version=${version}"
+            echo "ami_groups=${ami_groups:-$(jq -c <<< '${{ env.AMI_GROUPS }}')}"
+            echo "ami_regions=${ami_regions:-$(jq -c <<< '${{ env.AMI_REGIONS }}')}"
+            echo "amigen8_source_url=${amigen8_source_url:-${{ env.AMIGEN8_SOURCE_URL }}}"
+            echo "amigen8_source_branch=${amigen8_source_branch:-${{ env.AMIGEN8_SOURCE_BRANCH }}}"
+            echo "amigen9_source_url=${amigen9_source_url:-${{ env.AMIGEN9_SOURCE_URL }}}"
+            echo "amigen9_source_branch=${amigen9_source_branch:-${{ env.AMIGEN9_SOURCE_BRANCH }}}"
+            echo "aws_source_ami_filter_alma9_hvm=${aws_source_ami_filter_alma9_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_ALMA9_HVM }}')}"
+            echo "aws_source_ami_filter_amzn2023_hvm=${aws_source_ami_filter_amzn2023_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_AMZN2023_HVM }}')}"
+            echo "aws_source_ami_filter_centos9stream_hvm=${aws_source_ami_filter_centos9stream_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_CENTOS9STREAM_HVM }}')}"
+            echo "aws_source_ami_filter_ol8_hvm=${aws_source_ami_filter_ol8_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_OL8_HVM }}')}"
+            echo "aws_source_ami_filter_ol9_hvm=${aws_source_ami_filter_ol9_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_OL9_HVM }}')}"
+            echo "aws_source_ami_filter_rhel8_hvm=${aws_source_ami_filter_rhel8_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_RHEL8_HVM }}')}"
+            echo "aws_source_ami_filter_rhel9_hvm=${aws_source_ami_filter_rhel9_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_RHEL9_HVM }}')}"
+            echo "aws_source_ami_filter_rl9_hvm=${aws_source_ami_filter_rl9_hvm:-$(jq -c <<< '${{ env.AWS_SOURCE_AMI_FILTER_RL9_HVM }}')}"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "SPEL_VERSION=${version}"
 
   build:
     runs-on:
@@ -28,23 +166,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project:
-          - spel-commercial
-          - spel-govcloud
-        builder:
-          - amazon-ebssurrogate.minimal-alma-9-hvm
-          - amazon-ebssurrogate.minimal-amzn-2023-hvm
-          - amazon-ebssurrogate.minimal-centos-9stream-hvm
-          - amazon-ebssurrogate.minimal-ol-8-hvm
-          - amazon-ebssurrogate.minimal-ol-9-hvm
-          - amazon-ebssurrogate.minimal-rhel-8-hvm
-          - amazon-ebssurrogate.minimal-rhel-9-hvm
-          - amazon-ebssurrogate.minimal-rl-9-hvm
+        project: ${{ fromJSON(needs.trigger.outputs.projects) }}
+        builder: ${{ fromJSON(needs.trigger.outputs.builders) }}
     env:
       PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      SPEL_CI: true
+      SPEL_CI: ${{ needs.trigger.outputs.ci }}
       SPEL_VERSION: ${{ needs.trigger.outputs.version }}
       SPEL_BUILDERS: ${{ matrix.builder }}
+      PKR_VAR_ami_groups: ${{ needs.trigger.outputs.ami_groups }}
+      PKR_VAR_ami_regions: ${{ toJson(fromJSON(needs.trigger.outputs.ami_regions)[matrix.project]) }}
+      PKR_VAR_amigen8_source_url: ${{ needs.trigger.outputs.amigen8_source_url }}
+      PKR_VAR_amigen8_source_branch: ${{ needs.trigger.outputs.amigen8_source_branch }}
+      PKR_VAR_amigen9_source_url: ${{ needs.trigger.outputs.amigen9_source_url }}
+      PKR_VAR_amigen9_source_branch: ${{ needs.trigger.outputs.amigen9_source_branch }}
+      PKR_VAR_aws_source_ami_filter_alma9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_alma9_hvm }}
+      PKR_VAR_aws_source_ami_filter_amzn2023_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_amzn2023_hvm }}
+      PKR_VAR_aws_source_ami_filter_centos9stream_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_centos9stream_hvm }}
+      PKR_VAR_aws_source_ami_filter_ol8_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_ol8_hvm }}
+      PKR_VAR_aws_source_ami_filter_ol9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_ol9_hvm }}
+      PKR_VAR_aws_source_ami_filter_rhel8_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_rhel8_hvm }}
+      PKR_VAR_aws_source_ami_filter_rhel9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_rhel9_hvm }}
+      PKR_VAR_aws_source_ami_filter_rl9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_rl9_hvm }}
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
@@ -52,6 +194,17 @@ jobs:
       - run: make -f Makefile.spel install
 
       - run: make -f Makefile.spel build
+
+      # Save artifacts
+      - name: Upload manifest
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: manifest-${{ matrix.project }}-${{ matrix.builder }}
+          path: |
+            .spel/*/*.manifest.txt
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 7
 
       # Cleanup steps
       - run: make -f Makefile.spel post_build
