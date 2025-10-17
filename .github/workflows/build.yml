@@ -20,39 +20,50 @@ on:
       # Currently limited to only 10 inputs. Workaround is to use JSON as the input and parse it in a job.
       # See issue: https://github.com/orgs/community/discussions/8774
       SPEL_VERSION:
-        description: 'Version to build'
+        description: 'SPEL_VERSION: Version to build'
         type: string
       SPEL_CI:
-        description: 'Toggles whether to keep the image (false), or delete it after running tests (true)'
-        type: choice
-        default: 'true'
-        options:
-          - 'true'
-          - 'false'
+        description: 'SPEL_CI: Toggles whether to keep the image (false), or delete it after running tests (true)'
+        type: boolean
+        default: true
       SPEL_RELEASE:
-        description: 'Whether to create a PR for the release after the build (true), or not (false)'
+        description: 'SPEL_RELEASE: Whether to create a PR for the release after the build (true), or not (false)'
         type: boolean
         default: false
       SPEL_BUILDERS:
-        description: 'JSON-encoded list of Packer builds to run (e.g. ["amazon-ebssurrogate.minimal-alma-9-hvm", "amazon-ebssurrogate.minimal-amzn-2023-hvm"])'
+        description: |
+          SPEL_BUILDERS: JSON-encoded list of Packer builds to run, e.g.
+          ["amazon-ebssurrogate.minimal-alma-9-hvm", "amazon-ebssurrogate.minimal-amzn-2023-hvm"]
         type: string
       SPEL_PROJECTS:
-        description: 'JSON-encoded list of Codebuild Projects to run (e.g. ["spel-commercial", "spel-govcloud"])'
+        description: |
+          SPEL_PROJECTS: JSON-encoded list of Codebuild Projects to run, e.g.
+          ["spel-commercial", "spel-govcloud"]
         type: string
       AMI_GROUPS:
-        description: 'JSON-encoded list of AMI groups to copy AMIs to (e.g. ["all"])'
+        description: |
+          AMI_GROUPS: JSON-encoded list of AMI groups to copy AMIs to, e.g.
+          ["all"]
         type: string
       AMI_REGIONS:
-        description: 'JSON-encoded map of projects and regions to copy the AMI to (e.g. {"spel-commercial": ["us-east-1", "us-east-2", "us-west-1", "us-west-2"], "spel-govcloud": ["us-gov-west-1", "us-gov-east-1"]})'
+        description: |
+          AMI_REGIONS: JSON-encoded map of projects and regions to copy the AMI to, e.g.
+          {"spel-commercial": ["us-east-1", "us-east-2", "us-west-1", "us-west-2"], "spel-govcloud": ["us-gov-west-1", "us-gov-east-1"]}
         type: string
       AMIGEN8_SOURCE:
-        description: 'JSON-encoded map of Amigen8 url and/or branch (e.g. {"url": "https://github.com/plus3it/amigen8.git", "branch": "master"})'
+        description: |
+          AMIGEN8_SOURCE: JSON-encoded map of Amigen8 url and/or branch, e.g.
+          {"url": "https://github.com/plus3it/amigen8.git", "branch": "master"}
         type: string
       AMIGEN9_SOURCE:
-        description: 'JSON-encoded map of Amigen9 url and/or branch (e.g. {"url": "https://github.com/plus3it/amigen9.git", "branch": "main"})'
+        description: |
+          AMIGEN9_SOURCE: JSON-encoded map of Amigen9 url and/or branch, e.g.
+          {"url": "https://github.com/plus3it/amigen9.git", "branch": "main"}
         type: string
       AWS_SOURCE_AMI_FILTERS:
-        description: 'JSON-encoded map of source AMI filters to use for each builder (e.g. {"alma9": {"name": "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9-hvm-*.x86_64-gp*", "owners": ["679593333241", "216406534498"]}, "amzn2023": {"name": "al2023-ami-minimal-2023.*-kernel-6.1-x86_64", "owners": ["amazon"]}})'
+        description: |
+          AWS_SOURCE_AMI_FILTERS: JSON-encoded map of source AMI filters to use for each builder, e.g.
+          {"alma9": {"name": "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9-hvm-*.x86_64-gp*", "owners": ["679593333241", "216406534498"]}, "amzn2023": {"name": "al2023-ami-minimal-2023.*-kernel-6.1-x86_64", "owners": ["amazon"]}}
         type: string
 
 permissions:
@@ -63,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.review.body, '/build') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     env:
-      SPEL_CI: ${{ github.event_name == 'schedule' && 'false' || 'true' }}
+      SPEL_CI: ${{ github.event_name != 'schedule' }}
       SPEL_BUILDERS: >-
         [
           "amazon-ebssurrogate.minimal-alma-9-hvm",
