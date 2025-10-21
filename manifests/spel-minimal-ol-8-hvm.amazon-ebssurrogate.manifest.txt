@@ -1,5 +1,5 @@
 Oracle Linux Server 8.10
-aws-cli/2.30.7 Python/3.13.7 Linux/5.15.0-204.147.6.2.el8uek.x86_64 exe/x86_64.oracle.8
+aws-cli/2.31.18 Python/3.13.7 Linux/5.15.0-204.147.6.2.el8uek.x86_64 exe/x86_64.oracle.8
 aws-cfn-bootstrap (2.0)
 NetworkManager-1.40.16-20.0.1.el8_10.x86_64
 NetworkManager-libnm-1.40.16-20.0.1.el8_10.x86_64
@@ -38,7 +38,7 @@ crontabs-1.11-17.20190603git.el8.noarch
 crypto-policies-20230731-1.git3177e06.el8.noarch
 crypto-policies-scripts-20230731-1.git3177e06.el8.noarch
 cryptsetup-libs-2.3.7-7.el8.x86_64
-curl-7.61.1-34.el8_10.3.x86_64
+curl-7.61.1-34.el8_10.8.x86_64
 cyrus-sasl-lib-2.1.27-6.el8_5.x86_64
 dbus-1.12.8-27.0.1.el8_10.x86_64
 dbus-common-1.12.8-27.0.1.el8_10.noarch
@@ -82,8 +82,8 @@ elfutils-libelf-0.190-2.el8.x86_64
 elfutils-libs-0.190-2.el8.x86_64
 ethtool-5.13-2.el8.x86_64
 expat-2.2.5-17.0.1.el8_10.x86_64
-file-5.33-26.el8.x86_64
-file-libs-5.33-26.el8.x86_64
+file-5.33-27.el8_10.x86_64
+file-libs-5.33-27.el8_10.x86_64
 filesystem-3.8-6.el8.x86_64
 findutils-4.6.0-23.el8_10.x86_64
 firewalld-0.9.11-10.0.1.el8_10.noarch
@@ -107,22 +107,22 @@ glibc-gconv-extra-2.28-251.0.3.el8_10.25.x86_64
 gmp-6.1.2-11.el8.x86_64
 gnupg2-2.2.20-3.el8_6.x86_64
 gnupg2-smime-2.2.20-3.el8_6.x86_64
-gnutls-3.6.16-8.el8_10.3.x86_64
+gnutls-3.6.16-8.el8_10.4.x86_64
 gobject-introspection-1.56.1-1.el8.x86_64
 gpg-pubkey-ad986da3-5cabf60d
 gpg-pubkey-e96e3db7-6196a254
 gpgme-1.13.1-12.el8.x86_64
 grep-3.1-6.el8.x86_64
 groff-base-1.22.3-18.el8.x86_64
-grub2-common-2.02-167.0.1.el8_10.noarch
-grub2-efi-x64-2.02-167.0.1.el8_10.x86_64
-grub2-efi-x64-modules-2.02-167.0.1.el8_10.noarch
-grub2-pc-2.02-167.0.1.el8_10.x86_64
-grub2-pc-modules-2.02-167.0.1.el8_10.noarch
-grub2-tools-2.02-167.0.1.el8_10.x86_64
-grub2-tools-efi-2.02-167.0.1.el8_10.x86_64
-grub2-tools-extra-2.02-167.0.1.el8_10.x86_64
-grub2-tools-minimal-2.02-167.0.1.el8_10.x86_64
+grub2-common-2.02-169.0.1.el8_10.noarch
+grub2-efi-x64-2.02-169.0.1.el8_10.x86_64
+grub2-efi-x64-modules-2.02-169.0.1.el8_10.noarch
+grub2-pc-2.02-169.0.1.el8_10.x86_64
+grub2-pc-modules-2.02-169.0.1.el8_10.noarch
+grub2-tools-2.02-169.0.1.el8_10.x86_64
+grub2-tools-efi-2.02-169.0.1.el8_10.x86_64
+grub2-tools-extra-2.02-169.0.1.el8_10.x86_64
+grub2-tools-minimal-2.02-169.0.1.el8_10.x86_64
 grubby-8.40-49.0.2.el8.x86_64
 gzip-1.9-13.el8_5.x86_64
 hardlink-1.3-6.el8.x86_64
@@ -147,12 +147,12 @@ json-glib-1.4.4-1.el8.x86_64
 kbd-2.0.4-11.el8.x86_64
 kbd-legacy-2.0.4-11.el8.noarch
 kbd-misc-2.0.4-11.el8.noarch
-kernel-4.18.0-553.76.1.el8_10.x86_64
-kernel-core-4.18.0-553.76.1.el8_10.x86_64
-kernel-modules-4.18.0-553.76.1.el8_10.x86_64
-kernel-tools-4.18.0-553.76.1.el8_10.x86_64
-kernel-tools-libs-4.18.0-553.76.1.el8_10.x86_64
-kexec-tools-2.0.28-1.0.9.el8_10.x86_64
+kernel-4.18.0-553.80.1.el8_10.x86_64
+kernel-core-4.18.0-553.80.1.el8_10.x86_64
+kernel-modules-4.18.0-553.80.1.el8_10.x86_64
+kernel-tools-4.18.0-553.80.1.el8_10.x86_64
+kernel-tools-libs-4.18.0-553.80.1.el8_10.x86_64
+kexec-tools-2.0.31-1.0.1.el8_10.x86_64
 keyutils-libs-1.5.10-9.0.1.el8.x86_64
 kmod-25-20.0.1.el8.x86_64
 kmod-libs-25-20.0.1.el8.x86_64
@@ -183,7 +183,7 @@ libcollection-0.7.0-40.el8.x86_64
 libcom_err-1.46.2-2.el8.x86_64
 libcomps-0.1.18-1.el8.x86_64
 libcroco-0.6.12-4.el8_2.1.x86_64
-libcurl-7.61.1-34.el8_10.3.x86_64
+libcurl-7.61.1-34.el8_10.8.x86_64
 libdaemon-0.14-15.el8.x86_64
 libdb-5.3.28-42.0.1.el8_4.x86_64
 libdb-utils-5.3.28-42.0.1.el8_4.x86_64
@@ -243,8 +243,8 @@ libsmartcols-2.32.1-46.0.1.el8.x86_64
 libsmbios-2.4.1-2.el8.x86_64
 libsolv-0.7.20-6.el8.x86_64
 libss-1.46.2-2.el8.x86_64
-libssh-0.9.6-14.el8.x86_64
-libssh-config-0.9.6-14.el8.noarch
+libssh-0.9.6-15.el8_10.x86_64
+libssh-config-0.9.6-15.el8_10.noarch
 libsss_autofs-2.9.4-5.0.2.el8_10.2.x86_64
 libsss_certmap-2.9.4-5.0.2.el8_10.2.x86_64
 libsss_idmap-2.9.4-5.0.2.el8_10.2.x86_64
@@ -275,7 +275,7 @@ linux-firmware-20250909-999.44.git260ff424.el8.noarch
 linux-firmware-core-20250909-999.44.git260ff424.el8.noarch
 lmdb-libs-0.9.24-2.el8.x86_64
 logrotate-3.14.0-6.el8.x86_64
-lshw-B.02.19.2-6.el8.x86_64
+lshw-B.02.19.2-6.el8_10.1.x86_64
 lsscsi-0.32-3.el8.x86_64
 lua-libs-5.3.4-12.el8.x86_64
 lvm2-2.03.14-15.0.1.el8_10.2.x86_64
@@ -306,9 +306,9 @@ numactl-libs-2.0.16-4.el8.x86_64
 nvme-cli-1.16-9.el8.x86_64
 nvmetcli-0.7-5.0.1.el8.noarch
 openldap-2.4.46-21.el8_10.x86_64
-openssh-8.0p1-25.0.1.el8_10.x86_64
-openssh-clients-8.0p1-25.0.1.el8_10.x86_64
-openssh-server-8.0p1-25.0.1.el8_10.x86_64
+openssh-8.0p1-26.0.1.el8_10.x86_64
+openssh-clients-8.0p1-26.0.1.el8_10.x86_64
+openssh-server-8.0p1-26.0.1.el8_10.x86_64
 openssl-1.1.1k-14.el8_6.x86_64
 openssl-libs-1.1.1k-14.el8_6.x86_64
 openssl-pkcs11-0.4.10-3.el8.x86_64
@@ -374,7 +374,7 @@ python3-markupsafe-0.23-19.el8.x86_64
 python3-netifaces-0.10.6-4.el8.x86_64
 python3-nftables-1.0.4-7.el8_10.x86_64
 python3-oauthlib-2.1.0-1.el8.noarch
-python3-perf-4.18.0-553.76.1.el8_10.x86_64
+python3-perf-4.18.0-553.80.1.el8_10.x86_64
 python3-pip-9.0.3-24.el8.noarch
 python3-pip-wheel-9.0.3-24.el8.noarch
 python3-ply-3.9-9.el8.noarch
@@ -454,7 +454,7 @@ unbound-libs-1.16.2-5.9.el8_10.x86_64
 unzip-6.0-48.0.1.el8_10.x86_64
 userspace-rcu-0.10.1-4.el8.x86_64
 util-linux-2.32.1-46.0.1.el8.x86_64
-vim-minimal-8.0.1763-19.0.1.el8_6.4.x86_64
+vim-minimal-8.0.1763-21.0.1.el8_10.x86_64
 virt-what-1.25-4.el8.x86_64
 volume_key-libs-0.3.11-6.el8.x86_64
 which-2.21-21.el8_10.x86_64

@@ -1,5 +1,15 @@
 ## Changelog
 
+### [2025.10.1](https://github.com/plus3it/spel/releases/tag/2025.10.1)
+
+**Released**: 2025.10.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.10.1/manifests>
+
+**Summary**:
+*   "Extra" packages updated in this release:
+    - aws-cli/2.31.18
+
 ### [2025.09.1](https://github.com/plus3it/spel/releases/tag/2025.09.1)
 
 **Released**: 2025.09.23

@@ -1,5 +1,5 @@
 AlmaLinux 9.6 (Sage Margay)
-aws-cli/2.30.7 Python/3.13.7 Linux/5.14.0-570.12.1.el9_6.x86_64 exe/x86_64.almalinux.9
+aws-cli/2.31.18 Python/3.13.7 Linux/5.14.0-570.12.1.el9_6.x86_64 exe/x86_64.almalinux.9
 aws-cfn-bootstrap 2.0
 acl-2.3.1-4.el9.x86_64
 acpid-2.0.32-7.el9.x86_64
@@ -127,8 +127,8 @@ ipset-7.11-11.el9_5.x86_64
 ipset-libs-7.11-11.el9_5.x86_64
 iptables-libs-1.8.10-11.el9_5.x86_64
 iptables-nft-1.8.10-11.el9_5.x86_64
-iputils-20210202-11.el9_6.1.x86_64
-irqbalance-1.9.4-2.el9.x86_64
+iputils-20210202-11.el9_6.3.x86_64
+irqbalance-1.9.4-2.el9_6.2.x86_64
 jansson-2.14-1.el9.x86_64
 jitterentropy-3.6.0-1.el9.x86_64
 jq-1.6-17.el9_6.2.x86_64
@@ -137,12 +137,12 @@ json-glib-1.6.6-1.el9.x86_64
 kbd-2.4.0-11.el9.x86_64
 kbd-legacy-2.4.0-11.el9.noarch
 kbd-misc-2.4.0-11.el9.noarch
-kernel-5.14.0-570.44.1.el9_6.x86_64
-kernel-core-5.14.0-570.44.1.el9_6.x86_64
-kernel-modules-5.14.0-570.44.1.el9_6.x86_64
-kernel-modules-core-5.14.0-570.44.1.el9_6.x86_64
-kernel-tools-5.14.0-570.44.1.el9_6.x86_64
-kernel-tools-libs-5.14.0-570.44.1.el9_6.x86_64
+kernel-5.14.0-570.52.1.el9_6.x86_64
+kernel-core-5.14.0-570.52.1.el9_6.x86_64
+kernel-modules-5.14.0-570.52.1.el9_6.x86_64
+kernel-modules-core-5.14.0-570.52.1.el9_6.x86_64
+kernel-tools-5.14.0-570.52.1.el9_6.x86_64
+kernel-tools-libs-5.14.0-570.52.1.el9_6.x86_64
 kexec-tools-2.0.29-5.el9_6.2.x86_64
 keyutils-1.6.3-1.el9.x86_64
 keyutils-libs-1.6.3-1.el9.x86_64
@@ -232,8 +232,8 @@ libsigsegv-2.13-4.el9.x86_64
 libsmartcols-2.37.4-21.el9.x86_64
 libsolv-0.7.24-3.el9.x86_64
 libss-1.46.5-7.el9.x86_64
-libssh-0.10.4-13.el9.x86_64
-libssh-config-0.10.4-13.el9.noarch
+libssh-0.10.4-15.el9_6.x86_64
+libssh-config-0.10.4-15.el9_6.noarch
 libsss_certmap-2.9.6-4.el9_6.2.x86_64
 libsss_idmap-2.9.6-4.el9_6.2.x86_64
 libsss_nss_idmap-2.9.6-4.el9_6.2.x86_64
@@ -414,7 +414,7 @@ unzip-6.0-58.el9_5.x86_64
 userspace-rcu-0.12.1-6.el9.x86_64
 util-linux-2.37.4-21.el9.x86_64
 util-linux-core-2.37.4-21.el9.x86_64
-vim-minimal-8.2.2637-22.el9_6.x86_64
+vim-minimal-8.2.2637-22.el9_6.1.x86_64
 volume_key-libs-0.3.12-16.el9.x86_64
 which-2.21-30.el9_6.x86_64
 xfsprogs-6.4.0-5.el9.x86_64
