@@ -100,7 +100,11 @@ an appropriate FAQ entry.
 
 SPEL AMIs are published monthly. The AMI table below contains links to the AWS
 Console that search by AMI Name and sort the result by creation date. The most
-recent AMI of each build will be at the top when viewed in the AWS Console.
+recent AMI of each build will be at the top when viewed in the AWS Console. From
+there it is simple to launch an instance from the chosen image. Note that you must
+be logged in for the console link to work.
+
+AMI IDs for each region are also published as a table in [manifests/IMAGES.md](manifests/IMAGES).
 
 RPM Manifests for published images are available in the [manifests](manifests)
 directory.

@@ -223,7 +223,32 @@ jobs:
 
       - run: make -f Makefile.spel build
 
-      # Save artifacts
+      - name: List built AMIs
+        run: |
+          (
+            for region in $(jq -c -r '.[]' <<< "$PKR_VAR_ami_regions")
+            do
+              BUILD_NAME="${SPEL_BUILDERS//*./}"
+              AMI_NAME="${SPEL_IDENTIFIER}-${BUILD_NAME}-${{ needs.trigger.outputs.version}}.*"
+              aws ec2 describe-images \
+                --profile "$SPEL_IDENTIFIER" \
+                --region "$region" \
+                --owners self \
+                --filters "Name=name,Values=${AMI_NAME}" \
+                --query "sort_by(Images[], &Name)[*].{Name:Name, ImageId:ImageId, Region:'$region'}" \
+                --output json
+            done
+          ) | jq -s 'add' | tee "images-${{ matrix.project }}-${{ matrix.builder }}.json"
+
+      - name: Upload images list
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: images-${{ matrix.project }}-${{ matrix.builder }}
+          path: images-${{ matrix.project }}-${{ matrix.builder }}.json
+          if-no-files-found: error
+          retention-days: 7
+
+      # Save manifests
       - name: Upload manifest
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
         with:
@@ -293,6 +318,27 @@ jobs:
 
       - name: Move manifests
         run: mv -f .spel/*/*.manifest.txt manifests/
+
+      - name: Retrieve image lists
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          pattern: images-*
+          merge-multiple: true
+
+      - name: Combine image lists
+        run: jq -s 'add' images-* | tee images.json
+
+      - name: Generate images markdown table
+        uses: buildingcash/json-to-markdown-table-action@b442169239ef35f1dc4e5c8c3d47686c081a7e65
+        id: images
+        with:
+          json_file_path: images.json
+
+      - name: Write images table to file
+        run: echo ${{ steps.images.outputs.table }} > manifests/IMAGES.md
+
+      - name: Remove images json files
+        run: rm -f images-*.json images.json
 
       - name: Install Bumpversion
         run: pip install bump2version
