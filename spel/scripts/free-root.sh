@@ -12,7 +12,7 @@ echo "Restarting systemd"
 systemctl daemon-reexec
 
 # The auditd (UpStart) service may or may not be running...
-if [[ $( service auditd status > /dev/null 2>&1 )$? -eq 0 ]]
+if service auditd status > /dev/null 2>&1
 then
   echo "Killing auditd"
   service auditd stop
