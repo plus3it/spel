@@ -1,8 +1,6 @@
 """Configuration for pytest."""
 
 import os
-import urllib.error
-import urllib.request
 
 import distro
 import pytest
@@ -28,12 +26,6 @@ FIPS = (
 AMIUTILS = (
     "amiutils_enabled" if os.environ.get("SPEL_AMIUTILSOURCE") else "amiutils_disabled"
 )
-VIRT = "hvm"
-try:
-    with urllib.request.urlopen(METADATA_KERNEL):
-        VIRT = "paravirtual"
-except urllib.error.URLError:
-    pass
 
 
 def pytest_configure(config):
@@ -65,9 +57,6 @@ def pytest_runtest_setup(item):
         if not item.get_closest_marker(PLAT):
             if PLAT_MARKERS.intersection(item.keywords):
                 pytest.skip(f"does not run on platform {PLAT}")
-        if not item.get_closest_marker(VIRT):
-            if VIRTUALIZATION_MARKERS.intersection(item.keywords):
-                pytest.skip(f"does not run on virtualization type {VIRT}")
         if not item.get_closest_marker(FIPS):
             if FIPS_MARKERS.intersection(item.keywords):
                 pytest.skip(f"test incompatible with fips mode, {FIPS}")
