@@ -1,16 +1,16 @@
-Amazon Linux 2023.9.20251014
-aws-cli/2.31.18 Python/3.13.7 Linux/6.1.155-176.282.amzn2023.x86_64 exe/x86_64.amzn.2023
+Amazon Linux 2023.9.20251027
+aws-cli/2.31.25 Python/3.13.9 Linux/6.1.156-177.286.amzn2023.x86_64 exe/x86_64.amzn.2023
 aws-cfn-bootstrap    2.0
 acpid-2.0.32-4.amzn2023.0.2.x86_64
 alternatives-1.15-2.amzn2023.0.2.x86_64
 amazon-chrony-config-4.3-1.amzn2023.0.5.noarch
 amazon-ec2-net-utils-2.7.1-1.amzn2023.0.1.noarch
-amazon-linux-repo-s3-2023.9.20251014-0.amzn2023.noarch
+amazon-linux-repo-s3-2023.9.20251027-0.amzn2023.noarch
 amazon-linux-sb-keys-2023.1-1.amzn2023.0.5.noarch
-amazon-ssm-agent-3.3.3050.0-1.x86_64
+amazon-ssm-agent-3.3.3185.0-1.x86_64
 amd-ucode-firmware-20210208-117.amzn2023.0.6.noarch
-audit-3.1.5-1.amzn2023.0.1.x86_64
-audit-libs-3.1.5-1.amzn2023.0.1.x86_64
+audit-3.1.5-1.amzn2023.0.2.x86_64
+audit-libs-3.1.5-1.amzn2023.0.2.x86_64
 awscli-2-2.30.4-1.amzn2023.0.1.noarch
 basesystem-11-11.amzn2023.0.2.noarch
 bash-5.2.15-1.amzn2023.0.2.x86_64
@@ -99,15 +99,15 @@ gpgme-1.23.2-182.amzn2023.0.1.x86_64
 grep-3.8-1.amzn2023.0.4.x86_64
 groff-1.22.4-7.amzn2023.0.2.x86_64
 groff-base-1.22.4-7.amzn2023.0.2.x86_64
-grub2-common-2.06-61.amzn2023.0.19.noarch
-grub2-efi-x64-2.06-61.amzn2023.0.19.x86_64
-grub2-efi-x64-ec2-2.06-61.amzn2023.0.19.x86_64
-grub2-efi-x64-modules-2.06-61.amzn2023.0.19.noarch
-grub2-pc-2.06-61.amzn2023.0.19.x86_64
-grub2-pc-modules-2.06-61.amzn2023.0.19.noarch
-grub2-tools-2.06-61.amzn2023.0.19.x86_64
-grub2-tools-efi-2.06-61.amzn2023.0.19.x86_64
-grub2-tools-minimal-2.06-61.amzn2023.0.19.x86_64
+grub2-common-2.06-61.amzn2023.0.20.noarch
+grub2-efi-x64-2.06-61.amzn2023.0.20.x86_64
+grub2-efi-x64-ec2-2.06-61.amzn2023.0.20.x86_64
+grub2-efi-x64-modules-2.06-61.amzn2023.0.20.noarch
+grub2-pc-2.06-61.amzn2023.0.20.x86_64
+grub2-pc-modules-2.06-61.amzn2023.0.20.noarch
+grub2-tools-2.06-61.amzn2023.0.20.x86_64
+grub2-tools-efi-2.06-61.amzn2023.0.20.x86_64
+grub2-tools-minimal-2.06-61.amzn2023.0.20.x86_64
 grubby-8.40-73.amzn2023.0.1.x86_64
 gzip-1.12-1.amzn2023.0.1.x86_64
 hostname-3.23-4.amzn2023.0.3.x86_64
@@ -129,9 +129,9 @@ json-c-0.14-8.amzn2023.0.2.x86_64
 kbd-2.4.0-2.amzn2023.0.3.x86_64
 kbd-misc-2.4.0-2.amzn2023.0.3.noarch
 kdump-utils-1.0.48-8.amzn2023.x86_64
-kernel-6.1.155-176.282.amzn2023.x86_64
-kernel-libbpf-6.1.155-176.282.amzn2023.x86_64
-kernel-livepatch-repo-s3-2023.9.20251014-0.amzn2023.noarch
+kernel-6.1.156-177.286.amzn2023.x86_64
+kernel-libbpf-6.1.156-177.286.amzn2023.x86_64
+kernel-livepatch-repo-s3-2023.9.20251027-0.amzn2023.noarch
 kexec-tools-2.0.29-1.amzn2023.0.1.x86_64
 keyutils-libs-1.6.3-1.amzn2023.0.2.x86_64
 kmod-29-2.amzn2023.0.5.x86_64
@@ -155,7 +155,7 @@ libcom_err-1.46.5-2.amzn2023.0.2.x86_64
 libcomps-0.1.20-1.amzn2023.x86_64
 libcurl-minimal-8.11.1-4.amzn2023.0.1.x86_64
 libdb-5.3.28-49.amzn2023.0.2.x86_64
-libdnf-0.69.0-8.amzn2023.0.5.x86_64
+libdnf-0.69.0-8.amzn2023.0.6.x86_64
 libeconf-0.4.0-1.amzn2023.0.3.x86_64
 libedit-3.1-38.20210714cvs.amzn2023.0.2.x86_64
 libevent-2.1.12-3.amzn2023.0.3.x86_64
@@ -184,7 +184,7 @@ libpcap-1.10.1-1.amzn2023.0.2.x86_64
 libpipeline-1.5.3-2.amzn2023.0.2.x86_64
 libpsl-0.21.5-1.amzn2023.0.1.x86_64
 libpwquality-1.4.4-6.amzn2023.0.2.x86_64
-librepo-1.14.5-2.amzn2023.0.1.x86_64
+librepo-1.14.5-2.amzn2023.0.2.x86_64
 libreport-filesystem-2.15.2-2.amzn2023.0.2.noarch
 libseccomp-2.5.3-1.amzn2023.0.2.x86_64
 libsecret-0.21.4-3.amzn2023.0.1.x86_64
@@ -331,10 +331,10 @@ protobuf-c-1.5.0-4.amzn2023.0.1.x86_64
 psmisc-23.4-1.amzn2023.0.2.x86_64
 psutils-2.05-1.amzn2023.0.2.noarch
 publicsuffix-list-dafsa-20240212-61.amzn2023.noarch
-python-unversioned-command-3.9.23-1.amzn2023.0.3.noarch
-python3-3.9.23-1.amzn2023.0.3.x86_64
+python-unversioned-command-3.9.24-1.amzn2023.0.3.noarch
+python3-3.9.24-1.amzn2023.0.3.x86_64
 python3-attrs-20.3.0-2.amzn2023.0.2.noarch
-python3-audit-3.1.5-1.amzn2023.0.1.x86_64
+python3-audit-3.1.5-1.amzn2023.0.2.x86_64
 python3-awscrt-0.27.6-1.amzn2023.0.1.x86_64
 python3-babel-2.9.1-1.amzn2023.0.2.noarch
 python3-cffi-1.14.5-1.amzn2023.0.3.x86_64
@@ -351,7 +351,7 @@ python3-docutils-0.16-4.amzn2023.0.2.noarch
 python3-firewall-1.2.3-1.amzn2023.noarch
 python3-gobject-base-3.48.2-3.amzn2023.0.2.x86_64
 python3-gpg-1.23.2-182.amzn2023.0.1.x86_64
-python3-hawkey-0.69.0-8.amzn2023.0.5.x86_64
+python3-hawkey-0.69.0-8.amzn2023.0.6.x86_64
 python3-idna-2.10-3.amzn2023.0.3.noarch
 python3-jinja2-2.11.3-1.amzn2023.0.6.noarch
 python3-jmespath-0.10.0-1.amzn2023.0.3.noarch
@@ -361,8 +361,8 @@ python3-jsonschema-3.2.0-9.amzn2023.0.3.noarch
 python3-jwt+crypto-2.4.0-1.amzn2023.0.1.noarch
 python3-jwt-2.4.0-1.amzn2023.0.1.noarch
 python3-libcomps-0.1.20-1.amzn2023.x86_64
-python3-libdnf-0.69.0-8.amzn2023.0.5.x86_64
-python3-libs-3.9.23-1.amzn2023.0.3.x86_64
+python3-libdnf-0.69.0-8.amzn2023.0.6.x86_64
+python3-libs-3.9.24-1.amzn2023.0.3.x86_64
 python3-libselinux-3.4-5.amzn2023.0.2.x86_64
 python3-libsemanage-3.4-5.amzn2023.0.2.x86_64
 python3-markupsafe-1.1.1-10.amzn2023.0.2.x86_64
@@ -420,7 +420,7 @@ squashfs-tools-4.5-3.amzn2023.0.2.x86_64
 sudo-1.9.15-1.p5.amzn2023.0.2.x86_64
 sudo-python-plugin-1.9.15-1.p5.amzn2023.0.2.x86_64
 sysctl-defaults-1.0-3.amzn2023.noarch
-system-release-2023.9.20251014-0.amzn2023.noarch
+system-release-2023.9.20251027-0.amzn2023.noarch
 systemd-252.23-8.amzn2023.x86_64
 systemd-libs-252.23-8.amzn2023.x86_64
 systemd-networkd-252.23-8.amzn2023.x86_64
