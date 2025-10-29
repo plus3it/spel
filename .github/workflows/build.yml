@@ -335,7 +335,7 @@ jobs:
           json_file_path: images.json
 
       - name: Write images table to file
-        run: echo ${{ steps.images.outputs.table }} > manifests/IMAGES.md
+        run: echo "${{ steps.images.outputs.table }}" > manifests/IMAGES.md
 
       - name: Remove images json files
         run: rm -f images-*.json images.json
