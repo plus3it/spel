@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2025.11.1](https://github.com/plus3it/spel/releases/tag/2025.11.1)
+
+**Released**: 2025.11.18
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.11.1/manifests>
+
+**Summary**:
+*   Provides a table of built AMI IDs for each release at [manifests/IMAGES.md](manifests/IMAGES.md)
+*   Alma Linux 9.7
+*   Red Hat Enterprise Linux 9.7
+*   Amazon Linux 2023.9.20251110
+*   "Extra" packages updated in this release:
+    - aws-cli/2.31.38
+    - amazon-ssm-agent-3.3.3185.0-1
+
 ### [2025.10.1](https://github.com/plus3it/spel/releases/tag/2025.10.1)
 
 **Released**: 2025.10.21
