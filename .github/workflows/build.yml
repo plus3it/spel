@@ -217,7 +217,7 @@ jobs:
       PKR_VAR_aws_source_ami_filter_rl9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_rl9_hvm }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
       - run: make -f Makefile.spel install
 
@@ -308,7 +308,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
       - name: Retrieve all manifests
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
