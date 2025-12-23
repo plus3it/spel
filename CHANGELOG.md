@@ -1,5 +1,19 @@
 ## Changelog
 
+### [2025.12.1](https://github.com/plus3it/spel/releases/tag/2025.12.1)
+
+**Released**: 2025.12.23
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2025.12.1/manifests>
+
+**Summary**:
+*   Amazon Linux 2023.9.20251208
+*   Oracle Linux Server 9.7
+*   Rocky Linux 9.7
+*   "Extra" packages updated in this release:
+    - aws-cli/2.32.22
+    - amazon-ssm-agent-3.3.3270.0-1
+
 ### [2025.11.1](https://github.com/plus3it/spel/releases/tag/2025.11.1)
 
 **Released**: 2025.11.18
