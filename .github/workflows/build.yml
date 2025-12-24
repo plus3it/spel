@@ -281,7 +281,7 @@ jobs:
       - build
     steps:
       - name: Retrieve all manifests
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           pattern: manifest-spel-commercial-*
           path: .spel
@@ -311,7 +311,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
       - name: Retrieve all manifests
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           name: manifests-${{ needs.trigger.outputs.version}}
           path: .spel/
@@ -320,7 +320,7 @@ jobs:
         run: mv -f .spel/*/*.manifest.txt manifests/
 
       - name: Retrieve image lists
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           pattern: images-*
           merge-multiple: true
