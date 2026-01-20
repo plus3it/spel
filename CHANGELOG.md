@@ -1,5 +1,17 @@
 ## Changelog
 
+### [2026.01.1](https://github.com/plus3it/spel/releases/tag/2026.01.1)
+
+**Released**: 2026.01.20
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.01.1/manifests>
+
+**Summary**:
+*   "Extra" packages updated in this release:
+    - aws-cli/2.33.2
+    - amazon-ssm-agent-3.3.3598.0-1
+    - ec2-hibinit-agent-1.0.10-0
+
 ### [2025.12.1](https://github.com/plus3it/spel/releases/tag/2025.12.1)
 
 **Released**: 2025.12.23
