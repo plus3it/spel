@@ -541,7 +541,7 @@ variable "amigen8_storage_layout" {
 variable "amigen9_boot_dev_size" {
   description = "Size of the partition hosting the '/boot' partition"
   type        = number
-  default     = 1024
+  default     = 1536
 }
 
 variable "amigen9_boot_dev_size_mult" {
