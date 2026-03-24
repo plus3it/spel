@@ -1,5 +1,20 @@
 ## Changelog
 
+### [2026.03.1](https://github.com/plus3it/spel/releases/tag/2026.03.1)
+
+**Released**: 2026.03.24
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.03.1/manifests>
+
+**Summary**:
+*   EL8 images increase /var volume from 2GB to 3GB
+*   EL9 images increase /boot volume from 768MB to 1536MB
+*   Amazon Linux 2023.10.20260302
+*   "Extra" packages updated in this release:
+    - aws-cli/2.34.16
+    - amazon-ssm-agent-3.3.3797.0-1
+    - ec2-hibinit-agent-1.0.10-2
+
 ### [2026.02.1](https://github.com/plus3it/spel/releases/tag/2026.02.1)
 
 **Released**: 2026.02.17
