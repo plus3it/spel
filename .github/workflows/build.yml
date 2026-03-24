@@ -30,6 +30,10 @@ on:
         description: 'SPEL_RELEASE: Whether to create a PR for the release after the build (true), or not (false)'
         type: boolean
         default: false
+      SPEL_FORCE:
+        description: 'SPEL_FORCE: Whether to force deregister an image of the same name'
+        type: boolean
+        default: false
       SPEL_BUILDERS:
         description: |
           SPEL_BUILDERS: JSON-encoded list of Packer builds to run, e.g.
@@ -75,6 +79,7 @@ jobs:
     if: contains(github.event.review.body, '/build') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     env:
       SPEL_CI: ${{ github.event_name != 'schedule' }}
+      SPEL_FORCE: false
       SPEL_BUILDERS: >-
         [
           "amazon-ebssurrogate.minimal-alma-9-hvm",
@@ -121,6 +126,7 @@ jobs:
     outputs:
       builders: ${{ steps.variables.outputs.builders }}
       ci: ${{ steps.variables.outputs.ci }}
+      force: ${{ steps.variables.outputs.force }}
       projects: ${{ steps.variables.outputs.projects }}
       version: ${{ steps.variables.outputs.version }}
       ami_groups: ${{ steps.variables.outputs.ami_groups }}
@@ -143,6 +149,7 @@ jobs:
         run: |
           builders='${{ inputs.SPEL_BUILDERS }}'
           ci='${{ inputs.SPEL_CI }}'
+          force='${{ inputs.SPEL_FORCE }}'
           projects='${{ inputs.SPEL_PROJECTS }}'
           version="${SPEL_VERSION:-${{ github.event_name == 'schedule' && '$(date +%Y.%m.1)' || '$(date +%Y.%m.dev%s)' }}}"
 
@@ -166,6 +173,7 @@ jobs:
           {
             echo "builders=${builders:-$(jq -c <<< '${{ env.SPEL_BUILDERS }}')}"
             echo "ci=${ci:-$(jq -c <<< '${{ env.SPEL_CI }}')}"
+            echo "force=${force:-$(jq -c <<< '${{ env.SPEL_FORCE }}')}"
             echo "projects=${projects:-$(jq -c <<< '${{ env.SPEL_PROJECTS }}')}"
             echo "version=${version}"
             echo "ami_groups=${ami_groups:-$(jq -c <<< '${{ env.AMI_GROUPS }}')}"
@@ -207,6 +215,7 @@ jobs:
       PKR_VAR_amigen8_source_branch: ${{ needs.trigger.outputs.amigen8_source_branch }}
       PKR_VAR_amigen9_source_url: ${{ needs.trigger.outputs.amigen9_source_url }}
       PKR_VAR_amigen9_source_branch: ${{ needs.trigger.outputs.amigen9_source_branch }}
+      PKR_VAR_aws_force_deregister: ${{ needs.trigger.outputs.force }}
       PKR_VAR_aws_source_ami_filter_alma9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_alma9_hvm }}
       PKR_VAR_aws_source_ami_filter_amzn2023_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_amzn2023_hvm }}
       PKR_VAR_aws_source_ami_filter_centos9stream_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_centos9stream_hvm }}

@@ -528,7 +528,7 @@ variable "amigen8_storage_layout" {
     "/:rootVol:6",
     "swap:swapVol:2",
     "/home:homeVol:1",
-    "/var:varVol:2",
+    "/var:varVol:3",
     "/var/tmp:varTmpVol:2",
     "/var/log:logVol:2",
     "/var/log/audit:auditVol:100%FREE",
