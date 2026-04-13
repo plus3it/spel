@@ -8,6 +8,6 @@ concurrency:
 
 jobs:
   lint:
-    uses: plus3it/actions-workflows/.github/workflows/lint.yml@269d875599c92395f7fa99cab43edc1820798e61
+    uses: plus3it/actions-workflows/.github/workflows/lint.yml@ce3cef72cf4ac9605a29350d1d4387dfb86cd7a8
     with:
       tardigradelint-target: install/pip_requirements/tests/requirements.txt lint
