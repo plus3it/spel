@@ -1,5 +1,17 @@
 ## Changelog
 
+### [2026.04.1](https://github.com/plus3it/spel/releases/tag/2026.04.1)
+
+**Released**: 2026.04.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.04.1/manifests>
+
+**Summary**:
+*   Amazon Linux 2023.11.20260413
+*   "Extra" packages updated in this release:
+    - aws-cli/2.34.33
+    - amazon-ssm-agent-3.3.4121.0-1
+
 ### [2026.03.1](https://github.com/plus3it/spel/releases/tag/2026.03.1)
 
 **Released**: 2026.03.24
