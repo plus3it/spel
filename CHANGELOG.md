@@ -1,5 +1,18 @@
 ## Changelog
 
+### [2026.05.1](https://github.com/plus3it/spel/releases/tag/2026.05.1)
+
+**Released**: 2026.05.19
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.05.19/manifests>
+
+**Summary**:
+*   Amazon Linux 2023.11.20260514
+*   Red Hat Enterprise Linux 9.8
+*   "Extra" packages updated in this release:
+    - aws-cli/2.34.49
+    - amazon-ssm-agent-3.3.4268.0-1
+
 ### [2026.04.1](https://github.com/plus3it/spel/releases/tag/2026.04.1)
 
 **Released**: 2026.04.21
