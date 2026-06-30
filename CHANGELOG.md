@@ -1,10 +1,27 @@
 ## Changelog
 
+### [2026.06.1](https://github.com/plus3it/spel/releases/tag/2026.06.1)
+
+**Released**: 2026.06.30
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.06.1/manifests>
+
+**Summary**:
+*   AlmaLinux 9.8
+*   Amazon Linux 2023.12.20260629
+*   Oracle Linux Server 9.8
+*   Rocky Linux 9.8
+*   EL9 images fix syntax-error in pre-staged fapolicyd rule
+    - https://github.com/plus3it/amigen9/pull/75
+*   "Extra" packages updated in this release:
+    - aws-cli/2.35.13
+    - amazon-ssm-agent-3.3.4793.0-1
+
 ### [2026.05.1](https://github.com/plus3it/spel/releases/tag/2026.05.1)
 
 **Released**: 2026.05.19
 
-**Manifests**: <https://github.com/plus3it/spel/blob/2026.05.19/manifests>
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.05.1/manifests>
 
 **Summary**:
 *   Amazon Linux 2023.11.20260514
