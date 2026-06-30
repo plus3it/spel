@@ -5,9 +5,6 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    ignore:
-      - dependency-name: "actions/checkout"
-        update-types: ["version-update:semver-major"]
   # Maintain dependencies for dockerfiles
   - package-ecosystem: docker
     directory: /
