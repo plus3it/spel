@@ -277,7 +277,7 @@ jobs:
 
       - name: Slack Failure Notification
         if: failure() && github.event_name == 'schedule'
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661
+        uses: rtCamp/action-slack-notify@33ca3be66c6f378fe1610fd1d5258632dbed5e58
         env:
           SLACK_TITLE: Scheduled Build Failed
           SLACK_COLOR: ${{ job.status }}
@@ -366,7 +366,7 @@ jobs:
 
       - name: Slack Notification
         if: always()
-        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661
+        uses: rtCamp/action-slack-notify@33ca3be66c6f378fe1610fd1d5258632dbed5e58
         env:
           SLACK_TITLE: Release PR Status - ${{ job.status }}
           SLACK_COLOR: ${{ job.status }}
