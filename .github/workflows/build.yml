@@ -69,6 +69,49 @@ on:
           AWS_SOURCE_AMI_FILTERS: JSON-encoded map of source AMI filters to use for each builder, e.g.
           {"alma9": {"name": "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9-hvm-*.x86_64-gp*", "owners": ["679593333241", "216406534498"]}, "amzn2023": {"name": "al2023-ami-minimal-2023.*-kernel-6.1-x86_64", "owners": ["amazon"]}}
         type: string
+  workflow_call:
+    inputs:
+      # Inputs are declared separately from workflow_dispatch because the two
+      # trigger types cannot share a single `inputs` block. Mirrors the
+      # workflow_dispatch inputs above so callers (e.g. amigen9) can invoke
+      # this workflow to test CI builds.
+      SPEL_VERSION:
+        description: 'SPEL_VERSION: Version to build'
+        type: string
+      SPEL_FORCE:
+        description: 'SPEL_FORCE: Whether to force deregister an image of the same name'
+        type: boolean
+        default: false
+      SPEL_BUILDERS:
+        description: |
+          SPEL_BUILDERS: JSON-encoded list of Packer builds to run, e.g.
+          ["amazon-ebssurrogate.minimal-alma-9-hvm", "amazon-ebssurrogate.minimal-amzn-2023-hvm"]
+        type: string
+      SPEL_PROJECTS:
+        description: |
+          SPEL_PROJECTS: JSON-encoded list of Codebuild Projects to run, e.g.
+          ["spel-commercial", "spel-govcloud"]
+        type: string
+      AMI_REGIONS:
+        description: |
+          AMI_REGIONS: JSON-encoded map of projects and regions to copy the AMI to, e.g.
+          {"spel-commercial": ["us-east-1", "us-east-2", "us-west-1", "us-west-2"], "spel-govcloud": ["us-gov-west-1", "us-gov-east-1"]}
+        type: string
+      AMIGEN8_SOURCE:
+        description: |
+          AMIGEN8_SOURCE: JSON-encoded map of Amigen8 url and/or branch, e.g.
+          {"url": "https://github.com/plus3it/amigen8.git", "branch": "master"}
+        type: string
+      AMIGEN9_SOURCE:
+        description: |
+          AMIGEN9_SOURCE: JSON-encoded map of Amigen9 url and/or branch, e.g.
+          {"url": "https://github.com/plus3it/amigen9.git", "branch": "main"}
+        type: string
+      AWS_SOURCE_AMI_FILTERS:
+        description: |
+          AWS_SOURCE_AMI_FILTERS: JSON-encoded map of source AMI filters to use for each builder, e.g.
+          {"alma9": {"name": "AlmaLinux OS 9.* x86_64-*,spel-bootstrap-alma-9-hvm-*.x86_64-gp*", "owners": ["679593333241", "216406534498"]}, "amzn2023": {"name": "al2023-ami-minimal-2023.*-kernel-6.1-x86_64", "owners": ["amazon"]}}
+        type: string
 
 permissions:
   contents: read
@@ -76,6 +119,13 @@ permissions:
 jobs:
   trigger:
     runs-on: ubuntu-latest
+    # Note: github.event_name is NOT 'workflow_call' when this workflow is invoked
+    # as a reusable workflow; it retains the event that triggered the *caller*
+    # workflow (e.g. pull_request_review, workflow_dispatch). See
+    # https://github.com/actions/runner/issues/3146. Callers like amigen9 are
+    # expected to use the same pull_request_review '/build' comment or
+    # workflow_dispatch triggers, so those clauses already cover workflow_call
+    # invocations without a dedicated check.
     if: contains(github.event.review.body, '/build') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     env:
       SPEL_CI: ${{ github.event_name != 'schedule' }}
