@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2026.09.1](https://github.com/plus3it/spel/releases/tag/2026.09.1)
+
+**Released**: 2026.09.21
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.09.1/manifests>
+
+**Summary**:
+
+*   EL9 images enable cloud-init services explicitly, rather than relying on another
+    package declaring a "Wants" for cloud-init
+    - https://github.com/plus3it/amigen9/pull/78
+*   Amazon Linux 2023.12.20260918
+*   "Extra" packages updated in this release:
+    - aws-cli/2.37.0
+    - amazon-ssm-agent-3.3.5226.0-1
+    - ec2-hibinit-agent-1.0.11-0
+
 ### [2026.08.1](https://github.com/plus3it/spel/releases/tag/2026.08.1)
 
 **Released**: 2026.08.21

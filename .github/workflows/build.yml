@@ -3,18 +3,18 @@ on:
   pull_request_review:
     types: [submitted]
   schedule:
-    - cron: '15 12 21 10 *'  # 21 October 2025
-    - cron: '15 12 18 11 *'  # 18 November 2025
-    - cron: '15 12 23 12 *'  # 23 December 2025
-    - cron: '15 12 20 01 *'  # 20 January 2026
-    - cron: '15 12 17 02 *'  # 17 February 2026
-    - cron: '15 12 24 03 *'  # 24 March 2026
-    - cron: '15 12 21 04 *'  # 21 April 2026
-    - cron: '15 12 19 05 *'  # 19 May 2026
-    - cron: '15 12 23 06 *'  # 23 June 2026
-    - cron: '15 12 21 07 *'  # 21 July 2026
-    - cron: '15 12 18 08 *'  # 18 August 2026
-    - cron: '15 12 22 09 *'  # 22 September 2026
+    - cron: '15 12 20 10 *'  # 20 October 2026
+    - cron: '15 12 17 11 *'  # 17 November 2026
+    - cron: '15 12 22 12 *'  # 22 December 2026
+    - cron: '15 12 19 01 *'  # 19 January 2027
+    - cron: '15 12 16 02 *'  # 16 February 2027
+    - cron: '15 12 23 03 *'  # 23 March 2027
+    - cron: '15 12 20 04 *'  # 20 April 2027
+    - cron: '15 12 18 05 *'  # 18 May 2027
+    - cron: '15 12 22 06 *'  # 22 June 2027
+    - cron: '15 12 20 07 *'  # 20 July 2027
+    - cron: '15 12 24 08 *'  # 24 August 2027
+    - cron: '15 12 21 09 *'  # 21 September 2027
   workflow_dispatch:
     inputs:
       # Currently limited to only 10 inputs. Workaround is to use JSON as the input and parse it in a job.
