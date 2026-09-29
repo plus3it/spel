@@ -275,8 +275,14 @@ jobs:
       PKR_VAR_aws_source_ami_filter_rhel9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_rhel9_hvm }}
       PKR_VAR_aws_source_ami_filter_rl9_hvm: ${{ needs.trigger.outputs.aws_source_ami_filter_rl9_hvm }}
     steps:
+      # Reusable workflows are checked out by default at the caller's repo
+      # and sha, not spel's own. Explicitly check out the repo/commit that
+      # defines this job so Makefile.spel and other build assets are present.
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
 
       - run: make -f Makefile.spel install
 
@@ -366,8 +372,14 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      # Reusable workflows are checked out by default at the caller's repo
+      # and sha, not spel's own. Explicitly check out the repo/commit that
+      # defines this job so the manifests/ directory being committed is spel's.
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
 
       - name: Retrieve all manifests
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
