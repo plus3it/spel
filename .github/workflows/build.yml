@@ -306,7 +306,7 @@ jobs:
           ) | jq -s 'add' | tee "images-${{ matrix.project }}-${{ matrix.builder }}.json"
 
       - name: Upload images list
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: images-${{ matrix.project }}-${{ matrix.builder }}
           path: images-${{ matrix.project }}-${{ matrix.builder }}.json
@@ -315,7 +315,7 @@ jobs:
 
       # Save manifests
       - name: Upload manifest
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: manifest-${{ matrix.project }}-${{ matrix.builder }}
           path: |
@@ -353,7 +353,7 @@ jobs:
           merge-multiple: true
 
       - name: Upload all manifests
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: manifests-${{ needs.trigger.outputs.version}}
           path: |
