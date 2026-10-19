@@ -201,7 +201,7 @@ jobs:
           ci='${{ inputs.SPEL_CI }}'
           force='${{ inputs.SPEL_FORCE }}'
           projects='${{ inputs.SPEL_PROJECTS }}'
-          version="${SPEL_VERSION:-${{ github.event_name == 'schedule' && '$(date +%Y.%m.1)' || '$(date +%Y.%m.dev%s)' }}}"
+          version="${SPEL_VERSION:-${{ github.event_name == 'schedule' && '$(date +%Y.%m.1)' || format('$(date +%Y.%m).dev{0}', github.run_id) }}}"
 
           ami_groups='${{ inputs.AMI_GROUPS }}'
           ami_regions='${{ inputs.AMI_REGIONS }}'
@@ -249,6 +249,12 @@ jobs:
       - codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
         instance-size:small
     needs: trigger
+    # Never build or publish the same image from two runs at once. A second run
+    # waits for the running job to finish. Never cancel a running job, packer
+    # must finish normally to clean up its instance, security group, and keypair.
+    concurrency:
+      group: ${{ github.workflow }}-${{ needs.trigger.outputs.version }}-${{ matrix.project }}-${{ matrix.builder }}
+      cancel-in-progress: false
     strategy:
       fail-fast: false
       matrix:
@@ -259,8 +265,15 @@ jobs:
       SPEL_CI: ${{ needs.trigger.outputs.ci }}
       SPEL_VERSION: ${{ needs.trigger.outputs.version }}
       SPEL_BUILDERS: ${{ matrix.builder }}
-      PKR_VAR_ami_groups: ${{ needs.trigger.outputs.ami_groups }}
-      PKR_VAR_ami_regions: ${{ toJson(fromJSON(needs.trigger.outputs.ami_regions)[matrix.project]) }}
+      # Packer builds a private AMI in the build region only. These override the
+      # values set in the CodeBuild project. After the AMI passes the tests, the
+      # publish step copies it to AMI_REGIONS and shares it with AMI_GROUPS. CI
+      # builds are deleted after the tests, so they are never copied or shared.
+      PKR_VAR_aws_ami_groups: '[]'
+      PKR_VAR_aws_ami_regions: '[]'
+      SPEL_AMI_GROUPS: ${{ needs.trigger.outputs.ci == 'true' && '[]' || needs.trigger.outputs.ami_groups }}
+      SPEL_AMI_REGIONS: ${{ needs.trigger.outputs.ci == 'true' && '[]' || toJson(fromJSON(needs.trigger.outputs.ami_regions)[matrix.project]) }}
+      SPEL_IMAGES_FILE: images-${{ matrix.project }}-${{ matrix.builder }}.json
       PKR_VAR_amigen8_source_url: ${{ needs.trigger.outputs.amigen8_source_url }}
       PKR_VAR_amigen8_source_branch: ${{ needs.trigger.outputs.amigen8_source_branch }}
       PKR_VAR_amigen9_source_url: ${{ needs.trigger.outputs.amigen9_source_url }}
@@ -286,24 +299,26 @@ jobs:
 
       - run: make -f Makefile.spel install
 
+      # Builds and tests are idempotent. On a re-run, an AMI that already passed
+      # the tests is not rebuilt, and an AMI that failed is replaced.
       - run: make -f Makefile.spel build
 
-      - name: List built AMIs
-        run: |
-          (
-            for region in $(jq -c -r '.[]' <<< "$PKR_VAR_ami_regions")
-            do
-              BUILD_NAME="${SPEL_BUILDERS//*./}"
-              AMI_NAME="${SPEL_IDENTIFIER}-${BUILD_NAME}-${{ needs.trigger.outputs.version}}.*"
-              aws ec2 describe-images \
-                --profile "$SPEL_IDENTIFIER" \
-                --region "$region" \
-                --owners self \
-                --filters "Name=name,Values=${AMI_NAME}" \
-                --query "sort_by(Images[], &Name)[*].{Name:Name, ImageId:ImageId, Region:'$region'}" \
-                --output json
-            done
-          ) | jq -s 'add' | tee "images-${{ matrix.project }}-${{ matrix.builder }}.json"
+      # Save manifests. A re-run that skipped the build has no manifest, and GitHub
+      # deletes the artifacts of the earlier attempt. The release PR keeps the
+      # manifests already in the release branch.
+      - name: Upload manifest
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: manifest-${{ matrix.project }}-${{ matrix.builder }}
+          path: |
+            .spel/*/*.manifest.txt
+          if-no-files-found: warn
+          include-hidden-files: true
+          overwrite: true
+          retention-days: 7
+
+      # Copies the AMI to all regions, then shares it. Resumes on a re-run.
+      - run: make -f Makefile.spel publish
 
       - name: Upload images list
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -311,17 +326,7 @@ jobs:
           name: images-${{ matrix.project }}-${{ matrix.builder }}
           path: images-${{ matrix.project }}-${{ matrix.builder }}.json
           if-no-files-found: error
-          retention-days: 7
-
-      # Save manifests
-      - name: Upload manifest
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: manifest-${{ matrix.project }}-${{ matrix.builder }}
-          path: |
-            .spel/*/*.manifest.txt
-          if-no-files-found: error
-          include-hidden-files: true
+          overwrite: true
           retention-days: 7
 
       # Cleanup steps

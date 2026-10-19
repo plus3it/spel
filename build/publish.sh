@@ -27,7 +27,7 @@ AMI_USERS="${SPEL_AMI_USERS:-[]}"
 PUBLISH_TIMEOUT="${SPEL_PUBLISH_TIMEOUT:-3600}"
 IMAGES_FILE="${SPEL_IMAGES_FILE:-.spel/${SPEL_VERSION:?}/images.json}"
 
-TARGET_REGIONS_LIST=$(jq -r --arg source "$SOURCE_REGION" '.[] | select(. != $source)' <<< "$AMI_REGIONS")
+TARGET_REGIONS_LIST=$(jq -r --arg source "$SOURCE_REGION" '(. // [])[] | select(. != $source)' <<< "$AMI_REGIONS")
 mapfile -t TARGET_REGIONS <<< "$TARGET_REGIONS_LIST"
 [[ -z "${TARGET_REGIONS[0]}" ]] && TARGET_REGIONS=()
 

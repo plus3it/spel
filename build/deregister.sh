@@ -10,7 +10,7 @@ echo "==========STARTING DEREGISTER=========="
 # in SPEL_AMI_REGIONS (JSON-encoded list). Public AMIs are skipped, and reported
 # as an error, unless SPEL_DEREGISTER_PUBLIC=true.
 
-REGIONS_LIST=$(jq -r --arg source "${AWS_REGION:?}" '[$source] + . | unique | .[]' <<< "${SPEL_AMI_REGIONS:-[]}")
+REGIONS_LIST=$(jq -r --arg source "${AWS_REGION:?}" '[$source] + (. // []) | unique | .[]' <<< "${SPEL_AMI_REGIONS:-[]}")
 mapfile -t REGIONS <<< "$REGIONS_LIST"
 
 FAILED=()
