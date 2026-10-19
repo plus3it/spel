@@ -47,6 +47,53 @@ Currently, this project links to a couple of services. When submitting a PR:
 
 
 
+## Building and Releasing AMIs
+
+The [Build images](../.github/workflows/build.yml) workflow builds the AMIs. It
+runs monthly on a schedule, on a PR review containing `/build`, or on demand
+with `workflow_dispatch`. Each platform and partition is a separate job, that:
+
+1. Builds a private AMI in the build region of the CodeBuild project
+2. Tests the AMI, and tags it `spel:validated=true` if the tests pass. If the
+    tests fail, the AMI is deregistered
+3. Copies the AMI to `AMI_REGIONS`, and shares it with `AMI_GROUPS` in every
+    region. Sharing is done last, so a failure leaves the AMI private
+4. Deletes the AMI instead, when `SPEL_CI` is `true`
+
+The scheduled build then creates the release PR. If any job failed, the PR is a
+draft that includes the images that succeeded.
+
+Every step checks the state of the AMI in AWS first, so jobs can be re-run
+safely. A validated or published AMI is not rebuilt, a failed AMI is replaced,
+and a partial copy resumes.
+
+### Retrying a failed build
+
+* **Transient failure**: Use "Re-run failed jobs". Only the failed jobs run
+  again, and the release PR is updated and marked ready when all jobs succeed.
+* **Fix required**: Open a separate PR with the fix, in the project that needs
+  it, and merge it. Do not commit the fix to the release PR. The workflow
+  recreates the release branch from `master` on every run, and never builds
+  from it. How to pick up the fix depends on where it was merged:
+  * **amigen8 or amigen9**: The build clones the amigen branch (`master` for
+    amigen8, `main` for amigen9) when it runs. After the fix merges, use
+    "Re-run failed jobs".
+  * **spel**: A re-run uses the spel commit of the original run, so it does
+    not include the fix. After the fix merges to `master`, run the workflow
+    from `master` with `workflow_dispatch`, using the same `SPEL_VERSION`,
+    `SPEL_CI=false`, and `SPEL_RELEASE=true`. Set `SPEL_BUILDERS` to the
+    failed builds, or leave the default to run all builds and skip the ones
+    that are done. The existing release PR is updated.
+* **Rebuild a validated, unpublished AMI**: Set `SPEL_FORCE=true`. This does not
+  replace a published AMI.
+
+### Removing a published AMI
+
+Run the [Deregister images](../.github/workflows/deregister.yml) workflow with
+the `SPEL_VERSION` and `SPEL_BUILDERS` to remove. It deregisters the AMIs and
+their snapshots from every region. Set `SPEL_DEREGISTER_PUBLIC=true` to remove
+public AMIs. The images can then be rebuilt as described above.
+
 ## Submitting Changes
 
 Please send a GitHub Pull Request with a clear list of what changes are being offered (read more about [pull requests](http://help.github.com/pull-requests/)).

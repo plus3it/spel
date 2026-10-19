@@ -249,11 +249,12 @@ jobs:
       - codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
         instance-size:small
     needs: trigger
-    # Never build or publish the same image from two runs at once. A second run
-    # waits for the running job to finish. Never cancel a running job, packer
-    # must finish normally to clean up its instance, security group, and keypair.
+    # Never build, publish, or deregister the same image from two runs at once.
+    # The group is shared with the deregister workflow. A second run waits for
+    # the running job to finish. Never cancel a running job, packer must finish
+    # normally to clean up its instance, security group, and keypair.
     concurrency:
-      group: ${{ github.workflow }}-${{ needs.trigger.outputs.version }}-${{ matrix.project }}-${{ matrix.builder }}
+      group: spel-${{ needs.trigger.outputs.version }}-${{ matrix.project }}-${{ matrix.builder }}
       cancel-in-progress: false
     strategy:
       fail-fast: false

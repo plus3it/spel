@@ -1,0 +1,61 @@
+name: Deregister images
+on:
+  workflow_dispatch:
+    inputs:
+      SPEL_VERSION:
+        description: 'SPEL_VERSION: Version of the images to deregister'
+        type: string
+        required: true
+      SPEL_BUILDERS:
+        description: |
+          SPEL_BUILDERS: JSON-encoded list of Packer builds to deregister, e.g.
+          ["amazon-ebssurrogate.minimal-rhel-9-hvm"]
+        type: string
+        required: true
+      SPEL_PROJECTS:
+        description: |
+          SPEL_PROJECTS: JSON-encoded list of Codebuild Projects to run, e.g.
+          ["spel-commercial", "spel-govcloud"]
+        type: string
+        default: '["spel-commercial", "spel-govcloud"]'
+      AMI_REGIONS:
+        description: |
+          AMI_REGIONS: JSON-encoded map of projects and regions to deregister the AMI from.
+          The build region of each project is always included.
+        type: string
+        default: '{"spel-commercial": ["us-east-1", "us-east-2", "us-west-1", "us-west-2"], "spel-govcloud": ["us-gov-west-1", "us-gov-east-1"]}'
+      SPEL_DEREGISTER_PUBLIC:
+        description: 'SPEL_DEREGISTER_PUBLIC: Whether to also deregister public images (true), or only private images (false)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  deregister:
+    runs-on:
+      - codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
+        instance-size:small
+    # Shared with the build workflow, so an image is never deregistered while it
+    # is being built or published
+    concurrency:
+      group: spel-${{ inputs.SPEL_VERSION }}-${{ matrix.project }}-${{ matrix.builder }}
+      cancel-in-progress: false
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON(inputs.SPEL_PROJECTS) }}
+        builder: ${{ fromJSON(inputs.SPEL_BUILDERS) }}
+    env:
+      SPEL_VERSION: ${{ inputs.SPEL_VERSION }}
+      SPEL_BUILDERS: ${{ matrix.builder }}
+      SPEL_AMI_REGIONS: ${{ toJson(fromJSON(inputs.AMI_REGIONS)[matrix.project]) }}
+      SPEL_DEREGISTER_PUBLIC: ${{ inputs.SPEL_DEREGISTER_PUBLIC }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - run: make -f Makefile.spel install
+
+      - run: make -f Makefile.spel deregister
