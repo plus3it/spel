@@ -421,6 +421,7 @@ jobs:
         id: pr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
         with:
+          base: master
           branch: 'release/${{ needs.trigger.outputs.version }}'
           title: 'Releases ${{ needs.trigger.outputs.version }}'
           commit-message: 'Releases ${{ needs.trigger.outputs.version }}'
