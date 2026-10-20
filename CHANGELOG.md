@@ -1,5 +1,21 @@
 ## Changelog
 
+### [2026.10.1](https://github.com/plus3it/spel/releases/tag/2026.10.1)
+
+**Released**: 2026.10.20
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.10.1/manifests>
+
+**Summary**:
+
+*   Amazon Linux 2023.12.20261016
+*   "Extra" packages updated in this release:
+    - aws-cli/2.38.2
+    - amazon-ssm-agent-3.3.5390.0-1
+    - ec2-hibinit-agent-1.0.12-0
+    - ec2-utils-2.3.0-1
+
+
 ### [2026.09.1](https://github.com/plus3it/spel/releases/tag/2026.09.1)
 
 **Released**: 2026.09.21

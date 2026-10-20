@@ -1,5 +1,5 @@
 AlmaLinux 9.8 (Olive Jaguar)
-aws-cli/2.37.0 Python/3.14.6 Linux/5.14.0-687.42.1.el9_8.x86_64 exe/x86_64.almalinux.9
+aws-cli/2.38.2 Python/3.14.6 Linux/5.14.0-687.53.1.el9_8.x86_64 exe/x86_64.almalinux.9
 aws-cfn-bootstrap 2.0
 acl-2.4.0-1.el9_8.x86_64
 acpid-2.0.32-7.el9.x86_64
@@ -7,7 +7,7 @@ almalinux-gpg-keys-9.8-1.el9.x86_64
 almalinux-release-9.8-1.el9.x86_64
 almalinux-repos-9.8-1.el9.x86_64
 alternatives-1.24-2.el9.x86_64
-amazon-ssm-agent-3.3.5226.0-1.x86_64
+amazon-ssm-agent-3.3.5390.0-1.x86_64
 attr-2.6.0-1.el9_8.x86_64
 audit-3.1.5-8.el9.x86_64
 audit-libs-3.1.5-8.el9.x86_64
@@ -36,7 +36,7 @@ crontabs-1.11-27.20190603git.el9_0.noarch
 crypto-policies-20260224-1.gitea0f072.el9_8.noarch
 crypto-policies-scripts-20260224-1.gitea0f072.el9_8.noarch
 cryptsetup-libs-2.8.1-3.el9.x86_64
-curl-7.76.1-40.el9_8.7.x86_64
+curl-7.76.1-40.el9_8.8.x86_64
 cyrus-sasl-lib-2.1.27-22.el9.x86_64
 dbus-1.12.20-8.el9.x86_64
 dbus-broker-28-9.el9_8.x86_64
@@ -62,8 +62,8 @@ dracut-network-057-120.git20260728.el9_8.x86_64
 dracut-squash-057-120.git20260728.el9_8.x86_64
 e2fsprogs-1.46.5-8.el9.x86_64
 e2fsprogs-libs-1.46.5-8.el9.x86_64
-ec2-hibinit-agent-1.0.11-0.el9.x86_64
-ec2-utils-2.2.0-1.el9.0.2.x86_64
+ec2-hibinit-agent-1.0.12-0.el9.x86_64
+ec2-utils-2.3.0-1.el9.0.1.x86_64
 efibootmgr-16-12.el9.x86_64
 efi-filesystem-6-4.el9.noarch
 efivar-libs-38-3.el9.x86_64
@@ -72,7 +72,7 @@ elfutils-default-yama-scope-0.194-1.el9.alma.1.noarch
 elfutils-libelf-0.194-1.el9.alma.1.x86_64
 elfutils-libs-0.194-1.el9.alma.1.x86_64
 ethtool-6.15-2.el9.x86_64
-expat-2.5.0-6.el9_8.3.x86_64
+expat-2.5.0-6.el9_8.5.x86_64
 file-5.39-17.el9.x86_64
 file-libs-5.39-17.el9.x86_64
 filesystem-3.16-5.el9.x86_64
@@ -83,8 +83,8 @@ flashrom-1.2-10.el9.x86_64
 fuse-libs-2.9.9-17.el9.x86_64
 fwupd-2.0.19-2.el9_8.alma.1.x86_64
 fwupd-plugin-flashrom-2.0.19-2.el9_8.alma.1.x86_64
-gawk-5.1.0-6.el9.x86_64
-gawk-all-langpacks-5.1.0-6.el9.x86_64
+gawk-5.1.0-6.el9_8.1.x86_64
+gawk-all-langpacks-5.1.0-6.el9_8.1.x86_64
 gdbm-libs-1.23-1.el9.x86_64
 gdisk-1.0.7-5.el9.x86_64
 geolite2-city-20191217-6.el9.noarch
@@ -92,13 +92,13 @@ geolite2-country-20191217-6.el9.noarch
 gettext-0.21-8.el9.x86_64
 gettext-libs-0.21-8.el9.x86_64
 glib2-2.68.4-19.el9_8.10.x86_64
-glibc-2.34-275.el9_8.x86_64
-glibc-common-2.34-275.el9_8.x86_64
-glibc-gconv-extra-2.34-275.el9_8.x86_64
-glibc-minimal-langpack-2.34-275.el9_8.x86_64
+glibc-2.34-283.el9_8.x86_64
+glibc-common-2.34-283.el9_8.x86_64
+glibc-gconv-extra-2.34-283.el9_8.x86_64
+glibc-minimal-langpack-2.34-283.el9_8.x86_64
 gmp-6.2.0-13.el9.x86_64
 gnupg2-2.3.3-5.el9_7.x86_64
-gnutls-3.8.10-8.el9_8.x86_64
+gnutls-3.8.10-9.el9_8.x86_64
 gobject-introspection-1.68.0-11.el9.x86_64
 gpgme-1.15.1-6.el9.x86_64
 gpg-pubkey-b86b3716-61e69f29
@@ -138,12 +138,12 @@ json-glib-1.6.6-1.el9.x86_64
 kbd-2.4.0-12.el9_8.x86_64
 kbd-legacy-2.4.0-12.el9_8.noarch
 kbd-misc-2.4.0-12.el9_8.noarch
-kernel-5.14.0-687.49.1.el9_8.x86_64
-kernel-core-5.14.0-687.49.1.el9_8.x86_64
-kernel-modules-5.14.0-687.49.1.el9_8.x86_64
-kernel-modules-core-5.14.0-687.49.1.el9_8.x86_64
-kernel-tools-5.14.0-687.49.1.el9_8.x86_64
-kernel-tools-libs-5.14.0-687.49.1.el9_8.x86_64
+kernel-5.14.0-687.58.1.el9_8.x86_64
+kernel-core-5.14.0-687.58.1.el9_8.x86_64
+kernel-modules-5.14.0-687.58.1.el9_8.x86_64
+kernel-modules-core-5.14.0-687.58.1.el9_8.x86_64
+kernel-tools-5.14.0-687.58.1.el9_8.x86_64
+kernel-tools-libs-5.14.0-687.58.1.el9_8.x86_64
 kexec-tools-2.0.29-17.el9.x86_64
 keyutils-1.6.3-1.el9.x86_64
 keyutils-libs-1.6.3-1.el9.x86_64
@@ -169,7 +169,7 @@ libblockdev-part-2.28-16.el9.x86_64
 libblockdev-swap-2.28-16.el9.x86_64
 libblockdev-utils-2.28-16.el9.x86_64
 libbpf-1.5.0-3.el9.x86_64
-libbrotli-1.0.9-9.el9_7.x86_64
+libbrotli-1.0.9-10.el9_8.x86_64
 libbytesize-2.5-3.el9.x86_64
 libcap-2.48-10.el9_8.1.x86_64
 libcap-ng-0.8.2-7.el9.x86_64
@@ -178,7 +178,7 @@ libcbor-0.7.0-5.el9.x86_64
 libcollection-0.7.0-53.el9.x86_64
 libcom_err-1.46.5-8.el9.x86_64
 libcomps-0.1.18-1.el9.x86_64
-libcurl-7.76.1-40.el9_8.7.x86_64
+libcurl-7.76.1-40.el9_8.8.x86_64
 libdaemon-0.14-23.el9.x86_64
 libdb-5.3.28-57.el9_6.x86_64
 libdhash-0.5.0-53.el9.x86_64
@@ -203,7 +203,7 @@ libjcat-0.1.6-3.el9.x86_64
 libkcapi-1.4.0-3.el9_8.x86_64
 libkcapi-hmaccalc-1.4.0-3.el9_8.x86_64
 libksba-1.5.1-7.el9.x86_64
-libldb-4.23.5-11.el9_8.x86_64
+libldb-4.23.5-12.el9_8.x86_64
 libmaxminddb-1.5.2-4.el9.x86_64
 libmnl-1.0.4-16.el9_4.x86_64
 libmodulemd-2.13.0-2.el9.x86_64
@@ -215,7 +215,7 @@ libnftnl-1.2.6-4.el9_4.x86_64
 libnghttp2-1.43.0-6.el9_8.2.x86_64
 libnl3-3.11.0-1.el9.x86_64
 libnl3-cli-3.11.0-1.el9.x86_64
-libnsl-2.34-275.el9_8.x86_64
+libnsl-2.34-283.el9_8.x86_64
 libnvme-1.16.1-3.el9_8.x86_64
 libpath_utils-0.2.1-53.el9.x86_64
 libpciaccess-0.16-7.el9.x86_64
@@ -257,12 +257,12 @@ libuuid-2.37.4-25.el9.x86_64
 libverto-0.3.2-3.el9.x86_64
 libxcrypt-4.4.18-3.el9.x86_64
 libxcrypt-compat-4.4.18-3.el9.x86_64
-libxml2-2.9.13-14.el9_8.4.x86_64
+libxml2-2.9.13-14.el9_8.5.x86_64
 libxmlb-0.3.24-1.el9.x86_64
 libyaml-0.2.5-7.el9.x86_64
 libzstd-1.5.5-1.el9.x86_64
-linux-firmware-20260804-161.2.el9_8.noarch
-linux-firmware-whence-20260804-161.2.el9_8.noarch
+linux-firmware-20260827-161.3.el9_8.noarch
+linux-firmware-whence-20260827-161.3.el9_8.noarch
 lmdb-libs-0.9.29-3.el9.x86_64
 logrotate-3.18.0-12.el9.x86_64
 lshw-B.02.20-4.el9.x86_64
@@ -273,7 +273,7 @@ lvm2-libs-2.03.33-4.el9_8.1.x86_64
 lz4-libs-1.9.3-5.el9.x86_64
 lzo-2.10-7.el9.x86_64
 man-db-2.9.3-9.el9.x86_64
-mdadm-4.4-4.el9_8.1.x86_64
+mdadm-4.4-4.el9_8.2.x86_64
 microcode_ctl-20260210-1.20260812.1.el9_8.noarch
 mokutil-0.7.2-4.el9.x86_64
 mpfr-4.1.0-10.el9.x86_64
@@ -297,12 +297,12 @@ nss-util-3.124.0-5.el9_6.x86_64
 numactl-libs-2.0.19-3.el9.x86_64
 oniguruma-6.9.6-1.el9.6.x86_64
 openldap-2.6.8-4.el9.x86_64
-openssh-9.9p1-11.el9_8.alma.1.x86_64
-openssh-clients-9.9p1-11.el9_8.alma.1.x86_64
-openssh-server-9.9p1-11.el9_8.alma.1.x86_64
-openssl-3.5.8-1.el9_8.x86_64
-openssl-fips-provider-3.5.8-1.el9_8.x86_64
-openssl-libs-3.5.8-1.el9_8.x86_64
+openssh-9.9p1-12.el9_8.alma.1.x86_64
+openssh-clients-9.9p1-12.el9_8.alma.1.x86_64
+openssh-server-9.9p1-12.el9_8.alma.1.x86_64
+openssl-3.5.8-2.el9_8.x86_64
+openssl-fips-provider-3.5.8-2.el9_8.x86_64
+openssl-libs-3.5.8-2.el9_8.x86_64
 os-prober-1.77-12.el9_5.x86_64
 p11-kit-0.26.4-1.el9_8.x86_64
 p11-kit-trust-0.26.4-1.el9_8.x86_64
@@ -310,8 +310,8 @@ pam-1.5.1-28.el9_8.1.x86_64
 parted-3.5-3.el9.x86_64
 passwd-0.80-12.el9.x86_64
 pciutils-libs-3.7.0-7.el9.x86_64
-pcre2-10.40-6.el9.x86_64
-pcre2-syntax-10.40-6.el9.noarch
+pcre2-10.40-7.el9_8.x86_64
+pcre2-syntax-10.40-7.el9_8.noarch
 pcre-8.44-4.el9.x86_64
 pigz-2.8-1.el9.x86_64
 policycoreutils-3.6-5.el9.x86_64
@@ -385,8 +385,8 @@ rpm-sign-libs-4.16.1.3-40.el9.x86_64
 rsyslog-8.2510.0-2.el9_8.2.x86_64
 rsyslog-logrotate-8.2510.0-2.el9_8.2.x86_64
 sed-4.8-10.el9.x86_64
-selinux-policy-38.1.75-2.el9_8.noarch
-selinux-policy-targeted-38.1.75-2.el9_8.noarch
+selinux-policy-38.1.75-2.el9_8.1.noarch
+selinux-policy-targeted-38.1.75-2.el9_8.1.noarch
 setup-2.13.7-10.el9.noarch
 sg3_utils-1.47-10.el9_8.1.x86_64
 sg3_utils-libs-1.47-10.el9_8.1.x86_64
@@ -403,7 +403,7 @@ squashfs-tools-4.4-10.git1.el9.x86_64
 sssd-client-2.9.8-4.el9_8.1.x86_64
 sssd-common-2.9.8-4.el9_8.1.x86_64
 sssd-kcm-2.9.8-4.el9_8.1.x86_64
-sudo-1.9.17p2-3.el9_8.1.x86_64
+sudo-1.9.17p2-3.el9_8.3.x86_64
 systemd-252-67.el9_8.6.alma.1.x86_64
 systemd-libs-252-67.el9_8.6.alma.1.x86_64
 systemd-pam-252-67.el9_8.6.alma.1.x86_64
@@ -412,13 +412,13 @@ systemd-udev-252-67.el9_8.6.alma.1.x86_64
 tar-1.34-13.el9_8.x86_64
 teamd-1.31-16.el9_1.x86_64
 tpm2-tss-3.2.3-1.el9.x86_64
-tzdata-2026c-1.el9_8.noarch
+tzdata-2026e-1.el9_8.noarch
 udisks2-2.9.4-12.el9_7.x86_64
 unzip-6.0-60.el9.x86_64
 userspace-rcu-0.12.1-6.el9.x86_64
 util-linux-2.37.4-25.el9.x86_64
 util-linux-core-2.37.4-25.el9.x86_64
-vim-minimal-8.2.2637-26.el9_8.21.x86_64
+vim-minimal-8.2.2637-26.el9_8.23.x86_64
 volume_key-libs-0.3.12-17.el9.x86_64
 which-2.21-30.el9_6.x86_64
 xfsprogs-6.4.0-7.el9.x86_64
