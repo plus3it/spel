@@ -201,7 +201,7 @@ jobs:
           ci='${{ inputs.SPEL_CI }}'
           force='${{ inputs.SPEL_FORCE }}'
           projects='${{ inputs.SPEL_PROJECTS }}'
-          version="${SPEL_VERSION:-${{ github.event_name == 'schedule' && '$(date +%Y.%m.1)' || '$(date +%Y.%m.dev%s)' }}}"
+          version="${SPEL_VERSION:-${{ github.event_name == 'schedule' && '$(date +%Y.%m.1)' || format('$(date +%Y.%m).dev{0}', github.run_id) }}}"
 
           ami_groups='${{ inputs.AMI_GROUPS }}'
           ami_regions='${{ inputs.AMI_REGIONS }}'
@@ -249,6 +249,13 @@ jobs:
       - codebuild-${{ matrix.project }}-${{ github.run_id }}-${{ github.run_attempt }}
         instance-size:small
     needs: trigger
+    # Never build, publish, or deregister the same image from two runs at once.
+    # The group is shared with the deregister workflow. A second run waits for
+    # the running job to finish. Never cancel a running job, packer must finish
+    # normally to clean up its instance, security group, and keypair.
+    concurrency:
+      group: spel-${{ needs.trigger.outputs.version }}-${{ matrix.project }}-${{ matrix.builder }}
+      cancel-in-progress: false
     strategy:
       fail-fast: false
       matrix:
@@ -259,8 +266,15 @@ jobs:
       SPEL_CI: ${{ needs.trigger.outputs.ci }}
       SPEL_VERSION: ${{ needs.trigger.outputs.version }}
       SPEL_BUILDERS: ${{ matrix.builder }}
-      PKR_VAR_ami_groups: ${{ needs.trigger.outputs.ami_groups }}
-      PKR_VAR_ami_regions: ${{ toJson(fromJSON(needs.trigger.outputs.ami_regions)[matrix.project]) }}
+      # Packer builds a private AMI in the build region only. These override the
+      # values set in the CodeBuild project. After the AMI passes the tests, the
+      # publish step copies it to AMI_REGIONS and shares it with AMI_GROUPS. CI
+      # builds are deleted after the tests, so they are never copied or shared.
+      PKR_VAR_aws_ami_groups: '[]'
+      PKR_VAR_aws_ami_regions: '[]'
+      SPEL_AMI_GROUPS: ${{ needs.trigger.outputs.ci == 'true' && '[]' || needs.trigger.outputs.ami_groups }}
+      SPEL_AMI_REGIONS: ${{ needs.trigger.outputs.ci == 'true' && '[]' || toJson(fromJSON(needs.trigger.outputs.ami_regions)[matrix.project]) }}
+      SPEL_IMAGES_FILE: images-${{ matrix.project }}-${{ matrix.builder }}.json
       PKR_VAR_amigen8_source_url: ${{ needs.trigger.outputs.amigen8_source_url }}
       PKR_VAR_amigen8_source_branch: ${{ needs.trigger.outputs.amigen8_source_branch }}
       PKR_VAR_amigen9_source_url: ${{ needs.trigger.outputs.amigen9_source_url }}
@@ -286,24 +300,26 @@ jobs:
 
       - run: make -f Makefile.spel install
 
+      # Builds and tests are idempotent. On a re-run, an AMI that already passed
+      # the tests is not rebuilt, and an AMI that failed is replaced.
       - run: make -f Makefile.spel build
 
-      - name: List built AMIs
-        run: |
-          (
-            for region in $(jq -c -r '.[]' <<< "$PKR_VAR_ami_regions")
-            do
-              BUILD_NAME="${SPEL_BUILDERS//*./}"
-              AMI_NAME="${SPEL_IDENTIFIER}-${BUILD_NAME}-${{ needs.trigger.outputs.version}}.*"
-              aws ec2 describe-images \
-                --profile "$SPEL_IDENTIFIER" \
-                --region "$region" \
-                --owners self \
-                --filters "Name=name,Values=${AMI_NAME}" \
-                --query "sort_by(Images[], &Name)[*].{Name:Name, ImageId:ImageId, Region:'$region'}" \
-                --output json
-            done
-          ) | jq -s 'add' | tee "images-${{ matrix.project }}-${{ matrix.builder }}.json"
+      # Save manifests. A re-run that skipped the build has no manifest, and GitHub
+      # deletes the artifacts of the earlier attempt. The release PR keeps the
+      # manifests already in the release branch.
+      - name: Upload manifest
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: manifest-${{ matrix.project }}-${{ matrix.builder }}
+          path: |
+            .spel/*/*.manifest.txt
+          if-no-files-found: warn
+          include-hidden-files: true
+          overwrite: true
+          retention-days: 7
+
+      # Copies the AMI to all regions, then shares it. Resumes on a re-run.
+      - run: make -f Makefile.spel publish
 
       - name: Upload images list
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -311,17 +327,7 @@ jobs:
           name: images-${{ matrix.project }}-${{ matrix.builder }}
           path: images-${{ matrix.project }}-${{ matrix.builder }}.json
           if-no-files-found: error
-          retention-days: 7
-
-      # Save manifests
-      - name: Upload manifest
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: manifest-${{ matrix.project }}-${{ matrix.builder }}
-          path: |
-            .spel/*/*.manifest.txt
-          if-no-files-found: error
-          include-hidden-files: true
+          overwrite: true
           retention-days: 7
 
       # Cleanup steps
@@ -341,6 +347,8 @@ jobs:
 
   manifests:
     runs-on: ubuntu-latest
+    # Collect the manifests of the builds that succeeded, even if others failed
+    if: ${{ !cancelled() && needs.trigger.result == 'success' }}
     needs:
       - trigger
       - build
@@ -358,15 +366,21 @@ jobs:
           name: manifests-${{ needs.trigger.outputs.version}}
           path: |
             .spel/*/*.manifest.txt
-          if-no-files-found: error
+          if-no-files-found: warn
           include-hidden-files: true
+          overwrite: true
           retention-days: 7
 
+  # Creates or updates the release PR. If any build failed, the PR is a draft
+  # with the images that succeeded. Re-running the failed builds, or dispatching
+  # a new run for the same SPEL_VERSION, updates the PR and marks it ready when
+  # every build succeeds.
   release-pr:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' || inputs.SPEL_RELEASE
+    if: ${{ !cancelled() && needs.manifests.result == 'success' && (github.event_name == 'schedule' || inputs.SPEL_RELEASE) }}
     needs:
       - trigger
+      - build
       - manifests
     permissions:
       contents: write
@@ -381,14 +395,31 @@ jobs:
           repository: ${{ job.workflow_repository }}
           ref: ${{ job.workflow_sha }}
 
+      # The PR branch is recreated from the base branch on every run. Start from
+      # the manifests already in the release PR, so a run that rebuilt only some
+      # images keeps the manifests and image ids of the others.
+      - name: Retrieve existing release PR manifests
+        id: existing
+        env:
+          RELEASE_BRANCH: release/${{ needs.trigger.outputs.version }}
+        run: |
+          if git fetch --depth 1 origin "refs/heads/${RELEASE_BRANCH}"; then
+            git checkout FETCH_HEAD -- manifests/
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Release branch does not exist yet: ${RELEASE_BRANCH}"
+          fi
+
+      # Use a pattern, so a run that built nothing new does not fail
       - name: Retrieve all manifests
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
-          name: manifests-${{ needs.trigger.outputs.version}}
+          pattern: manifests-${{ needs.trigger.outputs.version}}
           path: .spel/
+          merge-multiple: true
 
       - name: Move manifests
-        run: mv -f .spel/*/*.manifest.txt manifests/
+        run: find .spel -name '*.manifest.txt' -exec mv -f -t manifests/ {} +
 
       - name: Retrieve image lists
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
@@ -396,8 +427,34 @@ jobs:
           pattern: images-*
           merge-multiple: true
 
+      # Images from this run replace images with the same name and region already
+      # listed in the release PR. Other existing images are kept.
       - name: Combine image lists
-        run: jq -s 'add' images-* | tee images.json
+        env:
+          EXISTS: ${{ steps.existing.outputs.exists }}
+        run: |
+          shopt -s nullglob
+          images=(images-*.json)
+
+          if [[ "$EXISTS" == "true" ]]; then
+            awk -F'|' '{ gsub(/ /, "") } $3 ~ /^ami-/ { print $2, $3, $4 }' manifests/IMAGES.md \
+              | jq -R -s '[split("\n")[] | select(length > 0) | split(" ") | {Name: .[0], ImageId: .[1], Region: .[2]}]' \
+              > existing-images.json
+          else
+            echo '[]' > existing-images.json
+          fi
+
+          jq -s 'add // []' "${images[@]}" /dev/null \
+            | jq --slurpfile existing existing-images.json '
+                reduce .[] as $new ($existing[0];
+                  (map(.Name == $new.Name and .Region == $new.Region) | index(true)) as $i
+                  | if $i == null then . + [$new] else .[$i] = $new end)' \
+            | tee images.json
+
+          if jq -e 'length == 0' images.json > /dev/null; then
+            echo "ERROR: No images to release"
+            exit 1
+          fi
 
       - name: Generate images markdown table
         uses: buildingcash/json-to-markdown-table-action@b442169239ef35f1dc4e5c8c3d47686c081a7e65
@@ -409,13 +466,22 @@ jobs:
         run: echo "${{ steps.images.outputs.table }}" > manifests/IMAGES.md
 
       - name: Remove images json files
-        run: rm -f images-*.json images.json
+        run: rm -f images-*.json images.json existing-images.json
 
       - name: Install Bumpversion
         run: pip install bump2version
 
+      # Release versions are set directly, so the release always matches the AMI
+      # names, including for runs dispatched to update an existing release.
       - name: Bump version
-        run: bump2version --no-commit --allow-dirty ${{ endsWith(github.event.schedule, '01 *') && 'major' || 'minor' }}
+        env:
+          VERSION: ${{ needs.trigger.outputs.version }}
+        run: |
+          if [[ "$VERSION" =~ ^[0-9]{4}\.[0-9]{2}\.[0-9]+$ ]]; then
+            bump2version --no-commit --allow-dirty --new-version "$VERSION" minor
+          else
+            bump2version --no-commit --allow-dirty ${{ endsWith(github.event.schedule, '01 *') && 'major' || 'minor' }}
+          fi
 
       - name: Create Pull Request
         id: pr
@@ -426,6 +492,15 @@ jobs:
           title: 'Releases ${{ needs.trigger.outputs.version }}'
           commit-message: 'Releases ${{ needs.trigger.outputs.version }}'
           sign-commits: true
+          draft: ${{ needs.build.result == 'success' && 'false' || 'always-true' }}
+
+      # `draft: false` does not convert an existing draft PR, so mark it ready here
+      - name: Mark Pull Request ready for review
+        if: needs.build.result == 'success' && steps.pr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr.outputs.pull-request-number }}
+        run: gh pr ready "$PR_NUMBER" --repo "$GITHUB_REPOSITORY"
 
       - name: Slack Notification
         if: always()
@@ -434,4 +509,4 @@ jobs:
           SLACK_TITLE: Release PR Status - ${{ job.status }}
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_MESSAGE_ON_SUCCESS: '@team-spel Release PR for ${{ needs.trigger.outputs.version}}: ${{ steps.pr.outputs.pull-request-url }}'
+          SLACK_MESSAGE_ON_SUCCESS: "@team-spel ${{ needs.build.result != 'success' && 'Draft (some builds failed) ' || '' }}Release PR for ${{ needs.trigger.outputs.version}}: ${{ steps.pr.outputs.pull-request-url }}"
