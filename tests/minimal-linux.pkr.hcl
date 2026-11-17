@@ -1,3 +1,8 @@
+variable "aws_associate_public_ip_address" {
+  type    = bool
+  default = null
+}
+
 variable "aws_region" {
   type    = string
   default = "us-east-1"
@@ -91,7 +96,7 @@ variable "spel_version" {
 source "amazon-ebs" "base" {
   ami_description             = "This is a validation AMI for ${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
   ami_name                    = "validation-${var.spel_identifier}-${source.name}-${var.spel_version}.x86_64-gp3"
-  associate_public_ip_address = true
+  associate_public_ip_address = var.aws_associate_public_ip_address
   communicator                = "ssh"
   ena_support                 = true
   force_deregister            = true

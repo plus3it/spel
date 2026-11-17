@@ -73,6 +73,12 @@ variable "aws_ami_users" {
   default     = []
 }
 
+variable "aws_associate_public_ip_address" {
+  description = "Set `true` or `false` to explicitly enable or disable a public IP on the build instance. When `null`, the subnet's MapPublicIpOnLaunch setting applies. Setting any non-null value without `aws_subnet_id` causes Packer to pick a subnet (and therefore an availability zone) itself, rather than letting EC2 choose an AZ with capacity"
+  type        = bool
+  default     = null
+}
+
 variable "aws_instance_type" {
   description = "EC2 instance type to use while building the AMIs"
   type        = string
@@ -730,7 +736,7 @@ source "amazon-ebssurrogate" "base" {
   ami_regions                 = var.aws_ami_regions
   ami_users                   = var.aws_ami_users
   ami_virtualization_type     = "hvm"
-  associate_public_ip_address = true
+  associate_public_ip_address = var.aws_associate_public_ip_address
   communicator                = "ssh"
   deprecate_at                = local.aws_ami_deprecate_at
   ena_support                 = true
