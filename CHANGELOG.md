@@ -1,5 +1,22 @@
 ## Changelog
 
+### [2026.11.1](https://github.com/plus3it/spel/releases/tag/2026.11.1)
+
+**Released**: 2026.11.17
+
+**Manifests**: <https://github.com/plus3it/spel/blob/2026.11.1/manifests>
+
+**Summary**:
+
+*   AlmaLinux 9.9
+*   Amazon Linux 2023.12.20261112
+*   Oracle Linux Server 9.9
+*   Red Hat Enterprise Linux 9.9
+*   Rocky Linux 9.9
+*   "Extra" packages updated in this release:
+    - aws-cli/2.41.0
+    - amazon-ssm-agent-3.3.5828.0-1
+
 ### [2026.10.1](https://github.com/plus3it/spel/releases/tag/2026.10.1)
 
 **Released**: 2026.10.20
@@ -14,7 +31,6 @@
     - amazon-ssm-agent-3.3.5390.0-1
     - ec2-hibinit-agent-1.0.12-0
     - ec2-utils-2.3.0-1
-
 
 ### [2026.09.1](https://github.com/plus3it/spel/releases/tag/2026.09.1)
 
