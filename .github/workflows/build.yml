@@ -456,14 +456,17 @@ jobs:
             exit 1
           fi
 
-      - name: Generate images markdown table
-        uses: buildingcash/json-to-markdown-table-action@b442169239ef35f1dc4e5c8c3d47686c081a7e65
-        id: images
-        with:
-          json_file_path: images.json
-
       - name: Write images table to file
-        run: echo "${{ steps.images.outputs.table }}" > manifests/IMAGES.md
+        run: |
+          jq -r '
+            ["Name", "Image id", "Region"] as $head
+            | [.[] | [.Name, .ImageId, .Region]] as $rows
+            | [range(3) as $i | ([$head[$i], $rows[][$i]] | map(length) | max)] as $w
+            | def row: [range(3) as $i | .[$i] + " " * ($w[$i] - (.[$i] | length))] | "| " + join(" | ") + " |";
+              ($head | row),
+              ("| " + ([$w[] | ":" + "-" * (. - 1)] | join(" | ")) + " |"),
+              ($rows[] | row)
+          ' images.json > manifests/IMAGES.md
 
       - name: Remove images json files
         run: rm -f images-*.json images.json existing-images.json
