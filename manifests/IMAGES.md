@@ -32,20 +32,19 @@
 | spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-04ed13ca60d8f85c6 | us-east-2     |
 | spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-04b236d712542e613 | us-west-1     |
 | spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-0579fa96b80d7a5a5 | us-west-2     |
-| spel-minimal-rhel-8-hvm-2026.11.1.x86_64-gp3         | ami-09598b3715a77a31d | us-gov-west-1 |
-| spel-minimal-rhel-8-hvm-2026.11.1.x86_64-gp3         | ami-065d59806fb1bb082 | us-gov-east-1 |
-| spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-031dd775dd7133411 | us-gov-west-1 |
-| spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-0d6f5e1b1495f7df9 | us-gov-east-1 |
 | spel-minimal-alma-9-hvm-2026.11.1.x86_64-gp3         | ami-08f0b956b630f90f0 | us-gov-west-1 |
 | spel-minimal-alma-9-hvm-2026.11.1.x86_64-gp3         | ami-00261c713253e8e25 | us-gov-east-1 |
+| spel-minimal-amzn-2023-hvm-2026.11.1.x86_64-gp3      | ami-05db83f3bfd0bc55f | us-gov-west-1 |
+| spel-minimal-amzn-2023-hvm-2026.11.1.x86_64-gp3      | ami-005a2ac3fc1cc5e83 | us-gov-east-1 |
 | spel-minimal-centos-9stream-hvm-2026.11.1.x86_64-gp3 | ami-09189a023be54eaac | us-gov-west-1 |
 | spel-minimal-centos-9stream-hvm-2026.11.1.x86_64-gp3 | ami-00b257ca819693753 | us-gov-east-1 |
 | spel-minimal-ol-8-hvm-2026.11.1.x86_64-gp3           | ami-04cf51f2f9dc85a2a | us-gov-west-1 |
 | spel-minimal-ol-8-hvm-2026.11.1.x86_64-gp3           | ami-012c16e39f6413646 | us-gov-east-1 |
-| spel-minimal-amzn-2023-hvm-2026.11.1.x86_64-gp3      | ami-05db83f3bfd0bc55f | us-gov-west-1 |
-| spel-minimal-amzn-2023-hvm-2026.11.1.x86_64-gp3      | ami-005a2ac3fc1cc5e83 | us-gov-east-1 |
 | spel-minimal-ol-9-hvm-2026.11.1.x86_64-gp3           | ami-029b1f6d698eb6ce1 | us-gov-west-1 |
 | spel-minimal-ol-9-hvm-2026.11.1.x86_64-gp3           | ami-052466c1bded3c386 | us-gov-east-1 |
+| spel-minimal-rhel-8-hvm-2026.11.1.x86_64-gp3         | ami-09598b3715a77a31d | us-gov-west-1 |
+| spel-minimal-rhel-8-hvm-2026.11.1.x86_64-gp3         | ami-065d59806fb1bb082 | us-gov-east-1 |
 | spel-minimal-rhel-9-hvm-2026.11.1.x86_64-gp3         | ami-0f8122db5b273a8fe | us-gov-west-1 |
 | spel-minimal-rhel-9-hvm-2026.11.1.x86_64-gp3         | ami-02d5316c6bda5a241 | us-gov-east-1 |
-
+| spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-031dd775dd7133411 | us-gov-west-1 |
+| spel-minimal-rl-9-hvm-2026.11.1.x86_64-gp3           | ami-0d6f5e1b1495f7df9 | us-gov-east-1 |
