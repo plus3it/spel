@@ -428,7 +428,9 @@ jobs:
           merge-multiple: true
 
       # Images from this run replace images with the same name and region already
-      # listed in the release PR. Other existing images are kept.
+      # listed in the release PR. Other existing images are kept. The list is then
+      # sorted with commercial regions before GovCloud, and by image name within
+      # each. The sort is stable, so each image keeps its region order.
       - name: Combine image lists
         env:
           EXISTS: ${{ steps.existing.outputs.exists }}
@@ -448,7 +450,8 @@ jobs:
             | jq --slurpfile existing existing-images.json '
                 reduce .[] as $new ($existing[0];
                   (map(.Name == $new.Name and .Region == $new.Region) | index(true)) as $i
-                  | if $i == null then . + [$new] else .[$i] = $new end)' \
+                  | if $i == null then . + [$new] else .[$i] = $new end)
+                | sort_by((.Region | startswith("us-gov-")), .Name)' \
             | tee images.json
 
           if jq -e 'length == 0' images.json > /dev/null; then
